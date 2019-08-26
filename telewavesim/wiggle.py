@@ -1,0 +1,453 @@
+'''
+MODULE wiggle.py
+
+Functions to plot single station green's or receiver functions as wiggle plots.
+
+Options to plot by back-azimuth or slowness. 
+
+Pascal Audet, 2015
+
+Last modified: July 2019
+
+'''
+
+# Import modules and functions
+import matplotlib.pyplot as plt
+import numpy as np
+from telewavesim import conf as cf
+
+
+# PLot wiggles according to either baz or slowness
+def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30, 
+        scale=None, save=False, title=None):
+
+    if not (btyp=='baz' or btyp=='slow' or btyp=='dist'):
+        print('type has to be "baz" or "slow" or "dist"')
+        return
+
+    print()
+    print('Plotting Wiggles by '+btyp)
+    
+    # Time axis
+    nn = str1[0].stats.npts
+    sr = str1[0].stats.sampling_rate
+    time = np.arange(-nn/2, nn/2)/sr
+
+    # Initialize figure
+    fig = plt.figure()
+    plt.clf()
+
+    # Get more control on subplots
+    ax1 = fig.add_axes([0.1, 0.825, 0.3, 0.05])
+    ax2 = fig.add_axes([0.1, 0.1, 0.3, 0.7])
+    ax3 = fig.add_axes([0.45, 0.825, 0.3, 0.05])
+    ax4 = fig.add_axes([0.45, 0.1, 0.3, 0.7])
+
+    # Plot stack of all traces from str1 on top left
+    ax1.fill_between(time,0.,tr1.data,where=tr1.data+1e-6<=0.,\
+            facecolor='blue',linewidth=0)
+    ax1.fill_between(time,0.,tr1.data,where=tr1.data+1e-6>=0.,\
+            facecolor='red',linewidth=0)
+    ax1.set_ylim(-np.max(np.abs(tr1.data)),np.max(np.abs(tr1.data)))
+    ax1.set_yticks(())
+    ax1.set_xticks(())
+    ax1.set_title('Radial')
+    ax1.set_xlim(tmin,tmax)
+
+    # Plot sorted traces from str1 on bottom left panel
+    for tr in str1:
+
+        if scale:
+            maxval = scale
+            # Define y axis
+            if btyp=='baz':
+                y=tr.stats.baz
+            elif btyp=='slow':
+                y=tr.stats.slow
+            elif btyp=='dist':
+                y=tr.stats.slow
+        else:
+            # Define y axis
+            if btyp=='baz':
+                y=tr.stats.baz
+                maxval = 180
+            elif btyp=='slow':
+                y=tr.stats.slow
+                maxval = 0.02
+            elif btyp=='dist':
+                y=tr.stats.slow
+                maxval = 20
+
+        # Fill positive in red, negative in blue
+        ax2.fill_between(time,y,y+tr.data*maxval,\
+                where=tr.data+1e-6<=0.,facecolor='blue',linewidth=0)
+        ax2.fill_between(time,y,y+tr.data*maxval,\
+                where=tr.data+1e-6>=0.,facecolor='red',linewidth=0)
+
+    ax2.set_xlim(tmin,tmax)
+
+    if btyp=='baz':
+        ax2.set_ylim(-5, 370)
+        ax2.set_ylabel('Back-azimuth (deg)')
+
+    elif btyp=='slow':
+        if cf.wvtype=='P':
+            ax2.set_ylim(0.038, 0.082)
+        elif cf.wvtype=='S':
+            ax2.set_ylim(0.07, 0.125)
+        elif cf.wvtype=='SKS':
+            ax2.set_ylim(0.03, 0.06)
+        ax2.set_ylabel('Slowness (s/km)')
+    elif btyp=='dist':
+        if cf.wvtype=='P':
+            ax2.set_ylim(28., 92.)
+        elif cf.wvtype=='S':
+            ax2.set_ylim(53., 107.)
+        elif cf.wvtype=='SKS':
+            ax2.set_ylim(83., 117.)
+        ax2.set_ylabel('Distance (deg)')
+
+    ax2.set_xlabel('Time (sec)')
+    ax2.grid(ls=':')
+
+    # Plot stack of all SH traces on top right
+    ax3.fill_between(time,0.,tr2.data,where=tr2.data+1e-6<=0.,\
+            facecolor='blue',linewidth=0)
+    ax3.fill_between(time,0.,tr2.data,where=tr2.data+1e-6>=0.,\
+            facecolor='red',linewidth=0)
+    ax3.set_xlim(tmin,tmax)
+    ax3.set_ylim(-np.max(np.abs(tr1.data)),np.max(np.abs(tr1.data)))
+    ax3.set_yticks(())
+    ax3.set_xticks(())
+    ax3.set_title('Transverse')
+
+    # Plot binned SH traces in back-azimuth on bottom right
+    for tr in str2:
+        
+        if scale:
+            maxval = scale
+            # Define y axis
+            if btyp=='baz':
+                y=tr.stats.baz
+            elif btyp=='slow':
+                y=tr.stats.slow
+            elif btyp=='dist':
+                y=tr.stats.slow
+        else:
+            # Define y axis
+            if btyp=='baz':
+                y=tr.stats.baz
+                maxval = 150
+            elif btyp=='slow':
+                y=tr.stats.slow
+                maxval = 0.02
+            elif btyp=='dist':
+                y=tr.stats.slow
+                maxval = 20
+
+        # Fill positive in red, negative in blue
+        ax4.fill_between(time,y,y+tr.data*maxval,\
+                where=tr.data+1e-6<=0.,facecolor='blue',linewidth=0)
+        ax4.fill_between(time,y,y+tr.data*maxval,\
+                where=tr.data+1e-6>=0.,facecolor='red',linewidth=0)
+
+    ax4.set_xlim(tmin,tmax)
+
+    if btyp=='baz':
+        ax4.set_ylim(-5, 370)
+
+    elif btyp=='slow':
+        if cf.wvtype=='P':
+            ax4.set_ylim(0.038, 0.082)
+        elif cf.wvtype=='S':
+            ax4.set_ylim(0.074, 0.125)
+        elif cf.wvtype=='SKS':
+            ax4.set_ylim(0.03, 0.06)
+    elif btyp=='dist':
+        if cf.wvtype=='P':
+            ax4.set_ylim(28., 92.)
+        elif cf.wvtype=='S':
+            ax4.set_ylim(53., 107.)
+        elif cf.wvtype=='SKS':
+            ax4.set_ylim(83., 117.)
+
+    ax4.set_xlabel('Time (sec)')
+    ax4.set_yticklabels([])
+    ax4.grid(ls=':')
+
+    if save:
+        plt.savefig(title+'.eps', dpi=300,bbox_inches='tight',format='eps')
+    else:
+        plt.show()
+
+    return
+
+
+# PLot wiggles according to either baz or slowness
+def gf_wiggles_baz(str1, str2, sta, btyp='baz', t1=None, tmin=0., tmax=30, 
+        scale=None, save=False, title=None):
+
+    if not (btyp=='baz' or btyp=='slow' or btyp=='dist'):
+        print('type has to be "baz" or "slow" or "dist"')
+        return
+
+    print()
+    print('Plotting Wiggles by '+btyp)
+    
+    # Time axis
+    nn = str1[0].stats.npts
+    sr = str1[0].stats.sampling_rate
+    time = np.arange(nn)/sr
+
+    # Initialize figure
+    fig = plt.figure()
+    plt.clf()
+
+    # Get more control on subplots
+    ax1 = fig.add_axes([0.1, 0.1, 0.3, 0.83])
+    ax2 = fig.add_axes([0.45, 0.1, 0.3, 0.83])
+
+    # Plot sorted traces from str1 on bottom left panel
+    for tr in str1:
+
+        # tr.data = np.fft.fftshift(tr.data)
+
+        if scale:
+            maxval = scale
+            # Define y axis
+            if btyp=='baz':
+                y=tr.stats.baz
+            elif btyp=='slow':
+                y=tr.stats.slow
+            elif btyp=='dist':
+                y=tr.stats.slow
+        else:
+            # Define y axis
+            if btyp=='baz':
+                y=tr.stats.baz
+                maxval = 100
+            elif btyp=='slow':
+                y=tr.stats.slow
+                maxval = 0.02
+            elif btyp=='dist':
+                y=tr.stats.slow
+                maxval = 20
+
+        # Fill positive in red, negative in blue
+        ax1.fill_between(time,y,y+tr.data*maxval,\
+                where=tr.data+1e-6<=0.,facecolor='blue',linewidth=0)
+        ax1.fill_between(time,y,y+tr.data*maxval,\
+                where=tr.data+1e-6>=0.,facecolor='red',linewidth=0)
+
+    if t1 is not None:
+        ax1.axvline(t1, c='gold', ls='--', \
+            lw=plt.rcParams['lines.linewidth']/2)
+
+    ax1.set_xlim(tmin,tmax)
+
+    if btyp=='baz':
+        ax1.set_ylim(-5, 370)
+        ax1.set_ylabel('Back-azimuth (deg)')
+
+    elif btyp=='slow':
+        if cf.wvtype=='P':
+            ax1.set_ylim(0.038, 0.082)
+        elif cf.wvtype=='S':
+            ax1.set_ylim(0.07, 0.125)
+        elif cf.wvtype=='SKS':
+            ax1.set_ylim(0.03, 0.06)
+        ax1.set_ylabel('Slowness (s/km)')
+    elif btyp=='dist':
+        if cf.wvtype=='P':
+            ax1.set_ylim(28., 92.)
+        elif cf.wvtype=='S':
+            ax1.set_ylim(53., 107.)
+        elif cf.wvtype=='SKS':
+            ax1.set_ylim(83., 117.)
+        ax1.set_ylabel('Distance (deg)')
+
+    ax1.set_xlabel('Time (sec)')
+    ax1.grid(ls=':')
+
+    # Plot binned SH traces in back-azimuth on bottom right
+    for tr in str2:
+        
+        # tr.data = np.fft.fftshift(tr.data)
+
+        if scale:
+            maxval = scale
+            # Define y axis
+            if btyp=='baz':
+                y=tr.stats.baz
+            elif btyp=='slow':
+                y=tr.stats.slow
+            elif btyp=='dist':
+                y=tr.stats.slow
+        else:
+            # Define y axis
+            if btyp=='baz':
+                y=tr.stats.baz
+                maxval = 150
+            elif btyp=='slow':
+                y=tr.stats.slow
+                maxval = 0.02
+            elif btyp=='dist':
+                y=tr.stats.slow
+                maxval = 20
+
+        # Fill positive in red, negative in blue
+        ax2.fill_between(time,y,y+tr.data*maxval,\
+                where=tr.data+1e-6<=0.,facecolor='blue',linewidth=0)
+        ax2.fill_between(time,y,y+tr.data*maxval,\
+                where=tr.data+1e-6>=0.,facecolor='red',linewidth=0)
+
+    if t1 is not None:
+        ax2.axvline(t1, c='gold', ls='--', \
+            lw=plt.rcParams['lines.linewidth']/2)
+
+    ax2.set_xlim(tmin,tmax)
+
+    if btyp=='baz':
+        ax2.set_ylim(-5, 370)
+
+    elif btyp=='slow':
+        if cf.wvtype=='P':
+            ax2.set_ylim(0.038, 0.082)
+        elif cf.wvtype=='S':
+            ax2.set_ylim(0.074, 0.125)
+        elif cf.wvtype=='SKS':
+            ax2.set_ylim(0.03, 0.06)
+    elif btyp=='dist':
+        if cf.wvtype=='P':
+            ax2.set_ylim(28., 92.)
+        elif cf.wvtype=='S':
+            ax2.set_ylim(53., 107.)
+        elif cf.wvtype=='SKS':
+            ax2.set_ylim(83., 117.)
+
+    ax2.set_xlabel('Time (sec)')
+    ax2.set_yticklabels([])
+    ax2.grid(ls=':')
+
+    if save:
+        plt.savefig(title+'.eps',dpi=300,bbox_inches='tight',format='eps')
+    else:
+        plt.show()
+
+    return
+
+
+def gf_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, save=False, title=None):
+
+    from matplotlib.ticker import FormatStrFormatter
+    from matplotlib.ticker import ScalarFormatter
+
+    nt = strf[0].stats.npts
+    dt = strf[0].stats.delta
+
+    # Clear figure
+    fig = plt.figure()
+
+    # Plot radial and vertical Green's functions
+    time_gf = np.arange(-t1, nt*dt-t1, dt)
+    time_rf = np.arange(-nt/2, nt/2)*dt
+
+
+    ax = fig.add_subplot(312)
+    maxv = np.max(np.abs(strf[1].data))
+    ax.plot(time_gf, strf[1].data/maxv, 'k', label='Vertical Green\'s function', lw=0.75)
+    #ax.yaxis.set_major_formatter(FormatStrFormatter('%1.1e'))
+    ax.set_xlim(0., tmax)
+    ax.set_ylim(-0.2, 0.5)
+    ax.set_xticklabels(())
+
+    plt.legend()
+
+
+    ax = fig.add_subplot(313)
+    maxr = np.max(np.abs(strf[2].data))
+    ax.plot(time_gf, strf[2].data/maxv, 'k', label='Radial Green\'s function', lw=0.75)
+    ax.set_xlim(0., tmax)
+    ax.set_ylim(-0.2, 0.5)
+    #ax.yaxis.set_major_formatter(FormatStrFormatter('%1.1e'))
+    ax.set_xlabel('Time following $P$-wave arrival (sec)')
+   
+    plt.legend()
+
+    # Plot radial receiver function
+    ax = fig.add_subplot(311)
+    max1 = np.max(np.abs(strf[0].data))
+    ax.plot(time_rf, strf[0].data*maxr/maxv/max1, 'k', label='Radial transfer function', lw=0.75)
+    #tr = strf[0].filter('bandpass',freqmin=f1, freqmax=f2, corners=2, zerophase=True)
+    tr = strf[0].filter('lowpass', freq=f2, corners=2, zerophase=True)
+    max2 = np.max(np.abs(tr.data))
+    ax.plot(time_rf, tr.data*maxr/maxv/max2, 'red', label='Radial receiver function')
+    #ax.yaxis.set_major_formatter(FormatStrFormatter('%1.1e'))
+    #ax.yaxis.set_major_formatter(ScalarFormatter(useOffset=1.e-4))
+    ax.set_xlim(0., tmax)
+    ax.set_ylim(-0.3, 0.7)
+
+    plt.legend()
+    plt.tight_layout()
+
+    if save:
+        plt.savefig(title+'.eps',dpi=300,bbox_inches='tight',format='eps')
+    else:
+        plt.show()
+
+    return
+
+
+def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, title=None):
+
+    nt = stream[0].stats.npts
+    dt = stream[0].stats.delta
+
+    stream.filter('lowpass', freq=f2, corners=2, zerophase=True)
+
+    # Clear figure
+    fig = plt.figure()
+
+    # Plot radial and vertical Green's functions
+    time_gf = np.arange(-t1, nt*dt-t1, dt)
+
+    max1 = np.max(np.abs(stream[0].data))
+    max2 = np.max(np.abs(stream[1].data))
+    max3 = np.max(np.abs(stream[2].data))
+
+    ax = fig.add_subplot(313)
+    maxv = np.max(np.array([max1,max2,max3]))
+    ax.plot(time_gf, stream[2].data/maxv, 'k', label='Vertical Green\'s function', lw=0.75)
+    ax.set_xlim(0., tmax)
+    ax.set_ylim(-1.1, 1.1)
+    ax.set_xlabel('Time following $P$-wave arrival (sec)')
+
+    plt.legend()
+
+
+    ax = fig.add_subplot(312)
+    ax.plot(time_gf, stream[0].data/maxv, 'k', label='North Green\'s function', lw=0.75)
+    ax.set_xlim(0., tmax)
+    ax.set_ylim(-1.1, 1.1)
+    ax.set_xticklabels(())
+   
+    plt.legend()
+
+
+    ax = fig.add_subplot(311)
+    ax.plot(time_gf, stream[1].data/maxv, 'k', label='East Green\'s function', lw=0.75)
+    ax.set_xlim(0., tmax)
+    ax.set_ylim(-1.1, 1.1)
+    ax.set_xticklabels(())
+   
+    plt.legend()
+
+    plt.legend()
+    plt.tight_layout()
+
+    if save:
+        plt.savefig(title+'.eps',dpi=300,bbox_inches='tight',format='eps')
+    else:
+        plt.show()
+
+    return
