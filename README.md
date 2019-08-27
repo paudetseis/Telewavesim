@@ -1,3 +1,5 @@
+[Telewavesim](https://github.com/paudetseis/telewavesim/blob/master/telewavesim/examples/picture/tws_logo.png?raw=true)
+
 ## Telewavesim: Python software for teleseismic body wave modeling
 
 The structure of the Earth's crust and upper mantle give useful information on the 

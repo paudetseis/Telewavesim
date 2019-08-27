@@ -1,4 +1,6 @@
 .DS_Store
+*.ai
+*.pdf
 *.pyc
 *.cpython*
 .ipynb_checkpoints
