@@ -1,33 +1,52 @@
 ## Telewavesim: Python software for teleseismic body wave modeling
 
-This python package contains modules to synthesize teleseismic (i.e., plane-wave) 
+The structure of the Earth's crust and upper mantle give useful information on the 
+internal composition and dynamics of our planet. One of the most widely used techniques
+to infer these properties is based on examining the interaction of teleseismic body waves 
+(i.e., P and S waves that originate from distant earthquakes and arrive as plane waves)
+with subsurface properties of rocks. Modeling the seismic response from stacks of 
+layers is therefore an essential tool in characterizing their effect on observed seismograms.
+
+This python package contains modules to synthesize teleseismic 
 body-wave propagation through stacks of generally anisotropic layers using the
-matrix propagator approach of Kennett (1983). The main subroutine Rmatrix
-was originally written by Colin Thomson (c). The software also properly models water 
-column reverberations, simulating ocean-bottom seismic (OBS) station recordings. The software
-will be useful in a variety of receiver-based studies, such as P or S receiver functions,
-long-period P-wave polarization, shear-wave splitting from core-refracted shear waves (i.e., SKS, SKKS),
-etc. 
+matrix propagator approach of Kennett (1983). The software also properly models 
+reverberations from an overlying column of water, effectively simulating ocean-bottom 
+seismic (OBS) station recordings. The software will be useful in a variety of 
+teleseismic receiver-based studies, such as P or S receiver functions,
+long-period P-wave polarization, shear-wave splitting from core-refracted shear waves 
+(i.e., SKS, SKKS), etc. Common computational workflows are covered in the Jupyter notebooks bundled with this package.
 
+## Navigation / Notebooks
 
-Pascal Audet, August 2019
+There are two matching sets of Jupyter Notebooks - one for the pure Python and one for the Fortran implementations. The Fortran implementation provides much faster run times and may be the starting point for stochastic inverse methods. The Notebooks desribe how to reproduce published examples of synthetic data from [Audet (2016)](#references) and [Porter et al. (2011)](#references).
 
+### Python
 
+- [sim_obs_Audet2016.ipynb](./Notebooks/Python/sim_obs_Audet2016.ipynb): Example Green's functions and P receiver functions for OBS data from [Audet (2016)](#Audet).
+- [sim_Prfs_Porter2011.ipynb](./Notebooks/Python/sim_Prfs_Porter2011.ipynb): Example P receiver functions from [Porter et al. (2011)](#Porter)
+- [sim_SKS.ipynb](./Notebooks/Python/sim_SKS.ipynb): Example Green's functions for SKS splitting studies.
+
+### Fortran
+
+- [sim_obs_Audet2016_for.ipynb](./Notebooks/Python/sim_obs_Audet2016_for.ipynb): Example Green's functions and P receiver functions for OBS data from [Audet (2016)](#Audet).
+- [sim_Prfs_Porter2011_for.ipynb](./Notebooks/Python/sim_Prfs_Porter2011_for.ipynb): Example P receiver functions from [Porter et al. (2011)](#Porter)
+- [sim_SKS_for.ipynb](./Notebooks/Python/sim_SKS_for.ipynb): Example Green's functions for SKS splitting studies.
 
 ## Installation
 
 ### Dependencies
 
-You will need **Python 3.7+**.
+The current version was developed using **Python3.7**
 Also, the following packages are required:
 
-- [`numpy`](http://numpy.org)
-- [`matplotlib`](https://matplotlib.org/)
 - [`obspy`](https://github.com/obspy/obspy/wiki)
 - [`pyfftw`](https://pyfftw.readthedocs.io/en/latest/)
 - [`fftw3`](http://www.fftw.org)
 
-Note that both `numpy` and `matplotlib` are installed as dependencies of `obspy`. See below for full installation details. You also need to download and install the `fftw3` library independently (conda install of `fftw3` is not working with current `gfortran` compiler). 
+By  default, both `numpy` and `matplotlib` are installed as dependencies of `obspy`. 
+See below for full installation details. You also need to download and install the 
+`fftw3` library independently (conda install of `fftw3` is not currently working with
+independent GCC's `gfortran` build). 
 
 ### Conda environment
 
@@ -68,7 +87,7 @@ ext = [Extension(name='telewavesim.rmat_f',
 
 Once the previous steps are performed, you can install `telewavesim` using pip:
 ```bash
-pip install .
+pip install telewavesim
 ```
 
 ### 2) Building and Installing
@@ -81,14 +100,10 @@ python setup.py install
 ```
 
 Please note, if you are actively working on the code, or making frequent edits, it is advisable
-to perform the pip installation with the ```-e``` flag. This enables an editable installation, where
+to perform the pip installation with the `-e` flag. This enables an editable installation, where
 symbolic links are used rather than straight copies. This means that any changes made in the
 local folders will be reflected in the packages available on the system.
 
-## Examples
-
-```bash
-cd examples
-python sim_Prfs_Porter2011.py
-python sim_Prfs_Porter2011_for.py
-```
+## References
+1. Audet, P. (2016). Receiver functions using OBS data: promises and limitations from numerical modelling and examples from the Cascadia Initiative. Geophysical Journal International, 205, 1740-1755. https://doi.org/10.1093/gji/ggw111
+2. Porter, R., Zandt, G., & McQuarrie, N. (2011). Pervasive lower-crustal seismic anisotropy in Southern California: Evidence for underplated schists and active tectonics. Lithosphere, 3(3), 201-220. https://doi.org/10.1130/L126.1
