@@ -40,7 +40,7 @@ git clone https://github.com/paudetseis/Telewavesim.git
 cd Telewavesim
 ```
 
-Create a new environment with all dependencies:
+Create a new environment and install all dependencies:
 ```bash
 conda create -n tws python=3.7 obspy pyfftw -c conda-forge
 ```
