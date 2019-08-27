@@ -27,7 +27,7 @@ Also, the following packages are required:
 - [`pyfftw`](https://pyfftw.readthedocs.io/en/latest/)
 - [`fftw3`](http://www.fftw.org)
 
-Note that both `numpy` and `matplotlib` are installed as dependencies of `obspy`. See below for full installation details. You also need to download and install the [`fftw3`](http://www.fftw.org) library independently (conda install of `fftw3` is not working with current `gfortran` compiler). 
+Note that both `numpy` and `matplotlib` are installed as dependencies of `obspy`. See below for full installation details. You also need to download and install the `fftw3` library independently (conda install of `fftw3` is not working with current `gfortran` compiler). 
 
 ### Conda environment
 
