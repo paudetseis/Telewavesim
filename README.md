@@ -27,20 +27,24 @@ Also, the following packages are required:
 - [`pyfftw`](https://pyfftw.readthedocs.io/en/latest/)
 - [`fftw3`](http://www.fftw.org)
 
-Note that both `numpy` and `matplotlib` are installed as dependencies of `obspy`. See below for full installation details. You also need to download and install the [`fftw3`](http://www.fftw.org) library independently. 
+Note that both `numpy` and `matplotlib` are installed as dependencies of `obspy`. See below for full installation details. You also need to download and install the [`fftw3`](http://www.fftw.org) library independently (conda install of `fftw3` is not working with current `gfortran` compiler). 
 
 ### Conda environment
 
-You can create a custom [conda environment](https://conda.io/docs/user-guide/tasks/manage-environments.html)
+We advise creating a custom [conda environment](https://conda.io/docs/user-guide/tasks/manage-environments.html)
 where `telewavesim` can be installed along with its dependencies.
 
 Clone the repository:
 ```bash
-git clone https://gitlab.com/uottawa-geophysics/SeismoPy/TeleWaveSim.git
-cd telewavesim
+git clone https://github.com/paudetseis/Telewavesim.git
+cd Telewavesim
 ```
 
-Create the environment from the `tws_env.yml` file:
+Create a new environment with all dependencies:
+```bash
+conda create -n tws python=3.7 obspy pyfftw -c conda-forge
+```
+or create it from the `tws_env.yml` file:
 ```bash
 conda env create -f tws_env.yml
 ```
@@ -49,7 +53,9 @@ Activate the newly created environment:
 conda activate tws
 ```
 
-Finally, edit the setup.py file to modify the link arguments in the Extension class to point to your compiled `fftw3` library:
+#### Pointing to `fftw3` library
+
+Finally, edit the setup.py file to modify the content of ```extra_link_args``` in the Extension class to point to your compiled `fftw3` library. In the example below the library is install in ```/usr/local/lib```:
 
 ```python
 ext = [Extension(name='telewavesim.rmat_f',
@@ -75,112 +81,14 @@ python setup.py install
 ```
 
 Please note, if you are actively working on the code, or making frequent edits, it is advisable
-to perform the pip installation with the -e flag. This enables an editable installation, where
+to perform the pip installation with the ```-e``` flag. This enables an editable installation, where
 symbolic links are used rather than straight copies. This means that any changes made in the
 local folders will be reflected in the packages available on the system.
 
-<!-- ### Installing using pip
-
-You can install `telewavesim` using the
-[`pip package manager`](https://pypi.org/project/pip/):
+## Examples
 
 ```bash
-pip install telewavesim
+cd examples
+python sim_Prfs_Porter2011.py
+python sim_Prfs_Porter2011_for.py
 ```
-All the dependencies will be automatically installed by `pip`.
-
-### Installing with conda
-
-You can install `telewavesim` using the [conda package manager](https://conda.io).
-Its required dependencies can be easily installed with:
-
-```bash
-conda install -c conda-forge obspy
-conda install numpy=1.16
-conda install pyfftw
-```
-
-Then `telewavesim` can be installed with `pip`:
-
-```bash
-pip install telewavesim
-```
-
-#### Conda environment
-
-Alternatively, you can create a custom
-[conda environment](https://conda.io/docs/user-guide/tasks/manage-environments.html)
-where `telewavesim` can be installed along with its dependencies.
-
-Clone the repository:
-```bash
-git clone https://github.com/brmather/pycurious
-cd telewavesim
-```
-
-Create the environment:
-```bash
-conda create --name tws
-```
-
-Activate the newly created environment:
-```bash
-conda activate tws
-```
-
-And install `telewavesim` with `pip`:
-```bash
-pip install telewavesim
-```
- -->
-
-<!-- Both implementations:
-
-* $ conda --add channels conda-forge
-* $ conda create --name tws
-* $ conda activate tws
-* $ conda install obspy
-* $ conda install pyfftw
-* $ conda install numpy=1.16
-
-With FORTRAN wrapper:
-
-* Install FFTW3 library: http://www.fftw.org
-* Install LAPACK library: http://www.netlib.org/lapack/
-* Modify the makefile in rmat_f to point directories to libraries and include files
-    * (currently in /usr/local/lib and /usr/local/include)
-* $ cd rmat_f
-* $ make
-
-
-Package Contents:
--------------------
-
-telewavesim Module:
-
-* cfg:
-    * conf.py -> defines global variables
-* elast:
-    * elast_stifness.py -> defines stifness matrices for various minerals and rocks
-    * elast_util.py -> loads stifness matrices to interface with code
-* green:
-    * green.py -> contains functions to generate Green's functions using rmatrix for land or ocean-bottom stations
-* plotting:
-    * wiggle.py -> contains functions to plot synthetic traces
-* rmat:
-    * rmatrix.py -> matrix propagator algorithm at single frequency
-    * rtfluid.py -> R/T coefficients for fluid-solid interface
-* rmat_f:
-    * makefile
-    * rmat.f90 -> contains conf, rmat and green modules in FORTRAN
-    * lib:
-        * makefile
-        * rmat_sub.f90 -> contains subroutines used in rmat
-        * disp.f90 -> subroutines to display matrices
-* utils:
-    * model_util.py -> utility module to read and define model parameters
-    * trace_util.py -> utility module to handle traces
-
-examples: Python scripts making use of the module for manipulation and creation of databases
-
- -->
