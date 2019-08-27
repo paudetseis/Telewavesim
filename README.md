@@ -28,9 +28,9 @@ There are two matching sets of Jupyter Notebooks - one for the pure Python and o
 
 ### Fortran
 
-- [sim_obs_Audet2016_for.ipynb](./examples/Notebooks/Python/sim_obs_Audet2016_for.ipynb): Example Green's functions and P receiver functions for OBS data from [Audet (2016)](#Audet).
-- [sim_Prfs_Porter2011_for.ipynb](./examples/Notebooks/Python/sim_Prfs_Porter2011_for.ipynb): Example P receiver functions from [Porter et al. (2011)](#Porter)
-- [sim_SKS_for.ipynb](./examples/Notebooks/Python/sim_SKS_for.ipynb): Example Green's functions for SKS splitting studies.
+- [sim_obs_Audet2016_for.ipynb](./examples/Notebooks/Fortran/sim_obs_Audet2016_for.ipynb): Example Green's functions and P receiver functions for OBS data from [Audet (2016)](#Audet).
+- [sim_Prfs_Porter2011_for.ipynb](./examples/Notebooks/Fortran/sim_Prfs_Porter2011_for.ipynb): Example P receiver functions from [Porter et al. (2011)](#Porter)
+- [sim_SKS_for.ipynb](./examples/Notebooks/Fortran/sim_SKS_for.ipynb): Example Green's functions for SKS splitting studies.
 
 ## Installation
 
