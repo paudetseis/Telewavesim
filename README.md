@@ -1,4 +1,4 @@
-## Telewavesim: Python software for teleseismic body wave modeling
+# Telewavesim: Python software for teleseismic body wave modeling
 
 ![](examples/picture/tws_logo.png)
 
