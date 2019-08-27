@@ -1,4 +1,4 @@
-[Telewavesim](https://github.com/paudetseis/telewavesim/blob/master/telewavesim/examples/picture/tws_logo.png?raw=true)
+![](examples/picture/tws_logo.png)
 
 ## Telewavesim: Python software for teleseismic body wave modeling
 
