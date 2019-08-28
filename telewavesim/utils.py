@@ -277,12 +277,23 @@ def mod2vel(K,G,rho):
 
 def rot_tensor(a,alpha,beta,gam):
     """
-    Performs a transformation of the tensor cc (c_ijkl) 
-    of elastic constants by rotation about three angles (alpha, 
-    beta, gamma) where corresponding to rotation about the x_2, x_3, x_1
-    Note that the sequence of the rotation is important  (AB ~= BA). In 
-    this case we rotate about x_2 first, x_3 second and x_1 third. Note 
-    all angles in radians.
+    Performs a rotation of the tensor cc (c_ijkl) about three angles (alpha, 
+    beta, gamma)
+
+    :param a: 3x3x3x3 tensor
+    :type a: np.ndarray
+    :param alpha: angle in radians
+    :type alpha: float
+    :param beta: angle in radians
+    :type beta: float
+    :param gam: angle in radians
+    :type gam: float
+    :return aa: 3x3x3x3 tensor
+    :rtype: np.ndarray
+
+    The three angles (alpha, beta, gam) correspond to rotation about the 
+    x_2, x_3, x_1 axes. Note that the sequence of the rotation is important: 
+    (AB ~= BA). In this case we rotate about x_2 first, x_3 second and x_1 third. 
 
     Note: for trend and plunge of symmetry axis (e.g., tri_tensor): 
             alpha = plunge
@@ -326,6 +337,12 @@ def rot_tensor(a,alpha,beta,gam):
 
     return aa
 
+
+def check_cf():
+    lst = [cf.a, cf.rho, cf.thickn, cf.isoflg, cf.dt, cf.nt, cf.slow, cf.baz]
+    check = [f is None for f in lst]
+    if sum(check)/len(check)>0.:
+        raise Exception("global variables not all set. Set all of the following variables through the conf module: 'a', 'rho', 'thickn', 'isoflg', 'dt', 'nt', 'slow', 'baz'")
 
 
 def model2for():

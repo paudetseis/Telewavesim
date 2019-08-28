@@ -21,7 +21,7 @@ setup(
     'License :: OSI Approved :: MIT License',
     'Programming Language :: Fortran',
     'Programming Language :: Python :: 3.7'],
-  install_requires = ["numpy>=1.16", "obspy>=1.1.0", "pyfftw>=0.11.1", "matplotlib"],
+  install_requires = ["numpy>=1.15", "obspy>=1.1.0", "pyfftw>=0.11.1", "matplotlib"],
   python_requires = '>=3.7',
   ext_modules = ext,
   packages = ['telewavesim'],
