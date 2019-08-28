@@ -3,15 +3,16 @@
 ![](examples/picture/tws_logo.png)
 
 The structure of the Earth's crust and upper mantle give useful information on the 
-internal composition and dynamics of our planet. One of the most widely used techniques
-to infer these properties is based on examining the interaction of teleseismic body waves 
+internal composition and dynamics of our planet. Some of the most widely used techniques
+to infer these properties are based on examining the effect of teleseismic body wave 
 (i.e., P and S waves that originate from distant earthquakes and arrive as plane waves)
-with subsurface properties of rocks. Modeling the seismic response from stacks of 
-layers is therefore an essential tool in characterizing their effect on observed seismograms.
+interactions with the stratified medium through which they travel. Modeling the seismic response 
+from stacks of subsurface layers is therefore an essential tool in characterizing their 
+effect on observed seismograms.
 
-This python package contains modules to synthesize teleseismic 
-body-wave propagation through stacks of generally anisotropic layers using the
-matrix propagator approach of Kennett (1983). The software also properly models 
+This python package contains modules to synthesize teleseismic body-wave propagation through
+stacks of generally anisotropic and strictly horizontal layers using the
+matrix propagator approach of [Kennett (1983)](#references). The software also properly models 
 reverberations from an overlying column of water, effectively simulating ocean-bottom 
 seismic (OBS) station recordings. The software will be useful in a variety of 
 teleseismic receiver-based studies, such as P or S receiver functions,
@@ -108,4 +109,5 @@ local folders will be reflected in the packages available on the system.
 
 ## References
 1. Audet, P. (2016). Receiver functions using OBS data: promises and limitations from numerical modelling and examples from the Cascadia Initiative. Geophysical Journal International, 205, 1740-1755. https://doi.org/10.1093/gji/ggw111
-2. Porter, R., Zandt, G., & McQuarrie, N. (2011). Pervasive lower-crustal seismic anisotropy in Southern California: Evidence for underplated schists and active tectonics. Lithosphere, 3(3), 201-220. https://doi.org/10.1130/L126.1
+2. Kennett, B.L.N. (1983). Seismic wave propagation in stratified media. Cambridge University Press, 342pp.
+3. Porter, R., Zandt, G., & McQuarrie, N. (2011). Pervasive lower-crustal seismic anisotropy in Southern California: Evidence for underplated schists and active tectonics. Lithosphere, 3(3), 201-220. https://doi.org/10.1130/L126.1
