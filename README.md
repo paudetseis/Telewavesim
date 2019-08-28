@@ -6,9 +6,9 @@ The structure of the Earth's crust and upper mantle give useful information on t
 internal composition and dynamics of our planet. Some of the most widely used techniques
 to infer these properties are based on examining the effect of teleseismic body wave 
 (i.e., P and S waves that originate from distant earthquakes and arrive as plane waves)
-interactions with the stratified medium through which they travel. Modeling the seismic response 
-from stacks of subsurface layers is therefore an essential tool in characterizing their 
-effect on observed seismograms.
+propagation (e.g., transmission and scattering) through stratified media. Modeling the 
+seismic response from stacks of subsurface layers is therefore an essential tool in 
+characterizing their effect on observed seismograms.
 
 This python package contains modules to synthesize teleseismic body-wave propagation through
 stacks of generally anisotropic and strictly horizontal layers using the
