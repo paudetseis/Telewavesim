@@ -70,7 +70,7 @@ independent GCC's ``gfortran`` build).
 Conda environment
 +++++++++++++++++
 
-We advise creating a custom [conda environment](https://conda.io/docs/user-guide/tasks/manage-environments.html)
+We advise creating a custom ``conda`` environment
 where ``telewavesim`` can be installed along with its dependencies.
 
 Clone the repository:
@@ -99,7 +99,7 @@ Activate the newly created environment:
    conda activate tws
 
 Pointing to ``fftw3`` library
-***************************
+*****************************
 
 Finally, edit the `setup.py` file to modify the content of ``extra_link_args`` in the Extension class to point to your compiled ``fftw3`` library. In the example below the library is install in ``/usr/local/lib``:
 
