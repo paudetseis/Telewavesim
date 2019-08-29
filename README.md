@@ -54,7 +54,7 @@ independent GCC's `gfortran` build).
 ### Conda environment
 
 We advise creating a custom [conda environment](https://conda.io/docs/user-guide/tasks/manage-environments.html)
-where `telewavesim` can be installed along with its dependencies.
+where `telewavesim` can be installed along with its dependencies. 
 
 Clone the repository:
 ```bash
@@ -90,22 +90,27 @@ ext = [Extension(name='telewavesim.rmat_f',
 
 Once the previous steps are performed, you can install `telewavesim` using pip:
 ```bash
-pip install telewavesim
+pip install .
 ```
 
 ### 2) Building and Installing
 
-Alternatively, you can build and install the project (from the root of the source tree, e.g., inside the cloned `telewavesim` directory):
+Alternatively, you can build and install the project:
 
 ```bash
 python setup.py build 
 python setup.py install
 ```
 
-Please note, if you are actively working on the code, or making frequent edits, it is advisable
-to perform the pip installation with the `-e` flag. This enables an editable installation, where
+---
+**NOTE**
+
+If you are actively working on the code, or making frequent edits, it is advisable to perform 
+the ``pip`` installation with the `-e` flag. This enables an editable installation, where
 symbolic links are used rather than straight copies. This means that any changes made in the
-local folders will be reflected in the packages available on the system.
+local folders will be reflected in the package available on the system.
+
+---
 
 ## References
 1. Audet, P. (2016). Receiver functions using OBS data: promises and limitations from numerical modelling and examples from the Cascadia Initiative. Geophysical Journal International, 205, 1740-1755. https://doi.org/10.1093/gji/ggw111
