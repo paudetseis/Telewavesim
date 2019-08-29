@@ -106,9 +106,14 @@ python setup.py install
 **NOTE**
 
 If you are actively working on the code, or making frequent edits, it is advisable to perform 
-the ``pip`` installation with the `-e` flag: ``pip install -e .``. This enables an editable 
-installation, where symbolic links are used rather than straight copies. This means that any
-changes made in the local folders will be reflected in the package available on the system.
+the ``pip`` installation with the `-e` flag: 
+```bash
+pip install -e .
+```
+
+This enables an editable installation, where symbolic links are used rather than straight 
+copies. This means that any changes made in the local folders will be reflected in the 
+package available on the system.
 
 ---
 
