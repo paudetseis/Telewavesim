@@ -12,7 +12,7 @@ setup(
   name = 'telewavesim',
   version = version,
   description = 'Python package for teleseismic body-wave modeling',
-  author = 'Pascal Audet, Colin Thomson',
+  author = 'Pascal Audet, Colin J. Thomson, Michael G. Bostock',
   maintainer = 'Pascal Audet',
   author_email = 'pascal.audet@uottawa.ca',
   url = 'https://gitlab.com/uottawa-geophysics/SeismoPy/TeleWaveSim', 
