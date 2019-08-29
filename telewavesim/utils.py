@@ -7,12 +7,14 @@ import sys
 import itertools
 import numpy as np
 import pyfftw
-from telewavesim import conf as cf 
-from telewavesim import elast as es
-from telewavesim.rmat_f import conf as cf_f
 from scipy.signal import hilbert
 from obspy.core import Trace, Stream
 from obspy.signal.rotate import rotate_ne_rt
+from telewavesim import conf as cf 
+from telewavesim import elast as es
+from telewavesim import plane as pw
+from telewavesim.rmat_f import conf as cf_f
+from telewavesim.rmat_f import plane as pw_f
 
 
 def set_iso_tensor(a, b):
@@ -368,154 +370,6 @@ def rot_tensor(a,alpha,beta,gam):
     return aa
 
 
-def check_cf():
-    """
-    Checks whether all required global variables are set.
-
-    :raises ExceptionError: Throws ExceptionError if not all variables are set.
-    """
-    lst = [cf.a, cf.rho, cf.thickn, cf.isoflg, cf.dt, cf.nt, cf.slow, cf.baz]
-    check = [f is None for f in lst]
-    if sum(check)/len(check)>0.:
-        raise Exception("global variables not all set. Set all of the following variables through the conf module: 'a', 'rho', 'thickn', 'isoflg', 'dt', 'nt', 'slow', 'baz'")
-
-
-def model2for():
-    """
-    Passes global model variables to Fortran ``conf`` module.
-
-    Returns:
-        None
-
-    Variables are ``a``, ``rho``, ``thickn``, ``isoflg``
-    """
-
-    nlaymx = cf_f.nlaymx
-    cf_f.a = np.zeros((3,3,3,3,nlaymx))
-    cf_f.rho = np.zeros((nlaymx))
-    cf_f.thickn = np.zeros((nlaymx))
-    cf_f.isoflg = np.zeros((nlaymx), dtype='int')
-
-    for i in range(cf.nlay):
-        cf_f.a[:,:,:,:,i] = cf.a[:,:,:,:,i]
-        cf_f.rho[i] = cf.rho[i]
-        cf_f.thickn[i] = cf.thickn[i]
-        if cf.isoflg[i]=='iso':
-            cf_f.isoflg[i] = 1
-
-
-def wave2for():
-    """
-    Passes global wavefield variables to Fortran ``conf`` module.
-
-    Returns:
-        None
-
-    Variables are ``dt``, ``slow``, ``baz``
-    """
-
-    try:
-        cf_f.dt = cf.dt
-        cf_f.slow = cf.slow
-        cf_f.baz = cf.baz
-    except:
-        raise(Exception('Required variables for wavefield are not set: dt, slow, baz'))
-
-
-def obs2for():
-    """
-    Passes global OBS-related variables to Fortran ``conf`` module.
-
-    Returns:
-        None
-
-    Variables are ``dp``, ``c``, ``rhof``
-    """
-    try:
-        cf_f.dp = cf.dp
-        cf_f.c = cf.c
-        cf_f.rhof = cf.rhof
-    except:
-        raise(Exception('Required variables for OBS are not set: dp, c, rhof'))
-
-
-def read_model(modfile):
-    """
-    Reads model parameters from file that are passed 
-        through the configuration module ``conf``. 
-
-    Returns: 
-        None: Parameters are now global variables shared
-                between all other modules
-
-    """
-
-    h = []; r = []; a = []; b = []; fl = []; ani = []; tr = []; pl = []
-
-    # Read file line by line and populate lists
-    try:
-        open(modfile)
-    except:
-        raise(Exception('model file cannot be opened: ',modfile))
-
-    with open(modfile) as fileobj:
-        for line in fileobj:
-            if not line.rstrip().startswith('#'):
-                model = line.rstrip().split()
-                h.append(np.float64(model[0])*1.e3)
-                r.append(np.float64(model[1]))
-                a.append(np.float64(model[2]))
-                b.append(np.float64(model[3]))
-                fl.append(model[4])
-                ani.append(np.float64(model[5]))
-                tr.append(np.float64(model[6]))
-                pl.append(np.float64(model[7]))
-
-    # Pass configuration parameters
-    cf.nlay = len(h)
-    cf.thickn = h
-    cf.rho = r
-    cf.isoflg = fl
-    cf.aa = a
-    cf.bb = b
-    cf.ani = ani
-    cf.tr = tr
-    cf.pl = pl
-
-    cf.a = np.zeros((3,3,3,3,cf.nlay))
-    cf.evecs = np.zeros((6,6,cf.nlay),dtype=complex)
-    cf.evals = np.zeros((6,cf.nlay),dtype=complex)
-    cf.Tui = np.zeros((3,3,cf.nlay),dtype=complex)
-    cf.Rui = np.zeros((3,3,cf.nlay),dtype=complex)
-    cf.Tdi = np.zeros((3,3,cf.nlay),dtype=complex)
-    cf.Rdi = np.zeros((3,3,cf.nlay),dtype=complex)
-
-    mins = ['atg', 'bt', 'cpx', 'dol', 'grt', 'gln', 'hbl', 'jade',\
-            'lz', 'ms', 'ol', 'opx', 'plag', 'qtz', 'zo']
-
-    rocks = ['BS_f', 'BS_m', 'EC_f', 'EC_m', 'HB', 'LHZ', 'SP_37', 'SP_80']
-
-    for j in range(cf.nlay):
-        if fl[j]=='iso':
-            cc = set_iso_tensor(a[j],b[j])
-            cf.a[:,:,:,:,j] = cc
-        elif fl[j]=='tri':
-            cc = set_tri_tensor(a[j],b[j],tr[j],pl[j],ani[j])
-            cf.a[:,:,:,:,j] = cc
-        elif fl[j] in mins or fl[j] in rocks:
-            cc, rho = set_aniso_tensor(tr[j],pl[j],typ=fl[j])
-            cf.a[:,:,:,:,j] = cc
-            cf.rho[j] = rho
-        else:
-            print('\nFlag not defined: use either "iso", "tri" or one among\n')
-            print(mins,rocks)
-            print()
-            sys.exit()
-
-    return
-
-
-# Rotate from ZRT to PVH
 def rotate_zrt_pvh(trZ, trR, trT, vp=6., vs=3.5):
     """
     Rotates traces from `Z-R-T` orientation to `P-SV-SH` wave mode.
@@ -663,29 +517,246 @@ def calc_ttime(slow):
     return t1
 
 
-def update_stats(tr, nt, dt, slow, baz):
+def read_model(modfile):
     """
-    Updates the ``stats`` doctionary from an obspy ``Trace`` object.
+    Reads model parameters from file that are passed 
+        through the configuration module ``conf``. 
+
+    Returns: 
+        None: Parameters are now global variables shared
+                between all other modules
+
+    """
+
+    h = []; r = []; a = []; b = []; fl = []; ani = []; tr = []; pl = []
+
+    # Read file line by line and populate lists
+    try:
+        open(modfile)
+    except:
+        raise(Exception('model file cannot be opened: ',modfile))
+
+    with open(modfile) as fileobj:
+        for line in fileobj:
+            if not line.rstrip().startswith('#'):
+                model = line.rstrip().split()
+                h.append(np.float64(model[0])*1.e3)
+                r.append(np.float64(model[1]))
+                a.append(np.float64(model[2]))
+                b.append(np.float64(model[3]))
+                fl.append(model[4])
+                ani.append(np.float64(model[5]))
+                tr.append(np.float64(model[6]))
+                pl.append(np.float64(model[7]))
+
+    # Pass configuration parameters
+    cf.nlay = len(h)
+    cf.thickn = h
+    cf.rho = r
+    cf.isoflg = fl
+    cf.aa = a
+    cf.bb = b
+    cf.ani = ani
+    cf.tr = tr
+    cf.pl = pl
+
+    cf.a = np.zeros((3,3,3,3,cf.nlay))
+    cf.evecs = np.zeros((6,6,cf.nlay),dtype=complex)
+    cf.evals = np.zeros((6,cf.nlay),dtype=complex)
+    cf.Tui = np.zeros((3,3,cf.nlay),dtype=complex)
+    cf.Rui = np.zeros((3,3,cf.nlay),dtype=complex)
+    cf.Tdi = np.zeros((3,3,cf.nlay),dtype=complex)
+    cf.Rdi = np.zeros((3,3,cf.nlay),dtype=complex)
+
+    mins = ['atg', 'bt', 'cpx', 'dol', 'grt', 'gln', 'hbl', 'jade',\
+            'lz', 'ms', 'ol', 'opx', 'plag', 'qtz', 'zo']
+
+    rocks = ['BS_f', 'BS_m', 'EC_f', 'EC_m', 'HB', 'LHZ', 'SP_37', 'SP_80']
+
+    for j in range(cf.nlay):
+        if fl[j]=='iso':
+            cc = set_iso_tensor(a[j],b[j])
+            cf.a[:,:,:,:,j] = cc
+        elif fl[j]=='tri':
+            cc = set_tri_tensor(a[j],b[j],tr[j],pl[j],ani[j])
+            cf.a[:,:,:,:,j] = cc
+        elif fl[j] in mins or fl[j] in rocks:
+            cc, rho = set_aniso_tensor(tr[j],pl[j],typ=fl[j])
+            cf.a[:,:,:,:,j] = cc
+            cf.rho[j] = rho
+        else:
+            print('\nFlag not defined: use either "iso", "tri" or one among\n')
+            print(mins,rocks)
+            print()
+            sys.exit()
+
+    return
+
+
+def check_cf(obs=False):
+    """
+    Checks whether or not all required global variables are set and throws an Exception if not.
 
     Args:
-        tr (obspy.trace): Trace object to update
-        nt (int): Number of samples
-        dt (float): Sampling rate
-        slow (float): Slowness value (s/km)
-        baz (float): Back-azimuth value (degree)
+        obs (bool, optional): Whether the analysis is done for an OBS case or not.
+
+    :raises ExceptionError: Throws ExceptionError if not all variables are set.
+    """
+    lst = [cf.a, cf.rho, cf.thickn, cf.isoflg, cf.dt, cf.nt, cf.slow, cf.baz]
+    check = [f is None for f in lst]
+    if sum(check)/len(check)>0.:
+        raise Exception("global variables not all set. Set all of the following variables through the conf module: 'a', 'rho', 'thickn', 'isoflg', 'dt', 'nt', 'slow', 'baz'")
+
+    if obs:
+        lst = [cf.dp, cf.c, cf.rhof]
+        check = [f is None for f in lst]
+        if sum(check)/len(check)>0.:
+            raise Exception("global variables not all set for OBS case. Set all of the following variables through the conf module: 'dp', 'c', 'rhof'")
+
+
+def model2for():
+    """
+    Passes global model variables to Fortran ``conf`` module.
 
     Returns:
-        (obspy.trace): tr: Trace with updated stats
+        None
+
+    Variables to pass are ``a``, ``rho``, ``thickn``, ``isoflg``
     """
 
-    tr.stats.delta = dt
-    tr.stats.slow = slow
-    tr.stats.baz = baz
+    nlaymx = cf_f.nlaymx
+    cf_f.a = np.zeros((3,3,3,3,nlaymx))
+    cf_f.rho = np.zeros((nlaymx))
+    cf_f.thickn = np.zeros((nlaymx))
+    cf_f.isoflg = np.zeros((nlaymx), dtype='int')
 
-    return tr
+    for i in range(cf.nlay):
+        cf_f.a[:,:,:,:,i] = cf.a[:,:,:,:,i]
+        cf_f.rho[i] = cf.rho[i]
+        cf_f.thickn[i] = cf.thickn[i]
+        if cf.isoflg[i]=='iso':
+            cf_f.isoflg[i] = 1
 
 
-def tf_from_xyz(trxyz,pvh=False):
+def wave2for():
+    """
+    Passes global wavefield variables to Fortran ``conf`` module.
+
+    Returns:
+        None
+
+    Variables to pass are ``dt``, ``slow``, ``baz``
+    """
+
+    cf_f.dt = cf.dt
+    cf_f.slow = cf.slow
+    cf_f.baz = cf.baz
+
+
+def obs2for():
+    """
+    Passes global OBS-related variables to Fortran ``conf`` module.
+
+    Returns:
+        None
+
+    Variables to pass are ``dp``, ``c``, ``rhof``
+    """
+    cf_f.dp = cf.dp
+    cf_f.c = cf.c
+    cf_f.rhof = cf.rhof
+
+
+def run_plane(fortran=False,obs=False):
+    """
+    Function to run the ``plane`` module and return 3-component seismograms as an ``obspy``
+    ``Stream`` object. 
+
+    Args:
+        fortran (book, option): Whether or not the Fortran modules are used
+        obs (bool, optional): Whether or not the analysis is done for an OBS stations
+
+    Returns:
+        (obspy.stream): trxyz: Stream containing 3-component displacement seismograms
+
+    """
+
+    # Check if all variables are set. If not, throw an Exception and stop
+    check_cf(obs)
+
+    # Fortran implementation
+    if fortran:
+
+        # Pass  variables to Fortran conf
+        model2for()
+        wave2for()
+
+        # Run the ``plane`` module depending on land or OBS case.
+        if obs:
+
+            # If OBS, then further pass OBS-related paramters to Fortran conf
+            obs2for()
+
+            # Get the waveforms for ``obs``case
+            ux, uy, uz = pw_f.plane_obs(cf.nt,cf.nlay,np.array(cf.wvtype, dtype='c'))
+
+        else:
+
+            # Get the waveforms for ``land`` case
+            ux, uy, uz = pw_f.plane_land(cf.nt,cf.nlay,np.array(cf.wvtype, dtype='c'))
+
+    # Python implementation
+    else:
+
+        # Run the ``plane`` module depending on land or OBS case.
+        if obs:
+
+            # Get the waveforms for ``obs``case
+            ux, uy, uz = pw.plane_obs()
+
+        else:
+
+            # Get the waveforms for ``land`` case
+            ux, uy, uz = pw.plane_land()
+
+    # Transfer displacement seismograms to an ``obspy`` ``Stream`` object.
+    trxyz = get_trxyz(ux, uy, uz)
+
+    return trxyz
+
+
+def get_trxyz(ux, uy, uz):
+    """
+    Function to store displacement seismograms into ``obspy`` ``Trace`` obsjects and 
+    then an ``obspy`` ``Stream`` object. 
+
+    Args:
+        ux (np.ndarray): x-component displacement seismogram
+        uy (np.ndarray): y-component displacement seismogram
+        uz (np.ndarray): z-component displacement seismogram
+
+    Returns:
+        (obspy.stream): trxyz: Stream containing 3-component displacement seismograms
+
+    """
+
+    # Store in traces
+    tux = Trace(data=ux)
+    tuy = Trace(data=uy)
+    tuz = Trace(data=uz)
+
+    # Update trace header
+    tux = update_stats(tux, cf.nt, cf.dt, cf.slow, cf.baz)
+    tuy = update_stats(tuy, cf.nt, cf.dt, cf.slow, cf.baz)
+    tuz = update_stats(tuz, cf.nt, cf.dt, cf.slow, cf.baz)
+
+    # Append to stream
+    trxyz = Stream(traces=[tux, tuy, tuz])
+
+    return trxyz
+
+
+def tf_from_xyz(trxyz, pvh=False):
     """
     Function to generate transfer functions from displacement traces. 
 
@@ -761,3 +832,23 @@ def tf_from_xyz(trxyz,pvh=False):
     return tfs
 
 
+def update_stats(tr, nt, dt, slow, baz):
+    """
+    Updates the ``stats`` doctionary from an obspy ``Trace`` object.
+
+    Args:
+        tr (obspy.trace): Trace object to update
+        nt (int): Number of samples
+        dt (float): Sampling rate
+        slow (float): Slowness value (s/km)
+        baz (float): Back-azimuth value (degree)
+
+    Returns:
+        (obspy.trace): tr: Trace with updated stats
+    """
+
+    tr.stats.delta = dt
+    tr.stats.slow = slow
+    tr.stats.baz = baz
+
+    return tr

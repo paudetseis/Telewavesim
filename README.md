@@ -21,19 +21,11 @@ long-period P-wave polarization, shear-wave splitting from core-refracted shear 
 
 ## Navigation / Notebooks
 
-There are two matching sets of Jupyter Notebooks - one for the pure Python and one for the Fortran implementations. The Fortran implementation provides much faster run times and may be the starting point for stochastic inverse methods. The Notebooks desribe how to reproduce published examples of synthetic data from [Audet (2016)](#references) and [Porter et al. (2011)](#references).
+Included in this package is a set of Jupyter Notebooks, which give examples on how to call the various routines and obtain plane wave seismograms and receiver functions. Selecting the Fortran implementation provides much faster run times and may be the starting point for stochastic inverse methods. The Notebooks desribe how to reproduce published examples of synthetic data from [Audet (2016)](#references) and [Porter et al. (2011)](#references).
 
-### Python
-
-- [sim_obs_Audet2016.ipynb](./examples/Notebooks/Python/sim_obs_Audet2016.ipynb): Example plane wave seismograms and P receiver functions for OBS data from [Audet (2016)](#Audet).
-- [sim_Prfs_Porter2011.ipynb](./examples/Notebooks/Python/sim_Prfs_Porter2011.ipynb): Example P receiver functions from [Porter et al. (2011)](#Porter)
-- [sim_SKS.ipynb](./examples/Notebooks/Python/sim_SKS.ipynb): Example plane wave seismograms for SKS splitting studies.
-
-### Fortran
-
-- [sim_obs_Audet2016_for.ipynb](./examples/Notebooks/Fortran/sim_obs_Audet2016_for.ipynb): Example plane wave seismograms and P receiver functions for OBS data from [Audet (2016)](#Audet).
-- [sim_Prfs_Porter2011_for.ipynb](./examples/Notebooks/Fortran/sim_Prfs_Porter2011_for.ipynb): Example P receiver functions from [Porter et al. (2011)](#Porter)
-- [sim_SKS_for.ipynb](./examples/Notebooks/Fortran/sim_SKS_for.ipynb): Example plane wave seismograms for SKS splitting studies.
+- [sim_obs_Audet2016.ipynb](./examples/Notebooks/sim_obs_Audet2016.ipynb): Example plane wave seismograms and P receiver functions for OBS data from [Audet (2016)](#Audet).
+- [sim_Prfs_Porter2011.ipynb](./examples/Notebooks/sim_Prfs_Porter2011.ipynb): Example P receiver functions from [Porter et al. (2011)](#Porter)
+- [sim_SKS.ipynb](./examples/Notebooks/sim_SKS.ipynb): Example plane wave seismograms for SKS splitting studies.
 
 ## Installation
 

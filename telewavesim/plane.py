@@ -21,13 +21,15 @@ from obspy.core import Trace, Stream
 def plane_land():
     """
     Function to generate plane wave seismograms from a stack of layers
-    for land surface stations. Also handles anisotropy. All
-    model and time series properties are passed through the 
+    for land surface stations at a single slowness. Also handles anisotropy. 
+    All model and time series properties are passed through the 
     configuration module ``conf``. Handles any number of layers.
 
     Returns:
-        trxyz (obspy.stream): ObsPy ``Stream`` containing displacement traces for
-                given model and slowness vector
+        (tuple): Tuple containing:
+            * ux (np.ndarray): x-component displacement seismogram
+            * uy (np.ndarray): y-component displacement seismogram
+            * uz (np.ndarray): z-conponent displacement seismogram
 
     """
 
@@ -104,40 +106,29 @@ def plane_land():
     
     # Get displacements in time domain
     nend = int(n2/2)
-    ux_time = np.real(pyfftw.interfaces.numpy_fft.fft(np.hstack((y[0,0:nend+1],\
+    ux = np.real(pyfftw.interfaces.numpy_fft.fft(np.hstack((y[0,0:nend+1],\
             np.conj(np.flipud(y[0,1:nend])))))).transpose()
-    uy_time = np.real(pyfftw.interfaces.numpy_fft.fft(np.hstack((y[1,0:nend+1],\
+    uy = np.real(pyfftw.interfaces.numpy_fft.fft(np.hstack((y[1,0:nend+1],\
             np.conj(np.flipud(y[1,1:nend])))))).transpose()
-    uz_time = -np.real(pyfftw.interfaces.numpy_fft.fft(np.hstack((y[2,0:nend+1],\
+    uz = -np.real(pyfftw.interfaces.numpy_fft.fft(np.hstack((y[2,0:nend+1],\
             np.conj(np.flipud(y[2,1:nend])))))).transpose()
 
-    # Store in traces
-    tux = Trace(data=ux_time)
-    tuy = Trace(data=uy_time)
-    tuz = Trace(data=uz_time)
-
-    # Update trace header
-    tux = ut.update_stats(tux, n2, dt, slow, baz)
-    tuy = ut.update_stats(tuy, n2, dt, slow, baz)
-    tuz = ut.update_stats(tuz, n2, dt, slow, baz)
-
-    # Append to stream
-    trxyz = Stream(traces=[tux, tuy, tuz])
-
     # Return displacement stream
-    return trxyz
+    return ux, uy, uz
 
 
 def plane_obs():
     """
     Function to generate plane wave seismograms from a stack of layers
-    for ocean-bottom stations. Also handles anisotropy. All
-    model and time series properties are passed through the 
+    for ocean-bottom stations at a single slowness. Also handles anisotropy. 
+    All model and time series properties are passed through the 
     configuration module ``conf``. Handles any number of layers.
 
     Returns:
-        trxyz (obspy.stream): ObsPy ``Stream`` containing displacement traces for
-                given model and slowness vector
+        (tuple): Tuple containing:
+            * ux (np.ndarray): x-component displacement seismogram
+            * uy (np.ndarray): y-component displacement seismogram
+            * uz (np.ndarray): z-conponent displacement seismogram
 
     """
 
@@ -243,25 +234,12 @@ def plane_obs():
         y[:,iw] = np.dot(F1,wave)
 
     # Get displacements in time domain
-    ux_time = np.real(pyfftw.interfaces.numpy_fft.fft(np.hstack((y[0,0:n2+1],\
+    ux = np.real(pyfftw.interfaces.numpy_fft.fft(np.hstack((y[0,0:n2+1],\
             np.conj(np.flipud(y[0,1:n2])))))).transpose()
-    uy_time = np.real(pyfftw.interfaces.numpy_fft.fft(np.hstack((y[1,0:n2+1],\
+    uy = np.real(pyfftw.interfaces.numpy_fft.fft(np.hstack((y[1,0:n2+1],\
             np.conj(np.flipud(y[1,1:n2])))))).transpose()
-    uz_time = -np.real(pyfftw.interfaces.numpy_fft.fft(np.hstack((y[2,0:n2+1],\
+    uz = -np.real(pyfftw.interfaces.numpy_fft.fft(np.hstack((y[2,0:n2+1],\
             np.conj(np.flipud(y[2,1:n2])))))).transpose()
 
-    # Store in traces
-    tux = Trace(data=ux_time)
-    tuy = Trace(data=uy_time)
-    tuz = Trace(data=uz_time)
-
-    # Update trace header
-    tux = ut.update_stats(tux, nn, dt, slow, baz)
-    tuy = ut.update_stats(tuy, nn, dt, slow, baz)
-    tuz = ut.update_stats(tuz, nn, dt, slow, baz)
-
-    # Append to stream
-    trxyz = Stream(traces=[tux, tuy, tuz])
-
     # Return displacement stream
-    return trxyz
+    return ux, uy, uz

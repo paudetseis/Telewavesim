@@ -405,7 +405,7 @@ def pw_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, sav
     ax.set_ylim(-0.2, 0.5)
     ax.set_xticklabels(())
 
-    plt.legend()
+    plt.legend(loc=1)
 
 
     ax = fig.add_subplot(313)
@@ -416,7 +416,7 @@ def pw_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, sav
     #ax.yaxis.set_major_formatter(FormatStrFormatter('%1.1e'))
     ax.set_xlabel('Time following $P$-wave arrival (sec)')
    
-    plt.legend()
+    plt.legend(loc=1)
 
     # Plot radial receiver function
     ax = fig.add_subplot(311)
@@ -431,7 +431,7 @@ def pw_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, sav
     ax.set_xlim(0., tmax)
     ax.set_ylim(-0.3, 0.7)
 
-    plt.legend()
+    plt.legend(loc=1)
     plt.tight_layout()
 
     if save:
