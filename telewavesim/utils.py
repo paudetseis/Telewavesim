@@ -691,7 +691,7 @@ def tf_from_xyz(trxyz,pvh=False):
 
     Args:
         trxyz (obspy.stream): Obspy ``Stream`` object in cartesian coordinate system
-        pvh (bool): Whether to rotate from Z-R-T coordinate system to P-SV-SH wave mode
+        pvh (bool, optional): Whether to rotate from Z-R-T coordinate system to P-SV-SH wave mode
 
     Returns:
         (obspy.stream): tfs: Stream containing Radial and Transverse transfer functions
