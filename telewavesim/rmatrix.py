@@ -1,12 +1,7 @@
 '''
-MODULE rmatrix.py
+Compute R/T matrices for stacks of generally anisotropic layers.
 
-These codes are translated from M. Bostock's Matlab version.
-Original code by C. Thompson
-
-Pascal Audet, 2015
-
-Last modified: July 2019
+Original code by C. Thomson
 
 '''
 
@@ -20,6 +15,21 @@ def rmatrix(px,py,omega,nlay,ifree,iter):
     Computes Reflection and Transmission matrices for upgoing waves
     through a stack of layers. Elastic medium can be isotropic or
     anisotropic.
+
+    Args:
+        px (float): x-component of horizontal slowness (s/km)
+        py (float): y-component of horizontal slowness (s/km)
+        omega (float): Angular frequency (rad/s)
+        nlay (int): Number of layers
+        ifree (int): Flag for free-surface calculation (always == 1)
+        iter (int): Iteration
+
+    Returns:
+        (tuple): Tuple containing R/T matrices for up- or doing-going wavefield
+            * Tus (np.ndarray): shape ``(3, 3)``
+            * Rus (np.ndarray): shape ``(3, 3)``
+            * Tds (np.ndarray): shape ``(3, 3)``
+            * Rds (np.ndarray): shape ``(3. 3)``
 
     """
 
@@ -113,8 +123,26 @@ def rmatrix(px,py,omega,nlay,ifree,iter):
     return Tus, Rus, Tds, Rds
 
 
-# Function layer
 def layer(omega,xh,eval,Tu,Td,Rd):
+    """
+    Includes the phase shift across a layer (Rmatrix theory notes, 
+    section 4, equations (4.6)).
+
+    Args:
+        omega (float): Angular frequency (rad/s)
+        xh (float): Thickness of layer (km)
+        eval (float): Eigen-values for layer (shape ``(6)``)
+        Tu (np.ndarray): shape ``(3, 3)``
+        Td (np.ndarray): shape ``(3, 3)``
+        Rd (np.ndarray): shape ``(3, 3)``
+
+    Returns:
+        (tuple): Tuple containing:
+            Tu (np.ndarray): shape ``(3, 3)``
+            Td (np.ndarray): shape ``(3, 3)``
+            Rd (np.ndarray): shape ``(3, 3)``
+
+    """
 
     # Elements of layer matrix for downgoing waves.
     Ed = np.diag(np.exp(1j*omega*eval[0:3]*xh))
@@ -131,7 +159,31 @@ def layer(omega,xh,eval,Tu,Td,Rd):
 
 
 def addit(nlay,ilay,Tus,Rus,Tds,Rds,Tu,Ru,Td,Rd):
-    
+    """
+    Addition/recursion formulas (Rmatrix theory notes, section 4,
+    equations (4.8)).
+
+    Args:
+        nlay (int): Number of layers
+        ilay (int): Index of layer
+        Tus (np.ndarray): shape ``(3, 3)`` 
+        Rus (np.ndarray): shape ``(3, 3)``
+        Tds (np.ndarray): shape ``(3, 3)``
+        Rds (np.ndarray): shape ``(3, 3)``
+        Tu (np.ndarray): shape ``(3, 3)``
+        Ru (np.ndarray): shape ``(3, 3)``
+        Td (np.ndarray): shape ``(3, 3)``
+        Rd (np.ndarray): shape ``(3, 3)``
+
+
+    Returns:
+        (tuple): Tuple containing:
+            Tu (np.ndarray): shape ``(3, 3)``
+            Td (np.ndarray): shape ``(3, 3)``
+            Rd (np.ndarray): shape ``(3, 3)``
+
+    """
+
     Ximat = np.identity(3)
 
     if ilay == nlay-2: 
@@ -159,6 +211,18 @@ def addit(nlay,ilay,Tus,Rus,Tds,Rds,Tu,Ru,Td,Rd):
 
 
 def xeveci(nlay,ilay,evec):
+    """
+    Inverts eigen-vector matrix.
+
+    Args:
+        nlay (int): Number of layers
+        ilay (int): Index of layer
+        evec (np.ndarray): Eigen-vectors for layer (shape ``(6, 6)``)
+
+    Returns:
+        (np.ndarray): eveci: Inverse of eigen-vector matrix (shape ``(6, 6)``)
+
+    """
 
     # Create N'*J1. Note just need simple transpose here NOT conjugate.
     eveci_1 = np.hstack((evec[3:6,0:3].transpose(),evec[0:3,0:3].transpose()))
@@ -180,6 +244,17 @@ def isotroc(vp, vs, rho, p1, p2):
     Analytic construction of the fundamental matrix for isotropic
     media from Fryer and Frazer (1987, eq (4.16)) but modified for
     a different Fourier transform sign convention.
+
+    Args:
+        vp (float): P-wave velocity (km/s)
+        vs (float): S-wave velocity (km/s)
+        p1 (float): x-component of horizontal slowness (s/km)
+        p2 (float): y-component of horizontal slowness (s/km)
+
+    Returns:
+        (tuple): Tuple containing:
+            * q (np.ndarray): Eigen-value vector (shape ``(6)``)
+            * N (np.ndarray): Eigen-vector matrix (shape ``(6, 6)``)
 
     """
 
@@ -220,6 +295,17 @@ def anisotroc(c,rho,p1,p2):
     Function ANISOTROC takes stiffness tensor c and horizontal components
     of slowness and produces fundamental eigenvector matrix N and diagonal
     matrix of eigenvalues q. The quantities are ordered as qP, qS1, qS2.
+
+    Args:
+        c (float): Elastic tensor (GPa) (shape ``(3, 3, 3, 3)``)
+        rho (float): Density (kg/m^3) 
+        p1 (float): x-component of horizontal slowness (s/km)
+        p2 (float): y-component of horizontal slowness (s/km)
+
+    Returns:
+        (tuple): Tuple containing:
+            * q (np.ndarray): Eigen-value vector (shape ``(6)``)
+            * N (np.ndarray): Eigen-vector matrix (shape ``(6, 6)``)
 
     """
 

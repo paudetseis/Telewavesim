@@ -1,9 +1,10 @@
 '''
-MODULE green_proc.py
 
-Pascal Audet, 2015
+Calculate plane wave seismograms for stacks of layers using \
+the propagator matrix approach of Kennett (1983), implemented by \
+Colin J. Thomson (1995).
 
-Modified: July 2019
+Original code by C. Thomson.
 
 '''
 
@@ -18,14 +19,15 @@ from obspy.core import Trace, Stream
 from obspy.signal.rotate import rotate_ne_rt
 
 
-def green_land():
+def plane_land():
     """
-    Function to generate Green's functions from a stack of layers
+    Function to generate plane wave seismograms from a stack of layers
     for land surface stations. Also handles anisotropy. All
     model and time series properties are passed through the 
-    configuration module 'conf.py'. Handles any number of layers.
+    configuration module ``conf``. Handles any number of layers.
 
-    :return: ObsPy Stream containing displacement traces for
+    Returns:
+        trxyz (obspy.stream): ObsPy ``Stream`` containing displacement traces for
                 given model and slowness vector
 
     """
@@ -127,14 +129,15 @@ def green_land():
     return trxyz
 
 
-def green_obs():
+def plane_obs():
     """
-    Function to generate Green's functions from a stack of layers
+    Function to generate plane wave seismograms from a stack of layers
     for ocean-bottom stations. Also handles anisotropy. All
     model and time series properties are passed through the 
-    configuration module 'conf.py'. Handles any number of layers.
+    configuration module ``conf``. Handles any number of layers.
 
-    :return trxyz: ObsPy Stream containing displacement traces for
+    Returns:
+        trxyz (obspy.stream): ObsPy ``Stream`` containing displacement traces for
                 given model and slowness vector
 
     """
@@ -269,7 +272,11 @@ def tf_from_xyz(trxyz,pvh=False):
     """
     Function to generate transfer functions from displacement traces. 
 
-    :return tfs: Stream containing R and T transfer functions
+    Args:
+        trxyz (obspy.stream): Obspy ``Stream`` object in cartesian coordinate system
+
+    Returns:
+        (obspy.stream): tfs: Stream containing Radial and Transverse transfer functions
 
     """
 

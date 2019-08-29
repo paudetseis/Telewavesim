@@ -1,29 +1,39 @@
 '''
-MODULE wiggle.py
 
-Functions to plot single station green's or receiver functions as wiggle plots.
-
-Options to plot by back-azimuth or slowness. 
-
-Pascal Audet, 2015
-
-Last modified: July 2019
+Functions to plot single station plane wave or receiver function seismograms as wiggle plots.
 
 '''
 
-# Import modules and functions
 import matplotlib.pyplot as plt
 import numpy as np
 from telewavesim import conf as cf
 
 
-# PLot wiggles according to either baz or slowness
 def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30, 
-        scale=None, save=False, title=None):
+        scale=None, save=False, ftitle='Figure_rf_wiggle_baz'):
+    """
+    Plots receiver function seismograms as panels according to back-azimuth or slowness.
+
+    Args:
+        str1 (obspy.stream): Stream 1
+        str2 (obspy.stream): Stream 2
+        tr1 (obspy.trace): Trace 1 (normally obtained from the ``utils.stack_all`` function)
+        tr2 (obspy.trace): Trace 2 
+        sta (str): Station name
+        btyp (str, optional): Type of sorting for panel
+        tmin (float, optional): Lower bound of time axis (s)
+        tmax (float, optional): Upper bound of time axis (s)
+        scale (float, optional): Scaling factor
+        save (bool, optional): Whether or not to save the figure
+        ftitle (str, optional): Title of figure to be saved
+
+    Returns:
+        None
+    """
+
 
     if not (btyp=='baz' or btyp=='slow' or btyp=='dist'):
-        print('type has to be "baz" or "slow" or "dist"')
-        return
+        raise(Exception('type has to be "baz" or "slow" or "dist"'))
 
     print()
     print('Plotting Wiggles by '+btyp)
@@ -176,16 +186,33 @@ def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30,
     ax4.grid(ls=':')
 
     if save:
-        plt.savefig(title+'.eps', dpi=300,bbox_inches='tight',format='eps')
+        plt.savefig(ftitle+'.eps', dpi=300,bbox_inches='tight',format='eps')
     else:
         plt.show()
 
     return
 
 
-# PLot wiggles according to either baz or slowness
-def gf_wiggles_baz(str1, str2, sta, btyp='baz', t1=None, tmin=0., tmax=30, 
-        scale=None, save=False, title=None):
+def pw_wiggles_baz(str1, str2, sta, btyp='baz', t1=None, tmin=0., tmax=30, 
+        scale=None, save=False, ftitle='Figure_gf_wiggles_baz'):
+    """
+    Plots plane wave seismograms as panels according to back-azimuth or slowness.
+
+    Args:
+        str1 (obspy.stream): Stream 1
+        str2 (obspy.stream): Stream 2
+        sta (str): Station name
+        btyp (str, optional): Type of sorting for panel
+        t1 (float): Predicted arrival time that will be drawn as vertical line (s)
+        tmin (float, optional): Lower bound of time axis (s)
+        tmax (float, optional): Upper bound of time axis (s)
+        scale (float, optional): Scaling factor
+        save (bool, optional): Whether or not to save the figure
+        ftitle (str, optional): Title of figure to be saved
+
+    Returns:
+        None
+    """
 
     if not (btyp=='baz' or btyp=='slow' or btyp=='dist'):
         print('type has to be "baz" or "slow" or "dist"')
@@ -330,14 +357,31 @@ def gf_wiggles_baz(str1, str2, sta, btyp='baz', t1=None, tmin=0., tmax=30,
     ax2.grid(ls=':')
 
     if save:
-        plt.savefig(title+'.eps',dpi=300,bbox_inches='tight',format='eps')
+        plt.savefig(ftitle+'.eps',dpi=300,bbox_inches='tight',format='eps')
     else:
         plt.show()
 
     return
 
 
-def gf_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, save=False, title=None):
+def pw_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, save=False, ftitle='Figure_gf_wiggles_Audet2016'):
+    """
+    Plots plane wave and receiver function seismograms formatted as in Audet (GJI, 2016).
+
+    Args:
+        strf (obspy.stream): Stream containing 3 traces: [0]: Transfer function; \
+        [1]: Vertical and [2]: Radial plane wave seismograms
+        t1 (float): Predicted arrival time (s)
+        tmax (float, optional): Upper bound of time axis (s)
+        f1 (float): Lower frequency corner of bandpass filter (Hz)
+        f2 (float): Upper frequency corner of bandpass filter (Hz)
+        scale (float, optional): Scaling factor
+        save (bool, optional): Whether or not to save the figure
+        ftitle (str, optional): Title of figure to be saved
+
+    Returns:
+        None
+    """
 
     from matplotlib.ticker import FormatStrFormatter
     from matplotlib.ticker import ScalarFormatter
@@ -348,14 +392,14 @@ def gf_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, sav
     # Clear figure
     fig = plt.figure()
 
-    # Plot radial and vertical Green's functions
+    # Plot radial and vertical plane wave seismograms
     time_gf = np.arange(-t1, nt*dt-t1, dt)
     time_rf = np.arange(-nt/2, nt/2)*dt
 
 
     ax = fig.add_subplot(312)
     maxv = np.max(np.abs(strf[1].data))
-    ax.plot(time_gf, strf[1].data/maxv, 'k', label='Vertical Green\'s function', lw=0.75)
+    ax.plot(time_gf, strf[1].data/maxv, 'k', label='Vertical component', lw=0.75)
     #ax.yaxis.set_major_formatter(FormatStrFormatter('%1.1e'))
     ax.set_xlim(0., tmax)
     ax.set_ylim(-0.2, 0.5)
@@ -366,7 +410,7 @@ def gf_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, sav
 
     ax = fig.add_subplot(313)
     maxr = np.max(np.abs(strf[2].data))
-    ax.plot(time_gf, strf[2].data/maxv, 'k', label='Radial Green\'s function', lw=0.75)
+    ax.plot(time_gf, strf[2].data/maxv, 'k', label='Radial component', lw=0.75)
     ax.set_xlim(0., tmax)
     ax.set_ylim(-0.2, 0.5)
     #ax.yaxis.set_major_formatter(FormatStrFormatter('%1.1e'))
@@ -391,14 +435,29 @@ def gf_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, sav
     plt.tight_layout()
 
     if save:
-        plt.savefig(title+'.eps',dpi=300,bbox_inches='tight',format='eps')
+        plt.savefig(ftitle+'.eps',dpi=300,bbox_inches='tight',format='eps')
     else:
         plt.show()
 
     return
 
 
-def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, title=None):
+def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, ftitle='Figure_gf_wiggles_3c'):
+    """
+    Plots 3-component wiggles.
+
+    Args:
+        stream (obspy.stream): Stream containing 3 traces
+        t1 (float): Predicted arrival time (s)
+        tmax (float, optional): Upper bound of time axis (s)
+        f1 (float): Lower frequency corner of bandpass filter (Hz)
+        f2 (float): Upper frequency corner of bandpass filter (Hz)
+        save (bool, optional): Whether or not to save the figure
+        ftitle (str, optional): Title of figure to be saved
+
+    Returns:
+        None
+    """
 
     nt = stream[0].stats.npts
     dt = stream[0].stats.delta
@@ -408,7 +467,7 @@ def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, title=Non
     # Clear figure
     fig = plt.figure()
 
-    # Plot radial and vertical Green's functions
+    # Plot radial and vertical plane wave seismograms
     time_gf = np.arange(-t1, nt*dt-t1, dt)
 
     max1 = np.max(np.abs(stream[0].data))
@@ -417,7 +476,7 @@ def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, title=Non
 
     ax = fig.add_subplot(313)
     maxv = np.max(np.array([max1,max2,max3]))
-    ax.plot(time_gf, stream[2].data/maxv, 'k', label='Vertical Green\'s function', lw=0.75)
+    ax.plot(time_gf, stream[2].data/maxv, 'k', label='Vertical component', lw=0.75)
     ax.set_xlim(0., tmax)
     ax.set_ylim(-1.1, 1.1)
     ax.set_xlabel('Time following $P$-wave arrival (sec)')
@@ -426,7 +485,7 @@ def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, title=Non
 
 
     ax = fig.add_subplot(312)
-    ax.plot(time_gf, stream[0].data/maxv, 'k', label='North Green\'s function', lw=0.75)
+    ax.plot(time_gf, stream[0].data/maxv, 'k', label='North component', lw=0.75)
     ax.set_xlim(0., tmax)
     ax.set_ylim(-1.1, 1.1)
     ax.set_xticklabels(())
@@ -435,7 +494,7 @@ def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, title=Non
 
 
     ax = fig.add_subplot(311)
-    ax.plot(time_gf, stream[1].data/maxv, 'k', label='East Green\'s function', lw=0.75)
+    ax.plot(time_gf, stream[1].data/maxv, 'k', label='East component', lw=0.75)
     ax.set_xlim(0., tmax)
     ax.set_ylim(-1.1, 1.1)
     ax.set_xticklabels(())
@@ -446,7 +505,7 @@ def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, title=Non
     plt.tight_layout()
 
     if save:
-        plt.savefig(title+'.eps',dpi=300,bbox_inches='tight',format='eps')
+        plt.savefig(ftitle+'.eps',dpi=300,bbox_inches='tight',format='eps')
     else:
         plt.show()
 

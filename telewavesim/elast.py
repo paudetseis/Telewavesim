@@ -1,5 +1,4 @@
 '''
-MODULE elast_stiffness.py
 
 Functions to define elastic stiffness matrices.
 
@@ -11,7 +10,8 @@ def iso_tensor(a, b):
     """
     Elastic constants of isotropic material in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (np.ndarray): C: Elastic stifness matrix (shape ``(6, 6)``)
 
     """
 
@@ -36,9 +36,12 @@ def iso_tensor(a, b):
 
 
 def tri_tensor(AA,CC,FF,LL,NN):
-    """ 
-    Sets up transversely isotropic tensor with horizontal
-    symmetry axis.
+    """
+    Elastic constants of transversely isotropic material in Voigt notation \
+    (hexagonal symmetry). See Porter et al. (2011) for details.
+
+    Returns:
+        (np.ndarray): a: Elastic stifness matrix (shape ``(6, 6)``)
 
     """
 
@@ -79,10 +82,13 @@ def antigorite():
     """
     Elastic constants of antigorite mineral (GPa) from
     Bezacier, EPSL, 2010, in Voigt notation.
-    Mineralogy: Atg (100%)
-    Density: 2620
 
-    :return C: (6,6) np.array with Voigt components
+    Density: 2620 (kg/m^3)
+
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (2620 kg/m^3)
 
     """
 
@@ -104,7 +110,10 @@ def biotite():
     Elastic constants of biotite mineral (GPa) from
     Aleksandrov and Ryzhova (1986), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (2800 kg/m^3)
 
     """
 
@@ -126,7 +135,10 @@ def blueschist_felsic():
     Elastic constants of Felsic Blueschist (GPa) from
     Cao et al. (2013), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (2970 kg/m^3)
 
     """
 
@@ -148,7 +160,10 @@ def blueschist_mafic():
     Elastic constants of Mafic Blueschist (GPa) from
     Cao et al. (2013), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3190 kg/m^3)
 
     """
 
@@ -170,7 +185,10 @@ def clinopyroxene_92():
     Elastic constants of clinopyroxene mineral (GPa) from
     Baghat et al. (1992), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3327 kg/m^3)
 
     """
 
@@ -192,11 +210,14 @@ def clinopyroxene_98():
     Elastic constants of clinopyroxene mineral (GPa) from
     Collins and Brown (1998), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3190 kg/m^3)
 
     """
 
-
+    rho = 3190.
 
     C = np.zeros((6,6), dtype=float)
     C[0,0] = 237.8;     C[0,1] = 83.5;      C[0,2] = 80.;       C[0,3] = 0.;        C[0,4] = 9.;        C[0,5] = 0.
@@ -214,7 +235,10 @@ def dolomite():
     Elastic constants of dolomite mineral (GPa) from
     Humbert and Plicque (1972), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (2840 kg/m^3)
 
     """
 
@@ -236,7 +260,10 @@ def eclogite_foliated():
     Elastic constants of Foliated Eclogite rock (GPa) from
     Cao et al. (2013), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3300 kg/m^3)
 
     """
 
@@ -258,7 +285,10 @@ def eclogite_massive():
     Elastic constants of Massive Eclogite rock (GPa) from
     Cao et al. (2013), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3490 kg/m^3)
 
     """
 
@@ -280,7 +310,10 @@ def epidote():
     Elastic constants of epidote mineral (GPa) from
     Aleksandrakov et al. (1974), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3465 kg/m^3)
 
     """
 
@@ -302,7 +335,10 @@ def garnet():
     Elastic constants of garnet mineral (GPa) from
     Babuska et al. (1978), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3660 kg/m^3)
 
     """
 
@@ -324,7 +360,10 @@ def glaucophane():
     Elastic constants of glaucophane mineral (GPa) from
     Bezacier et al. (2010), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3070 kg/m^3)
 
     """
 
@@ -346,7 +385,10 @@ def harzburgite():
     Elastic constants of harzburgite rock (GPa) from
     Covey-Crump et al. (2003), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3200 kg/m^3)
 
     """
 
@@ -368,7 +410,10 @@ def hornblende():
     Elastic constants of hornblende mineral (GPa) from
     Aleksandrov and Ryzhova (1986), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3200 kg/m^3)
 
     """
 
@@ -390,7 +435,10 @@ def jadeite():
     Elastic constants of jadeite mineral (GPa) from
     Kandelin and Weiner (1988), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3330 kg/m^3)
 
     """
 
@@ -412,7 +460,10 @@ def lawsonite():
     Elastic constants of jadeite mineral (GPa) from
     Kandelin and Weiner (1988), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3090 kg/m^3)
 
     """
 
@@ -434,7 +485,10 @@ def lherzolite():
     Elastic constants of lherzolite rock (GPa) from
     Peselnick et al. (1974), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3270 kg/m^3)
 
     """
 
@@ -455,10 +509,11 @@ def lizardite_atom():
     """
     Elastic constants of lizardite mineral (GPa) from
     Auzende et al., Phys. Chem. Min. 2006 from atomistic calculations.
-    Mineralogy: Lz (100%)
-    Density: 2515
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (2515 kg/m^3)
 
     """
 
@@ -479,10 +534,11 @@ def lizardite():
     """
     Elastic constants of lizardite mineral (GPa) from
     Reynard, GRL, 2007 from Density Functional Theory.
-    Mineralogy: Lz (100%)
-    Density: 2610
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (2610 kg/m^3)
 
     """
 
@@ -504,7 +560,10 @@ def muscovite():
     Elastic constants of muscovite mineral (GPa) from
     Vaughan and Guggenheim (1986), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (2834 kg/m^3)
 
     """
 
@@ -526,7 +585,10 @@ def olivine():
     Elastic constants of olivine mineral (GPa) from
     Abrahamson et al. (1997), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3355 kg/m^3)
 
     """
 
@@ -548,7 +610,10 @@ def orthopyroxene():
     Elastic constants of orthopyroxene mineral (GPa) from
     Chai et al. (1977), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3304 kg/m^3)
 
     """
 
@@ -570,7 +635,10 @@ def plagioclase_64():
     Elastic constants of plagioclase mineral (GPa) from
     Ryzhova (1964), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (2700 kg/m^3)
 
     """
 
@@ -592,7 +660,10 @@ def plagioclase_06():
     Elastic constants of plagioclase mineral (GPa) from
     Brown et al. (2006), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (2700 kg/m^3)
 
     """
 
@@ -614,7 +685,10 @@ def quartz():
     Elastic constants of quartz mineral (GPa) from
     Lakshanov et al. (2007), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (2649 kg/m^3)
 
     """
 
@@ -638,7 +712,10 @@ def serpentinite_37():
     Mineralogy: Ol (57.7%), Atg (36.9%), Trm (4.5%), Mgt (1.1%)
     Density: 3000
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3000 kg/m^3)
 
     """
 
@@ -659,10 +736,13 @@ def serpentinite_80():
     """
     Elastic constants of serpentinite rock sample HKB-B (GPa) from
     Watanabe et al., 2011, in Voigt notation
+    
     Mineralogy: Ol (12.0%), Atg (80.2%), Mgt (7.8%)
-    Density: 2800
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (2800 kg/m^3)
 
     """
 
@@ -684,7 +764,10 @@ def zoisite():
     Elastic constants of zoisite mineral (GPa) from
     Mao et al. (2007), in Voigt notation
 
-    :return C: (6,6) np.array with Voigt components
+    Returns:
+        (tuple): tuple containing:
+            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * rho (float): Density (3343 kg/m^3)
 
     """
 

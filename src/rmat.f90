@@ -2,7 +2,7 @@
 !
 ! MODULE conf
 !
-! Configuration module that contains global variables used in rmat and green 
+! Configuration module that contains global variables used in rmat and plane 
 ! modules to interface with the Python codes.
 !
 !===========================================================================
@@ -57,9 +57,6 @@
 ! waves through a stack of layers. Elastic medium can be isotropic or
 ! anisotropic.
 !
-! Copyright (c) 1996 C. J. Thomson.
-! All rights reserved by the author.
-
 ! Finds e-vals and e-vecs for an isotropic layer.
 ! Based on modified (corrected) version of Sean Guest s routine isoeig.
 !
@@ -67,11 +64,7 @@
 ! layers. Uses reflection matrix algorithm of B. L. N. Kennett.
 ! General anisotropy permitted.
 !
-! C. J. Thomson, August--November 1993.
-!
-! Rmatrix and associated programs may be used freely by University
-! researchers and teachers. Commercial parties interested in using
-! the program should contact C. J. Thomson.
+! C. J. Thomson
 !
 ! Original software available here:
 ! http://sw3d.cz/software/sw3dcd20/rmatrix/rmatrix.htm
@@ -352,28 +345,28 @@
 
 !===========================================================================
 !
-! MODULE green
+! MODULE plane
 !
-! Contains subroutines green_land and green_obs that runs rmat subroutines
+! Contains subroutines plane_land and plane_obs that runs rmat subroutines
 ! to obtain 3-component seismograms.
 !
 !===========================================================================
 
-      MODULE green
+      MODULE plane
 
       CONTAINS
 
 !---------------------------------------------------------------------------
-! Subroutine green_land
+! Subroutine plane_land
 !
-! Subroutine to generate Green's functions from a stack of layers
+! Subroutine to generate plane wave seismograms from a stack of layers
 ! for land surface stations. Also handles anisotropy. All
 ! model and time series properties are passed through the 
 ! configuration module 'conf'. 
 !
 ! Returns displacement traces for given model and slowness vector.
 !---------------------------------------------------------------------------
-      SUBROUTINE green_land(nt, nlay, wvtype, ux, uy, uz) 
+      SUBROUTINE plane_land(nt, nlay, wvtype, ux, uy, uz) 
 
       USE conf
       USE rmat
@@ -519,20 +512,20 @@
 
         RETURN
 
-      END SUBROUTINE green_land
+      END SUBROUTINE plane_land
 
 
 !---------------------------------------------------------------------------
-! Subroutine green_obs
+! Subroutine plane_obs
 !
-! Subroutine to generate Green's functions from a stack of layers
+! Subroutine to generate plane wave seismograms from a stack of layers
 ! for ocean-bottom stations. Also handles anisotropy. All
 ! model and time series properties are passed through the 
 ! configuration module 'conf'. 
 !
 ! Returns displacement traces for given model and slowness vector.
 !---------------------------------------------------------------------------
-      SUBROUTINE green_obs(nt, nlay, wvtype, ux, uy, uz)
+      SUBROUTINE plane_obs(nt, nlay, wvtype, ux, uy, uz)
 
       USE conf
       USE rmat
@@ -753,6 +746,6 @@
 
         RETURN
 
-      END SUBROUTINE green_obs
+      END SUBROUTINE plane_obs
 
-      END MODULE green
+      END MODULE plane

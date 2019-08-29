@@ -1,7 +1,5 @@
 '''
-MODULE rt_fluid.py
-
-Function translated from M. Bostock's Matlab code.
+Compute R/T coefficient for solid-fluid interface.
 
 See paper by Bostock & Trehu, BSSA (2012) for details.
 
@@ -17,8 +15,26 @@ def rtfluid(p1, p2, c, rhof, a, b, rhos):
     Function to compute reflection and transmission coefficients for 
     a fluid-solid boundary
 
-    p is slowness, c is fluid velocity, rhof is fluid density, (a, b) are P and
-    S velocities of solid and rhos is solid density
+    Args:
+        p1 (float): x-component of horizontal slowness (s/km)
+        p2 (float): y-component of horizontal slowness (s/km)
+        c (float): P-wave velocity of salt water (km/s)
+        rhof (float): Density of salt water (kg/m^3)
+        a (float): P-wave velocity of topmost solid layer (km/s)
+        b (float): S-wave velocity of topmost solid layer (km/s)
+        rhos (float): Density of topmost solid layer (kg/m^3)
+
+    Returns:
+        (tuple): Tuple containing R/T coefficients f
+            * TdPP (float):
+            * TdSP (float):
+            * RdPP (float): 
+            * TuPP (float):
+            * TuPS (float): 
+            * RuPP (float): 
+            * RuSP (float): 
+            * RuPS (float): 
+            * RuSS (float):
 
     """
 

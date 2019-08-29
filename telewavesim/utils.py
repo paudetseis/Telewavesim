@@ -1,10 +1,8 @@
 '''
-MODULE utils.py
 
-Last modified: August 2019
+Utility functions to interact with ``telewavesim`` modules.
 
 '''
-
 import sys
 import itertools
 import numpy as np
@@ -12,7 +10,7 @@ from telewavesim import conf as cf
 from telewavesim import elast as es
 from telewavesim.rmat_f import conf as cf_f
 from scipy.signal import hilbert
-from obspy.core import Trace
+from obspy.core import Trace, Stream
 
 
 
@@ -20,7 +18,13 @@ def set_iso_tensor(a, b):
     """
     Function to generate tensor for isotropic material. 
 
-    :return cc: (3,3,3,3) np.array with tensor components
+    Args:
+        a (float): P-wave velocity (km/s)
+        b (float): S-wave velocity (km/s)
+
+    Returns:
+        (np.ndarray): cc: Elastic stiffness matrix in Voigt components (GPa) \
+        (shape ``(3, 3, 3, 3)``)
 
     """
 
@@ -40,7 +44,17 @@ def set_tri_tensor(a, b, tr, pl, ani):
     tensor is rotated using the trend and plunge of the symmetry
     axis.
 
-    :return cc: (3,3,3,3) np.array with tensor components
+    Args:
+        a (float): P-wave velocity (km/s)
+        b (float): S-wave velocity (km/s)
+        tr (float): Trend angle of symmetry axis (degree)
+        pl (float): Plunge angle of symmetry axis (degree)
+        ani (float): Percent anisotropy 
+
+    Returns:
+        (np.ndarray): cc: Elastic stiffness matrix in Voigt components (GPa) \
+        (shape ``(3, 3, 3, 3)``)
+
 
     """
 
@@ -74,11 +88,20 @@ def set_tri_tensor(a, b, tr, pl, ani):
 
 def set_aniso_tensor(tr, pl, typ='atg'):
     """
-    Function to generate tensor for anisotropic minerals. The
-    tensor is rotated using the trend and plunge of the symmetry
+    Function to generate tensor for anisotropic minerals. The \
+    tensor is rotated using the trend and plunge of the symmetry \
     axis.
 
-    :return cc: (3,3,3,3) np.array with tensor components
+    Args:
+        tr (float): Trend angle of symmetry axis (degree)
+        pl (float): Plunge angle of symmetry axis (degree)
+        type (str, optional): Type of elastic material
+
+    Returns:
+        (tuple): Tuple containing:
+            * cc (np.ndarray): Elastic stiffness matrix in Voigt components (GPa)\
+            (shape ``(3, 3, 3, 3)``)
+            * rho (float): Density (kg/m^3)
 
     """
 
@@ -157,6 +180,10 @@ def set_aniso_tensor(tr, pl, typ='atg'):
 
 
 def full_3x3_to_Voigt_6_index(i, j):
+    """
+    Conversion of tensor to Voigt notation for indices
+
+    """
     if i == j:
         return i
     return 6-i-j
@@ -166,7 +193,11 @@ def voigt2cc(C):
     Convert the Voigt representation of the stiffness matrix to the full
     3x3x3x3 representation.
 
-    :return cc: (3,3,3,3) np.array with tensor components
+    Args:
+        C (np.ndarray): Stiffness matrix (shape ``(6, 6)``)
+
+    Returns:
+        (np.ndarray): cc: Elastic tensor (shape ``(3, 3, 3, 3)``)
 
     """
     
@@ -182,7 +213,13 @@ def voigt2cc(C):
 def cc2voigt(cc):
     """
     Convert from the full 3x3x3x3 representation of the stiffness matrix
-    to the representation in Voigt notation. Checks symmetry in that process.
+    to the representation in Voigt notation. 
+
+    Args:
+        cc (np.ndarray): Elastic tensor (shape ``(3, 3, 3, 3)``)
+
+    Returns:
+        (np.ndarray): C: Stiffness matrix (shape ``(6, 6)``)
 
     """
 
@@ -198,29 +235,6 @@ def cc2voigt(cc):
             m, n = Voigt_notation[j]
             C[i,j] = cc[k,l,m,n]
 
-            # Check symmetries
-            assert abs(C[i,j]-cc[m,n,k,l]) < tol, \
-                'C[{},{}] = {}, cc[{},{},{},{}] = {}' \
-                .format(i, j, C[i,j], m, n, k, l, cc[m,n,k,l])
-            assert abs(C[i,j]-cc[l,k,m,n]) < tol, \
-                'C[{},{}] = {}, cc[{},{},{},{}] = {}' \
-                .format(i, j, C[i,j], l, k, m, n, cc[l,k,m,n])
-            assert abs(C[i,j]-cc[k,l,n,m]) < tol, \
-                'C[{},{}] = {}, cc[{},{},{},{}] = {}' \
-                .format(i, j, C[i,j], k, l, n, m, cc[k,l,n,m])
-            assert abs(C[i,j]-cc[m,n,l,k]) < tol, \
-                'C[{},{}] = {}, cc[{},{},{},{}] = {}' \
-                .format(i, j, C[i,j], m, n, l, k, cc[m,n,l,k])
-            assert abs(C[i,j]-cc[n,m,k,l]) < tol, \
-                'C[{},{}] = {}, cc[{},{},{},{}] = {}' \
-                .format(i, j, C[i,j], n, m, k, l, cc[n,m,k,l])
-            assert abs(C[i,j]-cc[l,k,n,m]) < tol, \
-                'C[{},{}] = {}, cc[{},{},{},{}] = {}' \
-                .format(i, j, C[i,j], l, k, n, m, cc[l,k,n,m])
-            assert abs(C[i,j]-cc[n,m,l,k]) < tol, \
-                'C[{},{}] = {}, cc[{},{},{},{}] = {}' \
-                .format(i, j, C[i,j], n, m, l, k, cc[n,m,l,k])
-
     return C
 
 
@@ -228,14 +242,19 @@ def VRH_average(C):
     """
     Performs a Voigt-Reuss-Hill average of the anisotropic
     stifness matrix to the bulk modulus K and the shear modulus
-    G
+    G.
 
-    return:     Kvoigt: Voigt average bulk modulus
-                Gvoigt: Voigt average shear modulus
-                Kreuss: Reuss average bulk modulus
-                Greuss: Reuss average shear modulus
-                Kvrh:   Voigt-Reuss-Hill average bulk modulus
-                Gvrh:   Voigt-Reuss-Hill average shear modulus
+    Args:
+        C (np.ndarray): Stiffness matrix (shape ``(6, 6)``)
+
+    Returns:     
+        (tuple): Tuple containing: 
+            * Kvoigt (float): Voigt average bulk modulus (GPa)
+            * Gvoigt (float): Voigt average shear modulus (GPa)
+            * Kreuss (float): Reuss average bulk modulus (GPa)
+            * Greuss (float): Reuss average shear modulus (GPa)
+            * Kvrh (float):   Voigt-Reuss-Hill average bulk modulus (GPa)
+            * Gvrh (float):   Voigt-Reuss-Hill average shear modulus (GPa)
 
     """
 
@@ -261,12 +280,19 @@ def VRH_average(C):
 
 def mod2vel(K,G,rho):
     """
+
     Calculates the isotropic P and S wave velocities from given
     bulk (K) and shear (G) moduli and density (rho) in kg/m^3
 
-    return: Vp (km/s)
-            Vs (km/s)
+    Args:
+        K (float): Bulk modulus (GPa)
+        G (float): Shear modulus (GPa)
+        rho (float): Density (kg/m^3)
+    Returns:
+        (tuple): tuple containing:
 
+            * Vp (float): P-wave velocity (km/s)
+            * Vs (float): S-wave velocity (km/s)
     """
 
     Vp = np.sqrt((K + 4.*G/3.)/rho)
@@ -277,27 +303,30 @@ def mod2vel(K,G,rho):
 
 def rot_tensor(a,alpha,beta,gam):
     """
+
     Performs a rotation of the tensor cc (c_ijkl) about three angles (alpha, 
     beta, gamma)
 
-    :param a: 3x3x3x3 tensor
-    :type a: np.ndarray
-    :param alpha: angle in radians
-    :type alpha: float
-    :param beta: angle in radians
-    :type beta: float
-    :param gam: angle in radians
-    :type gam: float
-    :return aa: 3x3x3x3 tensor
-    :rtype: np.ndarray
+    Args:
+        a (np.ndarray): Elastic tensor with shape ``(3, 3, 3, 3)``
+        alpha (float): Angle in radians
+        beta (float): Angle in radians
+        gam (float): Angle in radians
 
-    The three angles (alpha, beta, gam) correspond to rotation about the 
-    x_2, x_3, x_1 axes. Note that the sequence of the rotation is important: 
-    (AB ~= BA). In this case we rotate about x_2 first, x_3 second and x_1 third. 
+    Returns:
+        (np.ndarray): aa: Rotated tensor with shape ``(3, 3, 3, 3)``
 
-    Note: for trend and plunge of symmetry axis (e.g., tri_tensor): 
-            alpha = plunge
-            beta = trend
+    .. note::
+
+        The three angles (``alpha``, ``beta``, ``gam``) correspond to rotation about the 
+        x_2, x_3, x_1 axes. Note that the sequence of the rotation is important: 
+        (AB ~= BA). In this case we rotate about x_2 first, x_3 second and x_1 third. 
+        
+        For trend and plunge of symmetry axis (e.g., tri_tensor): 
+            
+            ``alpha`` = plunge
+
+            ``beta`` = trend
 
     """
 
@@ -339,6 +368,11 @@ def rot_tensor(a,alpha,beta,gam):
 
 
 def check_cf():
+    """
+    Checks whether all required global variables are set.
+
+    :raises ExceptionError: Throws ExceptionError if not all variables are set.
+    """
     lst = [cf.a, cf.rho, cf.thickn, cf.isoflg, cf.dt, cf.nt, cf.slow, cf.baz]
     check = [f is None for f in lst]
     if sum(check)/len(check)>0.:
@@ -346,6 +380,14 @@ def check_cf():
 
 
 def model2for():
+    """
+    Passes global model variables to Fortran ``conf`` module.
+
+    Returns:
+        None
+
+    Variables are ``a``, ``rho``, ``thickn``, ``isoflg``
+    """
 
     nlaymx = cf_f.nlaymx
     cf_f.a = np.zeros((3,3,3,3,nlaymx))
@@ -362,23 +404,47 @@ def model2for():
 
 
 def wave2for():
-    cf_f.dt = cf.dt
-    cf_f.slow = cf.slow
-    cf_f.baz = cf.baz
+    """
+    Passes global wavefield variables to Fortran ``conf`` module.
+
+    Returns:
+        None
+
+    Variables are ``dt``, ``slow``, ``baz``
+    """
+
+    try:
+        cf_f.dt = cf.dt
+        cf_f.slow = cf.slow
+        cf_f.baz = cf.baz
+    except:
+        raise(Exception('Required variables for wavefield are not set: dt, slow, baz'))
 
 
 def obs2for():
-    cf_f.dp = cf.dp
-    cf_f.c = cf.c
-    cf_f.rhof = cf.rhof
+    """
+    Passes global OBS-related variables to Fortran ``conf`` module.
+
+    Returns:
+        None
+
+    Variables are ``dp``, ``c``, ``rhof``
+    """
+    try:
+        cf_f.dp = cf.dp
+        cf_f.c = cf.c
+        cf_f.rhof = cf.rhof
+    except:
+        raise(Exception('Required variables for OBS are not set: dp, c, rhof'))
 
 
 def read_model(modfile):
     """
-    Function to read model parameters from file that are passed 
-    through the configuration module 'conf.py'. 
+    Reads model parameters from file that are passed 
+        through the configuration module ``conf``. 
 
-    :return None: since parameters are now global variables shared
+    Returns: 
+        None: Parameters are now global variables shared
                 between all other modules
 
     """
@@ -386,6 +452,11 @@ def read_model(modfile):
     h = []; r = []; a = []; b = []; fl = []; ani = []; tr = []; pl = []
 
     # Read file line by line and populate lists
+    try:
+        open(modfile)
+    except:
+        raise(Exception('model file cannot be opened: ',modfile))
+
     with open(modfile) as fileobj:
         for line in fileobj:
             if not line.rstrip().startswith('#'):
@@ -445,7 +516,24 @@ def read_model(modfile):
 
 # Rotate from ZRT to PVH
 def rotate_zrt_pvh(trZ, trR, trT, vp=6., vs=3.5):
+    """
+    Rotates traces from `Z-R-T` orientation to `P-SV-SH` wave mode.
 
+    Args:
+        trZ (obspy.trace): Vertical component
+        trR (obspy.trace): Radial component
+        trT (obspy.trace): Transverse component
+        vp (float, optional): P-wave velocity used for rotation
+        vs (float, optional): S-wave velocity used for rotation
+
+    Returns:
+        (tuple): tuple containing:
+
+            * trP (obspy.trace): Compressional (P) wave mode
+            * trV (obspy.trace): Vertically polarized shear (SV) wave mode
+            * trH (obspy.trace): Horizontally polarized shear (SH) wave mode
+
+    """
     # Copy traces
     trP = trZ.copy()
     trV = trR.copy()
@@ -478,8 +566,22 @@ def rotate_zrt_pvh(trZ, trR, trT, vp=6., vs=3.5):
     return trP, trV, trH
 
 
-# Stack all traces
 def stack_all(st1, st2, pws=False):
+    """
+    Stacks all traces in two ``Stream`` objects.
+
+    Args:
+        st1 (obspy.stream): Stream 1
+        st2 (obspy.stream,): Stream 2
+        pws (bool, optional): Enables Phase-Weighted Stacking
+
+    Returns:
+        (tuple): tuple containing:
+
+            * stack1 (obspy.trace): Stacked trace for Stream 1
+            * stack2 (obspy.trace): Stacked trace for Stream 2
+
+    """
 
     print()
     print('Stacking ALL traces in streams')
@@ -527,8 +629,17 @@ def stack_all(st1, st2, pws=False):
     return stack1, stack2
 
 
-# Calculate travel time through model
 def calc_ttime(slow):
+    """
+    Calculates total propagation time through model.
+
+    Args:
+        slow (float): Slowness value (s/km)
+
+    Returns:
+        (float): t1: Time in seconds
+    """
+
 
     t1 = 0.
 
@@ -552,6 +663,19 @@ def calc_ttime(slow):
 
 
 def update_stats(tr, nt, dt, slow, baz):
+    """
+    Updates the ``stats`` doctionary from an obspy ``Trace`` object.
+
+    Args:
+        tr (obspy.trace): Trace object to update
+        nt (int): Number of samples
+        dt (float): Sampling rate
+        slow (float): Slowness value (s/km)
+        baz (float): Back-azimuth value (degree)
+
+    Returns:
+        (obspy.trace): tr: Trace with updated stats
+    """
 
     tr.stats.delta = dt
     tr.stats.slow = slow
