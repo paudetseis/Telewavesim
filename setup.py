@@ -29,7 +29,7 @@ setup(
     "telewavesim": [
       "examples/*.ipynb",
       "examples/models/*.txt",
-      "examples/Notebooks/Python/*.ipynb",
-      "examples/Notebooks/Fortran/*.ipynb"]
+      "examples/Notebooks/*.ipynb",
+      "examples/Notebooks/*.ipynb"]
   }
 )
