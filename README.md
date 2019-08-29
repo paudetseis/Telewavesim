@@ -89,14 +89,14 @@ ext = [Extension(name='telewavesim.rmat_f',
                  extra_link_args=["-L/usr/local/lib", "-lfftw3"])]
 ```
 
-### Option 1) Installing using pip
+### Option 1: Installing using pip
 
 Once the previous steps are performed, you can install `telewavesim` using pip:
 ```bash
 pip install .
 ```
 
-### Option 2) Building and Installing
+### Option 2: Building and Installing
 
 Alternatively, you can build and install the project:
 
