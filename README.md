@@ -36,14 +36,12 @@ Also, the following packages are required:
 
 - [`obspy`](https://github.com/obspy/obspy/wiki)
 - [`pyfftw`](https://pyfftw.readthedocs.io/en/latest/)
-- [`fftw3`](http://www.fftw.org)
+- [`fftw`](http://www.fftw.org)
 
 By  default, both `numpy` and `matplotlib` are installed as dependencies of `obspy`. 
-See below for full installation details. You also need to download and install the 
-`fftw3` library independently (conda install of `fftw3` is not currently working with
-independent GCC's `gfortran` build). 
+See below for full installation details.
 
-### Conda environment
+### Conda installation
 
 We advise creating a custom [conda environment](https://conda.io/docs/user-guide/tasks/manage-environments.html)
 where `telewavesim` can be installed along with its dependencies. 
@@ -67,9 +65,22 @@ Activate the newly created environment:
 conda activate tws
 ```
 
-#### Pointing to `fftw3` library
+### Fortran compilation and `fftw` library
 
-Finally, edit the setup.py file to modify the content of ```extra_link_args``` in the Extension class to point to your compiled `fftw3` library. In the example below the library is install in ```/usr/local/lib```:
+You can further use `conda` to install the required Fortran compiler and the `fftw` library. This is the default installation, as the `os.environ` points to the `tws` environment library for dynamic linking. In this case, install `gfortran` and `fftw` using `conda`. On a MacOSX, the `gfortran` package is `gfortran_osx-64`; for Linux, the `gfortran` package is `gfortran_linux-64` (check out https://anaconda.org/search?q=gfortran for the available packages):
+
+```bash
+conda install gfortran_osx-64 fftw
+```
+
+You can check that the active Fortran compiler resides in the `tws` environment:
+```bash
+which gfortran
+```
+
+#### Separate Fortran build
+
+If you wish to use a different Fortran compiler available system-wide (e.g., Intel Fortran installed in `/usr/local/bin`), you will need to independently download and install the `fftw` library (http://www.fftw.org), then edit the `setup.py` file to modify the content of `extra_link_args` in the `Extension` class to point to the location of your compiled `fftw3` library. In the example below the library is installed in `/usr/local/lib`:
 
 ```python
 ext = [Extension(name='telewavesim.rmat_f',
