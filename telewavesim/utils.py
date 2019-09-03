@@ -575,11 +575,6 @@ def read_model(modfile):
     cf.thickn = h
     cf.rho = r
     cf.isoflg = fl
-    cf.aa = a
-    cf.bb = b
-    cf.ani = ani
-    cf.tr = tr
-    cf.pl = pl
 
     cf.a = np.zeros((3,3,3,3,cf.nlay))
     cf.evecs = np.zeros((6,6,cf.nlay),dtype=complex)

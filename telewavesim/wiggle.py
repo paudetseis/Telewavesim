@@ -216,7 +216,7 @@ def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30,
 
 
 def pw_wiggles_baz(str1, str2, sta, btyp='baz', t1=None, tmin=0., tmax=30, 
-        scale=None, save=False, ftitle='Figure_gf_wiggles_baz'):
+        scale=None, save=False, ftitle='Figure_pw_wiggles_baz'):
     """
     Plots plane wave seismograms as panels according to back-azimuth or slowness.
 
@@ -386,7 +386,7 @@ def pw_wiggles_baz(str1, str2, sta, btyp='baz', t1=None, tmin=0., tmax=30,
     return
 
 
-def pw_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, save=False, ftitle='Figure_gf_wiggles_Audet2016'):
+def pw_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, save=False, ftitle='Figure_pw_wiggles_Audet2016'):
     """
     Plots plane wave and receiver function seismograms formatted as in Audet (GJI, 2016).
 
@@ -415,13 +415,13 @@ def pw_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, sav
     fig = plt.figure()
 
     # Plot radial and vertical plane wave seismograms
-    time_gf = np.arange(-t1, nt*dt-t1, dt)
+    time_pw = np.arange(-t1, nt*dt-t1, dt)
     time_rf = np.arange(-nt/2, nt/2)*dt
 
 
     ax = fig.add_subplot(312)
     maxv = np.max(np.abs(strf[1].data))
-    ax.plot(time_gf, strf[1].data/maxv, 'k', label='Vertical component', lw=0.75)
+    ax.plot(time_pw, strf[1].data/maxv, 'k', label='Vertical component', lw=0.75)
     #ax.yaxis.set_major_formatter(FormatStrFormatter('%1.1e'))
     ax.set_xlim(0., tmax)
     ax.set_ylim(-0.2, 0.5)
@@ -432,7 +432,7 @@ def pw_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, sav
 
     ax = fig.add_subplot(313)
     maxr = np.max(np.abs(strf[2].data))
-    ax.plot(time_gf, strf[2].data/maxv, 'k', label='Radial component', lw=0.75)
+    ax.plot(time_pw, strf[2].data/maxv, 'k', label='Radial component', lw=0.75)
     ax.set_xlim(0., tmax)
     ax.set_ylim(-0.2, 0.5)
     #ax.yaxis.set_major_formatter(FormatStrFormatter('%1.1e'))
@@ -464,7 +464,7 @@ def pw_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, sav
     return
 
 
-def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, ftitle='Figure_gf_wiggles_3c'):
+def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, ftitle='Figure_pw_wiggles_3c'):
     """
     Plots 3-component wiggles.
 
@@ -490,7 +490,7 @@ def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, ftitle='F
     fig = plt.figure()
 
     # Plot radial and vertical plane wave seismograms
-    time_gf = np.arange(-t1, nt*dt-t1, dt)
+    time_pw = np.arange(-t1, nt*dt-t1, dt)
 
     max1 = np.max(np.abs(stream[0].data))
     max2 = np.max(np.abs(stream[1].data))
@@ -498,7 +498,7 @@ def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, ftitle='F
 
     ax = fig.add_subplot(313)
     maxv = np.max(np.array([max1,max2,max3]))
-    ax.plot(time_gf, stream[2].data/maxv, 'k', label='Vertical component', lw=0.75)
+    ax.plot(time_pw, stream[2].data/maxv, 'k', label='Vertical component', lw=0.75)
     ax.set_xlim(0., tmax)
     ax.set_ylim(-1.1, 1.1)
     ax.set_xlabel('Time following $P$-wave arrival (sec)')
@@ -507,7 +507,7 @@ def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, ftitle='F
 
 
     ax = fig.add_subplot(312)
-    ax.plot(time_gf, stream[0].data/maxv, 'k', label='North component', lw=0.75)
+    ax.plot(time_pw, stream[0].data/maxv, 'k', label='North component', lw=0.75)
     ax.set_xlim(0., tmax)
     ax.set_ylim(-1.1, 1.1)
     ax.set_xticklabels(())
@@ -516,7 +516,7 @@ def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, ftitle='F
 
 
     ax = fig.add_subplot(311)
-    ax.plot(time_gf, stream[1].data/maxv, 'k', label='East component', lw=0.75)
+    ax.plot(time_pw, stream[1].data/maxv, 'k', label='East component', lw=0.75)
     ax.set_xlim(0., tmax)
     ax.set_ylim(-1.1, 1.1)
     ax.set_xticklabels(())
