@@ -34,7 +34,6 @@ from obspy.core import Trace, Stream
 from obspy.signal.rotate import rotate_ne_rt
 from telewavesim import conf as cf 
 from telewavesim import elast as es
-from telewavesim import plane as pw
 from telewavesim.rmat_f import conf as cf_f
 from telewavesim.rmat_f import plane as pw_f
 
@@ -610,7 +609,7 @@ def read_model(modfile):
             print('\nFlag not defined: use either "iso", "tri" or one among\n')
             print(mins,rocks)
             print()
-            sys.exit()
+            raise(Exception())
 
     return
 
@@ -689,7 +688,7 @@ def obs2for():
     cf_f.rhof = cf.rhof
 
 
-def run_plane(fortran=False,obs=False):
+def run_plane(obs=False):
     """
     Function to run the ``plane`` module and return 3-component seismograms as an ``obspy``
     ``Stream`` object. 
@@ -706,40 +705,24 @@ def run_plane(fortran=False,obs=False):
     # Check if all variables are set. If not, throw an Exception and stop
     check_cf(obs)
 
-    # Fortran implementation
-    if fortran:
+    # Pass  variables to Fortran conf
+    model2for()
+    wave2for()
 
-        # Pass  variables to Fortran conf
-        model2for()
-        wave2for()
+    # Run the ``plane`` module depending on land or OBS case.
+    if obs:
 
-        # Run the ``plane`` module depending on land or OBS case.
-        if obs:
+        # If OBS, then further pass OBS-related paramters to Fortran conf
+        obs2for()
 
-            # If OBS, then further pass OBS-related paramters to Fortran conf
-            obs2for()
+        # Get the waveforms for ``obs``case
+        ux, uy, uz = pw_f.plane_obs(cf.nt,cf.nlay,np.array(cf.wvtype, dtype='c'))
 
-            # Get the waveforms for ``obs``case
-            ux, uy, uz = pw_f.plane_obs(cf.nt,cf.nlay,np.array(cf.wvtype, dtype='c'))
-
-        else:
-
-            # Get the waveforms for ``land`` case
-            ux, uy, uz = pw_f.plane_land(cf.nt,cf.nlay,np.array(cf.wvtype, dtype='c'))
-
-    # Python implementation
     else:
 
-        # Run the ``plane`` module depending on land or OBS case.
-        if obs:
+        # Get the waveforms for ``land`` case
+        ux, uy, uz = pw_f.plane_land(cf.nt,cf.nlay,np.array(cf.wvtype, dtype='c'))
 
-            # Get the waveforms for ``obs``case
-            ux, uy, uz = pw.plane_obs()
-
-        else:
-
-            # Get the waveforms for ``land`` case
-            ux, uy, uz = pw.plane_land()
 
     # Transfer displacement seismograms to an ``obspy`` ``Stream`` object.
     trxyz = get_trxyz(ux, uy, uz)
