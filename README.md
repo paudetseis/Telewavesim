@@ -39,7 +39,7 @@ Also, the following packages are required:
 - [`pyfftw`](https://pyfftw.readthedocs.io/en/latest/)
 - [`fftw`](http://www.fftw.org)
 - [`lapack`](http://www.netlib.org/lapack)
-- A working `Fortran` compiler (e.g., GCC (gfortran))
+- A working `Fortran` compiler (e.g., `gfortran`, Intel (c) `ifort`, etc.)
 
 By  default, both `numpy` and `matplotlib` are installed as dependencies of `obspy`. 
 See below for full installation details.
@@ -49,7 +49,7 @@ See below for full installation details.
 There is more than one way to install the software. We highly recommend installing 
 the software and its dependencies using the `conda` package manager in a virtual environment. 
 However, we recognize that some users may prefer to use a different `Fortran` compiler 
-(e.g., Intel (c) Fortran), and we provide steps below to install the software using 
+(e.g., Intel (c) Fortran `ifort`), and we provide steps below to install the software using 
 a system-wide available `Fortran` compiler.
 
 Regardless of your choice, start with this step:
@@ -71,7 +71,6 @@ $ conda config --add channels conda-forge
 [conda environment](https://conda.io/docs/user-guide/tasks/manage-environments.html)
 where `telewavesim` can be installed along with its dependencies. 
 
-* Create a new environment and install all dependencies:
 ```bash
 $ conda create -n tws python=3.7 obspy pyfftw
 ```
@@ -88,7 +87,7 @@ $ conda activate tws
 Here, depending on your preference, you can further use `conda` to install the required Fortran 
 compiler and the `fftw` library (the `lapack` library will be already installed from the 
 previous steps) or use a pre-existing `Fortran` compiler 
-(see [Separate Fortran build](#separatefortranbuild)). Using a `conda` environment will
+(see [Separate Fortran build](#separatefortranbuild)). Using a `conda` environment 
 will point to the correct path for dynamic linking. On a MacOSX, the `gfortran` package is `gfortran_osx-64`; for Linux, the `gfortran` package is `gfortran_linux-64` (check out https://anaconda.org/search?q=gfortran for the available packages).
 
 - Install `gfortran` and the `fftw` library:
@@ -122,8 +121,7 @@ For `conda` users, we recommend creating and activating the `conda` environment 
 detailed above. 
 
 - You will need to use a system-wide available Fortran compiler (e.g., located in 
-`/usr/local/bin`), and independently download and install the `fftw` library 
-(http://www.fftw.org).
+`/usr/local/bin`), and independently download and install the `fftw` and `lapack`libraries.
 
 - Once this is done, edit the `setup.py` file to modify the content of `extra_link_args` in the `Extension` class to point to the location of your compiled `fftw` and `lapack` libraries. In the example below the libraries are installed in `/usr/local/lib`:
 
