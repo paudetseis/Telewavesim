@@ -6,13 +6,13 @@ version=open('version.txt').read().split()[0]
 ext = [Extension(name='telewavesim.rmat_f',
                 sources=['src/rmat.f90', 'src/rmat_sub.f90'],
                 extra_f90_compile_args=["-O3"],
-                # extra_link_args=["-lfftw3"])]
+                extra_link_args=["-lfftw3"])]
                 # For separate Fortran build, fftw and lapack libraries,
                 # change the location of the Library path where
                 # the `fftw3` and `lapack` libraries reside and uncomment the
                 # following line. Don't forget to 
                 # comment out the previous line above.
-                extra_link_args=["-L/usr/local/lib", "-lfftw3", "-llapack"])]
+                # extra_link_args=["-L/usr/local/lib", "-lfftw3", "-llapack"])]
 
 setup(
   name = 'telewavesim',
