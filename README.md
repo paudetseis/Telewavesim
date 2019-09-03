@@ -63,6 +63,7 @@ $ cd Telewavesim
 ### Conda installation
 
 - Add the `conda-forge` channel:
+
 ```bash
 $ conda config --add channels conda-forge
 ```
@@ -74,11 +75,15 @@ where `telewavesim` can be installed along with its dependencies.
 ```bash
 $ conda create -n tws python=3.7 obspy pyfftw
 ```
+
 * or create it from the `tws_env.yml` file:
+
 ```bash
 $ conda env create -f tws_env.yml
 ```
+
 * Activate the newly created environment:
+
 ```bash
 $ conda activate tws
 (tws) $
@@ -98,6 +103,7 @@ will point to the correct path for dynamic linking. On a MacOSX, the `gfortran` 
 
 You can check that the active Fortran compiler is the `conda` version residing in 
 the `tws` path:
+
 ```bash
 (tws) $ which gfortran
 ```
@@ -105,6 +111,7 @@ the `tws` path:
 Install the software using `pip`, or build and install from source
 
 - Using `pip`:
+
 ```bash
 (tws) $ pip install .
 ```
@@ -135,6 +142,7 @@ ext = [Extension(name='telewavesim.rmat_f',
 Install the software using `pip`, or build and install from source
 
 - Using `pip`:
+
 ```bash
 $ pip install .
 ```
