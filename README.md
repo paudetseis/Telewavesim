@@ -82,7 +82,7 @@ $ conda activate tws
 (tws) $
 ```
 
-### Installing usin `pip`
+### Installing using `pip`
 
 ```bash
 (tws) $ pip install .
