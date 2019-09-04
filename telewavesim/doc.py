@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 """
-Use the `telewaveim.documentation.install_documentation` function to copy all
+Use the `telewaveim.doc.install_doc` function to copy all
 Jupyter Notebooks and example data to a local directory.
 
 """

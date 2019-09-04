@@ -15,7 +15,7 @@ setup(
     author_email = 'pascal.audet@uottawa.ca',
     url = 'https://gitlab.com/uottawa-geophysics/SeismoPy/TeleWaveSim', 
     classifiers = [
-        'Development Status :: 0 - Alpha',
+        'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Fortran',
         'Programming Language :: Python :: 3.5',
