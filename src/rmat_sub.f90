@@ -137,7 +137,7 @@
 !
 ! Inverts eigen-vector matrix.
 !----------------------------------------------------------
-     SUBROUTINE xeveci(evec, eveci)
+      SUBROUTINE xeveci(evec, eveci)
       IMPLICIT NONE
 
       DOUBLE COMPLEX :: evec(6,6), eveci(6,6), wrk(6,6)
@@ -195,12 +195,12 @@
         q = (/qdp, qds, qds, qup, qus, qus/)
 
         N50 = dens-2.*mu*pp
-        N = DCMPLX(RESHAPE((/p1, p2, qdp, 2.*mu*p1*qdp, 2.*mu*p2*qdp, N50, &
-        p1, p2, -pp/qds, p1*N50/qds, p2*N50/qds, -2.*mu*pp, &
-        -p2, p1, 0.d0, -p2*qds*mu, p1*qds*mu, 0.d0, &
-        p1, p2, qup, 2.*mu*p1*qup, 2.*mu*p2*qup, N50, &
-        p1, p2, -pp/qus, p1*N50/qus, p2*N50/qus, -2.*mu*pp, &
-        -p2, p1, 0.d0, -p2*qus*mu, p1*qus*mu, 0.d0/), &
+        N = DCMPLX(RESHAPE((/p1, p2, qdp, 2.*mu*p1*qdp, 2.*mu*p2*qdp, &
+            N50, p1, p2, -pp/qds, p1*N50/qds, p2*N50/qds, -2.*mu*pp, &
+            -p2, p1, 0.d0, -p2*qds*mu, p1*qds*mu, 0.d0, &
+            p1, p2, qup, 2.*mu*p1*qup, 2.*mu*p2*qup, N50, &
+            p1, p2, -pp/qus, p1*N50/qus, p2*N50/qus, -2.*mu*pp, &
+            -p2, p1, 0.d0, -p2*qus*mu, p1*qus*mu, 0.d0/), &
             (/6,6/))) 
 !
 ! Normalize wrt displacements
@@ -442,7 +442,7 @@
         SUBROUTINE sort_evec(q, evec, n)
         IMPLICIT NONE
 
-        INTEGER :: n, i, j, index(n)
+        INTEGER :: n, i, j, indx(n)
         INTEGER :: imagpos(n), imagneg(n)
         INTEGER :: realpos(n), realneg(n)
         INTEGER :: nrp, nrn, nip, nin
@@ -512,7 +512,7 @@
             index(i+nip+nrp+nin) = realneg(nrn-i+1)
           END DO
 
-          CALL reorder_evec(evalr,evali,evecr,eveci,index,q,evec,n)
+          CALL reorder_evec(evalr,evali,evecr,eveci,indx,q,evec,n)
 
           RETURN
 
@@ -524,17 +524,18 @@
 !
 ! Reorders eigenvectors based on ordered indices.
 !----------------------------------------------------------
-      SUBROUTINE reorder_evec(evalr, evali, evecr, eveci, index, eval, evec, n)
+      SUBROUTINE reorder_evec(evalr, evali, evecr, eveci, indx, &
+                 eval, evec, n)
       IMPLICIT NONE
 
-      INTEGER :: n, index(n), j, k
+      INTEGER :: n, indx(n), j, k
       DOUBLE PRECISION :: evalr(n), evali(n), evecr(n,n), eveci(n,n)
       DOUBLE COMPLEX :: eval(n), evec(n,n)
         
         DO j = 1, n
-          eval(j) = DCMPLX(evalr(index(j)),evali(index(j)))
+          eval(j) = DCMPLX(evalr(indx(j)),evali(indx(j)))
           DO k = 1, n
-            evec(k,j) = DCMPLX(evecr(k,index(j)),eveci(k,index(j)))
+            evec(k,j) = DCMPLX(evecr(k,indx(j)),eveci(k,indx(j)))
           END DO
         END DO
 
@@ -555,11 +556,11 @@
 !
 ! Index should be pre-initialized with initial locations.
 !----------------------------------------------------------
-        SUBROUTINE sort_r(a, index, m, n)
+        SUBROUTINE sort_r(a, indx, m, n)
         IMPLICIT NONE
 
         INTEGER :: m, n
-        INTEGER :: index(n), j, pos, i, k
+        INTEGER :: indx(n), j, pos, i, k
         DOUBLE PRECISION :: a(m), val
         
           IF (n .le. 1) THEN
@@ -572,16 +573,16 @@
 !
           DO k = 1, n - 1
             DO j = 2, n
-              i = index(j)
+              i = indx(j)
               val = a(i)          
               pos = j
               IF (pos .gt. 1) THEN
-                IF (val .lt. a(index(pos-1))) THEN
-                  index(pos) = index(pos-1)
+                IF (val .lt. a(indx(pos-1))) THEN
+                  indx(pos) = indx(pos-1)
                   pos = pos-1
                 END IF
               END IF
-              index(pos) = i
+              indx(pos) = i
             END DO
           END DO
 

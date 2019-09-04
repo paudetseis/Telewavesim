@@ -292,7 +292,7 @@
 ! Python bindings
 !
 !f2py DOUBLE PRECISION, intent(in) :: p1, py, a, b, rhos
-!f2py DOUBLE COMPLEX, intent(out) :: RTmat(9)
+!f2py DOUBLE PRECISION, intent(out) :: RTmat(9)
 
         r0 = DBLE(0.d0)
         r1 = DBLE(1.d0)
@@ -392,11 +392,8 @@
 
       USE conf
       USE rmat
-      USE, intrinsic :: iso_c_binding
 
       IMPLICIT NONE
-
-      ! INCLUDE 'fftw3.f03'
 
       DOUBLE PRECISION :: p1, p2, psi
       DOUBLE COMPLEX :: omg, om0
@@ -404,7 +401,8 @@
       DOUBLE PRECISION :: time(nt)
       DOUBLE COMPLEX :: omega(int(nt/2)+1)
       DOUBLE COMPLEX :: tus(3,3), rus(3,3), tds(3,3), rds(3,3)
-      DOUBLE COMPLEX :: md(3,3), mu(3,3), nd(3,3), nu(3,3), Ruf0(3,3), ndi(3,3)
+      DOUBLE COMPLEX :: md(3,3), mu(3,3), nd(3,3), nu(3,3), Ruf0(3,3)
+      DOUBLE COMPLEX :: ndi(3,3)
       DOUBLE COMPLEX :: wup(3,int(nt/2)+1), wuv(3,int(nt/2)+1), wuh(3,int(nt/2)+1)
       DOUBLE COMPLEX :: y(3,nt), arr_in(nt)
       DOUBLE PRECISION :: ux(nt), uy(nt), uz(nt)
@@ -497,7 +495,8 @@
           IF (wvtype(1:1)=='P') THEN
               y(1:3,iw) = MATMUL(mu + MATMUL(md,Ruf0),wup(1:3,iw))
           ELSEIF (wvtype(1:2)=='Si') THEN
-              y(1:3,iw) = MATMUL(mu + MATMUL(md,Ruf0),0.5*(wuv(1:3,iw)+wuh(1:3,iw)))
+              y(1:3,iw) = MATMUL(mu + MATMUL(md,Ruf0),0.5*(wuv(1:3,iw) &
+                          + wuh(1:3,iw)))
           ELSE IF (wvtype(1:2)=='SV') THEN
               y(1:3,iw) = MATMUL(mu + MATMUL(md,Ruf0),wuv(1:3,iw))
           ELSE IF (wvtype(1:2)=='SH') THEN
@@ -551,11 +550,8 @@
 
       USE conf
       USE rmat
-      USE, intrinsic :: iso_c_binding
 
       IMPLICIT NONE
-
-      ! INCLUDE 'fftw3.f03'
 
       DOUBLE PRECISION :: p1, p2, psi
       DOUBLE COMPLEX :: omg, om0
@@ -580,7 +576,8 @@
 !
 ! R/T matrices for fluid-solid
 !
-      DOUBLE PRECISION :: tdpp, tdsp, rdpp, tupp, tups, rupp, rusp, rups, russ
+      DOUBLE PRECISION :: tdpp, tdsp, rdpp, tupp, tups, rupp, rusp, rups
+      DOUBLE PRECISION :: russ
       DOUBLE PRECISION :: RTmat(9)
       DOUBLE COMPLEX :: y(6,nt), F1(6,6), eye(3,3)
 !
@@ -682,15 +679,17 @@
         tupp = RTmat(4); tups = RTmat(5); rupp = RTmat(6)
         rusp = RTmat(7); rups = RTmat(8); russ = RTmat(9)
 
-        tu = DCMPLX(TRANSPOSE(RESHAPE((/tupp, tups, r0, r0, r0, r0, r0, r0, r0/),(/3,3/))))
-        td = DCMPLX(TRANSPOSE(RESHAPE((/tdpp, r0, r0, tdsp, r0, r0, r0, r0, r0/),(/3,3/))))
-        ru = DCMPLX(TRANSPOSE(RESHAPE((/rupp, rups, r0, rusp, russ, r0, r0, r0, r1/),(/3,3/))))
-        rd = DCMPLX(TRANSPOSE(RESHAPE((/rdpp, r0, r0, r0, r0, r0, r0, r0, r0/),(/3,3/))))
+        tu = DCMPLX(TRANSPOSE(RESHAPE((/tupp, tups, r0, r0, r0, r0, &
+             r0, r0, r0/),(/3,3/))))
+        td = DCMPLX(TRANSPOSE(RESHAPE((/tdpp, r0, r0, tdsp, r0, r0, &
+             r0, r0, r0/),(/3,3/))))
+        ru = DCMPLX(TRANSPOSE(RESHAPE((/rupp, rups, r0, rusp, russ, &
+             r0, r0, r0, r1/),(/3,3/))))
+        rd = DCMPLX(TRANSPOSE(RESHAPE((/rdpp, r0, r0, r0, r0, r0, r0, & 
+             r0, r0/),(/3,3/))))
 !        
 ! Assign upgoing and downgoing wavefields
 !
-        ! wu = d0
-        ! wd = d0
         wave = d0
 !        
 ! Assign displacement vector
