@@ -33,8 +33,7 @@
 
       IMPLICIT NONE
 
-      ! DOUBLE PRECISION, PARAMETER :: pi = 3.141592653589793d0
-      DOUBLE PRECISION, PARAMETER :: pi = DACOS(-1.d0)
+      DOUBLE PRECISION, PARAMETER :: pi = 3.141592653589793d0
       INTEGER, PARAMETER :: nlaymx = 30
 !
 ! Model parameters
@@ -388,7 +387,7 @@
 !
 ! Returns displacement traces for given model and slowness vector.
 !---------------------------------------------------------------------------
-      SUBROUTINE plane_land(nt, nlay, wvtype, ux, uy, uz) 
+      SUBROUTINE plane_land(nt, nlay, wvtype, yx, yy, yz) 
 
       USE conf
       USE rmat
@@ -404,8 +403,7 @@
       DOUBLE COMPLEX :: md(3,3), mu(3,3), nd(3,3), nu(3,3), Ruf0(3,3)
       DOUBLE COMPLEX :: ndi(3,3)
       DOUBLE COMPLEX :: wup(3,int(nt/2)+1), wuv(3,int(nt/2)+1), wuh(3,int(nt/2)+1)
-      DOUBLE COMPLEX :: y(3,nt), arr_in(nt)
-      DOUBLE PRECISION :: ux(nt), uy(nt), uz(nt)
+      DOUBLE COMPLEX :: y(3,nt), yx(nt), yy(nt), yz(nt)
       CHARACTER(len=2) :: wvtype
 
       INTEGER :: i, iw, n2
@@ -413,13 +411,9 @@
       DOUBLE COMPLEX :: tmp(3,3), d0
       DOUBLE PRECISION :: r0, r1
 !
-! fftw plan
-!
-      INTEGER*8 :: plan
-!
 ! Python bindings
 !
-!f2py DOUBLE PRECISION, intent(out) :: ux, uy, uz
+!f2py DOUBLE COMPLEX, intent(out) :: yx, yy, yz
 !f2py INTEGER, intent(in) :: nt, nlay
 !f2py intent(in) :: wvtype
 
@@ -512,24 +506,9 @@
         DO iw = n2+2, nt
           y(:,iw) = DCONJG(y(:,nt-iw+2))
         END DO
-!
-! Initialize fftw plan
-!
-        arr_in = d0
-        CALL dfftw_plan_dft_1d(plan,nt,arr_in,arr_in,-1,0)
-!
-! Execute fftw plan
-!
-        CALL dfftw_execute_dft(plan,y(1,:),y(1,:))
-        CALL dfftw_execute_dft(plan,y(2,:),y(2,:))
-        CALL dfftw_execute_dft(plan,y(3,:),y(3,:))
-        CALL dfftw_destroy_plan(plan)
-! 
-! Clean up and return arrays
-!
-        ux = REALPART(y(1,:))
-        uy = REALPART(y(2,:))
-        uz = -REALPART(y(3,:))
+        yx = y(1,:)
+        yy = y(2,:)
+        yz = y(3,:)
 
         RETURN
 
@@ -546,7 +525,7 @@
 !
 ! Returns displacement traces for given model and slowness vector.
 !---------------------------------------------------------------------------
-      SUBROUTINE plane_obs(nt, nlay, wvtype, ux, uy, uz)
+      SUBROUTINE plane_obs(nt, nlay, wvtype, yx, yy, yz)
 
       USE conf
       USE rmat
@@ -559,40 +538,35 @@
       DOUBLE PRECISION :: time(nt)
       DOUBLE COMPLEX :: omega(int(nt/2)+1)
       DOUBLE COMPLEX :: tus(3,3), rus(3,3), tds(3,3), rds(3,3)
-      DOUBLE PRECISION :: ux(nt), uy(nt), uz(nt)
       CHARACTER(len=2) :: wvtype
 !
 ! Workspace
 !
       INTEGER :: i, iw, n2, ipiv3(3), info
-      DOUBLE PRECISION :: up(3), uv(3), uh(3), rf(3,3), const(6)
+      DOUBLE PRECISION :: up(3), uv(3), uh(3), rf(3,3), cons(6)
       DOUBLE PRECISION :: a0, b0, rho0, h, qf, pp
       DOUBLE COMPLEX :: md(3,3), mu(3,3), nd(3,3), nu(3,3)
       DOUBLE COMPLEX :: tup(3,3), rdp(3,3), ruh(3,3), eu(3,3), ed(3,3)
       DOUBLE COMPLEX :: tu(3,3), ru(3,3), td(3,3), rd(3,3)
-      DOUBLE COMPLEX :: wave(6)!, wd(3,int(nt/2)+1)
+      DOUBLE COMPLEX :: wave(6)
       DOUBLE COMPLEX :: dum3_1(3,3), dum3_2(3,3)
-      DOUBLE COMPLEX :: arr_in(nt)
 !
 ! R/T matrices for fluid-solid
 !
       DOUBLE PRECISION :: tdpp, tdsp, rdpp, tupp, tups, rupp, rusp, rups
       DOUBLE PRECISION :: russ
       DOUBLE PRECISION :: RTmat(9)
-      DOUBLE COMPLEX :: y(6,nt), F1(6,6), eye(3,3)
+      DOUBLE COMPLEX :: F1(6,6), eye(3,3)
+      DOUBLE COMPLEX :: y(6,nt), yx(nt), yy(nt), yz(nt)
 !
 ! Workspace
 !
       DOUBLE COMPLEX :: d0, d1, di
       DOUBLE PRECISION :: r0, r1
 !
-! fftw plan
-!
-      INTEGER*8 plan
-!
 ! Python bindings
 !
-!f2py DOUBLE PRECISION, intent(out) :: ux, uy, uz
+!f2py DOUBLE COMPLEX, intent(out) :: yx, yy, yz
 !f2py INTEGER, intent(in) :: nt, nlay
 !f2py intent(in) :: wvtype
 
@@ -641,13 +615,13 @@
 ! Wave type
 !
         IF (wvtype(1:1)=='P') THEN
-          const = (/r0, r0, r0, r1, r0, r0/)
+          cons = (/r0, r0, r0, r1, r0, r0/)
         ELSE IF (wvtype(1:2)=='Si') THEN
-          const = (/r0, r0, r0, r0, 0.5d0*r1, 0.5d0*r1/)
+          cons = (/r0, r0, r0, r0, 0.5d0*r1, 0.5d0*r1/)
         ELSE IF (wvtype(1:2)=='SV') THEN
-          const = (/r0, r0, r0, r0, r1, r0/)
+          cons = (/r0, r0, r0, r0, r1, r0/)
         ELSE IF (wvtype(1:2)=='SH') THEN
-          const = (/r0, r0, r0, r0, r0, r1/)
+          cons = (/r0, r0, r0, r0, r0, r1/)
         ELSE 
           PRINT*,'Error - wave type can only be P, Si, SV or SH'
           RETURN
@@ -734,36 +708,22 @@
           dum3_2 = Tus
           CALL zgesv(3,3,dum3_1,3,ipiv3,dum3_2,3,info)
 
-          wave(4:6) = MATMUL(dum3_2,const(4:6))
+          wave(4:6) = MATMUL(dum3_2,cons(4:6))
           wave(1:3) = MATMUL(ruh,wave(4:6))
 
           y(:,iw) = MATMUL(F1,wave)
 
         END DO
+
 !
 ! Get displacements in time domain
 !
         DO iw = n2+2, nt
           y(:,iw) = DCONJG(y(:,nt-iw+2))
         END DO
-!
-! Initialize fftw plan
-!
-        arr_in = d0
-        CALL dfftw_plan_dft_1d(plan,nt,arr_in,arr_in,-1,0)
-!
-! Execute fftw plan
-!
-        CALL dfftw_execute_dft(plan,y(1,:),y(1,:))
-        CALL dfftw_execute_dft(plan,y(2,:),y(2,:))
-        CALL dfftw_execute_dft(plan,y(3,:),y(3,:))
-        CALL dfftw_destroy_plan(plan)
-! 
-! Clean up and return arrays
-!
-        ux = REALPART(y(1,:))
-        uy = REALPART(y(2,:))
-        uz = -REALPART(y(3,:))
+        yx = y(1,:)
+        yy = y(2,:)
+        yz = y(3,:)
 
         RETURN
 

@@ -710,22 +710,21 @@ def run_plane(obs=False):
         # If OBS, then further pass OBS-related paramters to Fortran conf
         obs2for()
 
-        # Get the waveforms for ``obs``case
-        ux, uy, uz = pw_f.plane_obs(cf.nt,cf.nlay,np.array(cf.wvtype, dtype='c'))
+        # Get the Fourier transform of seismograms for ``obs``case
+        yx, yy, yz = pw_f.plane_obs(cf.nt,cf.nlay,np.array(cf.wvtype, dtype='c'))
 
     else:
 
-        # Get the waveforms for ``land`` case
-        ux, uy, uz = pw_f.plane_land(cf.nt,cf.nlay,np.array(cf.wvtype, dtype='c'))
-
+        # Get the Fourier transform of seismograms for ``land`` case
+        yx, yy, yz = pw_f.plane_land(cf.nt,cf.nlay,np.array(cf.wvtype, dtype='c'))
 
     # Transfer displacement seismograms to an ``obspy`` ``Stream`` object.
-    trxyz = get_trxyz(ux, uy, uz)
+    trxyz = get_trxyz(yx, yy, yz)
 
     return trxyz
 
 
-def get_trxyz(ux, uy, uz):
+def get_trxyz(yx, yy, yz):
     """
     Function to store displacement seismograms into ``obspy`` ``Trace`` obsjects and 
     then an ``obspy`` ``Stream`` object. 
@@ -739,6 +738,11 @@ def get_trxyz(ux, uy, uz):
         (obspy.stream): trxyz: Stream containing 3-component displacement seismograms
 
     """
+
+    # Get displacements in time domain
+    ux = np.real(pyfftw.interfaces.numpy_fft.fft(yx))
+    uy = np.real(pyfftw.interfaces.numpy_fft.fft(yy))
+    uz = -np.real(pyfftw.interfaces.numpy_fft.fft(yz))
 
     # Store in traces
     tux = Trace(data=ux)

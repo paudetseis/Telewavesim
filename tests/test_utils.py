@@ -4,11 +4,9 @@ from telewavesim import conf as cf
 from telewavesim import utils as ut
 from telewavesim.rmat_f import conf as cf_f
 
+from conftest import load_params
 
-def test_model2for_conf():
-    modfile='test_model_Audet2016.txt'
-    ut.read_model(modfile)
-    ut.model2for()
+def test_model2for_conf(load_params):
 
     error_msg = "Failed! Python model conf values are {} and Fortran conf values are {}".format(
         [cf.a, cf.rho, cf.thickn],[cf_f.a[:,:,:,:,0:cf.nlay], cf_f.rho[0:cf.nlay], cf_f.thickn[0:cf.nlay]])
@@ -16,11 +14,7 @@ def test_model2for_conf():
     assert np.all(cf.rho==cf_f.rho[0:cf.nlay]), error_msg
     assert np.all(cf.thickn==cf_f.thickn[0:cf.nlay]), error_msg
 
-def test_wave2for_conf():
-    cf.dt = 0.1
-    cf.slow = 0.04
-    cf.baz = 0.
-    ut.wave2for()
+def test_wave2for_conf(load_params):
 
     error_msg = "Failed! Python wave conf values are {} and Fortran conf values are {}".format(
         [cf.dt, cf.slow, cf.baz],[cf_f.dt, cf_f.slow, cf_f.baz])
@@ -28,9 +22,7 @@ def test_wave2for_conf():
     assert cf.slow==cf_f.slow, error_msg
     assert cf.baz==cf_f.baz, error_msg
 
-def test_obs2for_conf():
-    cf.dp = 1000.
-    ut.obs2for()
+def test_obs2for_conf(load_params):
 
     error_msg = "Failed! Python obs conf values are {} and Fortran conf values are {}".format(
         [cf.dp, cf.c, cf.rhof],[cf_f.dp, cf_f.c, cf_f.rhof])

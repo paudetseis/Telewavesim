@@ -4,9 +4,7 @@ from numpy.distutils.core import setup, Extension
 version=open('version.txt').read().split()[0]
 
 ext = [Extension(name='telewavesim.rmat_f',
-                sources=['src/rmat.f90', 'src/rmat_sub.f90'],
-                extra_f90_compile_args=['-O3'],
-                extra_link_args=['-L/usr/local/lib', '-lfftw3'])]
+                sources=['src/rmat.f90', 'src/rmat_sub.f90'])]
 
 setup(
     name = 'telewavesim',

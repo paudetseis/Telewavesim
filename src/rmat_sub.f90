@@ -500,16 +500,16 @@
 ! Assemble sub-ranges
 !
           DO i = 1, nip
-            index(i) = imagpos(i)
+            indx(i) = imagpos(i)
           END DO
           DO i = 1, nrp
-            index(i+nip) = realpos(i)
+            indx(i+nip) = realpos(i)
           END DO
           DO i = 1, nin
-            index(i+nip+nrp) = imagneg(nin-i+1)
+            indx(i+nip+nrp) = imagneg(nin-i+1)
           END DO
           DO i = 1, nrn
-            index(i+nip+nrp+nin) = realneg(nrn-i+1)
+            indx(i+nip+nrp+nin) = realneg(nrn-i+1)
           END DO
 
           CALL reorder_evec(evalr,evali,evecr,eveci,indx,q,evec,n)
@@ -549,12 +549,12 @@
 !
 ! Sort an array of n real-valued elements, from 
 ! smallest (most negative) to largest (most positive). 
-! Actual elements aren't moved -- index returns new positions. 
+! Actual elements aren't moved -- indx returns new positions. 
 ! Uses a basic algorithm (insertion sort) since we're sorting 
 ! few elements. m is the number of elements in a; n is the 
-! number of elements in index (n <= m).
+! number of elements in indx (n <= m).
 !
-! Index should be pre-initialized with initial locations.
+! Indx should be pre-initialized with initial locations.
 !----------------------------------------------------------
         SUBROUTINE sort_r(a, indx, m, n)
         IMPLICIT NONE

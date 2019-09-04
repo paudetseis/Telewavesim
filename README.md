@@ -24,133 +24,80 @@ workflows are covered in the Jupyter notebooks bundled with this package.
 
 ## Navigation / Notebooks
 
-Included in this package is a set of Jupyter Notebooks, which give examples on how to call the various routines and obtain plane wave seismograms and receiver functions. The Notebooks desribe how to reproduce published examples of synthetic data from [Audet (2016)](#references) and [Porter et al. (2011)](#references).
+Included in this package is a set of Jupyter Notebooks, which give examples on how to call the various routines and obtain plane wave seismograms and receiver functions. The Notebooks describe how to reproduce published examples of synthetic data from [Audet (2016)](#references) and [Porter et al. (2011)](#references).
 
 - [sim_obs_Audet2016.ipynb](./examples/Notebooks/sim_obs_Audet2016.ipynb): Example plane wave seismograms and P receiver functions for OBS data from [Audet (2016)](#Audet).
 - [sim_Prfs_Porter2011.ipynb](./examples/Notebooks/sim_Prfs_Porter2011.ipynb): Example P receiver functions from [Porter et al. (2011)](#Porter)
 - [sim_SKS.ipynb](./examples/Notebooks/sim_SKS.ipynb): Example plane wave seismograms for SKS splitting studies.
 
-## Dependencies
+These notebooks can be installed (in a local folder `Notebooks`) from the package by running:
+
+```python
+import telewavesim.doc as doc
+doc.install_doc(path='Notebooks')
+```
+
+## Installation
+
+### Dependencies
 
 The current version was developed using **Python3.7**
 Also, the following packages are required:
 
+- [`gfortran`](https://gcc.gnu.org/wiki/GFortran) (or any Fortran compiler)
 - [`obspy`](https://github.com/obspy/obspy/wiki)
 - [`pyfftw`](https://pyfftw.readthedocs.io/en/latest/)
-- [`fftw`](http://www.fftw.org)
-- [`lapack`](http://www.netlib.org/lapack)
-- A working `Fortran` compiler (e.g., `gfortran`, Intel (c) `ifort`, etc.)
 
 By  default, both `numpy` and `matplotlib` are installed as dependencies of `obspy`. 
-See below for full installation details.
 
-## Installation
-
-There is more than one way to install the software. We highly recommend installing 
-the software and its dependencies using the `conda` package manager in a virtual environment. 
-However, we recognize that some users may prefer to use a different `Fortran` compiler 
-(e.g., Intel (c) Fortran `ifort`), and we provide steps below to install the software using 
-a system-wide available `Fortran` compiler.
-
-Regardless of your choice, start with this step:
+### Download the software 
 
 - Clone the repository:
+
 ```bash
 $ git clone https://github.com/paudetseis/Telewavesim.git
 $ cd Telewavesim
 ```
 
-### Conda installation
+### Conda environment
 
-- Add the `conda-forge` channel:
-
-```bash
-$ conda config --add channels conda-forge
-```
-
-- We advise creating a custom 
+- We recommend creating a custom 
 [conda environment](https://conda.io/docs/user-guide/tasks/manage-environments.html)
 where `telewavesim` can be installed along with its dependencies. 
 
 ```bash
-$ conda create -n tws python=3.7 obspy pyfftw
+$ conda create -n tws python=3.7 obspy pyfftw -c conda-forge
 ```
 
-* or create it from the `tws_env.yml` file:
+- or create it from the `tws_env.yml` file:
 
 ```bash
 $ conda env create -f tws_env.yml
 ```
 
-* Activate the newly created environment:
+- Activate the newly created environment:
 
 ```bash
 $ conda activate tws
 (tws) $
 ```
 
-Here, depending on your preference, you can further use `conda` to install the required Fortran 
-compiler and the `fftw` library (the `lapack` library will be already installed from the 
-previous steps) or use a pre-existing `Fortran` compiler 
-(see [Separate Fortran build](#separatefortranbuild)). Using a `conda` environment 
-will point to the correct path for dynamic linking. On a MacOSX, the `gfortran` package is `gfortran_osx-64`; for Linux, the `gfortran` package is `gfortran_linux-64` (check out https://anaconda.org/search?q=gfortran for the available packages).
-
-- Install `gfortran` and the `fftw` library:
-
-```bash
-(tws) $ conda install gfortran_osx-64 fftw
-```
-
-You can check that the active Fortran compiler is the `conda` version residing in 
-the `tws` path:
-
-```bash
-(tws) $ which gfortran
-```
-
-Install the software using `pip`, or build and install from source
-
-- Using `pip`:
+### Installing usin `pip`
 
 ```bash
 (tws) $ pip install .
 ```
-- Build and install the project:
+
+## Usage
+
+Telewavesim consists of Python wrappers around Fortran routines that return the Fourier transform of displacement seismograms in three components (see `Jupyter` notebooks for details). The Python modules can be used to define new elastic stiffness matrices or change the input parameters for the Fortran subroutines. Python modules are available for post-processing as well (e.g., calculation of receiver functions).
+
+A series of tests are located in the ``tests`` subdirectory. In order to perform these tests, clone the reposotiry and run `pytest` (`conda install pytest` if needed):
 
 ```bash
-(tws) $ python setup.py build 
-(tws) $ python setup.py install
-```
-
-### Separate Fortran build
-
-For `conda` users, we recommend creating and activating the `conda` environment as 
-detailed above. 
-
-- You will need to use a system-wide available Fortran compiler (e.g., located in 
-`/usr/local/bin`), and independently download and install the `fftw` and `lapack`libraries.
-
-- Once this is done, edit the `setup.py` file to modify the content of `extra_link_args` in the `Extension` class to point to the location of your compiled `fftw` and `lapack` libraries. In the example below the libraries are installed in `/usr/local/lib`:
-
-```python
-ext = [Extension(name='telewavesim.rmat_f',
-                 sources=['src/rmat.f90', 'src/rmat_sub.f90'],
-                 extra_f90_compile_args=["-O3"],
-                 extra_link_args=["-L/usr/local/lib", "-lfftw3", "-llapack"])]
-```
-
-Install the software using `pip`, or build and install from source
-
-- Using `pip`:
-
-```bash
-$ pip install .
-```
-- Build and install the project:
-
-```bash
-$ python setup.py build 
-$ python setup.py install
+git checkout https://github.com/paudetseis/Telewavesim.git
+cd Telewavesim
+pytest -v
 ```
 
 ---
@@ -158,6 +105,7 @@ $ python setup.py install
 
 If you are actively working on the code, or making frequent edits, it is advisable to perform 
 the ``pip`` installation with the `-e` flag: 
+
 ```bash
 pip install -e .
 ```
