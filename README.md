@@ -108,7 +108,7 @@ pip install telewavesim
 
 ### Installing from source
 
-First clone the repository:
+Download or clone the repository:
 ```bash
 git clone https://github.com/paudetseis/Telewavesim.git
 cd Telewavesim
@@ -140,7 +140,7 @@ package available on the system.
 
 Telewavesim consists of Python wrappers around Fortran routines that return the Fourier transform of displacement seismograms in three components (see `Jupyter` notebooks for details). The Python modules can be used to define new elastic stiffness matrices or change the input parameters for the Fortran subroutines. Python modules are available for post-processing as well (e.g., calculation of receiver functions).
 
-A series of tests are located in the ``tests`` subdirectory. In order to perform these tests, clone the reposotiry and run `pytest` (`conda install pytest` if needed):
+A series of tests are located in the ``tests`` subdirectory. In order to perform these tests, clone the repository and run `pytest` (`conda install pytest` if needed):
 
 ```bash
 git checkout https://github.com/paudetseis/Telewavesim.git
