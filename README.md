@@ -22,6 +22,8 @@ for stochastic inverse methods (e.g., Monte Carlo sampling). The main part of th
 code is written in `fortran` with `python` wrappers. Common computational 
 workflows are covered in the Jupyter notebooks bundled with this package.
 
+[![DOI](https://zenodo.org/badge/204565459.svg)](https://zenodo.org/badge/latestdoi/204565459)
+
 ## Navigation / Notebooks
 
 Included in this package is a set of Jupyter Notebooks, which give examples on how to call the various routines and obtain plane wave seismograms and receiver functions. The Notebooks describe how to reproduce published examples of synthetic data from [Audet (2016)](#references) and [Porter et al. (2011)](#references).
