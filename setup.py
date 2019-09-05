@@ -6,13 +6,13 @@ ext = [Extension(name='telewavesim.rmat_f',
 
 setup(
     name                = 'telewavesim',
-    version             = '0.0.8',
+    version             = '0.1.0',
     description         = 'Python package for teleseismic body-wave modeling',
     author              = 'Pascal Audet, Colin J. Thomson, Michael G. Bostock',
     maintainer          = 'Pascal Audet',
     author_email        = 'pascal.audet@uottawa.ca',
     url                 = 'https://github.com/paudetseis/Telewavesim', 
-    download_url        = 'https://github.com/paudetseis/Telewavesim/archive/0.0.8.tar.gz',
+    download_url        = 'https://github.com/paudetseis/Telewavesim/archive/0.1.0.tar.gz',
     classifiers         = [
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',
