@@ -50,20 +50,44 @@ Also, the following packages are required:
 
 By  default, both `numpy` and `matplotlib` are installed as dependencies of `obspy`. 
 
-### Download the software 
+### Installing using pip
 
-- Clone the repository:
+You can install `telewavesim` using the [`pip package manager`](https://pypi.org/project/pip/):
+
+```bash
+pip install telewavesim
+```
+All the dependencies will be automatically installed by `pip`.
+
+### Installing with conda
+
+You can install `telewavesim` using the [conda package manager](https://conda.io).
+Its required dependencies can be easily installed with:
+
+```bash
+conda install obspy pyfftw -c conda-forge
+```
+
+Then `telewavesim` can be installed with `pip`:
+
+```bash
+pip install telewavesim
+```
+
+#### Conda environment
+
+We recommend creating a custom 
+[conda environment](https://conda.io/docs/user-guide/tasks/manage-environments.html)
+where `telewavesim` can be installed along with its dependencies. 
+
+Clone the repository:
 
 ```bash
 $ git clone https://github.com/paudetseis/Telewavesim.git
 $ cd Telewavesim
 ```
 
-### Conda environment
-
-- We recommend creating a custom 
-[conda environment](https://conda.io/docs/user-guide/tasks/manage-environments.html)
-where `telewavesim` can be installed along with its dependencies. 
+- Create a environment called `tws` and install all dependencies:
 
 ```bash
 $ conda create -n tws python=3.7 obspy pyfftw -c conda-forge
@@ -75,17 +99,17 @@ $ conda create -n tws python=3.7 obspy pyfftw -c conda-forge
 $ conda env create -f tws_env.yml
 ```
 
-- Activate the newly created environment:
+Activate the newly created environment:
 
 ```bash
 $ conda activate tws
 (tws) $
 ```
 
-### Installing using `pip`
+Install `telewavesim` with `pip`:
 
 ```bash
-(tws) $ pip install .
+pip install telewavesim
 ```
 
 ## Usage
@@ -104,7 +128,7 @@ pytest -v
 **NOTE**
 
 If you are actively working on the code, or making frequent edits, it is advisable to perform 
-the ``pip`` installation with the `-e` flag: 
+installation from source using ``pip`` with the `-e` flag: 
 
 ```bash
 pip install -e .
