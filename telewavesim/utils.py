@@ -584,8 +584,8 @@ def read_model(modfile):
     cf.Tdi = np.zeros((3,3,cf.nlay),dtype=complex)
     cf.Rdi = np.zeros((3,3,cf.nlay),dtype=complex)
 
-    mins = ['atg', 'bt', 'cpx', 'dol', 'grt', 'gln', 'hbl', 'jade',\
-            'lz', 'ms', 'ol', 'opx', 'plag', 'qtz', 'zo']
+    mins = ['atg', 'bt', 'cpx', 'dol', 'ep', 'grt', 'gln', 'hbl', 'jade',\
+            'lws', 'lz', 'ms', 'ol', 'opx', 'plag', 'qtz', 'zo']
 
     rocks = ['BS_f', 'BS_m', 'EC_f', 'EC_m', 'HB', 'LHZ', 'SP_37', 'SP_80']
 

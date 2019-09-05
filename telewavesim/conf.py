@@ -47,8 +47,8 @@ Variables are:
 
     ``obs parameters``:
         - dp (float, optional): Deployment depth below sea level (km)
-        - c (float): P-wave velocity of salt water (default = 10500 km/s)
-        - rhof (float): Density of salt water (default = 1027 kg/m^3)
+        - c (float): P-wave velocity of salt water (default = ``1050.0`` km/s)
+        - rhof (float): Density of salt water (default = ``1027.0`` kg/m^3)
 
 """
 

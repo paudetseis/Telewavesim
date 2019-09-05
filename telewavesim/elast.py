@@ -30,10 +30,25 @@ import numpy as np
 
 def iso_tensor(a, b):
     """
-    Elastic constants of isotropic material in Voigt notation
+    Elastic constants (GPa /density) of isotropic material in Voigt notation
+
+    Args:
+        a (float): P-wave velocity (km/s)
+        b (float): S-wave velocity (km/s)
 
     Returns:
-        (np.ndarray): C: Elastic stifness matrix (shape ``(6, 6)``)
+        (np.ndarray): C: Elastic stiffness matrix (shape ``(6, 6)``)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.iso_tensor(6.e3, 3.6e3)
+    array([[36000000., 10080000., 10080000.,        0.,        0.,        0.],
+           [10080000., 36000000., 10080000.,        0.,        0.,        0.],
+           [10080000., 10080000., 36000000.,        0.,        0.,        0.],
+           [       0.,        0.,        0., 12960000.,        0.,        0.],
+           [       0.,        0.,        0.,        0., 12960000.,        0.],
+           [       0.,        0.,        0.,        0.,        0., 12960000.]])
 
     """
 
@@ -59,11 +74,22 @@ def iso_tensor(a, b):
 
 def tri_tensor(AA,CC,FF,LL,NN):
     """
-    Elastic constants of transversely isotropic material in Voigt notation \
+    Elastic constants (GPa /density) of transversely isotropic material in Voigt notation \
     (hexagonal symmetry). See Porter et al. (2011) for details.
 
+    Args:
+        AA (float): elastic modulus (GPa /density)
+        CC (float): elastic modulus (GPa /density)
+        FF (float): elastic modulus (GPa /density)
+        LL (float): elastic modulus (GPa /density)
+        NN (float): elastic modulus (GPa /density)
+
     Returns:
-        (np.ndarray): a: Elastic stifness matrix (shape ``(6, 6)``)
+        (np.ndarray): a: Elastic tensor (shape ``(3, 3, 3, 3)``)
+
+    Note:
+        Using ``tri_tensor`` does not make sense on its own. 
+        Use it with ``telewavesim.utils.set_tri_tensor``
 
     """
 
@@ -105,12 +131,26 @@ def antigorite():
     Elastic constants of antigorite mineral (GPa) from
     Bezacier, EPSL, 2010, in Voigt notation.
 
-    Density: 2620 (kg/m^3)
+    - Abbreviation: ``'atg'``
 
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (2620 kg/m^3)
+
+    Example
+    -------
+    
+    >>> from telewavesim import elast
+    >>> elast.antigorite()[0]
+    array([[208.4,  66.2,  15.9,   0. ,   2.4,   0. ],
+           [ 66.2, 201.6,   5. ,   0. ,  -4.4,   0. ],
+           [ 15.9,   5. ,  96.7,   0. ,   2.5,   0. ],
+           [  0. ,   0. ,   0. ,  17.4,   0. , -13.1],
+           [  2.4,  -4.4,   2.5,   0. ,  18.3,   0. ],
+           [  0. ,   0. ,   0. , -13.1,   0. ,  65. ]])
+    >>> elast.antigorite()[1]
+    2620.0
 
     """
 
@@ -132,10 +172,26 @@ def biotite():
     Elastic constants of biotite mineral (GPa) from
     Aleksandrov and Ryzhova (1986), in Voigt notation
 
+    - Abbreviation: ``'bt'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (2800 kg/m^3)
+
+    Example
+    -------
+
+    >>> from telewavesim import elast
+    >>> elast.biotite()[0]
+    array([[186. ,  32.4,  11.6,   0. ,   0. ,   0. ],
+           [ 32.4, 186. ,  11.6,   0. ,   0. ,   0. ],
+           [ 11.6,  11.6,  54. ,   0. ,   0. ,   0. ],
+           [  0. ,   0. ,   0. ,   5.8,   0. ,   0. ],
+           [  0. ,   0. ,   0. ,   0. ,   5.8,   0. ],
+           [  0. ,   0. ,   0. ,   0. ,   0. ,  76.8]])
+    >>> elast.biotite()[1]
+    2800.0
 
     """
 
@@ -157,10 +213,31 @@ def blueschist_felsic():
     Elastic constants of Felsic Blueschist (GPa) from
     Cao et al. (2013), in Voigt notation
 
+    - Abbreviation: ``'BS_f'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (2970 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.blueschist_felsic()[0]
+    array([[ 1.4985e+02,  3.8700e+01,  3.2590e+01, -1.5000e-01, -1.0000e+00,
+            -1.9000e-01],
+           [ 3.8700e+01,  1.6355e+02,  3.0030e+01,  1.0500e+00, -1.8100e+00,
+            -1.7800e+00],
+           [ 3.2590e+01,  3.0030e+01,  1.2162e+02,  2.2000e-01, -9.5000e-01,
+            -1.3000e-01],
+           [-1.5000e-01,  1.0500e+00,  2.2000e-01,  4.8030e+01, -6.3000e-01,
+            -1.1400e+00],
+           [-1.0000e+00, -1.8100e+00, -9.5000e-01, -6.3000e-01,  4.8620e+01,
+            -1.0000e-02],
+           [-1.9000e-01, -1.7800e+00, -1.3000e-01, -1.1400e+00, -1.0000e-02,
+             5.8420e+01]])
+    >>> elast.blueschist_felsic()[1]
+    2970.0
 
     """
 
@@ -182,10 +259,31 @@ def blueschist_mafic():
     Elastic constants of Mafic Blueschist (GPa) from
     Cao et al. (2013), in Voigt notation
 
+    - Abbreviation: ``'BS_m'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3190 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.blueschist_mafic()[0]
+    array([[ 1.9079e+02,  6.2280e+01,  5.2940e+01, -4.4000e-01,  4.6800e+00,
+             6.0000e-01],
+           [ 6.2280e+01,  2.1838e+02,  5.3100e+01, -8.7000e-01,  1.5700e+00,
+             2.8000e-01],
+           [ 5.2940e+01,  5.3100e+01,  1.5804e+02, -4.4000e-01,  2.6600e+00,
+            -3.5000e-01],
+           [-4.4000e-01, -8.7000e-01, -4.4000e-01,  6.0860e+01, -2.9000e-01,
+             1.8600e+00],
+           [ 4.6800e+00,  1.5700e+00,  2.6600e+00, -2.9000e-01,  5.8940e+01,
+            -2.0000e-01],
+           [ 6.0000e-01,  2.8000e-01, -3.5000e-01,  1.8600e+00, -2.0000e-01,
+             6.9630e+01]])
+    >>> elast.blueschist_mafic()[1]
+    3190.0
 
     """
 
@@ -207,10 +305,25 @@ def clinopyroxene_92():
     Elastic constants of clinopyroxene mineral (GPa) from
     Baghat et al. (1992), in Voigt notation
 
+    - Abbreviation: ``'cpx'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3327 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.clinopyroxene_92()[0]
+    array([[257.3,  85.9,  76.2,   0. ,   7.1,   0. ],
+           [ 85.9, 216.2,  71.8,   0. ,  13.3,   0. ],
+           [ 76.2,  71.8, 260.2,   0. ,  33.7,   0. ],
+           [  0. ,   0. ,   0. ,  80.2,   0. ,  10.2],
+           [  7.1,  13.3,  33.7,   0. ,  70.6,   0. ],
+           [  0. ,   0. ,   0. ,  10.2,   0. ,  85.8]])
+    >>> elast.clinopyroxene_92()[1]
+    3327.0
 
     """
 
@@ -232,10 +345,25 @@ def clinopyroxene_98():
     Elastic constants of clinopyroxene mineral (GPa) from
     Collins and Brown (1998), in Voigt notation
 
+    - Abbreviation: ``None``: not currently used
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3190 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.clinopyroxene_98()[0]
+    array([[237.8,  83.5,  80. ,   0. ,   9. ,   0. ],
+           [ 83.5, 183.6,  59.9,   0. ,   9.5,   0. ],
+           [ 80. ,  59.9, 229.5,   0. ,  48.1,   0. ],
+           [  0. ,   0. ,   0. ,  76.5,   0. ,   8.4],
+           [  9. ,   9.5,  48.1,   0. ,  73. ,   0. ],
+           [  0. ,   0. ,   0. ,   8.4,   0. ,  81.6]])
+    >>> elast.clinopyroxene_98()[1]
+    3190.0
 
     """
 
@@ -257,11 +385,25 @@ def dolomite():
     Elastic constants of dolomite mineral (GPa) from
     Humbert and Plicque (1972), in Voigt notation
 
+    - Abbreviation: ``'dol'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (2840 kg/m^3)
 
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.dolomite()[0]
+    array([[205. ,  71. ,  57.4, -19.5,  13.7,   0. ],
+           [ 71. , 205. ,  57.4,  19.5, -13.7,   0. ],
+           [ 57.4,  57.4, 113. ,   0. ,   0. ,   0. ],
+           [-19.5,  19.5,   0. ,  39.8,   0. , -13.7],
+           [ 13.7, -13.7,   0. ,   0. ,  39.8, -19.5],
+           [  0. ,   0. ,   0. , -13.7, -19.5,  67. ]])
+    >>> elast.dolomite()[1]
+    2840.0
     """
 
     rho = 2840.
@@ -282,10 +424,31 @@ def eclogite_foliated():
     Elastic constants of Foliated Eclogite rock (GPa) from
     Cao et al. (2013), in Voigt notation
 
+    - Abbreviation: ``'EC_f'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3300 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.eclogite_foliated()[0]
+    array([[ 2.0345e+02,  6.7760e+01,  6.4470e+01,  8.0000e-02,  1.9000e+00,
+            -4.0000e-01],
+           [ 6.7760e+01,  2.2058e+02,  6.3650e+01,  4.6000e-01,  5.9000e-01,
+             6.0000e-02],
+           [ 6.4470e+01,  6.3650e+01,  1.8975e+02,  1.3000e-01,  9.5000e-01,
+            -2.0000e-01],
+           [ 8.0000e-02,  4.6000e-01,  1.3000e-01,  6.6320e+01, -2.7000e-01,
+             7.3000e-01],
+           [ 1.9000e+00,  5.9000e-01,  9.5000e-01, -2.7000e-01,  6.5770e+01,
+            -2.0000e-02],
+           [-4.0000e-01,  6.0000e-02, -2.0000e-01,  7.3000e-01, -2.0000e-02,
+             7.0750e+01]])
+    >>> elast.eclogite_foliated()[1]
+    3300.0
 
     """
 
@@ -307,10 +470,31 @@ def eclogite_massive():
     Elastic constants of Massive Eclogite rock (GPa) from
     Cao et al. (2013), in Voigt notation
 
+    - Abbreviation: ``'EC_m'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3490 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.eclogite_massive()[0]
+    array([[ 2.3885e+02,  8.2010e+01,  8.1440e+01,  3.0000e-01, -2.0000e-02,
+             5.0000e-01],
+           [ 8.2010e+01,  2.4212e+02,  8.1110e+01, -6.6000e-01,  3.3000e-01,
+             1.2000e-01],
+           [ 8.1440e+01,  8.1110e+01,  2.3557e+02, -2.8000e-01,  2.2000e-01,
+             3.1000e-01],
+           [ 3.0000e-01, -6.6000e-01, -2.8000e-01,  7.8720e+01,  2.7000e-01,
+             0.0000e+00],
+           [-2.0000e-02,  3.3000e-01,  2.2000e-01,  2.7000e-01,  7.8370e+01,
+             2.5000e-01],
+           [ 5.0000e-01,  1.2000e-01,  3.1000e-01,  0.0000e+00,  2.5000e-01,
+             7.7910e+01]])
+    >>> elast.eclogite_massive()[1]
+    3490.0
 
     """
 
@@ -332,14 +516,29 @@ def epidote():
     Elastic constants of epidote mineral (GPa) from
     Aleksandrakov et al. (1974), in Voigt notation
 
+    - Abbreviation: ``'ep'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3465 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.epidote()[0]
+    array([[211.5,  65.6,  43.2,   0. ,  -6.5,   0. ],
+           [ 65.6, 239. ,  43.6,   0. , -10.4,   0. ],
+           [ 43.2,  43.6, 202.1,   0. , -20. ,   0. ],
+           [  0. ,   0. ,   0. ,  39.1,   0. ,  -2.3],
+           [ -6.5, -10.4, -20. ,   0. ,  43.4,   0. ],
+           [  0. ,   0. ,   0. ,  -2.3,   0. ,  79.5]])
+    >>> elast.epidote()[1]
+    3465.0
 
     """
 
-    rho = 3465
+    rho = 3465.
 
     C = np.zeros((6,6), dtype=float)
     C[0,0] = 211.5;     C[0,1] = 65.6;      C[0,2] = 43.2;      C[0,3] = 0.;        C[0,4] = -6.5;      C[0,5] = 0.
@@ -357,10 +556,25 @@ def garnet():
     Elastic constants of garnet mineral (GPa) from
     Babuska et al. (1978), in Voigt notation
 
+    - Abbreviation: ``'grt'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3660 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.garnet()[0]
+    array([[306.2, 112.5, 112.5,   0. ,   0. ,   0. ],
+           [112.5, 306.2, 112.5,   0. ,   0. ,   0. ],
+           [112.5, 112.5, 306.2,   0. ,   0. ,   0. ],
+           [  0. ,   0. ,   0. ,  92.7,   0. ,   0. ],
+           [  0. ,   0. ,   0. ,   0. ,  92.7,   0. ],
+           [  0. ,   0. ,   0. ,   0. ,   0. ,  92.7]])
+    >>> elast.garnet()[1]
+    3660.0
 
     """
 
@@ -382,10 +596,25 @@ def glaucophane():
     Elastic constants of glaucophane mineral (GPa) from
     Bezacier et al. (2010), in Voigt notation
 
+    - Abbreviation: ``'gln'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3070 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.glaucophane()[0]
+    array([[122.3 ,  45.7 ,  37.2 ,   0.  ,   2.3 ,   0.  ],
+           [ 45.7 , 231.5 ,  74.9 ,   0.  ,  -4.8 ,   0.  ],
+           [ 37.2 ,  74.9 , 254.6 ,   0.  ,  -2.37,   0.  ],
+           [  0.  ,   0.  ,   0.  ,  79.6 ,   0.  ,   8.9 ],
+           [  2.3 ,  -4.8 ,  -2.37,   0.  ,  52.8 ,   0.  ],
+           [  0.  ,   0.  ,   0.  ,   8.9 ,   0.  ,  51.2 ]])
+    >>> elast.glaucophane()[1]
+    3070.0
 
     """
 
@@ -407,10 +636,25 @@ def harzburgite():
     Elastic constants of harzburgite rock (GPa) from
     Covey-Crump et al. (2003), in Voigt notation
 
+    - Abbreviation: ``'HB'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3200 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.harzburgite()[0]
+    array([[226.5 ,  75.34,  74.73,  -0.27,  -2.  ,   1.85],
+           [ 75.34, 242.8 ,  73.68,  -3.6 ,  -1.91,   4.14],
+           [ 74.73,  73.68, 230.  ,  -4.36,  -4.27,  -0.27],
+           [ -0.27,  -3.6 ,  -4.36,  80.75,   1.81,  -2.19],
+           [ -2.  ,  -1.91,  -4.27,   1.81,  76.94,  -1.88],
+           [  1.85,   4.14,  -0.27,  -2.19,  -1.88,  79.15]])
+    >>> elast.harzburgite()[1]
+    3200.0
 
     """
 
@@ -432,10 +676,25 @@ def hornblende():
     Elastic constants of hornblende mineral (GPa) from
     Aleksandrov and Ryzhova (1986), in Voigt notation
 
+    - Abbreviation: ``'hbl'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3200 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.hornblende()[0]
+    array([[116. ,  49.9,  61.4,   0. ,   4.3,   0. ],
+           [ 49.9, 159.7,  65.5,   0. ,  -2.5,   0. ],
+           [ 61.4,  65.5, 191.6,   0. ,  10. ,   0. ],
+           [  0. ,   0. ,   0. ,  57.4,   0. ,  -6.2],
+           [  4.3,  -2.5,  10. ,   0. ,  31.8,   0. ],
+           [  0. ,   0. ,   0. ,  -6.2,   0. ,  36.8]])
+    >>> elast.hornblende()[1]
+    3200.0
 
     """
 
@@ -446,7 +705,7 @@ def hornblende():
     C[1,0] = C[0,1];    C[1,1] = 159.7;     C[1,2] = 65.5;      C[1,3] = 0.;        C[1,4] = -2.5;      C[1,5] = 0.
     C[2,0] = C[0,2];    C[2,1] = C[1,2];    C[2,2] = 191.6;     C[2,3] = 0.;        C[2,4] = 10.;       C[2,5] = 0.
     C[3,0] = C[0,3];    C[3,1] = C[1,3];    C[3,2] = C[2,3];    C[3,3] = 57.4;      C[3,4] = 0.;        C[3,5] = -6.2
-    C[4,0] = C[0,4];    C[4,1] = C[1,4];    C[4,2] = C[2,4];    C[4,3] = C[3,4];    C[4,4] = 31,8;      C[4,5] = 0.
+    C[4,0] = C[0,4];    C[4,1] = C[1,4];    C[4,2] = C[2,4];    C[4,3] = C[3,4];    C[4,4] = 31.8;      C[4,5] = 0.
     C[5,0] = C[0,5];    C[5,1] = C[1,5];    C[5,2] = C[2,5];    C[5,3] = C[3,5];    C[5,4] = C[4,5];    C[5,5] = 36.8
 
     return C, rho
@@ -457,10 +716,25 @@ def jadeite():
     Elastic constants of jadeite mineral (GPa) from
     Kandelin and Weiner (1988), in Voigt notation
 
+    - Abbreviation: ``'jade'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3330 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.jadeite()[0]
+    array([[274.,  94.,  71.,   0.,   4.,   0.],
+           [ 94., 253.,  82.,   0.,  14.,   0.],
+           [ 71.,  82., 282.,   0.,  28.,   0.],
+           [  0.,   0.,   0.,  88.,   0.,  13.],
+           [  4.,  14.,  28.,   0.,  65.,   0.],
+           [  0.,   0.,   0.,  13.,   0.,  94.]])
+    >>> elast.jadeite()[1]
+    3330.0
 
     """
 
@@ -482,10 +756,25 @@ def lawsonite():
     Elastic constants of jadeite mineral (GPa) from
     Kandelin and Weiner (1988), in Voigt notation
 
+    - Abbreviation: ``'lws'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3090 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.lawsonite()[0]
+    array([[214.,  69.,  82.,   0.,   0.,   0.],
+           [ 69., 226.,  65.,   0.,   0.,   0.],
+           [ 82.,  65., 259.,   0.,   0.,   0.],
+           [  0.,   0.,   0.,  60.,   0.,   0.],
+           [  0.,   0.,   0.,   0.,  65.,   0.],
+           [  0.,   0.,   0.,   0.,   0.,  17.]])
+    >>> elast.lawsonite()[1]
+    3090.0
 
     """
 
@@ -507,10 +796,31 @@ def lherzolite():
     Elastic constants of lherzolite rock (GPa) from
     Peselnick et al. (1974), in Voigt notation
 
+    - Abbreviation: ``'LHZ'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3270 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.lherzolite()[0]
+    array([[ 1.8740e+02,  6.3710e+01,  6.3870e+01,  7.8000e-01,  2.0200e+00,
+            -3.2000e+00],
+           [ 6.3710e+01,  2.1125e+02,  6.4500e+01, -3.0700e+00,  8.7000e-01,
+            -5.7800e+00],
+           [ 6.3870e+01,  6.4500e+01,  1.9000e+02,  3.8000e-01,  2.3800e+00,
+            -1.2000e-01],
+           [ 7.8000e-01, -3.0700e+00,  3.8000e-01,  6.7900e+01, -2.1200e+00,
+             1.6000e+00],
+           [ 2.0200e+00,  8.7000e-01,  2.3800e+00, -2.1200e+00,  6.3120e+01,
+            -5.5000e-01],
+           [-3.2000e+00, -5.7800e+00, -1.2000e-01,  1.6000e+00, -5.5000e-01,
+             6.6830e+01]])
+    >>> elast.lherzolite()[1]
+    3270.0
 
     """
 
@@ -532,10 +842,31 @@ def lizardite_atom():
     Elastic constants of lizardite mineral (GPa) from
     Auzende et al., Phys. Chem. Min. 2006 from atomistic calculations.
 
+    - Abbreviation: ``None``: Not currently used.
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (2515 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.lizardite_atom()[0]
+    array([[ 2.29080e+02,  8.90440e+01,  1.35580e+01, -1.00000e-04,
+             4.60250e+00,  1.00000e-04],
+           [ 8.90440e+01,  2.29080e+02,  1.35570e+01, -1.00000e-04,
+            -4.60160e+00,  1.00000e-04],
+           [ 1.35580e+01,  1.35570e+01,  4.58380e+01, -1.00000e-04,
+             1.50000e-03,  1.00000e-04],
+           [-1.00000e-04, -1.00000e-04, -1.00000e-04,  1.27650e+01,
+            -1.00000e-04, -4.45980e+00],
+           [ 4.60250e+00, -4.60160e+00,  1.50000e-03, -1.00000e-04,
+             1.27740e+01,  1.00000e-04],
+           [ 1.00000e-04,  1.00000e-04,  1.00000e-04, -4.45980e+00,
+             1.00000e-04,  7.00166e+01]])
+    >>> elast.lizardite_atom()[1]
+    2515.5
 
     """
 
@@ -557,10 +888,25 @@ def lizardite():
     Elastic constants of lizardite mineral (GPa) from
     Reynard, GRL, 2007 from Density Functional Theory.
 
+    - Abbreviation: ``'lz'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (2610 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.lizardite()[0]
+    array([[245. ,  50. ,  31. ,   0. ,   0. ,   0. ],
+           [ 50. , 245. ,  31. ,   0. ,   0. ,   0. ],
+           [ 31. ,  31. ,  23. ,   0. ,   0. ,   0. ],
+           [  0. ,   0. ,   0. ,  11.6,   0. ,   0. ],
+           [  0. ,   0. ,   0. ,   0. ,  11.6,   0. ],
+           [  0. ,   0. ,   0. ,   0. ,   0. ,  97.5]])
+    >>> elast.lizardite()[1]
+    2610.0
 
     """
 
@@ -582,10 +928,25 @@ def muscovite():
     Elastic constants of muscovite mineral (GPa) from
     Vaughan and Guggenheim (1986), in Voigt notation
 
+    - Abbreviation: ``'ms'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (2834 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.muscovite()[0]
+    array([[181. ,  48.8,  25.6,   0. , -14.2,   0. ],
+           [ 48.8, 178.4,  21.2,   0. ,   1.1,   0. ],
+           [ 25.6,  21.2,  58.6,   0. ,   1. ,   0. ],
+           [  0. ,   0. ,   0. ,  16.5,   0. ,  -5.2],
+           [-14.2,   1.1,   1. ,   0. ,  19.5,   0. ],
+           [  0. ,   0. ,   0. ,  -5.2,   0. ,  72. ]])
+    >>> elast.muscovite()[1]
+    2834.0
 
     """
 
@@ -607,10 +968,25 @@ def olivine():
     Elastic constants of olivine mineral (GPa) from
     Abrahamson et al. (1997), in Voigt notation
 
+    - Abbreviation: ``'ol'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3355 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.olivine()[0]
+    array([[320.5 ,  68.15,  71.6 ,   0.  ,   0.  ,   0.  ],
+           [ 68.15, 196.5 ,  76.8 ,   0.  ,   0.  ,   0.  ],
+           [ 71.6 ,  76.8 , 233.5 ,   0.  ,   0.  ,   0.  ],
+           [  0.  ,   0.  ,   0.  ,  64.  ,   0.  ,   0.  ],
+           [  0.  ,   0.  ,   0.  ,   0.  ,  77.  ,   0.  ],
+           [  0.  ,   0.  ,   0.  ,   0.  ,   0.  ,  78.7 ]])
+    >>> elast.olivine()[1]
+    3355.0
 
     """
 
@@ -632,10 +1008,25 @@ def orthopyroxene():
     Elastic constants of orthopyroxene mineral (GPa) from
     Chai et al. (1977), in Voigt notation
 
+    - Abbreviation: ``'opx'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3304 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.orthopyroxene()[0]
+    array([[236.9,  79.6,  63.2,   0. ,   0. ,   0. ],
+           [ 79.6, 180.5,  56.8,   0. ,   0. ,   0. ],
+           [ 63.2,  56.8, 230.4,   0. ,   0. ,   0. ],
+           [  0. ,   0. ,   0. ,  84.3,   0. ,   0. ],
+           [  0. ,   0. ,   0. ,   0. ,  79.4,   0. ],
+           [  0. ,   0. ,   0. ,   0. ,   0. ,  80.1]])
+    >>> elast.orthopyroxene()[1]
+    3304.0
 
     """
 
@@ -657,10 +1048,25 @@ def plagioclase_64():
     Elastic constants of plagioclase mineral (GPa) from
     Ryzhova (1964), in Voigt notation
 
+    - Abbreviation: ``None``: Not currently used.
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (2700 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.plagioclase_64()[0]
+    array([[ 81.8,  39.3,  40.7,   0. ,  -9. ,   0. ],
+           [ 39.3, 145. ,  34.1,   0. ,  -7.9,   0. ],
+           [ 40.7,  34.1, 133. ,   0. , -18.5,   0. ],
+           [  0. ,   0. ,   0. ,  17.7,   0. ,  -0.8],
+           [ -9. ,  -7.9, -18.5,   0. ,  31.2,   0. ],
+           [  0. ,   0. ,   0. ,  -0.8,   0. ,  33.3]])
+    >>> elast.plagioclase_64()[1]
+    2700.0
 
     """
 
@@ -682,10 +1088,25 @@ def plagioclase_06():
     Elastic constants of plagioclase mineral (GPa) from
     Brown et al. (2006), in Voigt notation
 
+    - Abbreviation: ``'plag'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (2700 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.plagioclase_06()[0]
+    array([[ 69.9  ,  33.24 ,  31.56 ,   5.28 ,  -2.46 ,  -0.72 ],
+           [ 33.24 , 183.28 ,   7.53 ,   5.31 ,  -7.6  ,  -0.423],
+           [ 31.56 ,   7.53 , 175.65 , -17.48 ,   5.86 , -11.29 ],
+           [  5.28 ,   5.31 , -17.48 ,  26.93 ,  -3.94 ,  -6.56 ],
+           [ -2.46 ,  -7.6  ,   5.86 ,  -3.94 ,  26.91 ,   0.98 ],
+           [ -0.72 ,  -0.423, -11.29 ,  -6.56 ,   0.98 ,  33.39 ]])
+    >>> elast.plagioclase_06()[1]
+    2700.0
 
     """
 
@@ -707,10 +1128,25 @@ def quartz():
     Elastic constants of quartz mineral (GPa) from
     Lakshanov et al. (2007), in Voigt notation
 
+    - Abbreviation: ``'qtz'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (2649 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.quartz()[0]
+    array([[ 86.9,   7.6,  12. ,  17.8,   0. ,   0. ],
+           [  7.6,  86.9,  12. , -17.8,   0. ,   0. ],
+           [ 12. ,  12. , 106.4,   0. ,   0. ,   0. ],
+           [ 17.8, -17.8,   0. ,  59.5,   0. ,   0. ],
+           [  0. ,   0. ,   0. ,   0. ,  59.5, -17.8],
+           [  0. ,   0. ,   0. ,   0. , -17.8,  39.6]])
+    >>> elast.quartz()[1]
+    2649.0
 
     """
 
@@ -731,13 +1167,34 @@ def serpentinite_37():
     """
     Elastic constants of serpentinite rock sample HPS-M (GPa) from
     Watanabe et al., 2011, in Voigt notation.
-    Mineralogy: Ol (57.7%), Atg (36.9%), Trm (4.5%), Mgt (1.1%)
-    Density: 3000
+    
+    - Mineralogy: ``Ol`` (57.7%), ``Atg`` (36.9%), ``Trm`` (4.5%), ``Mgt`` (1.1%)
+
+    - Abbreviation: ``'SP_37'``
 
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3000 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.serpentinite_37()[0]
+    array([[ 2.0552e+02,  6.6360e+01,  6.2290e+01, -1.0000e-01, -1.4800e+00,
+             3.8600e+00],
+           [ 6.6360e+01,  1.9579e+02,  6.2530e+01, -3.7000e-01,  2.0000e-01,
+             1.5400e+00],
+           [ 6.2290e+01,  6.2530e+01,  1.9330e+02, -1.7800e+00, -2.4000e-01,
+             8.3000e-01],
+           [-1.0000e-01, -3.7000e-01, -1.7800e+00,  6.6170e+01,  1.4700e+00,
+            -5.7000e-01],
+           [-1.4800e+00,  2.0000e-01, -2.4000e-01,  1.4700e+00,  6.4700e+01,
+            -8.4000e-01],
+           [ 3.8600e+00,  1.5400e+00,  8.3000e-01, -5.7000e-01, -8.4000e-01,
+             6.7830e+01]])
+    >>> elast.serpentinite_37()[1]
+    3000.0
 
     """
 
@@ -759,12 +1216,33 @@ def serpentinite_80():
     Elastic constants of serpentinite rock sample HKB-B (GPa) from
     Watanabe et al., 2011, in Voigt notation
     
-    Mineralogy: Ol (12.0%), Atg (80.2%), Mgt (7.8%)
+    - Mineralogy: ``Ol`` (12.0%), ``Atg`` (80.2%), ``Mgt`` (7.8%)
+
+    - Abbreviation: ``'SP_80'``
 
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (2800 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.serpentinite_80()[0]
+    array([[ 1.9225e+02,  4.9350e+01,  4.1700e+01, -4.5500e+00,  8.0400e+00,
+             9.7800e+00],
+           [ 4.9350e+01,  1.5690e+02,  4.2360e+01, -6.9100e+00,  7.1000e-01,
+             1.8400e+00],
+           [ 4.1700e+01,  4.2360e+01,  1.4162e+02, -4.2800e+00,  1.1100e+00,
+             1.9000e-01],
+           [-4.5500e+00, -6.9100e+00, -4.2800e+00,  5.3480e+01,  1.0000e-02,
+            -6.0000e-02],
+           [ 8.0400e+00,  7.1000e-01,  1.1100e+00,  1.0000e-02,  5.1910e+01,
+            -3.7200e+00],
+           [ 9.7800e+00,  1.8400e+00,  1.9000e-01, -6.0000e-02, -3.7200e+00,
+             5.9130e+01]])
+    >>> elast.serpentinite_80()[1]
+    2800.0
 
     """
 
@@ -786,10 +1264,25 @@ def zoisite():
     Elastic constants of zoisite mineral (GPa) from
     Mao et al. (2007), in Voigt notation
 
+    - Abbreviation: ``'zo'``
+
     Returns:
         (tuple): tuple containing:
-            * C (np.ndarray): Elastic stifness matrix (shape ``(6, 6)``)
+            * C (np.ndarray): Elastic stiffness matrix (shape ``(6, 6)``)
             * rho (float): Density (3343 kg/m^3)
+
+    Example
+    -------
+    >>> from telewavesim import elast
+    >>> elast.zoisite()[0]
+    array([[279.8,  94.7,  88.7,   0. ,   0. ,   0. ],
+           [ 94.7, 249.2,  27.5,   0. ,   0. ,   0. ],
+           [ 88.7,  27.5, 209.4,   0. ,   0. ,   0. ],
+           [  0. ,   0. ,   0. ,  51.8,   0. ,   0. ],
+           [  0. ,   0. ,   0. ,   0. ,  81.4,   0. ],
+           [  0. ,   0. ,   0. ,   0. ,   0. ,  66.3]])
+    >>> elast.zoisite()[1]
+    3343.0
 
     """
 

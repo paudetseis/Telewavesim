@@ -44,7 +44,7 @@ def install_doc(path="./Telewavesim-Examples"):
     """
 
     Notebooks_Path = _pkg_resources.resource_filename(
-        "telewavesim", "../examples")
+        "telewavesim", "examples")
     
 
     ct = _dir_util.copy_tree(
