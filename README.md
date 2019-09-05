@@ -23,6 +23,7 @@ code is written in `fortran` with `python` wrappers. Common computational
 workflows are covered in the Jupyter notebooks bundled with this package.
 
 [![DOI](https://zenodo.org/badge/204565459.svg)](https://zenodo.org/badge/latestdoi/204565459)
+[![PyPI version](https://badge.fury.io/py/telewavesim.svg)](https://badge.fury.io/py/telewavesim)
 
 ## Navigation / Notebooks
 
