@@ -8,7 +8,7 @@ ext = [Extension(name='telewavesim.rmat_f',
 
 setup(
     name = 'telewavesim',
-    version = '0.0.4',
+    version = '0.0.5',
     description = 'Python package for teleseismic body-wave modeling',
     author = 'Pascal Audet, Colin J. Thomson, Michael G. Bostock',
     maintainer = 'Pascal Audet',
