@@ -1,19 +1,20 @@
 import setuptools
 from numpy.distutils.core import setup, Extension
 
-version=open('version.txt').read().split()[0]
+# version=open('version.txt').read().split()[0]
 
 ext = [Extension(name='telewavesim.rmat_f',
                 sources=['src/rmat.f90', 'src/rmat_sub.f90'])]
 
 setup(
     name = 'telewavesim',
-    version = version,
+    version = '0.0.4',
     description = 'Python package for teleseismic body-wave modeling',
     author = 'Pascal Audet, Colin J. Thomson, Michael G. Bostock',
     maintainer = 'Pascal Audet',
     author_email = 'pascal.audet@uottawa.ca',
-    url = 'https://gitlab.com/uottawa-geophysics/SeismoPy/TeleWaveSim', 
+    url = 'https://github.com/paudetseis/Telewavesim', 
+    download_url = 'https://github.com/paudetseis/Telewavesim/archive/0.0.4.tar.gz',
     classifiers = [
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',
