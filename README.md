@@ -80,22 +80,17 @@ We recommend creating a custom
 [conda environment](https://conda.io/docs/user-guide/tasks/manage-environments.html)
 where `telewavesim` can be installed along with its dependencies. 
 
-Clone the repository:
-
-```bash
-git clone https://github.com/paudetseis/Telewavesim.git
-cd Telewavesim
-```
-
 - Create a environment called `tws` and install all dependencies:
 
 ```bash
 conda create -n tws python=3.7 obspy pyfftw -c conda-forge
 ```
 
-- or create it from the `tws_env.yml` file:
+- or create it from the `tws_env.yml` file by first cloning the repository:
 
 ```bash
+git clone https://github.com/paudetseis/Telewavesim.git
+cd Telewavesim
 conda env create -f tws_env.yml
 ```
 
