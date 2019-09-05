@@ -52,7 +52,7 @@ By  default, both `numpy` and `matplotlib` are installed as dependencies of `obs
 
 ### Installing using pip
 
-You can install `telewavesim` using the [`pip package manager`](https://pypi.org/project/pip/):
+You can install `telewavesim` using the [pip package manager](https://pypi.org/project/pip/):
 
 ```bash
 pip install telewavesim
@@ -83,27 +83,26 @@ where `telewavesim` can be installed along with its dependencies.
 Clone the repository:
 
 ```bash
-$ git clone https://github.com/paudetseis/Telewavesim.git
-$ cd Telewavesim
+git clone https://github.com/paudetseis/Telewavesim.git
+cd Telewavesim
 ```
 
 - Create a environment called `tws` and install all dependencies:
 
 ```bash
-$ conda create -n tws python=3.7 obspy pyfftw -c conda-forge
+conda create -n tws python=3.7 obspy pyfftw -c conda-forge
 ```
 
 - or create it from the `tws_env.yml` file:
 
 ```bash
-$ conda env create -f tws_env.yml
+conda env create -f tws_env.yml
 ```
 
 Activate the newly created environment:
 
 ```bash
-$ conda activate tws
-(tws) $
+conda activate tws
 ```
 
 Install `telewavesim` with `pip`:
