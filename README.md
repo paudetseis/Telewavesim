@@ -33,7 +33,7 @@ Included in this package is a set of Jupyter Notebooks, which give examples on h
 These notebooks can be installed (in a local folder `Notebooks`) from the package by running:
 
 ```python
-import telewavesim.doc as doc
+from telewavesim import doc
 doc.install_doc(path='Notebooks')
 ```
 
@@ -86,10 +86,10 @@ where `telewavesim` can be installed along with its dependencies.
 conda create -n tws python=3.7 obspy pyfftw -c conda-forge
 ```
 
-- or create it from the `tws_env.yml` file by first cloning the repository:
+- or create it from the `tws_env.yml` file by first checking out the repository:
 
 ```bash
-git clone https://github.com/paudetseis/Telewavesim.git
+git checkout https://github.com/paudetseis/Telewavesim.git
 cd Telewavesim
 conda env create -f tws_env.yml
 ```
@@ -106,6 +106,36 @@ Install `telewavesim` with `pip`:
 pip install telewavesim
 ```
 
+### Installing from source
+
+First clone the repository:
+```bash
+git clone https://github.com/paudetseis/Telewavesim.git
+cd Telewavesim
+```
+
+Next we recommend following the steps for creating a `conda` environment (see above). Then install using `pip`:
+
+```bash
+pip install .
+``` 
+
+---
+**NOTE**
+
+If you are actively working on the code, or making frequent edits, it is advisable to perform 
+installation from source with the `-e` flag: 
+
+```bash
+pip install -e .
+```
+
+This enables an editable installation, where symbolic links are used rather than straight 
+copies. This means that any changes made in the local folders will be reflected in the 
+package available on the system.
+
+---
+
 ## Usage
 
 Telewavesim consists of Python wrappers around Fortran routines that return the Fourier transform of displacement seismograms in three components (see `Jupyter` notebooks for details). The Python modules can be used to define new elastic stiffness matrices or change the input parameters for the Fortran subroutines. Python modules are available for post-processing as well (e.g., calculation of receiver functions).
@@ -118,21 +148,6 @@ cd Telewavesim
 pytest -v
 ```
 
----
-**NOTE**
-
-If you are actively working on the code, or making frequent edits, it is advisable to perform 
-installation from source using ``pip`` with the `-e` flag: 
-
-```bash
-pip install -e .
-```
-
-This enables an editable installation, where symbolic links are used rather than straight 
-copies. This means that any changes made in the local folders will be reflected in the 
-package available on the system.
-
----
 
 ## References
 1. Audet, P. (2016). Receiver functions using OBS data: promises and limitations from numerical modelling and examples from the Cascadia Initiative. Geophysical Journal International, 205, 1740-1755. https://doi.org/10.1093/gji/ggw111

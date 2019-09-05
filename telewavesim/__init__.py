@@ -116,9 +116,9 @@ Once the previous steps are performed, you can install ``telewavesim`` using pip
 
 """
 # -*- coding: utf-8 -*-
-from .doc import install_doc
-from . import elast
-from . import conf
-from . import utils
-from . import wiggle
-from .rmat_f import *
+# from .doc import install_doc
+# from . import elast
+# from . import conf
+# from . import utils
+# from . import wiggle
+# from .rmat_f import *
