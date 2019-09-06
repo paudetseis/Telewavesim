@@ -167,6 +167,9 @@ cd Telewavesim
 pytest -v
 ```
 
+### API Documentation
+
+The API for all functions in `telewavesim` can be accessed from https://paudetseis.github.io/Telewavesim/.
 
 ## References
 1. Audet, P. (2016). Receiver functions using OBS data: promises and limitations from numerical modelling and examples from the Cascadia Initiative. Geophysical Journal International, 205, 1740-1755. https://doi.org/10.1093/gji/ggw111
