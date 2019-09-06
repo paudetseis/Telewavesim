@@ -47,7 +47,7 @@ def set_iso_tensor(a, b):
         b (float): S-wave velocity (km/s)
 
     Returns:
-        (np.ndarray): cc: Elastic stiffness matrix in Voigt components (GPa) \
+        (np.ndarray): cc: Elastic tensor (GPa /density) \
         (shape ``(3, 3, 3, 3)``)
 
     """
@@ -76,9 +76,8 @@ def set_tri_tensor(a, b, tr, pl, ani):
         ani (float): Percent anisotropy 
 
     Returns:
-        (np.ndarray): cc: Elastic stiffness matrix in Voigt components (GPa) \
+        (np.ndarray): cc: Elastic tensor (GPa /density) \
         (shape ``(3, 3, 3, 3)``)
-
 
     """
 
@@ -123,7 +122,7 @@ def set_aniso_tensor(tr, pl, typ='atg'):
 
     Returns:
         (tuple): Tuple containing:
-            * cc (np.ndarray): Elastic stiffness matrix in Voigt components (GPa)\
+            * cc (np.ndarray): Elastic tensor (GPa /density)\
             (shape ``(3, 3, 3, 3)``)
             * rho (float): Density (kg/m^3)
 
@@ -215,7 +214,7 @@ def full_3x3_to_Voigt_6_index(i, j):
 def voigt2cc(C):
     """
     Convert the Voigt representation of the stiffness matrix to the full
-    3x3x3x3 representation.
+    3x3x3x3 tensor representation.
 
     Args:
         C (np.ndarray): Stiffness matrix (shape ``(6, 6)``)
@@ -236,8 +235,8 @@ def voigt2cc(C):
 
 def cc2voigt(cc):
     """
-    Convert from the full 3x3x3x3 representation of the stiffness matrix
-    to the representation in Voigt notation. 
+    Convert from the full 3x3x3x3 tensor representation
+    to the Voigt notation of the stiffness matrix. 
 
     Args:
         cc (np.ndarray): Elastic tensor (shape ``(3, 3, 3, 3)``)
@@ -280,6 +279,15 @@ def VRH_average(C):
             * Kvrh (float):   Voigt-Reuss-Hill average bulk modulus (GPa)
             * Gvrh (float):   Voigt-Reuss-Hill average shear modulus (GPa)
 
+    Example
+    -------
+    >>> from telewavesim import utils
+    >>> cc, rho = utils.set_aniso_tensor(0., 0., typ='atg')
+    >>> C = utils.cc2voigt(cc)
+    >>> utils.VRH_average(C*rho)
+    (75655555555.555557, 48113333333.333336, 61245706544.967415, 28835098086.844658, 
+    68450631050.26149, 38474215710.088997)
+
     """
 
     # Compliance matrix
@@ -315,8 +323,18 @@ def mod2vel(K,G,rho):
     Returns:
         (tuple): tuple containing:
 
-            * Vp (float): P-wave velocity (km/s)
-            * Vs (float): S-wave velocity (km/s)
+            * Vp (float): P-wave velocity (m/s)
+            * Vs (float): S-wave velocity (m/s)
+
+    Example
+    -------
+    >>> from telewavesim import utils
+    >>> cc, rho = utils.set_aniso_tensor(0., 0., typ='atg')
+    >>> C = utils.cc2voigt(cc)
+    >>> K, G = utils.VRH_average(C*rho)[4:6]
+    >>> utils.mod2vel(K, G, rho)
+    (6760.617471753726, 3832.0771334254896)
+
     """
 
     Vp = np.sqrt((K + 4.*G/3.)/rho)
@@ -507,13 +525,44 @@ def stack_all(st1, st2, pws=False):
 
 def calc_ttime(slow):
     """
-    Calculates total propagation time through model.
+    Calculates total propagation time through model. The 
+    bottom layer is irrelevant in this calculation.
+
+    .. note::
+
+       The ``conf`` global variables need to be set for this calculation
+       to succeed. This is typically ensured through reading of the
+       model file from the function ``utils.read_model(modfile)``, 
+       and setting the variable ``conf.wvtype``
 
     Args:
         slow (float): Slowness value (s/km)
 
     Returns:
         (float): t1: Time in seconds
+
+    Example
+    -------
+    >>> from telewavesim import conf
+    >>> from telewavesim import utils
+    >>> import numpy as np
+    >>> cc, rho = utils.set_aniso_tensor(0., 0., typ='atg')
+    >>> # Define two-layer model model with identical material
+    >>> conf.nlay = 2
+    >>> conf.a = np.zeros((3,3,3,3,conf.nlay))
+    >>> conf.rho = np.zeros((conf.nlay))
+    >>> conf.thickn = np.zeros((conf.nlay))
+    >>> # Pass variables to the `conf` module
+    >>> # Only topmost layer is useful for travel time calculation
+    >>> conf.isoflg = ['atg']
+    >>> conf.a[:,:,:,:,0] = cc
+    >>> conf.rho[0] = rho
+    >>> conf.thickn[0] = 10.
+    >>> conf.wvtype = 'P'
+    >>> slow = 0.06     # s/km
+    >>> utils.calc_ttime(slow)
+    0.0013519981570791182
+
     """
 
 
@@ -687,6 +736,12 @@ def run_plane(obs=False):
     """
     Function to run the ``plane`` module and return 3-component seismograms as an ``obspy``
     ``Stream`` object. 
+
+    .. note:: 
+
+       The ``conf`` global variables need to be set for this calculation
+       to succeed. This function first checks to make sure the variables are all set
+       before executing the main ``telewavesim.rmat_f.plane_****`` function. 
 
     Args:
         fortran (book, option): Whether or not the Fortran modules are used

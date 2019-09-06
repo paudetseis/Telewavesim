@@ -6,6 +6,6 @@
 .ipynb_checkpoints
 __pycache__
 *.egg-info
+paper.*
 build
 dist
-doc
