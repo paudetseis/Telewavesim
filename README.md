@@ -25,35 +25,6 @@ workflows are covered in the Jupyter notebooks bundled with this package.
 [![DOI](https://zenodo.org/badge/204565459.svg)](https://zenodo.org/badge/latestdoi/204565459)
 [![PyPI version](https://badge.fury.io/py/telewavesim.svg)](https://badge.fury.io/py/telewavesim)
 
-## Navigation / Notebooks
-
-Included in this package is a set of Jupyter Notebooks, which give examples on how to call the various routines and obtain plane wave seismograms and receiver functions. The Notebooks describe how to reproduce published examples of synthetic data from [Audet (2016)](#references) and [Porter et al. (2011)](#references).
-
-- [sim_obs_Audet2016.ipynb](./telewavesim/examples/Notebooks/sim_obs_Audet2016.ipynb): Example plane wave seismograms and P receiver functions for OBS data from [Audet (2016)](#Audet).
-- [sim_Prfs_Porter2011.ipynb](./telewavesim/examples/Notebooks/sim_Prfs_Porter2011.ipynb): Example P receiver functions from [Porter et al. (2011)](#Porter)
-- [sim_SKS.ipynb](./telewavesim/examples/Notebooks/sim_SKS.ipynb): Example plane wave seismograms for SKS splitting studies.
-
-After [installing `telewaveim`](#installation), these notebooks can be locally installed (i.e., in a local folder `Notebooks`) from the package by running:
-
-```python
-from telewavesim import doc
-doc.install_doc(path='Notebooks')
-```
-
-To run the notebooks you will have to further install `jupyter`:
-
-```bash
-conda install jupyter
-```
-
-Then ```cd Notebooks``` and type:
-
-```bash
-jupyter notebook
-```
-
-You can then save the notebooks as `python` scripts, check out the model files and you should be good to go!
-
 ## Installation
 
 ### Dependencies
@@ -153,11 +124,42 @@ package available on the system.
 
 ---
 
-## Usage
+## Usage 
 
-Telewavesim consists of Python wrappers around Fortran routines that return the Fourier transform of displacement seismograms in three components (see `Jupyter` notebooks for details). The Python modules can be used to define new elastic stiffness matrices or change the input parameters for the Fortran subroutines. Python modules are available for post-processing as well (e.g., calculation of receiver functions).
+### Jupyter Notebooks
+
+Included in this package is a set of Jupyter Notebooks, which give examples on how to call the various routines and obtain plane wave seismograms and receiver functions. The Notebooks describe how to reproduce published examples of synthetic data from [Audet (2016)](#references) and [Porter et al. (2011)](#references).
+
+- [sim_obs_Audet2016.ipynb](./telewavesim/examples/Notebooks/sim_obs_Audet2016.ipynb): Example plane wave seismograms and P receiver functions for OBS data from [Audet (2016)](#Audet).
+- [sim_Prfs_Porter2011.ipynb](./telewavesim/examples/Notebooks/sim_Prfs_Porter2011.ipynb): Example P receiver functions from [Porter et al. (2011)](#Porter)
+- [sim_SKS.ipynb](./telewavesim/examples/Notebooks/sim_SKS.ipynb): Example plane wave seismograms for SKS splitting studies.
+
+After [installing `telewaveim`](#installation), these notebooks can be locally installed (i.e., in a local folder `Notebooks`) from the package by running:
+
+```python
+from telewavesim import doc
+doc.install_doc(path='Notebooks')
+```
+
+To run the notebooks you will have to further install `jupyter`:
+
+```bash
+conda install jupyter
+```
+
+Then ```cd Notebooks``` and type:
+
+```bash
+jupyter notebook
+```
+
+You can then save the notebooks as `python` scripts, check out the model files and you should be good to go!
+
+### Setting up new models
 
 To set up the models, install the `Jupyter` notebooks and check out the examples in the `models` folder, or visit the [wiki](https://github.com/paudetseis/Telewavesim/wiki/Models) page for `telewavesim`.
+
+### Testing
 
 A series of tests are located in the ``tests`` subdirectory. In order to perform these tests, clone the repository and run `pytest` (`conda install pytest` if needed):
 
@@ -172,6 +174,7 @@ pytest -v
 The API for all functions in `telewavesim` can be accessed from https://paudetseis.github.io/Telewavesim/.
 
 ## References
+
 1. Audet, P. (2016). Receiver functions using OBS data: promises and limitations from numerical modelling and examples from the Cascadia Initiative. Geophysical Journal International, 205, 1740-1755. https://doi.org/10.1093/gji/ggw111
 2. Kennett, B.L.N. (1983). Seismic wave propagation in stratified media. Cambridge University Press, 342pp.
 3. Porter, R., Zandt, G., & McQuarrie, N. (2011). Pervasive lower-crustal seismic anisotropy in Southern California: Evidence for underplated schists and active tectonics. Lithosphere, 3(3), 201-220. https://doi.org/10.1130/L126.1
