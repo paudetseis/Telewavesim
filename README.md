@@ -102,7 +102,7 @@ git clone https://github.com/paudetseis/Telewavesim.git
 cd Telewavesim
 ```
 
-Next we recommend following the steps for creating a `conda` environment (see [above](#condaenvironment)). Then install using `pip`:
+Next we recommend following the steps for creating a `conda` environment (see [above](#conda-environment)). Then install using `pip`:
 
 ```bash
 pip install .
@@ -175,6 +175,8 @@ The API for all functions in `telewavesim` can be accessed from https://paudetse
 
 ## References
 
-1. Audet, P. (2016). Receiver functions using OBS data: promises and limitations from numerical modelling and examples from the Cascadia Initiative. Geophysical Journal International, 205, 1740-1755. https://doi.org/10.1093/gji/ggw111
-2. Kennett, B.L.N. (1983). Seismic wave propagation in stratified media. Cambridge University Press, 342pp.
-3. Porter, R., Zandt, G., & McQuarrie, N. (2011). Pervasive lower-crustal seismic anisotropy in Southern California: Evidence for underplated schists and active tectonics. Lithosphere, 3(3), 201-220. https://doi.org/10.1130/L126.1
+- Audet, P. (2016). Receiver functions using OBS data: promises and limitations from numerical modelling and examples from the Cascadia Initiative. Geophysical Journal International, 205, 1740-1755. https://doi.org/10.1093/gji/ggw111
+
+- Kennett, B.L.N. (1983). Seismic wave propagation in stratified media. Cambridge University Press, 342pp.
+
+- Porter, R., Zandt, G., & McQuarrie, N. (2011). Pervasive lower-crustal seismic anisotropy in Southern California: Evidence for underplated schists and active tectonics. Lithosphere, 3(3), 201-220. https://doi.org/10.1130/L126.1
