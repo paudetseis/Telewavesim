@@ -1,0 +1,2045 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>The telewavesim API reference &#8212; telewavesim 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to telewavesim’s documentation!" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to telewavesim’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">telewavesim 0.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The telewavesim API reference</a><ul>
+<li><a class="reference internal" href="#licence">Licence</a></li>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li><a class="reference internal" href="#download-the-software">Download the software</a></li>
+<li><a class="reference internal" href="#conda-environment">Conda environment</a></li>
+<li><a class="reference internal" href="#installing-using-pip">Installing using pip</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-telewavesim.doc">telewavesim.doc</a></li>
+<li><a class="reference internal" href="#module-telewavesim.conf">telewavesim.conf</a></li>
+<li><a class="reference internal" href="#module-telewavesim.elast">telewavesim.elast</a></li>
+<li><a class="reference internal" href="#module-telewavesim.utils">telewavesim.utils</a></li>
+<li><a class="reference internal" href="#module-telewavesim.wiggle">telewavesim.wiggles</a></li>
+<li><a class="reference internal" href="#module-telewavesim.rmat_f">telewavesim.rmat_f</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to telewavesim’s documentation!</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="figure align-center">
+<img alt="_images/tws_logo.png" src="_images/tws_logo.png" />
+</div>
+<div class="section" id="module-telewavesim">
+<span id="the-telewavesim-api-reference"></span><h1>The telewavesim API reference<a class="headerlink" href="#module-telewavesim" title="Permalink to this headline">¶</a></h1>
+<p>Telewavesim is a software for modeling teleseismic (i.e., planar)
+body wave propagation through stacks of anisotropic layers for receiver
+based studies.</p>
+<div class="section" id="licence">
+<h2>Licence<a class="headerlink" href="#licence" title="Permalink to this headline">¶</a></h2>
+<p>Copyright 2019 Pascal Audet</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dependencies">
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h3>
+<p>The current version was developed using <strong>Python3.7</strong> Also, the following packages are required:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gfortran</span></code> (<a class="reference external" href="https://gcc.gnu.org/wiki/GFortran">https://gcc.gnu.org/wiki/GFortran</a>) (or any Fortran compiler)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">obspy</span></code> (<a class="reference external" href="https://github.com/obspy/obspy/wiki">https://github.com/obspy/obspy/wiki</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pyfftw</span></code> (<a class="reference external" href="https://pyfftw.readthedocs.io/en/latest/">https://pyfftw.readthedocs.io/en/latest/</a>)</p></li>
+</ul>
+<p>By  default, both <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> are installed as dependencies of <code class="docutils literal notranslate"><span class="pre">obspy</span></code>. See below for full installation details.</p>
+</div>
+<div class="section" id="download-the-software">
+<h3>Download the software<a class="headerlink" href="#download-the-software" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Clone the repository:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/paudetseis/Telewavesim.git
+<span class="nb">cd</span> Telewavesim
+</pre></div>
+</div>
+</div>
+<div class="section" id="conda-environment">
+<h3>Conda environment<a class="headerlink" href="#conda-environment" title="Permalink to this headline">¶</a></h3>
+<p>We recommend creating a custom <code class="docutils literal notranslate"><span class="pre">conda</span></code> environment
+where <code class="docutils literal notranslate"><span class="pre">telewavesim</span></code> can be installed along with its dependencies.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n tws <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7 obspy pyfftw -c conda-forge
+</pre></div>
+</div>
+<p>or create it from the <code class="docutils literal notranslate"><span class="pre">tws_env.yml</span></code> file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda env create -f tws_env.yml
+</pre></div>
+</div>
+<p>Activate the newly created environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate tws
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-using-pip">
+<h3>Installing using pip<a class="headerlink" href="#installing-using-pip" title="Permalink to this headline">¶</a></h3>
+<p>Once the previous steps are performed, you can install <code class="docutils literal notranslate"><span class="pre">telewavesim</span></code> using pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install .
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please note, if you are actively working on the code, or making frequent edits, it is advisable
+to perform the pip installation with the <code class="docutils literal notranslate"><span class="pre">-e</span></code> flag. This enables an editable installation, where
+symbolic links are used rather than straight copies. This means that any changes made in the
+local folders will be reflected in the packages available on the system.</p>
+</div>
+</div>
+</div>
+<div class="section" id="module-telewavesim.doc">
+<span id="telewavesim-doc"></span><h2>telewavesim.doc<a class="headerlink" href="#module-telewavesim.doc" title="Permalink to this headline">¶</a></h2>
+<p>Use the <cite>telewaveim.doc.install_doc</cite> function to copy all
+Jupyter Notebooks and example data to a local directory.</p>
+<dl class="function">
+<dt id="telewavesim.doc.install_doc">
+<code class="sig-prename descclassname">telewavesim.doc.</code><code class="sig-name descname">install_doc</code><span class="sig-paren">(</span><em class="sig-param">path='./Telewavesim-Examples'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.doc.install_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install the examples for Telewavesim in the given location.</p>
+<p>WARNING: If the path exists, the files will be written into the path
+and will overwrite any existing files with which they collide. The default
+path (“./Telewavesim-Examples”) is chosen to make collision less likely/problematic</p>
+<p>The documentation for Telewavesim is in the form of jupyter notebooks.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-telewavesim.conf">
+<span id="telewavesim-conf"></span><h2>telewavesim.conf<a class="headerlink" href="#module-telewavesim.conf" title="Permalink to this headline">¶</a></h2>
+<p>Configuration script to set up global variables</p>
+<dl class="simple">
+<dt>Variables are:</dt><dd><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">wavetype</span></code>:</dt><dd><ul class="simple">
+<li><p>wvtype (str): Incident wavetype (<code class="docutils literal notranslate"><span class="pre">'P'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SV'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SH'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Si'</span></code>)</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">wavefield</span> <span class="pre">parameters</span></code>:</dt><dd><ul class="simple">
+<li><p>slow (float): Slowness (s/km)</p></li>
+<li><p>baz (float): Back-azimuth (degree)</p></li>
+<li><p>nt (int): Number of samples in time series</p></li>
+<li><p>dt (float): Sampling rate (Hz)</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">model</span> <span class="pre">parameters</span></code>:</dt><dd><ul class="simple">
+<li><p>a (np.ndarray): Elastic thickness (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">nlay)</span></code>)</p></li>
+<li><p>rho (np.ndarray): Density (kg/m^3) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
+<li><p>isoflg (list of str): Flags for type of layer material (dimension <code class="docutils literal notranslate"><span class="pre">nlay</span></code>)</p></li>
+<li><p>thickn (np.ndarray): Thickness of layers (km) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
+<li><p>nlay (int): Number of layers</p></li>
+<li><p>aa (np.ndarray): P-wave velocity (km/s) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
+<li><p>bb (np.ndarray): S-wave velocity (km/s) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
+<li><p>tr (np.ndarray): Trend of symmetry axis (degree) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
+<li><p>pl (np.ndarray): Plunge of symmetry axis (degree) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">obs</span> <span class="pre">parameters</span></code>:</dt><dd><ul class="simple">
+<li><p>dp (float, optional): Deployment depth below sea level (km)</p></li>
+<li><p>c (float): P-wave velocity of salt water (default = <code class="docutils literal notranslate"><span class="pre">1050.0</span></code> km/s)</p></li>
+<li><p>rhof (float): Density of salt water (default = <code class="docutils literal notranslate"><span class="pre">1027.0</span></code> kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<div class="section" id="module-telewavesim.elast">
+<span id="telewavesim-elast"></span><h2>telewavesim.elast<a class="headerlink" href="#module-telewavesim.elast" title="Permalink to this headline">¶</a></h2>
+<p>Functions to define elastic stiffness matrices.</p>
+<dl class="function">
+<dt id="telewavesim.elast.iso_tensor">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">iso_tensor</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.iso_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants (GPa /density) of isotropic material in Voigt notation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>float</em>) – P-wave velocity (km/s)</p></li>
+<li><p><strong>b</strong> (<em>float</em>) – S-wave velocity (km/s)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>C: Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(np.ndarray)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">iso_tensor</span><span class="p">(</span><span class="mf">6.e3</span><span class="p">,</span> <span class="mf">3.6e3</span><span class="p">)</span>
+<span class="go">array([[36000000., 10080000., 10080000.,        0.,        0.,        0.],</span>
+<span class="go">       [10080000., 36000000., 10080000.,        0.,        0.,        0.],</span>
+<span class="go">       [10080000., 10080000., 36000000.,        0.,        0.,        0.],</span>
+<span class="go">       [       0.,        0.,        0., 12960000.,        0.,        0.],</span>
+<span class="go">       [       0.,        0.,        0.,        0., 12960000.,        0.],</span>
+<span class="go">       [       0.,        0.,        0.,        0.,        0., 12960000.]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.tri_tensor">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">tri_tensor</code><span class="sig-paren">(</span><em class="sig-param">AA</em>, <em class="sig-param">CC</em>, <em class="sig-param">FF</em>, <em class="sig-param">LL</em>, <em class="sig-param">NN</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.tri_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants (GPa /density) of transversely isotropic material in Voigt notation     (hexagonal symmetry). See Porter et al. (2011) for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>AA</strong> (<em>float</em>) – elastic modulus (GPa /density)</p></li>
+<li><p><strong>CC</strong> (<em>float</em>) – elastic modulus (GPa /density)</p></li>
+<li><p><strong>FF</strong> (<em>float</em>) – elastic modulus (GPa /density)</p></li>
+<li><p><strong>LL</strong> (<em>float</em>) – elastic modulus (GPa /density)</p></li>
+<li><p><strong>NN</strong> (<em>float</em>) – elastic modulus (GPa /density)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a: Elastic tensor (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(np.ndarray)</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">tri_tensor</span></code> does not make sense on its own.
+Use it with <code class="docutils literal notranslate"><span class="pre">telewavesim.utils.set_tri_tensor</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.antigorite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">antigorite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.antigorite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of antigorite mineral (GPa) from
+Bezacier, EPSL, 2010, in Voigt notation.</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'atg'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2620 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">antigorite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[208.4,  66.2,  15.9,   0. ,   2.4,   0. ],</span>
+<span class="go">       [ 66.2, 201.6,   5. ,   0. ,  -4.4,   0. ],</span>
+<span class="go">       [ 15.9,   5. ,  96.7,   0. ,   2.5,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  17.4,   0. , -13.1],</span>
+<span class="go">       [  2.4,  -4.4,   2.5,   0. ,  18.3,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. , -13.1,   0. ,  65. ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">antigorite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2620.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.biotite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">biotite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.biotite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of biotite mineral (GPa) from
+Aleksandrov and Ryzhova (1986), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'bt'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2800 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">biotite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[186. ,  32.4,  11.6,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 32.4, 186. ,  11.6,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 11.6,  11.6,  54. ,   0. ,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   5.8,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,   5.8,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,   0. ,  76.8]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">biotite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2800.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.blueschist_felsic">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">blueschist_felsic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.blueschist_felsic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of Felsic Blueschist (GPa) from
+Cao et al. (2013), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'BS_f'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2970 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">blueschist_felsic</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 1.4985e+02,  3.8700e+01,  3.2590e+01, -1.5000e-01, -1.0000e+00,</span>
+<span class="go">        -1.9000e-01],</span>
+<span class="go">       [ 3.8700e+01,  1.6355e+02,  3.0030e+01,  1.0500e+00, -1.8100e+00,</span>
+<span class="go">        -1.7800e+00],</span>
+<span class="go">       [ 3.2590e+01,  3.0030e+01,  1.2162e+02,  2.2000e-01, -9.5000e-01,</span>
+<span class="go">        -1.3000e-01],</span>
+<span class="go">       [-1.5000e-01,  1.0500e+00,  2.2000e-01,  4.8030e+01, -6.3000e-01,</span>
+<span class="go">        -1.1400e+00],</span>
+<span class="go">       [-1.0000e+00, -1.8100e+00, -9.5000e-01, -6.3000e-01,  4.8620e+01,</span>
+<span class="go">        -1.0000e-02],</span>
+<span class="go">       [-1.9000e-01, -1.7800e+00, -1.3000e-01, -1.1400e+00, -1.0000e-02,</span>
+<span class="go">         5.8420e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">blueschist_felsic</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2970.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.blueschist_mafic">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">blueschist_mafic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.blueschist_mafic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of Mafic Blueschist (GPa) from
+Cao et al. (2013), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'BS_m'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3190 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">blueschist_mafic</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 1.9079e+02,  6.2280e+01,  5.2940e+01, -4.4000e-01,  4.6800e+00,</span>
+<span class="go">         6.0000e-01],</span>
+<span class="go">       [ 6.2280e+01,  2.1838e+02,  5.3100e+01, -8.7000e-01,  1.5700e+00,</span>
+<span class="go">         2.8000e-01],</span>
+<span class="go">       [ 5.2940e+01,  5.3100e+01,  1.5804e+02, -4.4000e-01,  2.6600e+00,</span>
+<span class="go">        -3.5000e-01],</span>
+<span class="go">       [-4.4000e-01, -8.7000e-01, -4.4000e-01,  6.0860e+01, -2.9000e-01,</span>
+<span class="go">         1.8600e+00],</span>
+<span class="go">       [ 4.6800e+00,  1.5700e+00,  2.6600e+00, -2.9000e-01,  5.8940e+01,</span>
+<span class="go">        -2.0000e-01],</span>
+<span class="go">       [ 6.0000e-01,  2.8000e-01, -3.5000e-01,  1.8600e+00, -2.0000e-01,</span>
+<span class="go">         6.9630e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">blueschist_mafic</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3190.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.clinopyroxene_92">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">clinopyroxene_92</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.clinopyroxene_92" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of clinopyroxene mineral (GPa) from
+Baghat et al. (1992), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'cpx'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3327 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">clinopyroxene_92</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[257.3,  85.9,  76.2,   0. ,   7.1,   0. ],</span>
+<span class="go">       [ 85.9, 216.2,  71.8,   0. ,  13.3,   0. ],</span>
+<span class="go">       [ 76.2,  71.8, 260.2,   0. ,  33.7,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  80.2,   0. ,  10.2],</span>
+<span class="go">       [  7.1,  13.3,  33.7,   0. ,  70.6,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  10.2,   0. ,  85.8]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">clinopyroxene_92</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3327.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.clinopyroxene_98">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">clinopyroxene_98</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.clinopyroxene_98" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of clinopyroxene mineral (GPa) from
+Collins and Brown (1998), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">None</span></code>: not currently used</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3190 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">clinopyroxene_98</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[237.8,  83.5,  80. ,   0. ,   9. ,   0. ],</span>
+<span class="go">       [ 83.5, 183.6,  59.9,   0. ,   9.5,   0. ],</span>
+<span class="go">       [ 80. ,  59.9, 229.5,   0. ,  48.1,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  76.5,   0. ,   8.4],</span>
+<span class="go">       [  9. ,   9.5,  48.1,   0. ,  73. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   8.4,   0. ,  81.6]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">clinopyroxene_98</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3190.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.dolomite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">dolomite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.dolomite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of dolomite mineral (GPa) from
+Humbert and Plicque (1972), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'dol'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2840 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">dolomite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[205. ,  71. ,  57.4, -19.5,  13.7,   0. ],</span>
+<span class="go">       [ 71. , 205. ,  57.4,  19.5, -13.7,   0. ],</span>
+<span class="go">       [ 57.4,  57.4, 113. ,   0. ,   0. ,   0. ],</span>
+<span class="go">       [-19.5,  19.5,   0. ,  39.8,   0. , -13.7],</span>
+<span class="go">       [ 13.7, -13.7,   0. ,   0. ,  39.8, -19.5],</span>
+<span class="go">       [  0. ,   0. ,   0. , -13.7, -19.5,  67. ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">dolomite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2840.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.eclogite_foliated">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">eclogite_foliated</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.eclogite_foliated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of Foliated Eclogite rock (GPa) from
+Cao et al. (2013), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'EC_f'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3300 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">eclogite_foliated</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 2.0345e+02,  6.7760e+01,  6.4470e+01,  8.0000e-02,  1.9000e+00,</span>
+<span class="go">        -4.0000e-01],</span>
+<span class="go">       [ 6.7760e+01,  2.2058e+02,  6.3650e+01,  4.6000e-01,  5.9000e-01,</span>
+<span class="go">         6.0000e-02],</span>
+<span class="go">       [ 6.4470e+01,  6.3650e+01,  1.8975e+02,  1.3000e-01,  9.5000e-01,</span>
+<span class="go">        -2.0000e-01],</span>
+<span class="go">       [ 8.0000e-02,  4.6000e-01,  1.3000e-01,  6.6320e+01, -2.7000e-01,</span>
+<span class="go">         7.3000e-01],</span>
+<span class="go">       [ 1.9000e+00,  5.9000e-01,  9.5000e-01, -2.7000e-01,  6.5770e+01,</span>
+<span class="go">        -2.0000e-02],</span>
+<span class="go">       [-4.0000e-01,  6.0000e-02, -2.0000e-01,  7.3000e-01, -2.0000e-02,</span>
+<span class="go">         7.0750e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">eclogite_foliated</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3300.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.eclogite_massive">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">eclogite_massive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.eclogite_massive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of Massive Eclogite rock (GPa) from
+Cao et al. (2013), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'EC_m'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3490 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">eclogite_massive</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 2.3885e+02,  8.2010e+01,  8.1440e+01,  3.0000e-01, -2.0000e-02,</span>
+<span class="go">         5.0000e-01],</span>
+<span class="go">       [ 8.2010e+01,  2.4212e+02,  8.1110e+01, -6.6000e-01,  3.3000e-01,</span>
+<span class="go">         1.2000e-01],</span>
+<span class="go">       [ 8.1440e+01,  8.1110e+01,  2.3557e+02, -2.8000e-01,  2.2000e-01,</span>
+<span class="go">         3.1000e-01],</span>
+<span class="go">       [ 3.0000e-01, -6.6000e-01, -2.8000e-01,  7.8720e+01,  2.7000e-01,</span>
+<span class="go">         0.0000e+00],</span>
+<span class="go">       [-2.0000e-02,  3.3000e-01,  2.2000e-01,  2.7000e-01,  7.8370e+01,</span>
+<span class="go">         2.5000e-01],</span>
+<span class="go">       [ 5.0000e-01,  1.2000e-01,  3.1000e-01,  0.0000e+00,  2.5000e-01,</span>
+<span class="go">         7.7910e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">eclogite_massive</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3490.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.epidote">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">epidote</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.epidote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of epidote mineral (GPa) from
+Aleksandrakov et al. (1974), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'ep'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3465 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">epidote</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[211.5,  65.6,  43.2,   0. ,  -6.5,   0. ],</span>
+<span class="go">       [ 65.6, 239. ,  43.6,   0. , -10.4,   0. ],</span>
+<span class="go">       [ 43.2,  43.6, 202.1,   0. , -20. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  39.1,   0. ,  -2.3],</span>
+<span class="go">       [ -6.5, -10.4, -20. ,   0. ,  43.4,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  -2.3,   0. ,  79.5]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">epidote</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3465.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.garnet">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">garnet</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.garnet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of garnet mineral (GPa) from
+Babuska et al. (1978), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'grt'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3660 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">garnet</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[306.2, 112.5, 112.5,   0. ,   0. ,   0. ],</span>
+<span class="go">       [112.5, 306.2, 112.5,   0. ,   0. ,   0. ],</span>
+<span class="go">       [112.5, 112.5, 306.2,   0. ,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  92.7,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,  92.7,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,   0. ,  92.7]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">garnet</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3660.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.glaucophane">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">glaucophane</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.glaucophane" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of glaucophane mineral (GPa) from
+Bezacier et al. (2010), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'gln'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3070 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">glaucophane</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[122.3 ,  45.7 ,  37.2 ,   0.  ,   2.3 ,   0.  ],</span>
+<span class="go">       [ 45.7 , 231.5 ,  74.9 ,   0.  ,  -4.8 ,   0.  ],</span>
+<span class="go">       [ 37.2 ,  74.9 , 254.6 ,   0.  ,  -2.37,   0.  ],</span>
+<span class="go">       [  0.  ,   0.  ,   0.  ,  79.6 ,   0.  ,   8.9 ],</span>
+<span class="go">       [  2.3 ,  -4.8 ,  -2.37,   0.  ,  52.8 ,   0.  ],</span>
+<span class="go">       [  0.  ,   0.  ,   0.  ,   8.9 ,   0.  ,  51.2 ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">glaucophane</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3070.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.harzburgite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">harzburgite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.harzburgite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of harzburgite rock (GPa) from
+Covey-Crump et al. (2003), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'HB'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3200 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">harzburgite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[226.5 ,  75.34,  74.73,  -0.27,  -2.  ,   1.85],</span>
+<span class="go">       [ 75.34, 242.8 ,  73.68,  -3.6 ,  -1.91,   4.14],</span>
+<span class="go">       [ 74.73,  73.68, 230.  ,  -4.36,  -4.27,  -0.27],</span>
+<span class="go">       [ -0.27,  -3.6 ,  -4.36,  80.75,   1.81,  -2.19],</span>
+<span class="go">       [ -2.  ,  -1.91,  -4.27,   1.81,  76.94,  -1.88],</span>
+<span class="go">       [  1.85,   4.14,  -0.27,  -2.19,  -1.88,  79.15]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">harzburgite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3200.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.hornblende">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">hornblende</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.hornblende" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of hornblende mineral (GPa) from
+Aleksandrov and Ryzhova (1986), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'hbl'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3200 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">hornblende</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[116. ,  49.9,  61.4,   0. ,   4.3,   0. ],</span>
+<span class="go">       [ 49.9, 159.7,  65.5,   0. ,  -2.5,   0. ],</span>
+<span class="go">       [ 61.4,  65.5, 191.6,   0. ,  10. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  57.4,   0. ,  -6.2],</span>
+<span class="go">       [  4.3,  -2.5,  10. ,   0. ,  31.8,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  -6.2,   0. ,  36.8]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">hornblende</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3200.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.jadeite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">jadeite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.jadeite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of jadeite mineral (GPa) from
+Kandelin and Weiner (1988), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'jade'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3330 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">jadeite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[274.,  94.,  71.,   0.,   4.,   0.],</span>
+<span class="go">       [ 94., 253.,  82.,   0.,  14.,   0.],</span>
+<span class="go">       [ 71.,  82., 282.,   0.,  28.,   0.],</span>
+<span class="go">       [  0.,   0.,   0.,  88.,   0.,  13.],</span>
+<span class="go">       [  4.,  14.,  28.,   0.,  65.,   0.],</span>
+<span class="go">       [  0.,   0.,   0.,  13.,   0.,  94.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">jadeite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3330.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.lawsonite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">lawsonite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.lawsonite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of jadeite mineral (GPa) from
+Kandelin and Weiner (1988), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'lws'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3090 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lawsonite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[214.,  69.,  82.,   0.,   0.,   0.],</span>
+<span class="go">       [ 69., 226.,  65.,   0.,   0.,   0.],</span>
+<span class="go">       [ 82.,  65., 259.,   0.,   0.,   0.],</span>
+<span class="go">       [  0.,   0.,   0.,  60.,   0.,   0.],</span>
+<span class="go">       [  0.,   0.,   0.,   0.,  65.,   0.],</span>
+<span class="go">       [  0.,   0.,   0.,   0.,   0.,  17.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lawsonite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3090.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.lherzolite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">lherzolite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.lherzolite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of lherzolite rock (GPa) from
+Peselnick et al. (1974), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'LHZ'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3270 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lherzolite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 1.8740e+02,  6.3710e+01,  6.3870e+01,  7.8000e-01,  2.0200e+00,</span>
+<span class="go">        -3.2000e+00],</span>
+<span class="go">       [ 6.3710e+01,  2.1125e+02,  6.4500e+01, -3.0700e+00,  8.7000e-01,</span>
+<span class="go">        -5.7800e+00],</span>
+<span class="go">       [ 6.3870e+01,  6.4500e+01,  1.9000e+02,  3.8000e-01,  2.3800e+00,</span>
+<span class="go">        -1.2000e-01],</span>
+<span class="go">       [ 7.8000e-01, -3.0700e+00,  3.8000e-01,  6.7900e+01, -2.1200e+00,</span>
+<span class="go">         1.6000e+00],</span>
+<span class="go">       [ 2.0200e+00,  8.7000e-01,  2.3800e+00, -2.1200e+00,  6.3120e+01,</span>
+<span class="go">        -5.5000e-01],</span>
+<span class="go">       [-3.2000e+00, -5.7800e+00, -1.2000e-01,  1.6000e+00, -5.5000e-01,</span>
+<span class="go">         6.6830e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lherzolite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3270.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.lizardite_atom">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">lizardite_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.lizardite_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of lizardite mineral (GPa) from
+Auzende et al., Phys. Chem. Min. 2006 from atomistic calculations.</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">None</span></code>: Not currently used.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2515 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lizardite_atom</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 2.29080e+02,  8.90440e+01,  1.35580e+01, -1.00000e-04,</span>
+<span class="go">         4.60250e+00,  1.00000e-04],</span>
+<span class="go">       [ 8.90440e+01,  2.29080e+02,  1.35570e+01, -1.00000e-04,</span>
+<span class="go">        -4.60160e+00,  1.00000e-04],</span>
+<span class="go">       [ 1.35580e+01,  1.35570e+01,  4.58380e+01, -1.00000e-04,</span>
+<span class="go">         1.50000e-03,  1.00000e-04],</span>
+<span class="go">       [-1.00000e-04, -1.00000e-04, -1.00000e-04,  1.27650e+01,</span>
+<span class="go">        -1.00000e-04, -4.45980e+00],</span>
+<span class="go">       [ 4.60250e+00, -4.60160e+00,  1.50000e-03, -1.00000e-04,</span>
+<span class="go">         1.27740e+01,  1.00000e-04],</span>
+<span class="go">       [ 1.00000e-04,  1.00000e-04,  1.00000e-04, -4.45980e+00,</span>
+<span class="go">         1.00000e-04,  7.00166e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lizardite_atom</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2515.5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.lizardite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">lizardite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.lizardite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of lizardite mineral (GPa) from
+Reynard, GRL, 2007 from Density Functional Theory.</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'lz'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2610 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lizardite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[245. ,  50. ,  31. ,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 50. , 245. ,  31. ,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 31. ,  31. ,  23. ,   0. ,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  11.6,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,  11.6,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,   0. ,  97.5]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lizardite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2610.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.muscovite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">muscovite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.muscovite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of muscovite mineral (GPa) from
+Vaughan and Guggenheim (1986), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'ms'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2834 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">muscovite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[181. ,  48.8,  25.6,   0. , -14.2,   0. ],</span>
+<span class="go">       [ 48.8, 178.4,  21.2,   0. ,   1.1,   0. ],</span>
+<span class="go">       [ 25.6,  21.2,  58.6,   0. ,   1. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  16.5,   0. ,  -5.2],</span>
+<span class="go">       [-14.2,   1.1,   1. ,   0. ,  19.5,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  -5.2,   0. ,  72. ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">muscovite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2834.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.olivine">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">olivine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.olivine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of olivine mineral (GPa) from
+Abrahamson et al. (1997), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'ol'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3355 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">olivine</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[320.5 ,  68.15,  71.6 ,   0.  ,   0.  ,   0.  ],</span>
+<span class="go">       [ 68.15, 196.5 ,  76.8 ,   0.  ,   0.  ,   0.  ],</span>
+<span class="go">       [ 71.6 ,  76.8 , 233.5 ,   0.  ,   0.  ,   0.  ],</span>
+<span class="go">       [  0.  ,   0.  ,   0.  ,  64.  ,   0.  ,   0.  ],</span>
+<span class="go">       [  0.  ,   0.  ,   0.  ,   0.  ,  77.  ,   0.  ],</span>
+<span class="go">       [  0.  ,   0.  ,   0.  ,   0.  ,   0.  ,  78.7 ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">olivine</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3355.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.orthopyroxene">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">orthopyroxene</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.orthopyroxene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of orthopyroxene mineral (GPa) from
+Chai et al. (1977), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'opx'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3304 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">orthopyroxene</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[236.9,  79.6,  63.2,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 79.6, 180.5,  56.8,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 63.2,  56.8, 230.4,   0. ,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  84.3,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,  79.4,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,   0. ,  80.1]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">orthopyroxene</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3304.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.plagioclase_64">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">plagioclase_64</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.plagioclase_64" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of plagioclase mineral (GPa) from
+Ryzhova (1964), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">None</span></code>: Not currently used.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2700 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">plagioclase_64</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 81.8,  39.3,  40.7,   0. ,  -9. ,   0. ],</span>
+<span class="go">       [ 39.3, 145. ,  34.1,   0. ,  -7.9,   0. ],</span>
+<span class="go">       [ 40.7,  34.1, 133. ,   0. , -18.5,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  17.7,   0. ,  -0.8],</span>
+<span class="go">       [ -9. ,  -7.9, -18.5,   0. ,  31.2,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  -0.8,   0. ,  33.3]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">plagioclase_64</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2700.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.plagioclase_06">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">plagioclase_06</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.plagioclase_06" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of plagioclase mineral (GPa) from
+Brown et al. (2006), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'plag'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2700 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">plagioclase_06</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 69.9  ,  33.24 ,  31.56 ,   5.28 ,  -2.46 ,  -0.72 ],</span>
+<span class="go">       [ 33.24 , 183.28 ,   7.53 ,   5.31 ,  -7.6  ,  -0.423],</span>
+<span class="go">       [ 31.56 ,   7.53 , 175.65 , -17.48 ,   5.86 , -11.29 ],</span>
+<span class="go">       [  5.28 ,   5.31 , -17.48 ,  26.93 ,  -3.94 ,  -6.56 ],</span>
+<span class="go">       [ -2.46 ,  -7.6  ,   5.86 ,  -3.94 ,  26.91 ,   0.98 ],</span>
+<span class="go">       [ -0.72 ,  -0.423, -11.29 ,  -6.56 ,   0.98 ,  33.39 ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">plagioclase_06</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2700.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.quartz">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">quartz</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.quartz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of quartz mineral (GPa) from
+Lakshanov et al. (2007), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'qtz'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2649 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">quartz</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 86.9,   7.6,  12. ,  17.8,   0. ,   0. ],</span>
+<span class="go">       [  7.6,  86.9,  12. , -17.8,   0. ,   0. ],</span>
+<span class="go">       [ 12. ,  12. , 106.4,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 17.8, -17.8,   0. ,  59.5,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,  59.5, -17.8],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. , -17.8,  39.6]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">quartz</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2649.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.serpentinite_37">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">serpentinite_37</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.serpentinite_37" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of serpentinite rock sample HPS-M (GPa) from
+Watanabe et al., 2011, in Voigt notation.</p>
+<ul class="simple">
+<li><p>Mineralogy: <code class="docutils literal notranslate"><span class="pre">Ol</span></code> (57.7%), <code class="docutils literal notranslate"><span class="pre">Atg</span></code> (36.9%), <code class="docutils literal notranslate"><span class="pre">Trm</span></code> (4.5%), <code class="docutils literal notranslate"><span class="pre">Mgt</span></code> (1.1%)</p></li>
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'SP_37'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3000 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">serpentinite_37</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 2.0552e+02,  6.6360e+01,  6.2290e+01, -1.0000e-01, -1.4800e+00,</span>
+<span class="go">         3.8600e+00],</span>
+<span class="go">       [ 6.6360e+01,  1.9579e+02,  6.2530e+01, -3.7000e-01,  2.0000e-01,</span>
+<span class="go">         1.5400e+00],</span>
+<span class="go">       [ 6.2290e+01,  6.2530e+01,  1.9330e+02, -1.7800e+00, -2.4000e-01,</span>
+<span class="go">         8.3000e-01],</span>
+<span class="go">       [-1.0000e-01, -3.7000e-01, -1.7800e+00,  6.6170e+01,  1.4700e+00,</span>
+<span class="go">        -5.7000e-01],</span>
+<span class="go">       [-1.4800e+00,  2.0000e-01, -2.4000e-01,  1.4700e+00,  6.4700e+01,</span>
+<span class="go">        -8.4000e-01],</span>
+<span class="go">       [ 3.8600e+00,  1.5400e+00,  8.3000e-01, -5.7000e-01, -8.4000e-01,</span>
+<span class="go">         6.7830e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">serpentinite_37</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3000.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.serpentinite_80">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">serpentinite_80</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.serpentinite_80" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of serpentinite rock sample HKB-B (GPa) from
+Watanabe et al., 2011, in Voigt notation</p>
+<ul class="simple">
+<li><p>Mineralogy: <code class="docutils literal notranslate"><span class="pre">Ol</span></code> (12.0%), <code class="docutils literal notranslate"><span class="pre">Atg</span></code> (80.2%), <code class="docutils literal notranslate"><span class="pre">Mgt</span></code> (7.8%)</p></li>
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'SP_80'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2800 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">serpentinite_80</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 1.9225e+02,  4.9350e+01,  4.1700e+01, -4.5500e+00,  8.0400e+00,</span>
+<span class="go">         9.7800e+00],</span>
+<span class="go">       [ 4.9350e+01,  1.5690e+02,  4.2360e+01, -6.9100e+00,  7.1000e-01,</span>
+<span class="go">         1.8400e+00],</span>
+<span class="go">       [ 4.1700e+01,  4.2360e+01,  1.4162e+02, -4.2800e+00,  1.1100e+00,</span>
+<span class="go">         1.9000e-01],</span>
+<span class="go">       [-4.5500e+00, -6.9100e+00, -4.2800e+00,  5.3480e+01,  1.0000e-02,</span>
+<span class="go">        -6.0000e-02],</span>
+<span class="go">       [ 8.0400e+00,  7.1000e-01,  1.1100e+00,  1.0000e-02,  5.1910e+01,</span>
+<span class="go">        -3.7200e+00],</span>
+<span class="go">       [ 9.7800e+00,  1.8400e+00,  1.9000e-01, -6.0000e-02, -3.7200e+00,</span>
+<span class="go">         5.9130e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">serpentinite_80</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2800.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.zoisite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">zoisite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.zoisite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of zoisite mineral (GPa) from
+Mao et al. (2007), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'zo'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3343 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">zoisite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[279.8,  94.7,  88.7,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 94.7, 249.2,  27.5,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 88.7,  27.5, 209.4,   0. ,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  51.8,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,  81.4,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,   0. ,  66.3]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">zoisite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3343.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-telewavesim.utils">
+<span id="telewavesim-utils"></span><h2>telewavesim.utils<a class="headerlink" href="#module-telewavesim.utils" title="Permalink to this headline">¶</a></h2>
+<p>Utility functions to interact with <code class="docutils literal notranslate"><span class="pre">telewavesim</span></code> modules.</p>
+<dl class="function">
+<dt id="telewavesim.utils.set_iso_tensor">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">set_iso_tensor</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.set_iso_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate tensor for isotropic material.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>float</em>) – P-wave velocity (km/s)</p></li>
+<li><p><strong>b</strong> (<em>float</em>) – S-wave velocity (km/s)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cc: Elastic tensor (GPa /density)         (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.set_tri_tensor">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">set_tri_tensor</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em>, <em class="sig-param">tr</em>, <em class="sig-param">pl</em>, <em class="sig-param">ani</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.set_tri_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate tensor for transverse isotropy. The
+tensor is rotated using the trend and plunge of the symmetry
+axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>float</em>) – P-wave velocity (km/s)</p></li>
+<li><p><strong>b</strong> (<em>float</em>) – S-wave velocity (km/s)</p></li>
+<li><p><strong>tr</strong> (<em>float</em>) – Trend angle of symmetry axis (degree)</p></li>
+<li><p><strong>pl</strong> (<em>float</em>) – Plunge angle of symmetry axis (degree)</p></li>
+<li><p><strong>ani</strong> (<em>float</em>) – Percent anisotropy</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cc: Elastic tensor (GPa /density)         (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.set_aniso_tensor">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">set_aniso_tensor</code><span class="sig-paren">(</span><em class="sig-param">tr</em>, <em class="sig-param">pl</em>, <em class="sig-param">typ='atg'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.set_aniso_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate tensor for anisotropic minerals. The     tensor is rotated using the trend and plunge of the symmetry     axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tr</strong> (<em>float</em>) – Trend angle of symmetry axis (degree)</p></li>
+<li><p><strong>pl</strong> (<em>float</em>) – Plunge angle of symmetry axis (degree)</p></li>
+<li><p><strong>type</strong> (<em>str</em><em>, </em><em>optional</em>) – Type of elastic material</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Tuple containing:</dt><dd><ul class="simple">
+<li><p>cc (np.ndarray): Elastic tensor (GPa /density)            (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p></li>
+<li><p>rho (float): Density (kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.full_3x3_to_Voigt_6_index">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">full_3x3_to_Voigt_6_index</code><span class="sig-paren">(</span><em class="sig-param">i</em>, <em class="sig-param">j</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.full_3x3_to_Voigt_6_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Conversion of tensor to Voigt notation for indices</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.voigt2cc">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">voigt2cc</code><span class="sig-paren">(</span><em class="sig-param">C</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.voigt2cc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the Voigt representation of the stiffness matrix to the full
+3x3x3x3 tensor representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>C</strong> (<em>np.ndarray</em>) – Stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cc: Elastic tensor (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.cc2voigt">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">cc2voigt</code><span class="sig-paren">(</span><em class="sig-param">cc</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.cc2voigt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert from the full 3x3x3x3 tensor representation
+to the Voigt notation of the stiffness matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cc</strong> (<em>np.ndarray</em>) – Elastic tensor (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>C: Stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.VRH_average">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">VRH_average</code><span class="sig-paren">(</span><em class="sig-param">C</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.VRH_average" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a Voigt-Reuss-Hill average of the anisotropic
+stifness matrix to the bulk modulus K and the shear modulus
+G.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>C</strong> (<em>np.ndarray</em>) – Stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Tuple containing:</dt><dd><ul class="simple">
+<li><p>Kvoigt (float): Voigt average bulk modulus (GPa)</p></li>
+<li><p>Gvoigt (float): Voigt average shear modulus (GPa)</p></li>
+<li><p>Kreuss (float): Reuss average bulk modulus (GPa)</p></li>
+<li><p>Greuss (float): Reuss average shear modulus (GPa)</p></li>
+<li><p>Kvrh (float):   Voigt-Reuss-Hill average bulk modulus (GPa)</p></li>
+<li><p>Gvrh (float):   Voigt-Reuss-Hill average shear modulus (GPa)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cc</span><span class="p">,</span> <span class="n">rho</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">set_aniso_tensor</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="s1">&#39;atg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">cc2voigt</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">utils</span><span class="o">.</span><span class="n">VRH_average</span><span class="p">(</span><span class="n">C</span><span class="o">*</span><span class="n">rho</span><span class="p">)</span>
+<span class="go">(75655555555.555557, 48113333333.333336, 61245706544.967415, 28835098086.844658,</span>
+<span class="go">68450631050.26149, 38474215710.088997)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.mod2vel">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">mod2vel</code><span class="sig-paren">(</span><em class="sig-param">K</em>, <em class="sig-param">G</em>, <em class="sig-param">rho</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.mod2vel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the isotropic P and S wave velocities from given
+bulk (K) and shear (G) moduli and density (rho) in kg/m^3</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>K</strong> (<em>float</em>) – Bulk modulus (GPa)</p></li>
+<li><p><strong>G</strong> (<em>float</em>) – Shear modulus (GPa)</p></li>
+<li><p><strong>rho</strong> (<em>float</em>) – Density (kg/m^3)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Vp (float): P-wave velocity (m/s)</p></li>
+<li><p>Vs (float): S-wave velocity (m/s)</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cc</span><span class="p">,</span> <span class="n">rho</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">set_aniso_tensor</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="s1">&#39;atg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">cc2voigt</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">K</span><span class="p">,</span> <span class="n">G</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">VRH_average</span><span class="p">(</span><span class="n">C</span><span class="o">*</span><span class="n">rho</span><span class="p">)[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">utils</span><span class="o">.</span><span class="n">mod2vel</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">rho</span><span class="p">)</span>
+<span class="go">(6760.617471753726, 3832.0771334254896)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.rot_tensor">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">rot_tensor</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">alpha</em>, <em class="sig-param">beta</em>, <em class="sig-param">gam</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.rot_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a rotation of the tensor cc (c_ijkl) about three angles (alpha,
+beta, gamma)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>np.ndarray</em>) – Elastic tensor with shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code></p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) – Angle in radians</p></li>
+<li><p><strong>beta</strong> (<em>float</em>) – Angle in radians</p></li>
+<li><p><strong>gam</strong> (<em>float</em>) – Angle in radians</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>aa: Rotated tensor with shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(np.ndarray)</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The three angles (<code class="docutils literal notranslate"><span class="pre">alpha</span></code>, <code class="docutils literal notranslate"><span class="pre">beta</span></code>, <code class="docutils literal notranslate"><span class="pre">gam</span></code>) correspond to rotation about the
+x_2, x_3, x_1 axes. Note that the sequence of the rotation is important:
+(AB ~= BA). In this case we rotate about x_2 first, x_3 second and x_1 third.</p>
+<p>For trend and plunge of symmetry axis (e.g., tri_tensor):</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">alpha</span></code> = plunge</p>
+<p><code class="docutils literal notranslate"><span class="pre">beta</span></code> = trend</p>
+</div></blockquote>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.rotate_zrt_pvh">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">rotate_zrt_pvh</code><span class="sig-paren">(</span><em class="sig-param">trZ</em>, <em class="sig-param">trR</em>, <em class="sig-param">trT</em>, <em class="sig-param">vp=6.0</em>, <em class="sig-param">vs=3.5</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.rotate_zrt_pvh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotates traces from <cite>Z-R-T</cite> orientation to <cite>P-SV-SH</cite> wave mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trZ</strong> (<em>obspy.trace</em>) – Vertical component</p></li>
+<li><p><strong>trR</strong> (<em>obspy.trace</em>) – Radial component</p></li>
+<li><p><strong>trT</strong> (<em>obspy.trace</em>) – Transverse component</p></li>
+<li><p><strong>vp</strong> (<em>float</em><em>, </em><em>optional</em>) – P-wave velocity used for rotation</p></li>
+<li><p><strong>vs</strong> (<em>float</em><em>, </em><em>optional</em>) – S-wave velocity used for rotation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>trP (obspy.trace): Compressional (P) wave mode</p></li>
+<li><p>trV (obspy.trace): Vertically polarized shear (SV) wave mode</p></li>
+<li><p>trH (obspy.trace): Horizontally polarized shear (SH) wave mode</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.stack_all">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">stack_all</code><span class="sig-paren">(</span><em class="sig-param">st1</em>, <em class="sig-param">st2</em>, <em class="sig-param">pws=False</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.stack_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stacks all traces in two <code class="docutils literal notranslate"><span class="pre">Stream</span></code> objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>st1</strong> (<em>obspy.stream</em>) – Stream 1</p></li>
+<li><p><strong>st2</strong> (<em>obspy.stream</em><em>,</em>) – Stream 2</p></li>
+<li><p><strong>pws</strong> (<em>bool</em><em>, </em><em>optional</em>) – Enables Phase-Weighted Stacking</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>stack1 (obspy.trace): Stacked trace for Stream 1</p></li>
+<li><p>stack2 (obspy.trace): Stacked trace for Stream 2</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.calc_ttime">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">calc_ttime</code><span class="sig-paren">(</span><em class="sig-param">slow</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.calc_ttime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates total propagation time through model. The
+bottom layer is irrelevant in this calculation.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">conf</span></code> global variables need to be set for this calculation
+to succeed. This is typically ensured through reading of the
+model file from the function <code class="docutils literal notranslate"><span class="pre">utils.read_model(modfile)</span></code>,
+and setting the variable <code class="docutils literal notranslate"><span class="pre">conf.wvtype</span></code></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>slow</strong> (<em>float</em>) – Slowness value (s/km)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>t1: Time in seconds</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(float)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">conf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cc</span><span class="p">,</span> <span class="n">rho</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">set_aniso_tensor</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="s1">&#39;atg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define two-layer model model with identical material</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">nlay</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">conf</span><span class="o">.</span><span class="n">nlay</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">conf</span><span class="o">.</span><span class="n">nlay</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">thickn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">conf</span><span class="o">.</span><span class="n">nlay</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Pass variables to the `conf` module</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Only topmost layer is useful for travel time calculation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">isoflg</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;atg&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">a</span><span class="p">[:,:,:,:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">cc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">rho</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">rho</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">thickn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">conf</span><span class="o">.</span><span class="n">wvtype</span> <span class="o">=</span> <span class="s1">&#39;P&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slow</span> <span class="o">=</span> <span class="mf">0.06</span>     <span class="c1"># s/km</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">utils</span><span class="o">.</span><span class="n">calc_ttime</span><span class="p">(</span><span class="n">slow</span><span class="p">)</span>
+<span class="go">0.0013519981570791182</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.read_model">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">read_model</code><span class="sig-paren">(</span><em class="sig-param">modfile</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.read_model" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Reads model parameters from file that are passed</dt><dd><p>through the configuration module <code class="docutils literal notranslate"><span class="pre">conf</span></code>.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>Parameters are now global variables shared</dt><dd><p>between all other modules</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.check_cf">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">check_cf</code><span class="sig-paren">(</span><em class="sig-param">obs=False</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.check_cf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether or not all required global variables are set and throws an Exception if not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obs</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the analysis is done for an OBS case or not.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ExceptionError</strong> – Throws ExceptionError if not all variables are set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.model2for">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">model2for</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.model2for" title="Permalink to this definition">¶</a></dt>
+<dd><p>Passes global model variables to Fortran <code class="docutils literal notranslate"><span class="pre">conf</span></code> module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p>Variables to pass are <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">rho</span></code>, <code class="docutils literal notranslate"><span class="pre">thickn</span></code>, <code class="docutils literal notranslate"><span class="pre">isoflg</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.wave2for">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">wave2for</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.wave2for" title="Permalink to this definition">¶</a></dt>
+<dd><p>Passes global wavefield variables to Fortran <code class="docutils literal notranslate"><span class="pre">conf</span></code> module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p>Variables to pass are <code class="docutils literal notranslate"><span class="pre">dt</span></code>, <code class="docutils literal notranslate"><span class="pre">slow</span></code>, <code class="docutils literal notranslate"><span class="pre">baz</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.obs2for">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">obs2for</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.obs2for" title="Permalink to this definition">¶</a></dt>
+<dd><p>Passes global OBS-related variables to Fortran <code class="docutils literal notranslate"><span class="pre">conf</span></code> module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p>Variables to pass are <code class="docutils literal notranslate"><span class="pre">dp</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code>, <code class="docutils literal notranslate"><span class="pre">rhof</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.run_plane">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">run_plane</code><span class="sig-paren">(</span><em class="sig-param">obs=False</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.run_plane" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to run the <code class="docutils literal notranslate"><span class="pre">plane</span></code> module and return 3-component seismograms as an <code class="docutils literal notranslate"><span class="pre">obspy</span></code>
+<code class="docutils literal notranslate"><span class="pre">Stream</span></code> object.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">conf</span></code> global variables need to be set for this calculation
+to succeed. This function first checks to make sure the variables are all set
+before executing the main <code class="docutils literal notranslate"><span class="pre">telewavesim.rmat_f.plane_****</span></code> function.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fortran</strong> (<em>book</em><em>, </em><em>option</em>) – Whether or not the Fortran modules are used</p></li>
+<li><p><strong>obs</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether or not the analysis is done for an OBS stations</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>trxyz: Stream containing 3-component displacement seismograms</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(obspy.stream)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.get_trxyz">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">get_trxyz</code><span class="sig-paren">(</span><em class="sig-param">yx</em>, <em class="sig-param">yy</em>, <em class="sig-param">yz</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.get_trxyz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to store displacement seismograms into <code class="docutils literal notranslate"><span class="pre">obspy</span></code> <code class="docutils literal notranslate"><span class="pre">Trace</span></code> obsjects and
+then an <code class="docutils literal notranslate"><span class="pre">obspy</span></code> <code class="docutils literal notranslate"><span class="pre">Stream</span></code> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ux</strong> (<em>np.ndarray</em>) – x-component displacement seismogram</p></li>
+<li><p><strong>uy</strong> (<em>np.ndarray</em>) – y-component displacement seismogram</p></li>
+<li><p><strong>uz</strong> (<em>np.ndarray</em>) – z-component displacement seismogram</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>trxyz: Stream containing 3-component displacement seismograms</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(obspy.stream)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.tf_from_xyz">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">tf_from_xyz</code><span class="sig-paren">(</span><em class="sig-param">trxyz</em>, <em class="sig-param">pvh=False</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.tf_from_xyz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate transfer functions from displacement traces.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trxyz</strong> (<em>obspy.stream</em>) – Obspy <code class="docutils literal notranslate"><span class="pre">Stream</span></code> object in cartesian coordinate system</p></li>
+<li><p><strong>pvh</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to rotate from Z-R-T coordinate system to P-SV-SH wave mode</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tfs: Stream containing Radial and Transverse transfer functions</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(obspy.stream)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.update_stats">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">update_stats</code><span class="sig-paren">(</span><em class="sig-param">tr</em>, <em class="sig-param">nt</em>, <em class="sig-param">dt</em>, <em class="sig-param">slow</em>, <em class="sig-param">baz</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.update_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the <code class="docutils literal notranslate"><span class="pre">stats</span></code> doctionary from an obspy <code class="docutils literal notranslate"><span class="pre">Trace</span></code> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tr</strong> (<em>obspy.trace</em>) – Trace object to update</p></li>
+<li><p><strong>nt</strong> (<em>int</em>) – Number of samples</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Sampling rate</p></li>
+<li><p><strong>slow</strong> (<em>float</em>) – Slowness value (s/km)</p></li>
+<li><p><strong>baz</strong> (<em>float</em>) – Back-azimuth value (degree)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tr: Trace with updated stats</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(obspy.trace)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-telewavesim.wiggle">
+<span id="telewavesim-wiggles"></span><h2>telewavesim.wiggles<a class="headerlink" href="#module-telewavesim.wiggle" title="Permalink to this headline">¶</a></h2>
+<p>Functions to plot single station plane wave or receiver function seismograms as wiggle plots.</p>
+<dl class="function">
+<dt id="telewavesim.wiggle.rf_wiggles_baz">
+<code class="sig-prename descclassname">telewavesim.wiggle.</code><code class="sig-name descname">rf_wiggles_baz</code><span class="sig-paren">(</span><em class="sig-param">str1</em>, <em class="sig-param">str2</em>, <em class="sig-param">tr1</em>, <em class="sig-param">tr2</em>, <em class="sig-param">sta</em>, <em class="sig-param">btyp='baz'</em>, <em class="sig-param">tmin=-10.0</em>, <em class="sig-param">tmax=30</em>, <em class="sig-param">scale=None</em>, <em class="sig-param">save=False</em>, <em class="sig-param">ftitle='Figure_rf_wiggle_baz'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.wiggle.rf_wiggles_baz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots receiver function seismograms as panels according to back-azimuth or slowness.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>str1</strong> (<em>obspy.stream</em>) – Stream 1</p></li>
+<li><p><strong>str2</strong> (<em>obspy.stream</em>) – Stream 2</p></li>
+<li><p><strong>tr1</strong> (<em>obspy.trace</em>) – Trace 1 (normally obtained from the <code class="docutils literal notranslate"><span class="pre">utils.stack_all</span></code> function)</p></li>
+<li><p><strong>tr2</strong> (<em>obspy.trace</em>) – Trace 2</p></li>
+<li><p><strong>sta</strong> (<em>str</em>) – Station name</p></li>
+<li><p><strong>btyp</strong> (<em>str</em><em>, </em><em>optional</em>) – Type of sorting for panel</p></li>
+<li><p><strong>tmin</strong> (<em>float</em><em>, </em><em>optional</em>) – Lower bound of time axis (s)</p></li>
+<li><p><strong>tmax</strong> (<em>float</em><em>, </em><em>optional</em>) – Upper bound of time axis (s)</p></li>
+<li><p><strong>scale</strong> (<em>float</em><em>, </em><em>optional</em>) – Scaling factor</p></li>
+<li><p><strong>save</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether or not to save the figure</p></li>
+<li><p><strong>ftitle</strong> (<em>str</em><em>, </em><em>optional</em>) – Title of figure to be saved</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.wiggle.pw_wiggles_baz">
+<code class="sig-prename descclassname">telewavesim.wiggle.</code><code class="sig-name descname">pw_wiggles_baz</code><span class="sig-paren">(</span><em class="sig-param">str1</em>, <em class="sig-param">str2</em>, <em class="sig-param">sta</em>, <em class="sig-param">btyp='baz'</em>, <em class="sig-param">t1=None</em>, <em class="sig-param">tmin=0.0</em>, <em class="sig-param">tmax=30</em>, <em class="sig-param">scale=None</em>, <em class="sig-param">save=False</em>, <em class="sig-param">ftitle='Figure_pw_wiggles_baz'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.wiggle.pw_wiggles_baz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots plane wave seismograms as panels according to back-azimuth or slowness.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>str1</strong> (<em>obspy.stream</em>) – Stream 1</p></li>
+<li><p><strong>str2</strong> (<em>obspy.stream</em>) – Stream 2</p></li>
+<li><p><strong>sta</strong> (<em>str</em>) – Station name</p></li>
+<li><p><strong>btyp</strong> (<em>str</em><em>, </em><em>optional</em>) – Type of sorting for panel</p></li>
+<li><p><strong>t1</strong> (<em>float</em>) – Predicted arrival time that will be drawn as vertical line (s)</p></li>
+<li><p><strong>tmin</strong> (<em>float</em><em>, </em><em>optional</em>) – Lower bound of time axis (s)</p></li>
+<li><p><strong>tmax</strong> (<em>float</em><em>, </em><em>optional</em>) – Upper bound of time axis (s)</p></li>
+<li><p><strong>scale</strong> (<em>float</em><em>, </em><em>optional</em>) – Scaling factor</p></li>
+<li><p><strong>save</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether or not to save the figure</p></li>
+<li><p><strong>ftitle</strong> (<em>str</em><em>, </em><em>optional</em>) – Title of figure to be saved</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.wiggle.pw_wiggles_Audet2016">
+<code class="sig-prename descclassname">telewavesim.wiggle.</code><code class="sig-name descname">pw_wiggles_Audet2016</code><span class="sig-paren">(</span><em class="sig-param">strf</em>, <em class="sig-param">t1=0.0</em>, <em class="sig-param">tmax=20.0</em>, <em class="sig-param">f1=0.1</em>, <em class="sig-param">f2=1.0</em>, <em class="sig-param">scale=1e-07</em>, <em class="sig-param">save=False</em>, <em class="sig-param">ftitle='Figure_pw_wiggles_Audet2016'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.wiggle.pw_wiggles_Audet2016" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots plane wave and receiver function seismograms formatted as in Audet (GJI, 2016).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>strf</strong> (<em>obspy.stream</em>) – Stream containing 3 traces: [0]: Transfer function;         [1]: Vertical and [2]: Radial plane wave seismograms</p></li>
+<li><p><strong>t1</strong> (<em>float</em>) – Predicted arrival time (s)</p></li>
+<li><p><strong>tmax</strong> (<em>float</em><em>, </em><em>optional</em>) – Upper bound of time axis (s)</p></li>
+<li><p><strong>f1</strong> (<em>float</em>) – Lower frequency corner of bandpass filter (Hz)</p></li>
+<li><p><strong>f2</strong> (<em>float</em>) – Upper frequency corner of bandpass filter (Hz)</p></li>
+<li><p><strong>scale</strong> (<em>float</em><em>, </em><em>optional</em>) – Scaling factor</p></li>
+<li><p><strong>save</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether or not to save the figure</p></li>
+<li><p><strong>ftitle</strong> (<em>str</em><em>, </em><em>optional</em>) – Title of figure to be saved</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.wiggle.gf_wiggles_3c">
+<code class="sig-prename descclassname">telewavesim.wiggle.</code><code class="sig-name descname">gf_wiggles_3c</code><span class="sig-paren">(</span><em class="sig-param">stream</em>, <em class="sig-param">t1=0.0</em>, <em class="sig-param">tmax=20.0</em>, <em class="sig-param">f1=0.1</em>, <em class="sig-param">f2=1.0</em>, <em class="sig-param">save=False</em>, <em class="sig-param">ftitle='Figure_pw_wiggles_3c'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.wiggle.gf_wiggles_3c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots 3-component wiggles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream</strong> (<em>obspy.stream</em>) – Stream containing 3 traces</p></li>
+<li><p><strong>t1</strong> (<em>float</em>) – Predicted arrival time (s)</p></li>
+<li><p><strong>tmax</strong> (<em>float</em><em>, </em><em>optional</em>) – Upper bound of time axis (s)</p></li>
+<li><p><strong>f1</strong> (<em>float</em>) – Lower frequency corner of bandpass filter (Hz)</p></li>
+<li><p><strong>f2</strong> (<em>float</em>) – Upper frequency corner of bandpass filter (Hz)</p></li>
+<li><p><strong>save</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether or not to save the figure</p></li>
+<li><p><strong>ftitle</strong> (<em>str</em><em>, </em><em>optional</em>) – Title of figure to be saved</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-telewavesim.rmat_f">
+<span id="telewavesim-rmat-f"></span><h2>telewavesim.rmat_f<a class="headerlink" href="#module-telewavesim.rmat_f" title="Permalink to this headline">¶</a></h2>
+<p>This module ‘rmat_f’ is auto-generated with f2py (version:2).
+Functions:</p>
+<blockquote>
+<div><p>layer(omega,xh,eval,tu,td,rd)
+addit(nlay,ilay,tus,rus,tds,rds,tu,ru,td,rd)
+xeveci(evec,eveci)
+isotroc(vp,vs,dens,p11,p22,q,n)
+anisotroc(c,dens,p11,p22,q,n)
+xinv3(a,ainv)
+rxinv3(a,ainv)
+xmult3(a,b,c)
+sort_evec(q,evec,n=len(q))
+reorder_evec(evalr,evali,evecr,eveci,indx,eval,evec,n=len(evalr))
+sort_r(a,indx,m=len(a),n=len(indx))
+cnorm(n,nm=shape(n,0))</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Fortran 90/95 modules:</dt><dd><p>conf — pi,nlaymx,a,thickn,rho,dp,c,rhof,isoflg,dt,slow,baz,evals,evecs,tui,rui,tdi,rdi  rmat — rmatrix(),rtfluid()  plane — plane_land(),plane_obs().</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to telewavesim’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">telewavesim 0.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Pascal Audet.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>
