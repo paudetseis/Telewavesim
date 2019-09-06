@@ -102,7 +102,7 @@ git clone https://github.com/paudetseis/Telewavesim.git
 cd Telewavesim
 ```
 
-Next we recommend following the steps for creating a `conda` environment (see above). Then install using `pip`:
+Next we recommend following the steps for creating a `conda` environment (see [above](#condaenvironment)). Then install using `pip`:
 
 ```bash
 pip install .
