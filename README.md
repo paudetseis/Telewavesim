@@ -12,7 +12,8 @@ characterizing their effect on observed seismograms.
 
 This package contains `python` and `fortran` modules to synthesize teleseismic 
 body-wave propagation through stacks of generally anisotropic and strictly horizontal 
-layers using the matrix propagator approach of [Kennett (1983)](#references). 
+layers using the matrix propagator approach of [Kennett (1983)](#references), as implemented
+in [Thomson (1997)](#rerferences). 
 The software also properly models reverberations from an overlying column of water, 
 effectively simulating ocean-bottom seismic (OBS) station recordings. The software 
 will be useful in a variety of teleseismic receiver-based studies, such as P or S 
@@ -180,3 +181,5 @@ The API for all functions in `telewavesim` can be accessed from https://paudetse
 - Kennett, B.L.N. (1983). Seismic wave propagation in stratified media. Cambridge University Press, 342pp.
 
 - Porter, R., Zandt, G., & McQuarrie, N. (2011). Pervasive lower-crustal seismic anisotropy in Southern California: Evidence for underplated schists and active tectonics. Lithosphere, 3(3), 201-220. https://doi.org/10.1130/L126.1
+
+- Thomson, C.J. (1997). Modelling surface waves in anisotropic structures: I. Theory. Physics of the Earth and Planetary interiors, 103, 195-206. 
