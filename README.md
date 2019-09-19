@@ -14,7 +14,8 @@ This package contains `python` and `fortran` modules to synthesize teleseismic
 body-wave propagation through stacks of generally anisotropic and strictly horizontal 
 layers using the matrix propagator approach of [Kennett (1983)](#references), as implemented
 in [Thomson (1997)](#rerferences). 
-The software also properly models reverberations from an overlying column of water, 
+The software also properly models reverberations from an overlying column of water using the R/T
+matrix expressions of [Bostock and Trehu (2012)](#references), 
 effectively simulating ocean-bottom seismic (OBS) station recordings. The software 
 will be useful in a variety of teleseismic receiver-based studies, such as P or S 
 receiver functions, long-period P-wave polarization, shear-wave splitting from 
@@ -177,6 +178,8 @@ The API for all functions in `telewavesim` can be accessed from https://paudetse
 ## References
 
 - Audet, P. (2016). Receiver functions using OBS data: promises and limitations from numerical modelling and examples from the Cascadia Initiative. Geophysical Journal International, 205, 1740-1755. https://doi.org/10.1093/gji/ggw111
+
+- Bostock, M.G., and Trehu, A.M. (2012). Wave-field decomposition of ocean-bottom seismograms. Bulletin of the Seismological Society of America, 102, 1681-1692. https://doi.org/10.1785/0120110162
 
 - Kennett, B.L.N. (1983). Seismic wave propagation in stratified media. Cambridge University Press, 342pp.
 
