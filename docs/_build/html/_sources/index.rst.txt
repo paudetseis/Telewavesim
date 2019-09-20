@@ -10,6 +10,12 @@ Welcome to telewavesim's documentation!
    :caption: Contents:
 
    api
+   doc
+   conf
+   elast
+   utils
+   wiggles
+   rmat_f
 
 Indices and tables
 ==================
