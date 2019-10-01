@@ -110,23 +110,11 @@ Next we recommend following the steps for creating a `conda` environment (see [a
 pip install .
 ``` 
 
----
-**NOTE**
-
-If you are actively working on the code, or making frequent edits, it is advisable to perform 
-installation from source with the `-e` flag: 
-
-```bash
-pip install -e .
-```
-
-This enables an editable installation, where symbolic links are used rather than straight 
-copies. This means that any changes made in the local folders will be reflected in the 
-package available on the system.
-
----
-
 ## Usage 
+
+### API Documentation
+
+The API for all functions in `telewavesim` can be accessed from https://paudetseis.github.io/Telewavesim/.
 
 ### Jupyter Notebooks
 
@@ -170,10 +158,6 @@ git checkout https://github.com/paudetseis/Telewavesim.git
 cd Telewavesim
 pytest -v
 ```
-
-### API Documentation
-
-The API for all functions in `telewavesim` can be accessed from https://paudetseis.github.io/Telewavesim/.
 
 ## References
 
