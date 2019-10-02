@@ -1,8 +1,8 @@
 .. figure:: ../telewavesim/examples/picture/tws_logo.png
    :align: center
 
-The telewavesim API reference
-=============================
+telewavesim.elast
+-----------------
 
-.. automodule:: telewavesim
+.. automodule:: telewavesim.elast
    :members:

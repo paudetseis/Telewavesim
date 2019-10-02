@@ -1,0 +1,1281 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>telewavesim.elast &#8212; telewavesim 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="telewavesim.utils" href="utils.html" />
+    <link rel="prev" title="telewavesim.conf" href="conf.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="telewavesim.utils"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="conf.html" title="telewavesim.conf"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">telewavesim 0.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="conf.html"
+                        title="previous chapter">telewavesim.conf</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="utils.html"
+                        title="next chapter">telewavesim.utils</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/elast.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="figure align-center">
+<img alt="_images/tws_logo.png" src="_images/tws_logo.png" />
+</div>
+<div class="section" id="module-telewavesim.elast">
+<span id="telewavesim-elast"></span><h1>telewavesim.elast<a class="headerlink" href="#module-telewavesim.elast" title="Permalink to this headline">¶</a></h1>
+<p>Functions to define elastic stiffness matrices.</p>
+<dl class="function">
+<dt id="telewavesim.elast.iso_tensor">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">iso_tensor</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.iso_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants (GPa /density) of isotropic material in Voigt notation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>float</em>) – P-wave velocity (km/s)</p></li>
+<li><p><strong>b</strong> (<em>float</em>) – S-wave velocity (km/s)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>C: Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(np.ndarray)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">iso_tensor</span><span class="p">(</span><span class="mf">6.e3</span><span class="p">,</span> <span class="mf">3.6e3</span><span class="p">)</span>
+<span class="go">array([[36000000., 10080000., 10080000.,        0.,        0.,        0.],</span>
+<span class="go">       [10080000., 36000000., 10080000.,        0.,        0.,        0.],</span>
+<span class="go">       [10080000., 10080000., 36000000.,        0.,        0.,        0.],</span>
+<span class="go">       [       0.,        0.,        0., 12960000.,        0.,        0.],</span>
+<span class="go">       [       0.,        0.,        0.,        0., 12960000.,        0.],</span>
+<span class="go">       [       0.,        0.,        0.,        0.,        0., 12960000.]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.tri_tensor">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">tri_tensor</code><span class="sig-paren">(</span><em class="sig-param">AA</em>, <em class="sig-param">CC</em>, <em class="sig-param">FF</em>, <em class="sig-param">LL</em>, <em class="sig-param">NN</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.tri_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants (GPa /density) of transversely isotropic material in Voigt notation     (hexagonal symmetry). See Porter et al. (2011) for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>AA</strong> (<em>float</em>) – elastic modulus (GPa /density)</p></li>
+<li><p><strong>CC</strong> (<em>float</em>) – elastic modulus (GPa /density)</p></li>
+<li><p><strong>FF</strong> (<em>float</em>) – elastic modulus (GPa /density)</p></li>
+<li><p><strong>LL</strong> (<em>float</em>) – elastic modulus (GPa /density)</p></li>
+<li><p><strong>NN</strong> (<em>float</em>) – elastic modulus (GPa /density)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a: Elastic tensor (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(np.ndarray)</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">tri_tensor</span></code> does not make sense on its own.
+Use it with <code class="docutils literal notranslate"><span class="pre">telewavesim.utils.set_tri_tensor</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.antigorite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">antigorite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.antigorite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of antigorite mineral (GPa) from
+Bezacier, EPSL, 2010, in Voigt notation.</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'atg'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2620 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">antigorite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[208.4,  66.2,  15.9,   0. ,   2.4,   0. ],</span>
+<span class="go">       [ 66.2, 201.6,   5. ,   0. ,  -4.4,   0. ],</span>
+<span class="go">       [ 15.9,   5. ,  96.7,   0. ,   2.5,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  17.4,   0. , -13.1],</span>
+<span class="go">       [  2.4,  -4.4,   2.5,   0. ,  18.3,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. , -13.1,   0. ,  65. ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">antigorite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2620.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.biotite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">biotite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.biotite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of biotite mineral (GPa) from
+Aleksandrov and Ryzhova (1986), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'bt'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2800 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">biotite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[186. ,  32.4,  11.6,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 32.4, 186. ,  11.6,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 11.6,  11.6,  54. ,   0. ,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   5.8,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,   5.8,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,   0. ,  76.8]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">biotite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2800.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.blueschist_felsic">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">blueschist_felsic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.blueschist_felsic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of Felsic Blueschist (GPa) from
+Cao et al. (2013), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'BS_f'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2970 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">blueschist_felsic</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 1.4985e+02,  3.8700e+01,  3.2590e+01, -1.5000e-01, -1.0000e+00,</span>
+<span class="go">        -1.9000e-01],</span>
+<span class="go">       [ 3.8700e+01,  1.6355e+02,  3.0030e+01,  1.0500e+00, -1.8100e+00,</span>
+<span class="go">        -1.7800e+00],</span>
+<span class="go">       [ 3.2590e+01,  3.0030e+01,  1.2162e+02,  2.2000e-01, -9.5000e-01,</span>
+<span class="go">        -1.3000e-01],</span>
+<span class="go">       [-1.5000e-01,  1.0500e+00,  2.2000e-01,  4.8030e+01, -6.3000e-01,</span>
+<span class="go">        -1.1400e+00],</span>
+<span class="go">       [-1.0000e+00, -1.8100e+00, -9.5000e-01, -6.3000e-01,  4.8620e+01,</span>
+<span class="go">        -1.0000e-02],</span>
+<span class="go">       [-1.9000e-01, -1.7800e+00, -1.3000e-01, -1.1400e+00, -1.0000e-02,</span>
+<span class="go">         5.8420e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">blueschist_felsic</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2970.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.blueschist_mafic">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">blueschist_mafic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.blueschist_mafic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of Mafic Blueschist (GPa) from
+Cao et al. (2013), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'BS_m'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3190 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">blueschist_mafic</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 1.9079e+02,  6.2280e+01,  5.2940e+01, -4.4000e-01,  4.6800e+00,</span>
+<span class="go">         6.0000e-01],</span>
+<span class="go">       [ 6.2280e+01,  2.1838e+02,  5.3100e+01, -8.7000e-01,  1.5700e+00,</span>
+<span class="go">         2.8000e-01],</span>
+<span class="go">       [ 5.2940e+01,  5.3100e+01,  1.5804e+02, -4.4000e-01,  2.6600e+00,</span>
+<span class="go">        -3.5000e-01],</span>
+<span class="go">       [-4.4000e-01, -8.7000e-01, -4.4000e-01,  6.0860e+01, -2.9000e-01,</span>
+<span class="go">         1.8600e+00],</span>
+<span class="go">       [ 4.6800e+00,  1.5700e+00,  2.6600e+00, -2.9000e-01,  5.8940e+01,</span>
+<span class="go">        -2.0000e-01],</span>
+<span class="go">       [ 6.0000e-01,  2.8000e-01, -3.5000e-01,  1.8600e+00, -2.0000e-01,</span>
+<span class="go">         6.9630e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">blueschist_mafic</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3190.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.clinopyroxene_92">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">clinopyroxene_92</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.clinopyroxene_92" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of clinopyroxene mineral (GPa) from
+Baghat et al. (1992), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'cpx'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3327 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">clinopyroxene_92</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[257.3,  85.9,  76.2,   0. ,   7.1,   0. ],</span>
+<span class="go">       [ 85.9, 216.2,  71.8,   0. ,  13.3,   0. ],</span>
+<span class="go">       [ 76.2,  71.8, 260.2,   0. ,  33.7,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  80.2,   0. ,  10.2],</span>
+<span class="go">       [  7.1,  13.3,  33.7,   0. ,  70.6,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  10.2,   0. ,  85.8]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">clinopyroxene_92</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3327.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.clinopyroxene_98">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">clinopyroxene_98</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.clinopyroxene_98" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of clinopyroxene mineral (GPa) from
+Collins and Brown (1998), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">None</span></code>: not currently used</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3190 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">clinopyroxene_98</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[237.8,  83.5,  80. ,   0. ,   9. ,   0. ],</span>
+<span class="go">       [ 83.5, 183.6,  59.9,   0. ,   9.5,   0. ],</span>
+<span class="go">       [ 80. ,  59.9, 229.5,   0. ,  48.1,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  76.5,   0. ,   8.4],</span>
+<span class="go">       [  9. ,   9.5,  48.1,   0. ,  73. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   8.4,   0. ,  81.6]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">clinopyroxene_98</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3190.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.dolomite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">dolomite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.dolomite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of dolomite mineral (GPa) from
+Humbert and Plicque (1972), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'dol'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2840 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">dolomite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[205. ,  71. ,  57.4, -19.5,  13.7,   0. ],</span>
+<span class="go">       [ 71. , 205. ,  57.4,  19.5, -13.7,   0. ],</span>
+<span class="go">       [ 57.4,  57.4, 113. ,   0. ,   0. ,   0. ],</span>
+<span class="go">       [-19.5,  19.5,   0. ,  39.8,   0. , -13.7],</span>
+<span class="go">       [ 13.7, -13.7,   0. ,   0. ,  39.8, -19.5],</span>
+<span class="go">       [  0. ,   0. ,   0. , -13.7, -19.5,  67. ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">dolomite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2840.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.eclogite_foliated">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">eclogite_foliated</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.eclogite_foliated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of Foliated Eclogite rock (GPa) from
+Cao et al. (2013), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'EC_f'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3300 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">eclogite_foliated</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 2.0345e+02,  6.7760e+01,  6.4470e+01,  8.0000e-02,  1.9000e+00,</span>
+<span class="go">        -4.0000e-01],</span>
+<span class="go">       [ 6.7760e+01,  2.2058e+02,  6.3650e+01,  4.6000e-01,  5.9000e-01,</span>
+<span class="go">         6.0000e-02],</span>
+<span class="go">       [ 6.4470e+01,  6.3650e+01,  1.8975e+02,  1.3000e-01,  9.5000e-01,</span>
+<span class="go">        -2.0000e-01],</span>
+<span class="go">       [ 8.0000e-02,  4.6000e-01,  1.3000e-01,  6.6320e+01, -2.7000e-01,</span>
+<span class="go">         7.3000e-01],</span>
+<span class="go">       [ 1.9000e+00,  5.9000e-01,  9.5000e-01, -2.7000e-01,  6.5770e+01,</span>
+<span class="go">        -2.0000e-02],</span>
+<span class="go">       [-4.0000e-01,  6.0000e-02, -2.0000e-01,  7.3000e-01, -2.0000e-02,</span>
+<span class="go">         7.0750e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">eclogite_foliated</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3300.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.eclogite_massive">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">eclogite_massive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.eclogite_massive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of Massive Eclogite rock (GPa) from
+Cao et al. (2013), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'EC_m'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3490 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">eclogite_massive</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 2.3885e+02,  8.2010e+01,  8.1440e+01,  3.0000e-01, -2.0000e-02,</span>
+<span class="go">         5.0000e-01],</span>
+<span class="go">       [ 8.2010e+01,  2.4212e+02,  8.1110e+01, -6.6000e-01,  3.3000e-01,</span>
+<span class="go">         1.2000e-01],</span>
+<span class="go">       [ 8.1440e+01,  8.1110e+01,  2.3557e+02, -2.8000e-01,  2.2000e-01,</span>
+<span class="go">         3.1000e-01],</span>
+<span class="go">       [ 3.0000e-01, -6.6000e-01, -2.8000e-01,  7.8720e+01,  2.7000e-01,</span>
+<span class="go">         0.0000e+00],</span>
+<span class="go">       [-2.0000e-02,  3.3000e-01,  2.2000e-01,  2.7000e-01,  7.8370e+01,</span>
+<span class="go">         2.5000e-01],</span>
+<span class="go">       [ 5.0000e-01,  1.2000e-01,  3.1000e-01,  0.0000e+00,  2.5000e-01,</span>
+<span class="go">         7.7910e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">eclogite_massive</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3490.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.epidote">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">epidote</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.epidote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of epidote mineral (GPa) from
+Aleksandrakov et al. (1974), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'ep'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3465 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">epidote</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[211.5,  65.6,  43.2,   0. ,  -6.5,   0. ],</span>
+<span class="go">       [ 65.6, 239. ,  43.6,   0. , -10.4,   0. ],</span>
+<span class="go">       [ 43.2,  43.6, 202.1,   0. , -20. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  39.1,   0. ,  -2.3],</span>
+<span class="go">       [ -6.5, -10.4, -20. ,   0. ,  43.4,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  -2.3,   0. ,  79.5]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">epidote</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3465.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.garnet">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">garnet</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.garnet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of garnet mineral (GPa) from
+Babuska et al. (1978), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'grt'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3660 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">garnet</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[306.2, 112.5, 112.5,   0. ,   0. ,   0. ],</span>
+<span class="go">       [112.5, 306.2, 112.5,   0. ,   0. ,   0. ],</span>
+<span class="go">       [112.5, 112.5, 306.2,   0. ,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  92.7,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,  92.7,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,   0. ,  92.7]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">garnet</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3660.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.glaucophane">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">glaucophane</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.glaucophane" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of glaucophane mineral (GPa) from
+Bezacier et al. (2010), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'gln'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3070 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">glaucophane</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[122.3 ,  45.7 ,  37.2 ,   0.  ,   2.3 ,   0.  ],</span>
+<span class="go">       [ 45.7 , 231.5 ,  74.9 ,   0.  ,  -4.8 ,   0.  ],</span>
+<span class="go">       [ 37.2 ,  74.9 , 254.6 ,   0.  ,  -2.37,   0.  ],</span>
+<span class="go">       [  0.  ,   0.  ,   0.  ,  79.6 ,   0.  ,   8.9 ],</span>
+<span class="go">       [  2.3 ,  -4.8 ,  -2.37,   0.  ,  52.8 ,   0.  ],</span>
+<span class="go">       [  0.  ,   0.  ,   0.  ,   8.9 ,   0.  ,  51.2 ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">glaucophane</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3070.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.harzburgite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">harzburgite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.harzburgite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of harzburgite rock (GPa) from
+Covey-Crump et al. (2003), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'HB'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3200 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">harzburgite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[226.5 ,  75.34,  74.73,  -0.27,  -2.  ,   1.85],</span>
+<span class="go">       [ 75.34, 242.8 ,  73.68,  -3.6 ,  -1.91,   4.14],</span>
+<span class="go">       [ 74.73,  73.68, 230.  ,  -4.36,  -4.27,  -0.27],</span>
+<span class="go">       [ -0.27,  -3.6 ,  -4.36,  80.75,   1.81,  -2.19],</span>
+<span class="go">       [ -2.  ,  -1.91,  -4.27,   1.81,  76.94,  -1.88],</span>
+<span class="go">       [  1.85,   4.14,  -0.27,  -2.19,  -1.88,  79.15]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">harzburgite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3200.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.hornblende">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">hornblende</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.hornblende" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of hornblende mineral (GPa) from
+Aleksandrov and Ryzhova (1986), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'hbl'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3200 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">hornblende</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[116. ,  49.9,  61.4,   0. ,   4.3,   0. ],</span>
+<span class="go">       [ 49.9, 159.7,  65.5,   0. ,  -2.5,   0. ],</span>
+<span class="go">       [ 61.4,  65.5, 191.6,   0. ,  10. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  57.4,   0. ,  -6.2],</span>
+<span class="go">       [  4.3,  -2.5,  10. ,   0. ,  31.8,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  -6.2,   0. ,  36.8]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">hornblende</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3200.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.jadeite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">jadeite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.jadeite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of jadeite mineral (GPa) from
+Kandelin and Weiner (1988), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'jade'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3330 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">jadeite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[274.,  94.,  71.,   0.,   4.,   0.],</span>
+<span class="go">       [ 94., 253.,  82.,   0.,  14.,   0.],</span>
+<span class="go">       [ 71.,  82., 282.,   0.,  28.,   0.],</span>
+<span class="go">       [  0.,   0.,   0.,  88.,   0.,  13.],</span>
+<span class="go">       [  4.,  14.,  28.,   0.,  65.,   0.],</span>
+<span class="go">       [  0.,   0.,   0.,  13.,   0.,  94.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">jadeite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3330.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.lawsonite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">lawsonite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.lawsonite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of jadeite mineral (GPa) from
+Kandelin and Weiner (1988), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'lws'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3090 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lawsonite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[214.,  69.,  82.,   0.,   0.,   0.],</span>
+<span class="go">       [ 69., 226.,  65.,   0.,   0.,   0.],</span>
+<span class="go">       [ 82.,  65., 259.,   0.,   0.,   0.],</span>
+<span class="go">       [  0.,   0.,   0.,  60.,   0.,   0.],</span>
+<span class="go">       [  0.,   0.,   0.,   0.,  65.,   0.],</span>
+<span class="go">       [  0.,   0.,   0.,   0.,   0.,  17.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lawsonite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3090.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.lherzolite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">lherzolite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.lherzolite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of lherzolite rock (GPa) from
+Peselnick et al. (1974), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'LHZ'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3270 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lherzolite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 1.8740e+02,  6.3710e+01,  6.3870e+01,  7.8000e-01,  2.0200e+00,</span>
+<span class="go">        -3.2000e+00],</span>
+<span class="go">       [ 6.3710e+01,  2.1125e+02,  6.4500e+01, -3.0700e+00,  8.7000e-01,</span>
+<span class="go">        -5.7800e+00],</span>
+<span class="go">       [ 6.3870e+01,  6.4500e+01,  1.9000e+02,  3.8000e-01,  2.3800e+00,</span>
+<span class="go">        -1.2000e-01],</span>
+<span class="go">       [ 7.8000e-01, -3.0700e+00,  3.8000e-01,  6.7900e+01, -2.1200e+00,</span>
+<span class="go">         1.6000e+00],</span>
+<span class="go">       [ 2.0200e+00,  8.7000e-01,  2.3800e+00, -2.1200e+00,  6.3120e+01,</span>
+<span class="go">        -5.5000e-01],</span>
+<span class="go">       [-3.2000e+00, -5.7800e+00, -1.2000e-01,  1.6000e+00, -5.5000e-01,</span>
+<span class="go">         6.6830e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lherzolite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3270.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.lizardite_atom">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">lizardite_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.lizardite_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of lizardite mineral (GPa) from
+Auzende et al., Phys. Chem. Min. 2006 from atomistic calculations.</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">None</span></code>: Not currently used.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2515 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lizardite_atom</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 2.29080e+02,  8.90440e+01,  1.35580e+01, -1.00000e-04,</span>
+<span class="go">         4.60250e+00,  1.00000e-04],</span>
+<span class="go">       [ 8.90440e+01,  2.29080e+02,  1.35570e+01, -1.00000e-04,</span>
+<span class="go">        -4.60160e+00,  1.00000e-04],</span>
+<span class="go">       [ 1.35580e+01,  1.35570e+01,  4.58380e+01, -1.00000e-04,</span>
+<span class="go">         1.50000e-03,  1.00000e-04],</span>
+<span class="go">       [-1.00000e-04, -1.00000e-04, -1.00000e-04,  1.27650e+01,</span>
+<span class="go">        -1.00000e-04, -4.45980e+00],</span>
+<span class="go">       [ 4.60250e+00, -4.60160e+00,  1.50000e-03, -1.00000e-04,</span>
+<span class="go">         1.27740e+01,  1.00000e-04],</span>
+<span class="go">       [ 1.00000e-04,  1.00000e-04,  1.00000e-04, -4.45980e+00,</span>
+<span class="go">         1.00000e-04,  7.00166e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lizardite_atom</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2515.5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.lizardite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">lizardite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.lizardite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of lizardite mineral (GPa) from
+Reynard, GRL, 2007 from Density Functional Theory.</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'lz'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2610 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lizardite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[245. ,  50. ,  31. ,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 50. , 245. ,  31. ,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 31. ,  31. ,  23. ,   0. ,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  11.6,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,  11.6,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,   0. ,  97.5]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">lizardite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2610.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.muscovite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">muscovite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.muscovite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of muscovite mineral (GPa) from
+Vaughan and Guggenheim (1986), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'ms'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2834 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">muscovite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[181. ,  48.8,  25.6,   0. , -14.2,   0. ],</span>
+<span class="go">       [ 48.8, 178.4,  21.2,   0. ,   1.1,   0. ],</span>
+<span class="go">       [ 25.6,  21.2,  58.6,   0. ,   1. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  16.5,   0. ,  -5.2],</span>
+<span class="go">       [-14.2,   1.1,   1. ,   0. ,  19.5,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  -5.2,   0. ,  72. ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">muscovite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2834.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.olivine">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">olivine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.olivine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of olivine mineral (GPa) from
+Abrahamson et al. (1997), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'ol'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3355 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">olivine</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[320.5 ,  68.15,  71.6 ,   0.  ,   0.  ,   0.  ],</span>
+<span class="go">       [ 68.15, 196.5 ,  76.8 ,   0.  ,   0.  ,   0.  ],</span>
+<span class="go">       [ 71.6 ,  76.8 , 233.5 ,   0.  ,   0.  ,   0.  ],</span>
+<span class="go">       [  0.  ,   0.  ,   0.  ,  64.  ,   0.  ,   0.  ],</span>
+<span class="go">       [  0.  ,   0.  ,   0.  ,   0.  ,  77.  ,   0.  ],</span>
+<span class="go">       [  0.  ,   0.  ,   0.  ,   0.  ,   0.  ,  78.7 ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">olivine</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3355.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.orthopyroxene">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">orthopyroxene</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.orthopyroxene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of orthopyroxene mineral (GPa) from
+Chai et al. (1977), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'opx'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3304 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">orthopyroxene</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[236.9,  79.6,  63.2,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 79.6, 180.5,  56.8,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 63.2,  56.8, 230.4,   0. ,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  84.3,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,  79.4,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,   0. ,  80.1]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">orthopyroxene</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3304.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.plagioclase_64">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">plagioclase_64</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.plagioclase_64" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of plagioclase mineral (GPa) from
+Ryzhova (1964), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">None</span></code>: Not currently used.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2700 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">plagioclase_64</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 81.8,  39.3,  40.7,   0. ,  -9. ,   0. ],</span>
+<span class="go">       [ 39.3, 145. ,  34.1,   0. ,  -7.9,   0. ],</span>
+<span class="go">       [ 40.7,  34.1, 133. ,   0. , -18.5,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  17.7,   0. ,  -0.8],</span>
+<span class="go">       [ -9. ,  -7.9, -18.5,   0. ,  31.2,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  -0.8,   0. ,  33.3]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">plagioclase_64</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2700.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.plagioclase_06">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">plagioclase_06</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.plagioclase_06" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of plagioclase mineral (GPa) from
+Brown et al. (2006), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'plag'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2700 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">plagioclase_06</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 69.9  ,  33.24 ,  31.56 ,   5.28 ,  -2.46 ,  -0.72 ],</span>
+<span class="go">       [ 33.24 , 183.28 ,   7.53 ,   5.31 ,  -7.6  ,  -0.423],</span>
+<span class="go">       [ 31.56 ,   7.53 , 175.65 , -17.48 ,   5.86 , -11.29 ],</span>
+<span class="go">       [  5.28 ,   5.31 , -17.48 ,  26.93 ,  -3.94 ,  -6.56 ],</span>
+<span class="go">       [ -2.46 ,  -7.6  ,   5.86 ,  -3.94 ,  26.91 ,   0.98 ],</span>
+<span class="go">       [ -0.72 ,  -0.423, -11.29 ,  -6.56 ,   0.98 ,  33.39 ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">plagioclase_06</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2700.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.quartz">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">quartz</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.quartz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of quartz mineral (GPa) from
+Lakshanov et al. (2007), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'qtz'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2649 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">quartz</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 86.9,   7.6,  12. ,  17.8,   0. ,   0. ],</span>
+<span class="go">       [  7.6,  86.9,  12. , -17.8,   0. ,   0. ],</span>
+<span class="go">       [ 12. ,  12. , 106.4,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 17.8, -17.8,   0. ,  59.5,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,  59.5, -17.8],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. , -17.8,  39.6]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">quartz</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2649.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.serpentinite_37">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">serpentinite_37</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.serpentinite_37" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of serpentinite rock sample HPS-M (GPa) from
+Watanabe et al., 2011, in Voigt notation.</p>
+<ul class="simple">
+<li><p>Mineralogy: <code class="docutils literal notranslate"><span class="pre">Ol</span></code> (57.7%), <code class="docutils literal notranslate"><span class="pre">Atg</span></code> (36.9%), <code class="docutils literal notranslate"><span class="pre">Trm</span></code> (4.5%), <code class="docutils literal notranslate"><span class="pre">Mgt</span></code> (1.1%)</p></li>
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'SP_37'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3000 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">serpentinite_37</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 2.0552e+02,  6.6360e+01,  6.2290e+01, -1.0000e-01, -1.4800e+00,</span>
+<span class="go">         3.8600e+00],</span>
+<span class="go">       [ 6.6360e+01,  1.9579e+02,  6.2530e+01, -3.7000e-01,  2.0000e-01,</span>
+<span class="go">         1.5400e+00],</span>
+<span class="go">       [ 6.2290e+01,  6.2530e+01,  1.9330e+02, -1.7800e+00, -2.4000e-01,</span>
+<span class="go">         8.3000e-01],</span>
+<span class="go">       [-1.0000e-01, -3.7000e-01, -1.7800e+00,  6.6170e+01,  1.4700e+00,</span>
+<span class="go">        -5.7000e-01],</span>
+<span class="go">       [-1.4800e+00,  2.0000e-01, -2.4000e-01,  1.4700e+00,  6.4700e+01,</span>
+<span class="go">        -8.4000e-01],</span>
+<span class="go">       [ 3.8600e+00,  1.5400e+00,  8.3000e-01, -5.7000e-01, -8.4000e-01,</span>
+<span class="go">         6.7830e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">serpentinite_37</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3000.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.serpentinite_80">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">serpentinite_80</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.serpentinite_80" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of serpentinite rock sample HKB-B (GPa) from
+Watanabe et al., 2011, in Voigt notation</p>
+<ul class="simple">
+<li><p>Mineralogy: <code class="docutils literal notranslate"><span class="pre">Ol</span></code> (12.0%), <code class="docutils literal notranslate"><span class="pre">Atg</span></code> (80.2%), <code class="docutils literal notranslate"><span class="pre">Mgt</span></code> (7.8%)</p></li>
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'SP_80'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (2800 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">serpentinite_80</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[ 1.9225e+02,  4.9350e+01,  4.1700e+01, -4.5500e+00,  8.0400e+00,</span>
+<span class="go">         9.7800e+00],</span>
+<span class="go">       [ 4.9350e+01,  1.5690e+02,  4.2360e+01, -6.9100e+00,  7.1000e-01,</span>
+<span class="go">         1.8400e+00],</span>
+<span class="go">       [ 4.1700e+01,  4.2360e+01,  1.4162e+02, -4.2800e+00,  1.1100e+00,</span>
+<span class="go">         1.9000e-01],</span>
+<span class="go">       [-4.5500e+00, -6.9100e+00, -4.2800e+00,  5.3480e+01,  1.0000e-02,</span>
+<span class="go">        -6.0000e-02],</span>
+<span class="go">       [ 8.0400e+00,  7.1000e-01,  1.1100e+00,  1.0000e-02,  5.1910e+01,</span>
+<span class="go">        -3.7200e+00],</span>
+<span class="go">       [ 9.7800e+00,  1.8400e+00,  1.9000e-01, -6.0000e-02, -3.7200e+00,</span>
+<span class="go">         5.9130e+01]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">serpentinite_80</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2800.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.elast.zoisite">
+<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">zoisite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.zoisite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elastic constants of zoisite mineral (GPa) from
+Mao et al. (2007), in Voigt notation</p>
+<ul class="simple">
+<li><p>Abbreviation: <code class="docutils literal notranslate"><span class="pre">'zo'</span></code></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>tuple containing:</dt><dd><ul class="simple">
+<li><p>C (np.ndarray): Elastic stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p></li>
+<li><p>rho (float): Density (3343 kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">elast</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">zoisite</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[279.8,  94.7,  88.7,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 94.7, 249.2,  27.5,   0. ,   0. ,   0. ],</span>
+<span class="go">       [ 88.7,  27.5, 209.4,   0. ,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,  51.8,   0. ,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,  81.4,   0. ],</span>
+<span class="go">       [  0. ,   0. ,   0. ,   0. ,   0. ,  66.3]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elast</span><span class="o">.</span><span class="n">zoisite</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3343.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="telewavesim.utils"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="conf.html" title="telewavesim.conf"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">telewavesim 0.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Pascal Audet.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>
