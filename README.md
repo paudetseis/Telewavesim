@@ -154,7 +154,7 @@ To set up the models, install the `Jupyter` notebooks and check out the examples
 A series of tests are located in the ``tests`` subdirectory. In order to perform these tests, clone the repository and run `pytest` (`conda install pytest` if needed):
 
 ```bash
-git checkout https://github.com/paudetseis/Telewavesim.git
+git clone https://github.com/paudetseis/Telewavesim.git
 cd Telewavesim
 pytest -v
 ```
