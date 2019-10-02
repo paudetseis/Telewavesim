@@ -6,16 +6,14 @@ Welcome to telewavesim's documentation!
 =======================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Contents:
 
    api
-   doc
    conf
    elast
    utils
    wiggles
-   rmat_f
 
 Indices and tables
 ==================
