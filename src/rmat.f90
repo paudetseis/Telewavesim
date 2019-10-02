@@ -186,7 +186,7 @@
               evecs(:,:,ilay) = evec2
             END IF
 !
-! cattering matrix for interface
+! Scattering matrix for interface
 !
             qq = MATMUL(eveci1,evec2)
 !

@@ -103,8 +103,9 @@
           rds = rd
         ELSE
 !
-! Symbolic notation...    reverb = ximat - rds * ru
+! Symbolic notation...    
 !
+!     reverb = ximat - rds * ru
           reverb = ximat - MATMUL(rds,ru)
           CALL xinv3(reverb,reverbi)
 !     tusw = tu * reverbi * tus

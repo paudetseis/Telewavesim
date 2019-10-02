@@ -10,9 +10,9 @@ authors:
   - name: Pascal Audet
     orcid: 0000-0003-2364-9454
     affiliation: 1
-  - Colin J. Thomson
+  - name: Colin J. Thomson
     affiliation: "2, 3"
-  - Michael G. Bostock
+  - name: Michael G. Bostock
     orcid: 0000-0003-1172-7240
     affiliation: 4
 affiliations:
