@@ -30,8 +30,8 @@ before_install:
 install:
   - pip install -v --no-deps .
 script:
-  - cd tests
-  - pytest -v --cov=telewavesim --cov=.
+  - mkdir empty; cd empty
+  - pytest -v --cov=telewavesim --pyargs telewavesim
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 notifications:
