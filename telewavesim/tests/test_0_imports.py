@@ -1,8 +1,3 @@
-import telewavesim
-
-## ===================
-
-
 def test_numpy_import():
     import numpy
 
@@ -29,10 +24,3 @@ def test_telewavesim_modules():
     from telewavesim import wiggle
     from telewavesim.rmat_f import conf
     from telewavesim.rmat_f import plane
-
-
-if __name__ == "__main__":
-    test_numpy_import()
-    test_obspy_import()
-    test_pyfftw_import()
-    test_telewavesim_modules()
