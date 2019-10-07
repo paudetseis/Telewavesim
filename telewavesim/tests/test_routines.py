@@ -4,7 +4,7 @@ from telewavesim import conf as cf
 import numpy as np
 import pyfftw
 
-from conftest import load_params
+from telewavesim.tests.conftest import load_params
 
 def test_plane_obs(load_params):
 

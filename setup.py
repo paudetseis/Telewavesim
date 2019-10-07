@@ -41,7 +41,7 @@ setup(
     python_requires     = '>=3.5',
     tests_require       = ['pytest'],
     ext_modules         = ext,
-    packages            = ['telewavesim'],
+    packages            = ['telewavesim', 'telewavesim.tests'],
     package_data        = {
         'telewavesim': [
             'examples/*.ipynb',

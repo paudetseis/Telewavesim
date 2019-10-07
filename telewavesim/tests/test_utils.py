@@ -4,7 +4,7 @@ from telewavesim import conf as cf
 from telewavesim import utils as ut
 from telewavesim.rmat_f import conf as cf_f
 
-from conftest import load_params
+from telewavesim.tests.conftest import load_params
 
 def test_model2for_conf(load_params):
 
