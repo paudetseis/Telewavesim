@@ -2,11 +2,13 @@ import platform
 from numpy.distutils.core import setup, Extension
 
 if platform.system() == 'Linux':
+    # this hack hopefully  will become unecessary in the future
     # see issue #2
     # ci fail: https://travis-ci.org/trichter/Telewavesim/builds/594469551
-    from numpy.distutils.system_info import get_info
-    ext_kw = dict(library_dirs=get_info('lapack')['library_dirs'],
-                  libraries=['lapack'])
+    from numpy import show_config
+    libdirs = {c['library_dirs'] for c in show_config().items()
+               if c is not None and 'library_dirs' in c}
+    ext_kw = dict(library_dirs=list(libdirs), libraries=['lapack'])
 else:
     ext_kw = {}
 
