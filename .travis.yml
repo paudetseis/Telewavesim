@@ -1,0 +1,34 @@
+language: c
+sudo: false
+matrix:
+  include:
+    - os: linux
+      env: PYTHON_VERSION=3.5
+    - os: linux
+      env: PYTHON_VERSION=3.6
+    - os: linux
+      env: PYTHON_VERSION=3.7
+    - os: osx
+      env: PYTHON_VERSION=3.5
+    - os: osx
+      env: PYTHON_VERSION=3.6
+    - os: osx
+      env: PYTHON_VERSION=3.7
+
+before_install:
+  - wget https://raw.githubusercontent.com/trichter/conda4travis/latest/conda4travis.sh -O conda4travis.sh
+  - source conda4travis.sh
+  - conda config --add channels conda-forge
+  - conda create -q -n testenv
+      python=$PYTHON_VERSION obspy pyfftw
+      pytest-cov
+  - conda activate testenv
+  - conda list
+install:
+  - pip install -v --no-deps .
+script:
+  - pytest -v --cov=telewavesim --cov=tests
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+notifications:
+    email: false
