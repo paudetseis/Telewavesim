@@ -1,8 +1,10 @@
-import setuptools
 from numpy.distutils.core import setup, Extension
+from numpy.distutils.system_info import get_info
 
 ext = [Extension(name='telewavesim.rmat_f',
-                sources=['src/rmat.f90', 'src/rmat_sub.f90'])]
+                 sources=['src/rmat.f90', 'src/rmat_sub.f90'],
+                 library_dirs=get_info('lapack')['library_dirs'],
+                 libraries=['lapack'])]
 
 setup(
     name                = 'telewavesim',
@@ -11,7 +13,7 @@ setup(
     author              = 'Pascal Audet, Colin J. Thomson, Michael G. Bostock',
     maintainer          = 'Pascal Audet',
     author_email        = 'pascal.audet@uottawa.ca',
-    url                 = 'https://github.com/paudetseis/Telewavesim', 
+    url                 = 'https://github.com/paudetseis/Telewavesim',
     download_url        = 'https://github.com/paudetseis/Telewavesim/archive/0.1.0.tar.gz',
     classifiers         = [
         'Development Status :: 3 - Alpha',
