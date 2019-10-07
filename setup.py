@@ -1,10 +1,18 @@
+import platform
 from numpy.distutils.core import setup, Extension
-from numpy.distutils.system_info import get_info
+
+if platform.system() == 'Linux':
+    # see issue #2
+    # ci fail: https://travis-ci.org/trichter/Telewavesim/builds/594469551
+    from numpy.distutils.system_info import get_info
+    ext_kw = dict(library_dirs=get_info('lapack')['library_dirs'],
+                  libraries=['lapack'])
+else:
+    ext_kw = {}
 
 ext = [Extension(name='telewavesim.rmat_f',
                  sources=['src/rmat.f90', 'src/rmat_sub.f90'],
-                 library_dirs=get_info('lapack')['library_dirs'],
-                 libraries=['lapack'])]
+                 **ext_kw)]
 
 setup(
     name                = 'telewavesim',
