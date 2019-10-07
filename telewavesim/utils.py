@@ -25,14 +25,13 @@
 Utility functions to interact with ``telewavesim`` modules.
 
 '''
-import sys
 import itertools
 import numpy as np
 import pyfftw
 from scipy.signal import hilbert
 from obspy.core import Trace, Stream
 from obspy.signal.rotate import rotate_ne_rt
-from telewavesim import conf as cf 
+from telewavesim import conf as cf
 from telewavesim import elast as es
 from telewavesim.rmat_f import conf as cf_f
 from telewavesim.rmat_f import plane as pw_f
@@ -40,7 +39,7 @@ from telewavesim.rmat_f import plane as pw_f
 
 def set_iso_tensor(a, b):
     """
-    Function to generate tensor for isotropic material. 
+    Function to generate tensor for isotropic material.
 
     Args:
         a (float): P-wave velocity (km/s)
@@ -73,7 +72,7 @@ def set_tri_tensor(a, b, tr, pl, ani):
         b (float): S-wave velocity (km/s)
         tr (float): Trend angle of symmetry axis (degree)
         pl (float): Plunge angle of symmetry axis (degree)
-        ani (float): Percent anisotropy 
+        ani (float): Percent anisotropy
 
     Returns:
         (np.ndarray): cc: Elastic tensor (GPa /density) \
@@ -88,14 +87,14 @@ def set_tri_tensor(a, b, tr, pl, ani):
     # Percent anisotropy
     da = (a*1.e3)*ani/100.
     db = (b*1.e3)*ani/100.
-    
+
     # Set up matrix elements
     AA = (a*1.e3 - da/2.)**2
     CC = (a*1.e3 + da/2.)**2
     LL = (b*1.e3 + db/2.)**2
-    NN = (b*1.e3 - db/2.)**2 
+    NN = (b*1.e3 - db/2.)**2
     AC = (a*1.e3)**2
-    FF = -LL + np.sqrt((2.*AC)**2 - 2.*AC*(AA + CC + 2.*LL) + 
+    FF = -LL + np.sqrt((2.*AC)**2 - 2.*AC*(AA + CC + 2.*LL) +
             (AA + LL)*(CC + LL))
     # eta = FF/(AA - 2.*LL)
 
@@ -223,7 +222,7 @@ def voigt2cc(C):
         (np.ndarray): cc: Elastic tensor (shape ``(3, 3, 3, 3)``)
 
     """
-    
+
     C = np.asarray(C)
     cc = np.zeros((3,3,3,3), dtype=float)
     for i, j, k, l in itertools.product(range(3), range(3), range(3), range(3)):
@@ -236,7 +235,7 @@ def voigt2cc(C):
 def cc2voigt(cc):
     """
     Convert from the full 3x3x3x3 tensor representation
-    to the Voigt notation of the stiffness matrix. 
+    to the Voigt notation of the stiffness matrix.
 
     Args:
         cc (np.ndarray): Elastic tensor (shape ``(3, 3, 3, 3)``)
@@ -247,8 +246,6 @@ def cc2voigt(cc):
     """
 
     Voigt_notation = [(0, 0), (1, 1), (2, 2), (1, 2), (0, 2), (0, 1)]
-
-    tol = 1e-3
 
     cc = np.asarray(cc)
     C = np.zeros((6,6))
@@ -270,8 +267,8 @@ def VRH_average(C):
     Args:
         C (np.ndarray): Stiffness matrix (shape ``(6, 6)``)
 
-    Returns:     
-        (tuple): Tuple containing: 
+    Returns:
+        (tuple): Tuple containing:
             * Kvoigt (float): Voigt average bulk modulus (GPa)
             * Gvoigt (float): Voigt average shear modulus (GPa)
             * Kreuss (float): Reuss average bulk modulus (GPa)
@@ -285,7 +282,7 @@ def VRH_average(C):
     >>> cc, rho = utils.set_aniso_tensor(0., 0., typ='atg')
     >>> C = utils.cc2voigt(cc)
     >>> utils.VRH_average(C*rho)
-    (75655555555.555557, 48113333333.333336, 61245706544.967415, 28835098086.844658, 
+    (75655555555.555557, 48113333333.333336, 61245706544.967415, 28835098086.844658,
     68450631050.26149, 38474215710.088997)
 
     """
@@ -346,7 +343,7 @@ def mod2vel(K,G,rho):
 def rot_tensor(a,alpha,beta,gam):
     """
 
-    Performs a rotation of the tensor cc (c_ijkl) about three angles (alpha, 
+    Performs a rotation of the tensor cc (c_ijkl) about three angles (alpha,
     beta, gamma)
 
     Args:
@@ -360,12 +357,12 @@ def rot_tensor(a,alpha,beta,gam):
 
     .. note::
 
-        The three angles (``alpha``, ``beta``, ``gam``) correspond to rotation about the 
-        x_2, x_3, x_1 axes. Note that the sequence of the rotation is important: 
-        (AB ~= BA). In this case we rotate about x_2 first, x_3 second and x_1 third. 
-        
-        For trend and plunge of symmetry axis (e.g., tri_tensor): 
-            
+        The three angles (``alpha``, ``beta``, ``gam``) correspond to rotation about the
+        x_2, x_3, x_1 axes. Note that the sequence of the rotation is important:
+        (AB ~= BA). In this case we rotate about x_2 first, x_3 second and x_1 third.
+
+        For trend and plunge of symmetry axis (e.g., tri_tensor):
+
             ``alpha`` = plunge
 
             ``beta`` = trend
@@ -434,8 +431,8 @@ def rotate_zrt_pvh(trZ, trR, trT, vp=6., vs=3.5):
     trH = trT.copy()
 
     # Vertical slownesses
-    qp = np.sqrt(1/vp/vp - cf.slow*cf.slow) 
-    qs = np.sqrt(1/vs/vs - cf.slow*cf.slow) 
+    qp = np.sqrt(1/vp/vp - cf.slow*cf.slow)
+    qs = np.sqrt(1/vs/vs - cf.slow*cf.slow)
 
     # Elements of rotation matrix
     m11 = cf.slow*vs*vs/vp
@@ -445,18 +442,18 @@ def rotate_zrt_pvh(trZ, trR, trT, vp=6., vs=3.5):
 
     # Rotation matrix
     rot = np.array([[-m11, m12], [-m21, m22]])
-    
+
     # Vector of Radial and Vertical
     r_z = np.array([trR.data,trZ.data])
-                
+
     # Rotation
     vec = np.dot(rot, r_z)
-                
+
     # Extract P and SV components
     trP.data = vec[0,:]
     trV.data = vec[1,:]
     trH.data = -trT.data/2.
-                
+
     return trP, trV, trH
 
 
@@ -525,14 +522,14 @@ def stack_all(st1, st2, pws=False):
 
 def calc_ttime(slow):
     """
-    Calculates total propagation time through model. The 
+    Calculates total propagation time through model. The
     bottom layer is irrelevant in this calculation.
 
     .. note::
 
        The ``conf`` global variables need to be set for this calculation
        to succeed. This is typically ensured through reading of the
-       model file from the function ``utils.read_model(modfile)``, 
+       model file from the function ``utils.read_model(modfile)``,
        and setting the variable ``conf.wvtype``
 
     Args:
@@ -569,7 +566,7 @@ def calc_ttime(slow):
     t1 = 0.
 
     for i in range(cf.nlay-1):
-        if cf.isoflg[i] == 'iso':    
+        if cf.isoflg[i] == 'iso':
             a0 = cf.a[2,2,2,2,i]
             b0 = cf.a[1,2,1,2,i]
         else:
@@ -589,10 +586,10 @@ def calc_ttime(slow):
 
 def read_model(modfile):
     """
-    Reads model parameters from file that are passed 
-        through the configuration module ``conf``. 
+    Reads model parameters from file that are passed
+        through the configuration module ``conf``.
 
-    Returns: 
+    Returns:
         None: Parameters are now global variables shared
                 between all other modules
 
@@ -735,13 +732,13 @@ def obs2for():
 def run_plane(obs=False):
     """
     Function to run the ``plane`` module and return 3-component seismograms as an ``obspy``
-    ``Stream`` object. 
+    ``Stream`` object.
 
-    .. note:: 
+    .. note::
 
        The ``conf`` global variables need to be set for this calculation
        to succeed. This function first checks to make sure the variables are all set
-       before executing the main ``telewavesim.rmat_f.plane_****`` function. 
+       before executing the main ``telewavesim.rmat_f.plane_****`` function.
 
     Args:
         fortran (book, option): Whether or not the Fortran modules are used
@@ -781,8 +778,8 @@ def run_plane(obs=False):
 
 def get_trxyz(yx, yy, yz):
     """
-    Function to store displacement seismograms into ``obspy`` ``Trace`` obsjects and 
-    then an ``obspy`` ``Stream`` object. 
+    Function to store displacement seismograms into ``obspy`` ``Trace`` obsjects and
+    then an ``obspy`` ``Stream`` object.
 
     Args:
         ux (np.ndarray): x-component displacement seismogram
@@ -817,7 +814,7 @@ def get_trxyz(yx, yy, yz):
 
 def tf_from_xyz(trxyz, pvh=False):
     """
-    Function to generate transfer functions from displacement traces. 
+    Function to generate transfer functions from displacement traces.
 
     Args:
         trxyz (obspy.stream): Obspy ``Stream`` object in cartesian coordinate system
@@ -840,14 +837,13 @@ def tf_from_xyz(trxyz, pvh=False):
 
     # Rotate to radial and transverse
     rtr.data, ttr.data = rotate_ne_rt(ntr.data, etr.data, baz)
-    a = pyfftw.empty_aligned(len(rtr.data), dtype='float')
     # print(rtr.data, ttr.data)
 
     if pvh:
         vp = np.sqrt(cf.a[2,2,2,2,0])/1.e3
         vs = np.sqrt(cf.a[1,2,1,2,0])/1.e3
         trP, trV, trH = rotate_zrt_pvh(ztr, rtr, ttr, vp=vp, vs=vs)
-        
+
         tfr = trV.copy(); tfr.data = np.zeros(len(tfr.data))
         tft = trH.copy(); tft.data = np.zeros(len(tft.data))
         ftfv = pyfftw.interfaces.numpy_fft.fft(trV.data)
@@ -858,7 +854,7 @@ def tf_from_xyz(trxyz, pvh=False):
             # Transfer function
             tfr.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(ftfv,ftfp))))
             tft.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(ftfh,ftfp))))
-        elif cf.wvtype=='Si': 
+        elif cf.wvtype=='Si':
             tfr.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfp,ftfv))))
             tft.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfp,ftfh))))
         elif cf.wvtype=='SV':
