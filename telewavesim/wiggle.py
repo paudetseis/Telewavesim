@@ -28,11 +28,11 @@ Functions to plot single station plane wave or receiver function seismograms as 
 
 import matplotlib.pyplot as plt
 import numpy as np
-from telewavesim import conf as cf
 
 
-def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30, 
-        scale=None, save=False, ftitle='Figure_rf_wiggle_baz'):
+def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30,
+        scale=None, save=False, ftitle='Figure_rf_wiggle_baz',
+        wvtype='P'):
     """
     Plots receiver function seismograms as panels according to back-azimuth or slowness.
 
@@ -40,7 +40,7 @@ def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30,
         str1 (obspy.stream): Stream 1
         str2 (obspy.stream): Stream 2
         tr1 (obspy.trace): Trace 1 (normally obtained from the ``utils.stack_all`` function)
-        tr2 (obspy.trace): Trace 2 
+        tr2 (obspy.trace): Trace 2
         sta (str): Station name
         btyp (str, optional): Type of sorting for panel
         tmin (float, optional): Lower bound of time axis (s)
@@ -48,6 +48,7 @@ def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30,
         scale (float, optional): Scaling factor
         save (bool, optional): Whether or not to save the figure
         ftitle (str, optional): Title of figure to be saved
+        wvtype (str, optional): wave type
 
     Returns:
         None
@@ -59,7 +60,7 @@ def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30,
 
     print()
     print('Plotting Wiggles by '+btyp)
-    
+
     # Time axis
     nn = str1[0].stats.npts
     sr = str1[0].stats.sampling_rate
@@ -123,19 +124,19 @@ def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30,
         ax2.set_ylabel('Back-azimuth (deg)')
 
     elif btyp=='slow':
-        if cf.wvtype=='P':
+        if wvtype=='P':
             ax2.set_ylim(0.038, 0.082)
-        elif cf.wvtype=='S':
+        elif wvtype=='S':
             ax2.set_ylim(0.07, 0.125)
-        elif cf.wvtype=='SKS':
+        elif wvtype=='SKS':
             ax2.set_ylim(0.03, 0.06)
         ax2.set_ylabel('Slowness (s/km)')
     elif btyp=='dist':
-        if cf.wvtype=='P':
+        if wvtype=='P':
             ax2.set_ylim(28., 92.)
-        elif cf.wvtype=='S':
+        elif wvtype=='S':
             ax2.set_ylim(53., 107.)
-        elif cf.wvtype=='SKS':
+        elif wvtype=='SKS':
             ax2.set_ylim(83., 117.)
         ax2.set_ylabel('Distance (deg)')
 
@@ -155,7 +156,7 @@ def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30,
 
     # Plot binned SH traces in back-azimuth on bottom right
     for tr in str2:
-        
+
         if scale:
             maxval = scale
             # Define y axis
@@ -189,18 +190,18 @@ def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30,
         ax4.set_ylim(-5, 370)
 
     elif btyp=='slow':
-        if cf.wvtype=='P':
+        if wvtype=='P':
             ax4.set_ylim(0.038, 0.082)
-        elif cf.wvtype=='S':
+        elif wvtype=='S':
             ax4.set_ylim(0.074, 0.125)
-        elif cf.wvtype=='SKS':
+        elif wvtype=='SKS':
             ax4.set_ylim(0.03, 0.06)
     elif btyp=='dist':
-        if cf.wvtype=='P':
+        if wvtype=='P':
             ax4.set_ylim(28., 92.)
-        elif cf.wvtype=='S':
+        elif wvtype=='S':
             ax4.set_ylim(53., 107.)
-        elif cf.wvtype=='SKS':
+        elif wvtype=='SKS':
             ax4.set_ylim(83., 117.)
 
     ax4.set_xlabel('Time (sec)')
@@ -215,8 +216,9 @@ def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30,
     return
 
 
-def pw_wiggles_baz(str1, str2, sta, btyp='baz', t1=None, tmin=0., tmax=30, 
-        scale=None, save=False, ftitle='Figure_pw_wiggles_baz'):
+def pw_wiggles_baz(str1, str2, sta, btyp='baz', t1=None, tmin=0., tmax=30,
+        scale=None, save=False, ftitle='Figure_pw_wiggles_baz',
+        wvtype='P'):
     """
     Plots plane wave seismograms as panels according to back-azimuth or slowness.
 
@@ -231,6 +233,7 @@ def pw_wiggles_baz(str1, str2, sta, btyp='baz', t1=None, tmin=0., tmax=30,
         scale (float, optional): Scaling factor
         save (bool, optional): Whether or not to save the figure
         ftitle (str, optional): Title of figure to be saved
+        wvtype (str, optional): wave type
 
     Returns:
         None
@@ -242,7 +245,7 @@ def pw_wiggles_baz(str1, str2, sta, btyp='baz', t1=None, tmin=0., tmax=30,
 
     print()
     print('Plotting Wiggles by '+btyp)
-    
+
     # Time axis
     nn = str1[0].stats.npts
     sr = str1[0].stats.sampling_rate
@@ -299,19 +302,19 @@ def pw_wiggles_baz(str1, str2, sta, btyp='baz', t1=None, tmin=0., tmax=30,
         ax1.set_ylabel('Back-azimuth (deg)')
 
     elif btyp=='slow':
-        if cf.wvtype=='P':
+        if wvtype=='P':
             ax1.set_ylim(0.038, 0.082)
-        elif cf.wvtype=='S':
+        elif wvtype=='S':
             ax1.set_ylim(0.07, 0.125)
-        elif cf.wvtype=='SKS':
+        elif wvtype=='SKS':
             ax1.set_ylim(0.03, 0.06)
         ax1.set_ylabel('Slowness (s/km)')
     elif btyp=='dist':
-        if cf.wvtype=='P':
+        if wvtype=='P':
             ax1.set_ylim(28., 92.)
-        elif cf.wvtype=='S':
+        elif wvtype=='S':
             ax1.set_ylim(53., 107.)
-        elif cf.wvtype=='SKS':
+        elif wvtype=='SKS':
             ax1.set_ylim(83., 117.)
         ax1.set_ylabel('Distance (deg)')
 
@@ -320,7 +323,7 @@ def pw_wiggles_baz(str1, str2, sta, btyp='baz', t1=None, tmin=0., tmax=30,
 
     # Plot binned SH traces in back-azimuth on bottom right
     for tr in str2:
-        
+
         # tr.data = np.fft.fftshift(tr.data)
 
         if scale:
@@ -360,18 +363,18 @@ def pw_wiggles_baz(str1, str2, sta, btyp='baz', t1=None, tmin=0., tmax=30,
         ax2.set_ylim(-5, 370)
 
     elif btyp=='slow':
-        if cf.wvtype=='P':
+        if wvtype=='P':
             ax2.set_ylim(0.038, 0.082)
-        elif cf.wvtype=='S':
+        elif wvtype=='S':
             ax2.set_ylim(0.074, 0.125)
-        elif cf.wvtype=='SKS':
+        elif wvtype=='SKS':
             ax2.set_ylim(0.03, 0.06)
     elif btyp=='dist':
-        if cf.wvtype=='P':
+        if wvtype=='P':
             ax2.set_ylim(28., 92.)
-        elif cf.wvtype=='S':
+        elif wvtype=='S':
             ax2.set_ylim(53., 107.)
-        elif cf.wvtype=='SKS':
+        elif wvtype=='SKS':
             ax2.set_ylim(83., 117.)
 
     ax2.set_xlabel('Time (sec)')
@@ -404,10 +407,6 @@ def pw_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, sav
     Returns:
         None
     """
-
-    from matplotlib.ticker import FormatStrFormatter
-    from matplotlib.ticker import ScalarFormatter
-
     nt = strf[0].stats.npts
     dt = strf[0].stats.delta
 
@@ -437,7 +436,7 @@ def pw_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7, sav
     ax.set_ylim(-0.2, 0.5)
     #ax.yaxis.set_major_formatter(FormatStrFormatter('%1.1e'))
     ax.set_xlabel('Time following $P$-wave arrival (sec)')
-   
+
     plt.legend(loc=1)
 
     # Plot radial receiver function
@@ -511,7 +510,7 @@ def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, ftitle='F
     ax.set_xlim(0., tmax)
     ax.set_ylim(-1.1, 1.1)
     ax.set_xticklabels(())
-   
+
     plt.legend()
 
 
@@ -520,7 +519,7 @@ def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False, ftitle='F
     ax.set_xlim(0., tmax)
     ax.set_ylim(-1.1, 1.1)
     ax.set_xticklabels(())
-   
+
     plt.legend()
 
     plt.legend()
