@@ -21,11 +21,11 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       GF="gfortran_osx-64";
     elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      GF="gfortran_linux-64";
+      GF="gfortran_linux-64"; LP='lapack';
     fi
   - conda config --add channels conda-forge
   - conda create -q -n testenv
-      python=$PYTHON_VERSION obspy pyfftw $GF
+      python=$PYTHON_VERSION obspy pyfftw $GF $LP
       pytest-cov
   - conda activate testenv
   - conda list
