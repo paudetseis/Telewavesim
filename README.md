@@ -2,30 +2,32 @@
 
 ![](./telewavesim/examples/picture/tws_logo.png)
 
-The structure of the Earth's crust and upper mantle gives useful information on the 
+The structure of the Earth's crust and upper mantle gives useful information on the
 internal composition and dynamics of our planet. Some of the most widely used techniques
-to infer these properties are based on examining the effect of teleseismic body wave 
+to infer these properties are based on examining the effect of teleseismic body wave
 (i.e., P and S waves that originate from distant earthquakes and arrive as plane waves)
-propagation (e.g., transmission and scattering) through stratified media. Modeling the 
-seismic response from stacks of subsurface layers is therefore an essential tool in 
+propagation (e.g., transmission and scattering) through stratified media. Modeling the
+seismic response from stacks of subsurface layers is therefore an essential tool in
 characterizing their effect on observed seismograms.
 
-This package contains `python` and `fortran` modules to synthesize teleseismic 
-body-wave propagation through stacks of generally anisotropic and strictly horizontal 
+This package contains `python` and `fortran` modules to synthesize teleseismic
+body-wave propagation through stacks of generally anisotropic and strictly horizontal
 layers using the matrix propagator approach of [Kennett (1983)](#references), as implemented
-in [Thomson (1997)](#references). 
+in [Thomson (1997)](#references).
 The software also properly models reverberations from an overlying column of water using the R/T
-matrix expressions of [Bostock and Trehu (2012)](#references), 
-effectively simulating ocean-bottom seismic (OBS) station recordings. The software 
-will be useful in a variety of teleseismic receiver-based studies, such as P or S 
-receiver functions, long-period P-wave polarization, shear-wave splitting from 
-core-refracted shear waves (i.e., SKS, SKKS), etc. It may also be the starting point 
+matrix expressions of [Bostock and Trehu (2012)](#references),
+effectively simulating ocean-bottom seismic (OBS) station recordings. The software
+will be useful in a variety of teleseismic receiver-based studies, such as P or S
+receiver functions, long-period P-wave polarization, shear-wave splitting from
+core-refracted shear waves (i.e., SKS, SKKS), etc. It may also be the starting point
 for stochastic inverse methods (e.g., Monte Carlo sampling). The main part of the
-code is written in `fortran` with `python` wrappers. Common computational 
+code is written in `fortran` with `python` wrappers. Common computational
 workflows are covered in the Jupyter notebooks bundled with this package.
 
 [![DOI](https://zenodo.org/badge/204565459.svg)](https://zenodo.org/badge/latestdoi/204565459)
 [![PyPI version](https://badge.fury.io/py/telewavesim.svg)](https://badge.fury.io/py/telewavesim)
+[![build status](https://travis-ci.org/paudetseis/telewavesim.svg?branch=master)](https://travis-ci.org/paudetseis/telewavesim)
+[![codecov](https://codecov.io/gh/paudetseis/telewavesim/branch/master/graph/badge.svg)](https://codecov.io/gh/paudetseis/telewavesim)
 
 ## Installation
 
@@ -38,7 +40,7 @@ Also, the following packages are required:
 - [`obspy`](https://github.com/obspy/obspy/wiki)
 - [`pyfftw`](https://pyfftw.readthedocs.io/en/latest/)
 
-By  default, both `numpy` and `matplotlib` are installed as dependencies of `obspy`. 
+By  default, both `numpy` and `matplotlib` are installed as dependencies of `obspy`.
 
 ### Installing using pip
 
@@ -66,9 +68,9 @@ pip install telewavesim
 
 #### Conda environment
 
-We recommend creating a custom 
+We recommend creating a custom
 [conda environment](https://conda.io/docs/user-guide/tasks/manage-environments.html)
-where `telewavesim` can be installed along with its dependencies. 
+where `telewavesim` can be installed along with its dependencies.
 
 - Create a environment called `tws` and install all dependencies:
 
@@ -108,9 +110,9 @@ Next we recommend following the steps for creating a `conda` environment (see [a
 
 ```bash
 pip install .
-``` 
+```
 
-## Usage 
+## Usage
 
 ### API Documentation
 
