@@ -630,7 +630,7 @@ class Model(object):
                 cc = set_iso_tensor(self.vp[j],self.vs[j])
                 self.a[:,:,:,:,j] = cc
             elif self.isoflg[j]=='tri':
-                cc = set_tri_tensor(self.vp[j],self.vp[j],self.tr[j],self.pl[j],self.ani[j])
+                cc = set_tri_tensor(self.vp[j],self.vs[j],self.tr[j],self.pl[j],self.ani[j])
                 self.a[:,:,:,:,j] = cc
             elif self.isoflg[j] in mins or self.isoflg[j] in rocks:
                 cc, rho = set_aniso_tensor(self.tr[j],self.pl[j],typ=self.isoflg[j])
