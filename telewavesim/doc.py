@@ -28,7 +28,6 @@ Jupyter Notebooks and example data to a local directory.
 
 import pkg_resources as _pkg_resources
 from distutils import dir_util as _dir_util
-import os
 
 
 def install_doc(path="./Telewavesim-Examples"):
@@ -45,9 +44,9 @@ def install_doc(path="./Telewavesim-Examples"):
 
     Notebooks_Path = _pkg_resources.resource_filename(
         "telewavesim", "examples")
-    
 
-    ct = _dir_util.copy_tree(
+
+    _dir_util.copy_tree(
         Notebooks_Path,
         path,
         preserve_mode=1,

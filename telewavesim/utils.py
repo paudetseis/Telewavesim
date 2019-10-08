@@ -1,4 +1,4 @@
-# Copyright 2019 Pascal Audet
+# Copyright 2019 Pascal Audet, Tom Eulenfeld
 
 # This file is part of Telewavesim.
 
@@ -25,14 +25,12 @@
 Utility functions to interact with ``telewavesim`` modules.
 
 '''
-import sys
 import itertools
 import numpy as np
 import pyfftw
 from scipy.signal import hilbert
 from obspy.core import Trace, Stream
 from obspy.signal.rotate import rotate_ne_rt
-from telewavesim import conf as cf 
 from telewavesim import elast as es
 from telewavesim.rmat_f import conf as cf_f
 from telewavesim.rmat_f import plane as pw_f
@@ -40,7 +38,7 @@ from telewavesim.rmat_f import plane as pw_f
 
 def set_iso_tensor(a, b):
     """
-    Function to generate tensor for isotropic material. 
+    Function to generate tensor for isotropic material.
 
     Args:
         a (float): P-wave velocity (km/s)
@@ -73,7 +71,7 @@ def set_tri_tensor(a, b, tr, pl, ani):
         b (float): S-wave velocity (km/s)
         tr (float): Trend angle of symmetry axis (degree)
         pl (float): Plunge angle of symmetry axis (degree)
-        ani (float): Percent anisotropy 
+        ani (float): Percent anisotropy
 
     Returns:
         (np.ndarray): cc: Elastic tensor (GPa /density) \
@@ -88,14 +86,14 @@ def set_tri_tensor(a, b, tr, pl, ani):
     # Percent anisotropy
     da = (a*1.e3)*ani/100.
     db = (b*1.e3)*ani/100.
-    
+
     # Set up matrix elements
     AA = (a*1.e3 - da/2.)**2
     CC = (a*1.e3 + da/2.)**2
     LL = (b*1.e3 + db/2.)**2
-    NN = (b*1.e3 - db/2.)**2 
+    NN = (b*1.e3 - db/2.)**2
     AC = (a*1.e3)**2
-    FF = -LL + np.sqrt((2.*AC)**2 - 2.*AC*(AA + CC + 2.*LL) + 
+    FF = -LL + np.sqrt((2.*AC)**2 - 2.*AC*(AA + CC + 2.*LL) +
             (AA + LL)*(CC + LL))
     # eta = FF/(AA - 2.*LL)
 
@@ -223,7 +221,7 @@ def voigt2cc(C):
         (np.ndarray): cc: Elastic tensor (shape ``(3, 3, 3, 3)``)
 
     """
-    
+
     C = np.asarray(C)
     cc = np.zeros((3,3,3,3), dtype=float)
     for i, j, k, l in itertools.product(range(3), range(3), range(3), range(3)):
@@ -236,7 +234,7 @@ def voigt2cc(C):
 def cc2voigt(cc):
     """
     Convert from the full 3x3x3x3 tensor representation
-    to the Voigt notation of the stiffness matrix. 
+    to the Voigt notation of the stiffness matrix.
 
     Args:
         cc (np.ndarray): Elastic tensor (shape ``(3, 3, 3, 3)``)
@@ -247,8 +245,6 @@ def cc2voigt(cc):
     """
 
     Voigt_notation = [(0, 0), (1, 1), (2, 2), (1, 2), (0, 2), (0, 1)]
-
-    tol = 1e-3
 
     cc = np.asarray(cc)
     C = np.zeros((6,6))
@@ -270,8 +266,8 @@ def VRH_average(C):
     Args:
         C (np.ndarray): Stiffness matrix (shape ``(6, 6)``)
 
-    Returns:     
-        (tuple): Tuple containing: 
+    Returns:
+        (tuple): Tuple containing:
             * Kvoigt (float): Voigt average bulk modulus (GPa)
             * Gvoigt (float): Voigt average shear modulus (GPa)
             * Kreuss (float): Reuss average bulk modulus (GPa)
@@ -285,7 +281,7 @@ def VRH_average(C):
     >>> cc, rho = utils.set_aniso_tensor(0., 0., typ='atg')
     >>> C = utils.cc2voigt(cc)
     >>> utils.VRH_average(C*rho)
-    (75655555555.555557, 48113333333.333336, 61245706544.967415, 28835098086.844658, 
+    (75655555555.555557, 48113333333.333336, 61245706544.967415, 28835098086.844658,
     68450631050.26149, 38474215710.088997)
 
     """
@@ -346,7 +342,7 @@ def mod2vel(K,G,rho):
 def rot_tensor(a,alpha,beta,gam):
     """
 
-    Performs a rotation of the tensor cc (c_ijkl) about three angles (alpha, 
+    Performs a rotation of the tensor cc (c_ijkl) about three angles (alpha,
     beta, gamma)
 
     Args:
@@ -360,12 +356,12 @@ def rot_tensor(a,alpha,beta,gam):
 
     .. note::
 
-        The three angles (``alpha``, ``beta``, ``gam``) correspond to rotation about the 
-        x_2, x_3, x_1 axes. Note that the sequence of the rotation is important: 
-        (AB ~= BA). In this case we rotate about x_2 first, x_3 second and x_1 third. 
-        
-        For trend and plunge of symmetry axis (e.g., tri_tensor): 
-            
+        The three angles (``alpha``, ``beta``, ``gam``) correspond to rotation about the
+        x_2, x_3, x_1 axes. Note that the sequence of the rotation is important:
+        (AB ~= BA). In this case we rotate about x_2 first, x_3 second and x_1 third.
+
+        For trend and plunge of symmetry axis (e.g., tri_tensor):
+
             ``alpha`` = plunge
 
             ``beta`` = trend
@@ -409,7 +405,7 @@ def rot_tensor(a,alpha,beta,gam):
     return aa
 
 
-def rotate_zrt_pvh(trZ, trR, trT, vp=6., vs=3.5):
+def rotate_zrt_pvh(trZ, trR, trT, slow, vp=6., vs=3.5):
     """
     Rotates traces from `Z-R-T` orientation to `P-SV-SH` wave mode.
 
@@ -417,6 +413,7 @@ def rotate_zrt_pvh(trZ, trR, trT, vp=6., vs=3.5):
         trZ (obspy.trace): Vertical component
         trR (obspy.trace): Radial component
         trT (obspy.trace): Transverse component
+        slow (float): slowness of wave
         vp (float, optional): P-wave velocity used for rotation
         vs (float, optional): S-wave velocity used for rotation
 
@@ -434,29 +431,29 @@ def rotate_zrt_pvh(trZ, trR, trT, vp=6., vs=3.5):
     trH = trT.copy()
 
     # Vertical slownesses
-    qp = np.sqrt(1/vp/vp - cf.slow*cf.slow) 
-    qs = np.sqrt(1/vs/vs - cf.slow*cf.slow) 
+    qp = np.sqrt(1/vp**2 - slow**2)
+    qs = np.sqrt(1/vs**2 - slow**2)
 
     # Elements of rotation matrix
-    m11 = cf.slow*vs*vs/vp
-    m12 = -(1 - 2*vs*vs*cf.slow*cf.slow)/(2*vp*qp)
-    m21 = (1 - 2*vs*vs*cf.slow*cf.slow)/(2*vs*qs)
-    m22 = cf.slow*vs
+    m11 = slow*vs*vs/vp
+    m12 = -(1 - 2*vs*vs*slow*slow)/(2*vp*qp)
+    m21 = (1 - 2*vs*vs*slow*slow)/(2*vs*qs)
+    m22 = slow*vs
 
     # Rotation matrix
     rot = np.array([[-m11, m12], [-m21, m22]])
-    
+
     # Vector of Radial and Vertical
     r_z = np.array([trR.data,trZ.data])
-                
+
     # Rotation
     vec = np.dot(rot, r_z)
-                
+
     # Extract P and SV components
     trP.data = vec[0,:]
     trV.data = vec[1,:]
     trH.data = -trT.data/2.
-                
+
     return trP, trV, trH
 
 
@@ -523,163 +520,140 @@ def stack_all(st1, st2, pws=False):
     return stack1, stack2
 
 
-def calc_ttime(slow):
+def calc_ttime(model, slow, wvtype='P'):
     """
-    Calculates total propagation time through model. The 
+    Calculates total propagation time through model. The
     bottom layer is irrelevant in this calculation.
 
     .. note::
 
        The ``conf`` global variables need to be set for this calculation
        to succeed. This is typically ensured through reading of the
-       model file from the function ``utils.read_model(modfile)``, 
+       model file from the function ``utils.read_model(modfile)``,
        and setting the variable ``conf.wvtype``
 
     Args:
+        model (Model): Model object
         slow (float): Slowness value (s/km)
+        wvtype (str): Incident wavetype (``'P'``, ``'SV'``, ``'SH'``, ``'Si'``)
 
     Returns:
         (float): t1: Time in seconds
 
     Example
     -------
-    >>> from telewavesim import conf
     >>> from telewavesim import utils
-    >>> import numpy as np
-    >>> cc, rho = utils.set_aniso_tensor(0., 0., typ='atg')
     >>> # Define two-layer model model with identical material
-    >>> conf.nlay = 2
-    >>> conf.a = np.zeros((3,3,3,3,conf.nlay))
-    >>> conf.rho = np.zeros((conf.nlay))
-    >>> conf.thickn = np.zeros((conf.nlay))
-    >>> # Pass variables to the `conf` module
+    >>> model = utils.Model([10, 0], None, 0, 0, 'atg', 0, 0, 0)
     >>> # Only topmost layer is useful for travel time calculation
-    >>> conf.isoflg = ['atg']
-    >>> conf.a[:,:,:,:,0] = cc
-    >>> conf.rho[0] = rho
-    >>> conf.thickn[0] = 10.
-    >>> conf.wvtype = 'P'
+    >>> wvtype = 'P'
     >>> slow = 0.06     # s/km
-    >>> utils.calc_ttime(slow)
-    0.0013519981570791182
+    >>> utils.calc_ttime(model, slow, wvtype)
+    1.3519981570791182
 
     """
 
 
     t1 = 0.
 
-    for i in range(cf.nlay-1):
-        if cf.isoflg[i] == 'iso':    
-            a0 = cf.a[2,2,2,2,i]
-            b0 = cf.a[1,2,1,2,i]
+    for i in range(model.nlay-1):
+        if model.isoflg[i] == 'iso':
+            a0 = model.a[2,2,2,2,i]
+            b0 = model.a[1,2,1,2,i]
         else:
-            cc = cc2voigt(cf.a[:,:,:,:,i])
-            rho = cf.rho[i]
+            cc = cc2voigt(model.a[:,:,:,:,i])
+            rho = model.rho[i]
             K1,G1,K2,G2,K,G = VRH_average(cc*rho)
             a0, b0 = mod2vel(K,G,rho)
             a0 = a0**2
             b0 = b0**2
-        if cf.wvtype=='P':
-            t1 += cf.thickn[i]*np.sqrt(1./a0 - (slow*1.e-3)**2)
-        elif cf.wvtype=='Si' or cf.wvtype=='SV' or cf.wvtype=='SH':
-            t1 += cf.thickn[i]*np.sqrt(1./b0 - (slow*1.e-3)**2)
+        if wvtype=='P':
+            t1 += 1000*model.thickn[i]*np.sqrt(1./a0 - (slow*1.e-3)**2)
+        elif wvtype=='Si' or wvtype=='SV' or wvtype=='SH':
+            t1 += 1000*model.thickn[i]*np.sqrt(1./b0 - (slow*1.e-3)**2)
+        else:
+            raise ValueError('Invalid wave type')
 
     return t1
 
 
-def read_model(modfile):
+class Model(object):
     """
-    Reads model parameters from file that are passed 
-        through the configuration module ``conf``. 
+    ``model parameters``:
+        - thickn (np.ndarray): Thickness of layers (km) (shape ``(nlay)``)
+        - rho (np.ndarray): Density (kg/m^3) (shape ``(nlay)``)
+        - vp (np.ndarray): P-wave velocity (km/s) (shape ``(nlay)``)
+        - vs (np.ndarray): S-wave velocity (km/s) (shape ``(nlay)``)
+        - isoflg (list of str, optional, defaut: ``'iso'``): Flags for type of layer material (dimension ``nlay``)
+        - ani (np.ndarray, optional): Anisotropy (percent) (shape ``(nlay)``)
+        - tr (np.ndarray, optional): Trend of symmetry axis (degree) (shape ``(nlay)``)
+        - pl (np.ndarray, optional): Plunge of symmetry axis (degree) (shape ``(nlay)``)
 
-    Returns: 
-        None: Parameters are now global variables shared
-                between all other modules
-
+        - nlay (int): Number of layers
+        - a (np.ndarray): Elastic thickness (shape ``(3, 3, 3, 3, nlay)``)
     """
+    def __init__(self, thickn, rho, vp, vs, isoflg='iso', ani=None, tr=None, pl=None):
+        def _get_val(v):
+            return np.array([v] * self.nlay if isinstance(v, (int, float)) else v) if v is not None else None
+        self.nlay = len(thickn)
+        self.thickn = np.array(thickn)
+        self.rho = np.array(rho) if rho is not None else [None] * self.nlay
+        self.vp = np.array(vp)
+        self.vs = np.array(vs)
+        self.isoflg = list(isoflg) if not isinstance(isoflg, str) else [isoflg] * self.nlay
+        self.ani = _get_val(ani)
+        self.tr = _get_val(tr)
+        self.pl = _get_val(pl)
+        self.update_tensor()
 
-    h = []; r = []; a = []; b = []; fl = []; ani = []; tr = []; pl = []
+    def update_tensor(self):
+        """
+        Update the elastic thickness tensor ``a``.
 
-    # Read file line by line and populate lists
-    try:
-        open(modfile)
-    except:
-        raise(Exception('model file cannot be opened: ',modfile))
+        Need to be called, wehen model parameters change.
+        """
+        self.nlay = len(self.thickn)
+        self.a = np.zeros((3,3,3,3,self.nlay))
+#        self.evecs = np.zeros((6,6,self.nlay),dtype=complex)
+#        self.evals = np.zeros((6,self.nlay),dtype=complex)
+#        self.Tui = np.zeros((3,3,self.nlay),dtype=complex)
+#        self.Rui = np.zeros((3,3,self.nlay),dtype=complex)
+#        self.Tdi = np.zeros((3,3,self.nlay),dtype=complex)
+#        self.Rdi = np.zeros((3,3,self.nlay),dtype=complex)
 
-    with open(modfile) as fileobj:
-        for line in fileobj:
-            if not line.rstrip().startswith('#'):
-                model = line.rstrip().split()
-                h.append(np.float64(model[0])*1.e3)
-                r.append(np.float64(model[1]))
-                a.append(np.float64(model[2]))
-                b.append(np.float64(model[3]))
-                fl.append(model[4])
-                ani.append(np.float64(model[5]))
-                tr.append(np.float64(model[6]))
-                pl.append(np.float64(model[7]))
+        mins = ['atg', 'bt', 'cpx', 'dol', 'ep', 'grt', 'gln', 'hbl', 'jade',\
+                'lws', 'lz', 'ms', 'ol', 'opx', 'plag', 'qtz', 'zo']
 
-    # Pass configuration parameters
-    cf.nlay = len(h)
-    cf.thickn = h
-    cf.rho = r
-    cf.isoflg = fl
+        rocks = ['BS_f', 'BS_m', 'EC_f', 'EC_m', 'HB', 'LHZ', 'SP_37', 'SP_80']
 
-    cf.a = np.zeros((3,3,3,3,cf.nlay))
-    cf.evecs = np.zeros((6,6,cf.nlay),dtype=complex)
-    cf.evals = np.zeros((6,cf.nlay),dtype=complex)
-    cf.Tui = np.zeros((3,3,cf.nlay),dtype=complex)
-    cf.Rui = np.zeros((3,3,cf.nlay),dtype=complex)
-    cf.Tdi = np.zeros((3,3,cf.nlay),dtype=complex)
-    cf.Rdi = np.zeros((3,3,cf.nlay),dtype=complex)
-
-    mins = ['atg', 'bt', 'cpx', 'dol', 'ep', 'grt', 'gln', 'hbl', 'jade',\
-            'lws', 'lz', 'ms', 'ol', 'opx', 'plag', 'qtz', 'zo']
-
-    rocks = ['BS_f', 'BS_m', 'EC_f', 'EC_m', 'HB', 'LHZ', 'SP_37', 'SP_80']
-
-    for j in range(cf.nlay):
-        if fl[j]=='iso':
-            cc = set_iso_tensor(a[j],b[j])
-            cf.a[:,:,:,:,j] = cc
-        elif fl[j]=='tri':
-            cc = set_tri_tensor(a[j],b[j],tr[j],pl[j],ani[j])
-            cf.a[:,:,:,:,j] = cc
-        elif fl[j] in mins or fl[j] in rocks:
-            cc, rho = set_aniso_tensor(tr[j],pl[j],typ=fl[j])
-            cf.a[:,:,:,:,j] = cc
-            cf.rho[j] = rho
-        else:
-            print('\nFlag not defined: use either "iso", "tri" or one among\n')
-            print(mins,rocks)
-            print()
-            raise(Exception())
-
-    return
+        for j in range(self.nlay):
+            if self.isoflg[j]=='iso':
+                cc = set_iso_tensor(self.vp[j],self.vs[j])
+                self.a[:,:,:,:,j] = cc
+            elif self.isoflg[j]=='tri':
+                cc = set_tri_tensor(self.vp[j],self.vs[j],self.tr[j],self.pl[j],self.ani[j])
+                self.a[:,:,:,:,j] = cc
+            elif self.isoflg[j] in mins or self.isoflg[j] in rocks:
+                cc, rho = set_aniso_tensor(self.tr[j],self.pl[j],typ=self.isoflg[j])
+                self.a[:,:,:,:,j] = cc
+                self.rho[j] = rho
+            else:
+                msg = '\nFlag not defined: use either "iso", "tri" or one among\n%s\n%s\n'
+                raise(Exception(msg % (mins, rocks)))
 
 
-def check_cf(obs=False):
+def read_model(modfile, encoding=None):
     """
-    Checks whether or not all required global variables are set and throws an Exception if not.
+    Reads model parameters from file and returns a Model object.
 
-    Args:
-        obs (bool, optional): Whether the analysis is done for an OBS case or not.
-
-    :raises ExceptionError: Throws ExceptionError if not all variables are set.
+    Returns:
+        Model object
     """
-    lst = [cf.a, cf.rho, cf.thickn, cf.isoflg, cf.dt, cf.nt, cf.slow, cf.baz]
-    check = [f is None for f in lst]
-    if sum(check)/len(check)>0.:
-        raise Exception("global variables not all set. Set all of the following variables through the conf module: 'a', 'rho', 'thickn', 'isoflg', 'dt', 'nt', 'slow', 'baz'")
-
-    if obs:
-        lst = [cf.dp, cf.c, cf.rhof]
-        check = [f is None for f in lst]
-        if sum(check)/len(check)>0.:
-            raise Exception("global variables not all set for OBS case. Set all of the following variables through the conf module: 'dp', 'c', 'rhof'")
+    values = np.genfromtxt(modfile, dtype=None, encoding=encoding)
+    return Model(*zip(*values))
 
 
-def model2for():
+def model2for(model):
     """
     Passes global model variables to Fortran ``conf`` module.
 
@@ -695,15 +669,17 @@ def model2for():
     cf_f.thickn = np.zeros((nlaymx))
     cf_f.isoflg = np.zeros((nlaymx), dtype='int')
 
-    for i in range(cf.nlay):
-        cf_f.a[:,:,:,:,i] = cf.a[:,:,:,:,i]
-        cf_f.rho[i] = cf.rho[i]
-        cf_f.thickn[i] = cf.thickn[i]
-        if cf.isoflg[i]=='iso':
+    for i in range(model.nlay):
+        cf_f.a[:,:,:,:,i] = model.a[:,:,:,:,i]
+        cf_f.rho[i] = model.rho[i]
+        cf_f.thickn[i] = 1000. * model.thickn[i]
+        if model.isoflg[i]=='iso':
             cf_f.isoflg[i] = 1
+        else:
+            cf_f.isoflg[i] = 0
 
 
-def wave2for():
+def wave2for(dt, slow, baz):
     """
     Passes global wavefield variables to Fortran ``conf`` module.
 
@@ -713,12 +689,12 @@ def wave2for():
     Variables to pass are ``dt``, ``slow``, ``baz``
     """
 
-    cf_f.dt = cf.dt
-    cf_f.slow = cf.slow
-    cf_f.baz = cf.baz
+    cf_f.dt = dt
+    cf_f.slow = slow
+    cf_f.baz = baz
 
 
-def obs2for():
+def obs2for(dp, c, rhof):
     """
     Passes global OBS-related variables to Fortran ``conf`` module.
 
@@ -727,62 +703,63 @@ def obs2for():
 
     Variables to pass are ``dp``, ``c``, ``rhof``
     """
-    cf_f.dp = cf.dp
-    cf_f.c = cf.c
-    cf_f.rhof = cf.rhof
+    cf_f.dp = dp
+    cf_f.c = 1000 * c
+    cf_f.rhof = rhof
 
 
-def run_plane(obs=False):
+def run_plane(model, slow, npts, dt, baz=0, wvtype='P', obs=False, dp=None, c=1.5, rhof=1027):
     """
     Function to run the ``plane`` module and return 3-component seismograms as an ``obspy``
-    ``Stream`` object. 
-
-    .. note:: 
-
-       The ``conf`` global variables need to be set for this calculation
-       to succeed. This function first checks to make sure the variables are all set
-       before executing the main ``telewavesim.rmat_f.plane_****`` function. 
+    ``Stream`` object.
 
     Args:
-        fortran (book, option): Whether or not the Fortran modules are used
-        obs (bool, optional): Whether or not the analysis is done for an OBS stations
+        - slow (float): Slowness (s/km)
+        - baz (float): Back-azimuth (degree)
+        - npts (int): Number of samples in time series
+        - dt (float): Sampling intervall (s)
+        - baz (float, optional): Back-azimuth (degree)
+        - wvtype (str, optional, default: ``'P'``): Incident wavetype (``'P'``, ``'SV'``, ``'SH'``, ``'Si'``)
+        - obs (bool, optional): Whether or not the analysis is done for an OBS stations
+    ``obs parameters``:
+        - dp (float, optional): Deployment depth below sea level (m)
+        - c (float, optional): P-wave velocity of salt water (default = ``1.5`` km/s)
+        - rhof (float, optional): Density of salt water (default = ``1027.0`` kg/m^3)
+
 
     Returns:
         (obspy.stream): trxyz: Stream containing 3-component displacement seismograms
 
     """
 
-    # Check if all variables are set. If not, throw an Exception and stop
-    check_cf(obs)
-
     # Pass  variables to Fortran conf
-    model2for()
-    wave2for()
+    model2for(model)
+    wave2for(dt, slow, baz)
 
     # Run the ``plane`` module depending on land or OBS case.
     if obs:
 
         # If OBS, then further pass OBS-related paramters to Fortran conf
-        obs2for()
+        obs2for(dp, c, rhof)
 
         # Get the Fourier transform of seismograms for ``obs``case
-        yx, yy, yz = pw_f.plane_obs(cf.nt,cf.nlay,np.array(cf.wvtype, dtype='c'))
+        yx, yy, yz = pw_f.plane_obs(npts,model.nlay,np.array(wvtype, dtype='c'))
 
     else:
-
+#        obs2for(1000, c, rhof)
         # Get the Fourier transform of seismograms for ``land`` case
-        yx, yy, yz = pw_f.plane_land(cf.nt,cf.nlay,np.array(cf.wvtype, dtype='c'))
+        yx, yy, yz = pw_f.plane_land(npts,model.nlay,np.array(wvtype, dtype='c'))
 
     # Transfer displacement seismograms to an ``obspy`` ``Stream`` object.
-    trxyz = get_trxyz(yx, yy, yz)
+    trxyz = get_trxyz(yx, yy, yz, npts, dt, slow, baz, wvtype)
 
     return trxyz
 
 
-def get_trxyz(yx, yy, yz):
+def get_trxyz(yx, yy, yz, npts, dt, slow, baz, wvtype):
     """
-    Function to store displacement seismograms into ``obspy`` ``Trace`` obsjects and 
-    then an ``obspy`` ``Stream`` object. 
+    Function to store displacement seismograms into ``obspy`` ``Trace`` obsjects and
+    then an ``obspy`` ``Stream`` object.
 
     Args:
         ux (np.ndarray): x-component displacement seismogram
@@ -805,9 +782,9 @@ def get_trxyz(yx, yy, yz):
     tuz = Trace(data=uz)
 
     # Update trace header
-    tux = update_stats(tux, cf.nt, cf.dt, cf.slow, cf.baz)
-    tuy = update_stats(tuy, cf.nt, cf.dt, cf.slow, cf.baz)
-    tuz = update_stats(tuz, cf.nt, cf.dt, cf.slow, cf.baz)
+    tux = update_stats(tux, dt, slow, baz, wvtype)
+    tuy = update_stats(tuy, dt, slow, baz, wvtype)
+    tuz = update_stats(tuz, dt, slow, baz, wvtype)
 
     # Append to stream
     trxyz = Stream(traces=[tux, tuy, tuz])
@@ -815,13 +792,15 @@ def get_trxyz(yx, yy, yz):
     return trxyz
 
 
-def tf_from_xyz(trxyz, pvh=False):
+def tf_from_xyz(trxyz, pvh=False, vp=None, vs=None):
     """
-    Function to generate transfer functions from displacement traces. 
+    Function to generate transfer functions from displacement traces.
 
     Args:
         trxyz (obspy.stream): Obspy ``Stream`` object in cartesian coordinate system
         pvh (bool, optional): Whether to rotate from Z-R-T coordinate system to P-SV-SH wave mode
+        vp (float, optional): Vp velocity at surface for rotation to P-SV-SH system
+        vs (float, optional): Vs velocity at surface for rotation to P-SV-SH system
 
     Returns:
         (obspy.stream): tfs: Stream containing Radial and Transverse transfer functions
@@ -832,7 +811,8 @@ def tf_from_xyz(trxyz, pvh=False):
     ntr = trxyz[0]
     etr = trxyz[1]
     ztr = trxyz[2]
-    baz = cf.baz
+    baz = ntr.stats.baz
+    wvtype = ntr.stats.wvtype
 
     # Copy to radial and transverse
     rtr = ntr.copy()
@@ -840,30 +820,29 @@ def tf_from_xyz(trxyz, pvh=False):
 
     # Rotate to radial and transverse
     rtr.data, ttr.data = rotate_ne_rt(ntr.data, etr.data, baz)
-    a = pyfftw.empty_aligned(len(rtr.data), dtype='float')
     # print(rtr.data, ttr.data)
 
     if pvh:
-        vp = np.sqrt(cf.a[2,2,2,2,0])/1.e3
-        vs = np.sqrt(cf.a[1,2,1,2,0])/1.e3
+#         vp = np.sqrt(cf.a[2,2,2,2,0])/1.e3
+#         vs = np.sqrt(cf.a[1,2,1,2,0])/1.e3
         trP, trV, trH = rotate_zrt_pvh(ztr, rtr, ttr, vp=vp, vs=vs)
-        
+
         tfr = trV.copy(); tfr.data = np.zeros(len(tfr.data))
         tft = trH.copy(); tft.data = np.zeros(len(tft.data))
         ftfv = pyfftw.interfaces.numpy_fft.fft(trV.data)
         ftfh = pyfftw.interfaces.numpy_fft.fft(trH.data)
         ftfp = pyfftw.interfaces.numpy_fft.fft(trP.data)
 
-        if cf.wvtype=='P':
+        if wvtype=='P':
             # Transfer function
             tfr.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(ftfv,ftfp))))
             tft.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(ftfh,ftfp))))
-        elif cf.wvtype=='Si': 
+        elif wvtype=='Si':
             tfr.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfp,ftfv))))
             tft.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfp,ftfh))))
-        elif cf.wvtype=='SV':
+        elif wvtype=='SV':
             tfr.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfp,ftfv))))
-        elif cf.wvtype=='SH':
+        elif wvtype=='SH':
             tft.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfp,ftfh))))
     else:
         tfr = rtr.copy(); tfr.data = np.zeros(len(tfr.data))
@@ -872,16 +851,16 @@ def tf_from_xyz(trxyz, pvh=False):
         ftft = pyfftw.interfaces.numpy_fft.fft(ttr.data)
         ftfz = pyfftw.interfaces.numpy_fft.fft(ztr.data)
 
-        if cf.wvtype=='P':
+        if wvtype=='P':
             # Transfer function
             tfr.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(ftfr,ftfz))))
             tft.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(ftft,ftfz))))
-        elif cf.wvtype=='Si':
+        elif wvtype=='Si':
             tfr.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfz,ftfr))))
             tft.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfz,ftft))))
-        elif cf.wvtype=='SV':
+        elif wvtype=='SV':
             tfr.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfz,ftfr))))
-        elif cf.wvtype=='SH':
+        elif wvtype=='SH':
             tft.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfz,ftft))))
 
     # Store in stream
@@ -891,7 +870,7 @@ def tf_from_xyz(trxyz, pvh=False):
     return tfs
 
 
-def update_stats(tr, nt, dt, slow, baz):
+def update_stats(tr, dt, slow, baz, wvtype):
     """
     Updates the ``stats`` doctionary from an obspy ``Trace`` object.
 
@@ -909,5 +888,6 @@ def update_stats(tr, nt, dt, slow, baz):
     tr.stats.delta = dt
     tr.stats.slow = slow
     tr.stats.baz = baz
+    tr.stats.wvtype = wvtype
 
     return tr
