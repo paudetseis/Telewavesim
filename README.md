@@ -98,6 +98,13 @@ Install `telewavesim` with `pip`:
 pip install telewavesim
 ```
 
+### Possible installation pitfalls with conda
+
+Using conda it might be necessary to use the fortran comiler provided with
+conda-forge. Add `gfortran_osx-64` or `gfortran_linux-64` package to the
+above conda calls. On Linux it might further be necessary to install the
+`lapack` conda package.
+
 ### Installing from source
 
 Download or clone the repository:
@@ -153,12 +160,10 @@ To set up the models, install the `Jupyter` notebooks and check out the examples
 
 ### Testing
 
-A series of tests are located in the ``tests`` subdirectory. In order to perform these tests, clone the repository and run `pytest` (`conda install pytest` if needed):
+A series of tests are located in the ``tests`` subdirectory. In order to perform these tests, run `pytest` (`conda install pytest` if needed):
 
 ```bash
-git clone https://github.com/paudetseis/Telewavesim.git
-cd Telewavesim
-pytest -v
+pytest -v --pyargs telewavesim
 ```
 
 ## References
