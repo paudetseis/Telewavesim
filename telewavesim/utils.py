@@ -713,31 +713,24 @@ def run_plane(model, slow, npts, dt, baz=0, wvtype='P', obs=False, dp=None, c=1.
     Function to run the ``plane`` module and return 3-component seismograms as an ``obspy``
     ``Stream`` object.
 
-    .. note::
-
-       The ``conf`` global variables need to be set for this calculation
-       to succeed. This function first checks to make sure the variables are all set
-       before executing the main ``telewavesim.rmat_f.plane_****`` function.
-
     Args:
         - slow (float): Slowness (s/km)
         - baz (float): Back-azimuth (degree)
         - npts (int): Number of samples in time series
-        - dt (float): Sampling rate (Hz)
-        obs (bool, optional): Whether or not the analysis is done for an OBS stations
+        - dt (float): Sampling intervall (s)
+        - baz (float, optional): Back-azimuth (degree)
+        - wvtype (str, optional, default: ``'P'``): Incident wavetype (``'P'``, ``'SV'``, ``'SH'``, ``'Si'``)
+        - obs (bool, optional): Whether or not the analysis is done for an OBS stations
     ``obs parameters``:
-        - dp (float, optional): Deployment depth below sea level (km)
-        - c (float): P-wave velocity of salt water (default = ``1.5`` km/s)
-        - rhof (float): Density of salt water (default = ``1027.0`` kg/m^3)
+        - dp (float, optional): Deployment depth below sea level (m)
+        - c (float, optional): P-wave velocity of salt water (default = ``1.5`` km/s)
+        - rhof (float, optional): Density of salt water (default = ``1027.0`` kg/m^3)
 
 
     Returns:
         (obspy.stream): trxyz: Stream containing 3-component displacement seismograms
 
     """
-
-    # Check if all variables are set. If not, throw an Exception and stop
-#    check_cf(obs)
 
     # Pass  variables to Fortran conf
     model2for(model)
@@ -806,6 +799,8 @@ def tf_from_xyz(trxyz, pvh=False, vp=None, vs=None):
     Args:
         trxyz (obspy.stream): Obspy ``Stream`` object in cartesian coordinate system
         pvh (bool, optional): Whether to rotate from Z-R-T coordinate system to P-SV-SH wave mode
+        vp (float, optional): Vp velocity at surface for rotation to P-SV-SH system
+        vs (float, optional): Vs velocity at surface for rotation to P-SV-SH system
 
     Returns:
         (obspy.stream): tfs: Stream containing Radial and Transverse transfer functions

@@ -64,6 +64,7 @@ def test_Porter2011():
         wg.rf_wiggles_baz(trR, trT, trR_stack, trT_stack, 'test', btyp='baz',
                           scale=1.e3, tmin=-5., tmax=8., save=True,
                           ftitle=join(tempdir, 'porter2011.png'),
+#                          ftitle='porter2011',
                           wvtype='P')
 
 
@@ -103,8 +104,9 @@ def test_Autdet2016():
     # Plot as wiggles
     with tempfile.TemporaryDirectory() as tempdir:
         wg.pw_wiggles_Audet2016(strf, t1=t1, tmax=10., f1=f1, f2=f2,
-                                scale=2.e-7, save=True,
-                                ftitle=join(tempdir, 'porter2011.png'))
+                                ftitle=join(tempdir, 'audet2016'),
+#                                ftitle='audet2016',
+                                scale=2.e-7, save=True)
 
 
 def test_SKS():
@@ -153,5 +155,6 @@ def test_SKS():
     with tempfile.TemporaryDirectory() as tempdir:
         wg.pw_wiggles_baz(trR, trT, 'test', btyp='baz', scale=0.05,
                           t1=t1, tmin=0., tmax=40, save=True,
-                          ftitle=join(tempdir, 'sks.png'),
+                          ftitle=join(tempdir, 'sks'),
+#                          ftitle='sks',
                           wvtype='SV')
