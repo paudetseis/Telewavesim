@@ -18,7 +18,6 @@ def test_pyfftw_import():
 
 def test_telewavesim_modules():
     import telewavesim
-    from telewavesim import conf
     from telewavesim import elast
     from telewavesim import utils
     from telewavesim import wiggle
