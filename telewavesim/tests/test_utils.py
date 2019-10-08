@@ -1,34 +1,34 @@
-import telewavesim
+#import telewavesim
 import numpy as np
-from telewavesim import conf as cf
+#from telewavesim import conf as cf
 from telewavesim import utils as ut
-from telewavesim.rmat_f import conf as cf_f
+#from telewavesim.rmat_f import conf as cf_f
 
-from telewavesim.tests.conftest import load_params
+#from telewavesim.tests.conftest import load_params
 
-def test_model2for_conf(load_params):
-
-    error_msg = "Failed! Python model conf values are {} and Fortran conf values are {}".format(
-        [cf.a, cf.rho, cf.thickn],[cf_f.a[:,:,:,:,0:cf.nlay], cf_f.rho[0:cf.nlay], cf_f.thickn[0:cf.nlay]])
-    assert np.all(cf.a==cf_f.a[:,:,:,:,0:cf.nlay]), error_msg
-    assert np.all(cf.rho==cf_f.rho[0:cf.nlay]), error_msg
-    assert np.all(cf.thickn==cf_f.thickn[0:cf.nlay]), error_msg
-
-def test_wave2for_conf(load_params):
-
-    error_msg = "Failed! Python wave conf values are {} and Fortran conf values are {}".format(
-        [cf.dt, cf.slow, cf.baz],[cf_f.dt, cf_f.slow, cf_f.baz])
-    assert cf.dt==cf_f.dt, error_msg
-    assert cf.slow==cf_f.slow, error_msg
-    assert cf.baz==cf_f.baz, error_msg
-
-def test_obs2for_conf(load_params):
-
-    error_msg = "Failed! Python obs conf values are {} and Fortran conf values are {}".format(
-        [cf.dp, cf.c, cf.rhof],[cf_f.dp, cf_f.c, cf_f.rhof])
-    assert cf.dp==cf_f.dp, error_msg
-    assert cf.c==cf_f.c, error_msg
-    assert cf.rhof==cf_f.rhof, error_msg
+# def test_model2for_conf(load_params):
+# 
+    # error_msg = "Failed! Python model conf values are {} and Fortran conf values are {}".format(
+        # [cf.a, cf.rho, cf.thickn],[cf_f.a[:,:,:,:,0:cf.nlay], cf_f.rho[0:cf.nlay], cf_f.thickn[0:cf.nlay]])
+    # assert np.all(cf.a==cf_f.a[:,:,:,:,0:cf.nlay]), error_msg
+    # assert np.all(cf.rho==cf_f.rho[0:cf.nlay]), error_msg
+    # assert np.all(cf.thickn==cf_f.thickn[0:cf.nlay]), error_msg
+# 
+# def test_wave2for_conf(load_params):
+# 
+    # error_msg = "Failed! Python wave conf values are {} and Fortran conf values are {}".format(
+        # [cf.dt, cf.slow, cf.baz],[cf_f.dt, cf_f.slow, cf_f.baz])
+    # assert cf.dt==cf_f.dt, error_msg
+    # assert cf.slow==cf_f.slow, error_msg
+    # assert cf.baz==cf_f.baz, error_msg
+# 
+# def test_obs2for_conf(load_params):
+# 
+    # error_msg = "Failed! Python obs conf values are {} and Fortran conf values are {}".format(
+        # [cf.dp, cf.c, cf.rhof],[cf_f.dp, cf_f.c, cf_f.rhof])
+    # assert cf.dp==cf_f.dp, error_msg
+    # assert cf.c==cf_f.c, error_msg
+    # assert cf.rhof==cf_f.rhof, error_msg
 
 def test_tensor_shape():
     a = 0.
