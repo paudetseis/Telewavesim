@@ -84,7 +84,7 @@ def test_Autdet2016():
     # Back-azimuth direction in degrees (has no influence if model is isotropic)
     baz = 0.
     model = ut.read_model(modfile)
-    assert model.rho == [2800.0, 2800.0, 3200.0]
+    assert list(model.rho) == [2800.0, 2800.0, 3200.0]
     t1 = ut.calc_ttime(model, slow, wvtype=wvtype)
     assert round(t1, 1) == 1.1
     trxyz = ut.run_plane(model, slow, npts, dt, baz=baz, wvtype=wvtype,

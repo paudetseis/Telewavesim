@@ -589,29 +589,32 @@ def calc_ttime(model, slow, wvtype='P'):
 class Model(object):
     """
     ``model parameters``:
-        - a (np.ndarray): Elastic thickness (shape ``(3, 3, 3, 3, nlay)``)
-        - rho (np.ndarray): Density (kg/m^3) (shape ``(nlay)``)
-        - isoflg (list of str): Flags for type of layer material (dimension ``nlay``)
         - thickn (np.ndarray): Thickness of layers (km) (shape ``(nlay)``)
-        - nlay (int): Number of layers
-        - aa (np.ndarray): P-wave velocity (km/s) (shape ``(nlay)``)
-        - bb (np.ndarray): S-wave velocity (km/s) (shape ``(nlay)``)
+        - rho (np.ndarray): Density (kg/m^3) (shape ``(nlay)``)
+        - vp (np.ndarray): P-wave velocity (km/s) (shape ``(nlay)``)
+        - vs (np.ndarray): S-wave velocity (km/s) (shape ``(nlay)``)
+        - isoflg (list of str): Flags for type of layer material (dimension ``nlay``)
+        - ani (np.ndarray): Anisotropy (percent) (shape ``(nlay)``)
         - tr (np.ndarray): Trend of symmetry axis (degree) (shape ``(nlay)``)
         - pl (np.ndarray): Plunge of symmetry axis (degree) (shape ``(nlay)``)
+
+        - nlay (int): Number of layers
+        - a (np.ndarray): Elastic thickness (shape ``(3, 3, 3, 3, nlay)``)
     """
     def __init__(self, thickn, rho, vp, vs, isoflg='iso', ani=None, tr=None, pl=None):
         self.nlay = len(thickn)
-        self.thickn = list(thickn)
-        self.rho = list(rho)
-        self.vp = list(vp)
-        self.vs = list(vs)
+        self.thickn = np.array(thickn)
+        self.rho = np.array(rho)
+        self.vp = np.array(vp)
+        self.vs = np.array(vs)
         self.isoflg = list(isoflg) if not isinstance(isoflg, str) else [isoflg] * self.nlay
-        self.ani = list(ani) if ani is not None else None
-        self.tr = list(tr) if tr is not None else None
-        self.pl = list(pl) if pl is not None else None
-        self.update_tensors()
+        self.ani = np.array(ani) if ani is not None else None
+        self.tr = np.array(tr) if tr is not None else None
+        self.pl = np.array(pl) if pl is not None else None
+        self.update_tensor()
 
-    def update_tensors(self):
+    def update_tensor(self):
+        self.nlay = len(self.thickn)
         self.a = np.zeros((3,3,3,3,self.nlay))
 #        self.evecs = np.zeros((6,6,self.nlay),dtype=complex)
 #        self.evals = np.zeros((6,self.nlay),dtype=complex)
