@@ -675,6 +675,8 @@ def model2for(model):
         cf_f.thickn[i] = 1000. * model.thickn[i]
         if model.isoflg[i]=='iso':
             cf_f.isoflg[i] = 1
+        else:
+            cf_f.isoflg[i] = 0
 
 
 def wave2for(dt, slow, baz):
