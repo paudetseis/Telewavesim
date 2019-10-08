@@ -533,7 +533,9 @@ def calc_ttime(model, slow, wvtype='P'):
        and setting the variable ``conf.wvtype``
 
     Args:
+        model (Model): Model object
         slow (float): Slowness value (s/km)
+        wvtype (str): Incident wavetype (``'P'``, ``'SV'``, ``'SH'``, ``'Si'``)
 
     Returns:
         (float): t1: Time in seconds
@@ -582,10 +584,10 @@ class Model(object):
         - rho (np.ndarray): Density (kg/m^3) (shape ``(nlay)``)
         - vp (np.ndarray): P-wave velocity (km/s) (shape ``(nlay)``)
         - vs (np.ndarray): S-wave velocity (km/s) (shape ``(nlay)``)
-        - isoflg (list of str): Flags for type of layer material (dimension ``nlay``)
-        - ani (np.ndarray): Anisotropy (percent) (shape ``(nlay)``)
-        - tr (np.ndarray): Trend of symmetry axis (degree) (shape ``(nlay)``)
-        - pl (np.ndarray): Plunge of symmetry axis (degree) (shape ``(nlay)``)
+        - isoflg (list of str, optional, defaut: ``'iso'``): Flags for type of layer material (dimension ``nlay``)
+        - ani (np.ndarray, optional): Anisotropy (percent) (shape ``(nlay)``)
+        - tr (np.ndarray, optional): Trend of symmetry axis (degree) (shape ``(nlay)``)
+        - pl (np.ndarray, optional): Plunge of symmetry axis (degree) (shape ``(nlay)``)
 
         - nlay (int): Number of layers
         - a (np.ndarray): Elastic thickness (shape ``(3, 3, 3, 3, nlay)``)
