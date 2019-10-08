@@ -540,25 +540,14 @@ def calc_ttime(model, slow, wvtype='P'):
 
     Example
     -------
-    >>> from telewavesim import conf
     >>> from telewavesim import utils
-    >>> import numpy as np
-    >>> cc, rho = utils.set_aniso_tensor(0., 0., typ='atg')
     >>> # Define two-layer model model with identical material
-    >>> conf.nlay = 2
-    >>> conf.a = np.zeros((3,3,3,3,conf.nlay))
-    >>> conf.rho = np.zeros((conf.nlay))
-    >>> conf.thickn = np.zeros((conf.nlay))
-    >>> # Pass variables to the `conf` module
+    >>> model = utils.Model([10, 0], None, 0, 0, 'atg', 0, 0, 0)
     >>> # Only topmost layer is useful for travel time calculation
-    >>> conf.isoflg = ['atg']
-    >>> conf.a[:,:,:,:,0] = cc
-    >>> conf.rho[0] = rho
-    >>> conf.thickn[0] = 10.
-    >>> conf.wvtype = 'P'
+    >>> wvtype = 'P'
     >>> slow = 0.06     # s/km
-    >>> utils.calc_ttime(slow)
-    0.0013519981570791182
+    >>> utils.calc_ttime(model, slow, wvtype)
+    1.3519981570791182
 
     """
 
@@ -602,18 +591,25 @@ class Model(object):
         - a (np.ndarray): Elastic thickness (shape ``(3, 3, 3, 3, nlay)``)
     """
     def __init__(self, thickn, rho, vp, vs, isoflg='iso', ani=None, tr=None, pl=None):
+        def _get_val(v):
+            return np.array([v] * self.nlay if isinstance(v, (int, float)) else v) if v is not None else None
         self.nlay = len(thickn)
         self.thickn = np.array(thickn)
-        self.rho = np.array(rho)
+        self.rho = np.array(rho) if rho is not None else [None] * self.nlay
         self.vp = np.array(vp)
         self.vs = np.array(vs)
         self.isoflg = list(isoflg) if not isinstance(isoflg, str) else [isoflg] * self.nlay
-        self.ani = np.array(ani) if ani is not None else None
-        self.tr = np.array(tr) if tr is not None else None
-        self.pl = np.array(pl) if pl is not None else None
+        self.ani = _get_val(ani)
+        self.tr = _get_val(tr)
+        self.pl = _get_val(pl)
         self.update_tensor()
 
     def update_tensor(self):
+        """
+        Update the elastic thickness tensor ``a``.
+
+        Need to be called, wehen model parameters change.
+        """
         self.nlay = len(self.thickn)
         self.a = np.zeros((3,3,3,3,self.nlay))
 #        self.evecs = np.zeros((6,6,self.nlay),dtype=complex)
@@ -653,27 +649,6 @@ def read_model(modfile, encoding=None):
     """
     values = np.genfromtxt(modfile, dtype=None, encoding=encoding)
     return Model(*zip(*values))
-
-
-#def check_cf(obs=False):
-#    """
-#    Checks whether or not all required global variables are set and throws an Exception if not.
-#
-#    Args:
-#        obs (bool, optional): Whether the analysis is done for an OBS case or not.
-#
-#    :raises ExceptionError: Throws ExceptionError if not all variables are set.
-#    """
-#    lst = [cf.a, cf.rho, cf.thickn, cf.isoflg, cf.dt, cf.nt, cf.slow, cf.baz]
-#    check = [f is None for f in lst]
-#    if sum(check)/len(check)>0.:
-#        raise Exception("global variables not all set. Set all of the following variables through the conf module: 'a', 'rho', 'thickn', 'isoflg', 'dt', 'nt', 'slow', 'baz'")
-#
-#    if obs:
-#        lst = [cf.dp, cf.c, cf.rhof]
-#        check = [f is None for f in lst]
-#        if sum(check)/len(check)>0.:
-#            raise Exception("global variables not all set for OBS case. Set all of the following variables through the conf module: 'dp', 'c', 'rhof'")
 
 
 def model2for(model):
