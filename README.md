@@ -42,48 +42,14 @@ Also, the following packages are required:
 
 By  default, both `numpy` and `matplotlib` are installed as dependencies of `obspy`.
 
-### Installing using pip
-
-You can install `telewavesim` using the [pip package manager](https://pypi.org/project/pip/):
-
-```bash
-pip install telewavesim
-```
-All the dependencies will be automatically installed by `pip`.
-
-### Installing with conda
-
-You can install `telewavesim` using the [conda package manager](https://conda.io).
-Its required dependencies can be easily installed with:
-
-```bash
-conda install obspy pyfftw -c conda-forge
-```
-
-Then `telewavesim` can be installed with `pip`:
-
-```bash
-pip install telewavesim
-```
-
 #### Conda environment
 
 We recommend creating a custom
 [conda environment](https://conda.io/docs/user-guide/tasks/manage-environments.html)
-where `telewavesim` can be installed along with its dependencies.
-
-- Create a environment called `tws` and install all dependencies:
+where `telewavesim` can be installed along with its dependencies:
 
 ```bash
 conda create -n tws python=3.7 obspy pyfftw -c conda-forge
-```
-
-- or create it from the `tws_env.yml` file by first checking out the repository:
-
-```bash
-git checkout https://github.com/paudetseis/Telewavesim.git
-cd Telewavesim
-conda env create -f tws_env.yml
 ```
 
 Activate the newly created environment:
@@ -92,7 +58,21 @@ Activate the newly created environment:
 conda activate tws
 ```
 
-Install `telewavesim` with `pip`:
+### Installing from source
+
+- Download or clone the repository:
+```bash
+git clone https://github.com/paudetseis/Telewavesim.git
+cd Telewavesim
+```
+
+- Install using `pip`:
+
+```bash
+pip install .
+``` 
+
+### Installing from Pypi
 
 ```bash
 pip install telewavesim
@@ -104,20 +84,6 @@ Using conda it might be necessary to use the fortran comiler provided with
 conda-forge. Add `gfortran_osx-64` or `gfortran_linux-64` package to the
 above conda calls. On Linux it might further be necessary to install the
 `lapack` conda package.
-
-### Installing from source
-
-Download or clone the repository:
-```bash
-git clone https://github.com/paudetseis/Telewavesim.git
-cd Telewavesim
-```
-
-Next we recommend following the steps for creating a `conda` environment (see [above](#conda-environment)). Then install using `pip`:
-
-```bash
-pip install .
-```
 
 ## Usage
 
