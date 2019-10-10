@@ -1,8 +1,8 @@
 .. figure:: ../telewavesim/examples/picture/tws_logo.png
    :align: center
 
-telewavesim.utils
------------------
+Module utils
+------------
 
 .. automodule:: telewavesim.utils
    :members:
