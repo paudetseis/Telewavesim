@@ -1,5 +1,18 @@
+import os.path
 import platform
+import re
 from numpy.distutils.core import setup, Extension
+
+
+def find_version(*paths):
+    fname = os.path.join(os.path.dirname(__file__), *paths)
+    with open(fname) as fp:
+        code = fp.read()
+    match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", code, re.M)
+    if match:
+        return match.group(1)
+    raise RuntimeError("Unable to find version string.")
+
 
 if platform.system() == 'Linux':
     # this hack hopefully  will become unecessary in the future
@@ -23,7 +36,7 @@ ext = [Extension(name='telewavesim.rmat_f',
 
 setup(
     name                = 'telewavesim',
-    version             = '0.1.0',
+    version             = find_version('telewavesim', '__init__.py'),
     description         = 'Python package for teleseismic body-wave modeling',
     author              = 'Pascal Audet, Colin J. Thomson, Michael G. Bostock',
     maintainer          = 'Pascal Audet',
