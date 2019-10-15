@@ -22,7 +22,8 @@ copyright = '2019, Pascal Audet'
 author = 'Pascal Audet'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.0'
+#release = '0.1.0'
+from telewavesim import __version__ as release
 
 # -- General configuration ---------------------------------------------------
 
@@ -33,7 +34,7 @@ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'sphinx.ext.githubpag
 
 autodoc_member_order = 'bysource'
 
-html_logo = '../telewavesim/examples/picture/logo_tws.png' 
+html_logo = '../telewavesim/examples/picture/logo_tws.png'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
