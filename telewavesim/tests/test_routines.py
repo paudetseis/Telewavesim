@@ -2,9 +2,8 @@ from telewavesim import utils as ut
 from telewavesim.rmat_f import plane as pw_f
 from pkg_resources import resource_filename
 import numpy as np
-import pyfftw
+from numpy.fft import fft
 
-#from telewavesim.tests.conftest import load_params
 
 def test_plane_obs():
     modfile = resource_filename('telewavesim',
@@ -23,9 +22,9 @@ def test_plane_obs():
     ut.wave2for(dt, slow, baz)
     ut.obs2for(dp, c, rhof)
     yx, yy, yz = pw_f.plane_obs(npts, model.nlay, np.array(wvtype, dtype='c'))
-    ux = np.real(pyfftw.interfaces.numpy_fft.fft(yx))
-    uy = np.real(pyfftw.interfaces.numpy_fft.fft(yy))
-    uz = np.real(pyfftw.interfaces.numpy_fft.fft(yz))
+    ux = np.real(fft(yx))
+    uy = np.real(fft(yy))
+    uz = np.real(fft(yz))
 
     # seismogram should be maximized on vertical component
     assert np.max(np.abs(uz)) > np.max(np.abs(ux)) > np.max(np.abs(uy)), \
@@ -46,9 +45,9 @@ def test_plane_land():
     ut.model2for(model)
     ut.wave2for(dt, slow, baz)
     yx, yy, yz = pw_f.plane_land(npts, model.nlay, np.array(wvtype, dtype='c'))
-    ux = np.real(pyfftw.interfaces.numpy_fft.fft(yx))
-    uy = np.real(pyfftw.interfaces.numpy_fft.fft(yy))
-    uz = np.real(pyfftw.interfaces.numpy_fft.fft(yz))
+    ux = np.real(fft(yx))
+    uy = np.real(fft(yy))
+    uz = np.real(fft(yz))
 
     # seismogram should be maximized on vertical component
     assert np.max(np.abs(uz)) > np.max(np.abs(ux)) > np.max(np.abs(uy)), \

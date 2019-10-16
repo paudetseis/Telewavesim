@@ -27,7 +27,7 @@ Utility functions to interact with ``telewavesim`` modules.
 '''
 import itertools
 import numpy as np
-import pyfftw
+from numpy.fft import fft, fftshift, ifft
 from scipy.signal import hilbert
 from obspy.core import Trace, Stream
 from obspy.signal.rotate import rotate_ne_rt
@@ -772,9 +772,9 @@ def get_trxyz(yx, yy, yz, npts, dt, slow, baz, wvtype):
     """
 
     # Get displacements in time domain
-    ux = np.real(pyfftw.interfaces.numpy_fft.fft(yx))
-    uy = np.real(pyfftw.interfaces.numpy_fft.fft(yy))
-    uz = -np.real(pyfftw.interfaces.numpy_fft.fft(yz))
+    ux = np.real(fft(yx))
+    uy = np.real(fft(yy))
+    uz = -np.real(fft(yz))
 
     # Store in traces
     tux = Trace(data=ux)
@@ -829,39 +829,39 @@ def tf_from_xyz(trxyz, pvh=False, vp=None, vs=None):
 
         tfr = trV.copy(); tfr.data = np.zeros(len(tfr.data))
         tft = trH.copy(); tft.data = np.zeros(len(tft.data))
-        ftfv = pyfftw.interfaces.numpy_fft.fft(trV.data)
-        ftfh = pyfftw.interfaces.numpy_fft.fft(trH.data)
-        ftfp = pyfftw.interfaces.numpy_fft.fft(trP.data)
+        ftfv = fft(trV.data)
+        ftfh = fft(trH.data)
+        ftfp = fft(trP.data)
 
         if wvtype=='P':
             # Transfer function
-            tfr.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(ftfv,ftfp))))
-            tft.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(ftfh,ftfp))))
+            tfr.data = fftshift(np.real(ifft(np.divide(ftfv,ftfp))))
+            tft.data = fftshift(np.real(ifft(np.divide(ftfh,ftfp))))
         elif wvtype=='Si':
-            tfr.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfp,ftfv))))
-            tft.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfp,ftfh))))
+            tfr.data = fftshift(np.real(ifft(np.divide(-ftfp,ftfv))))
+            tft.data = fftshift(np.real(ifft(np.divide(-ftfp,ftfh))))
         elif wvtype=='SV':
-            tfr.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfp,ftfv))))
+            tfr.data = fftshift(np.real(ifft(np.divide(-ftfp,ftfv))))
         elif wvtype=='SH':
-            tft.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfp,ftfh))))
+            tft.data = fftshift(np.real(ifft(np.divide(-ftfp,ftfh))))
     else:
         tfr = rtr.copy(); tfr.data = np.zeros(len(tfr.data))
         tft = ttr.copy(); tft.data = np.zeros(len(tft.data))
-        ftfr = pyfftw.interfaces.numpy_fft.fft(rtr.data)
-        ftft = pyfftw.interfaces.numpy_fft.fft(ttr.data)
-        ftfz = pyfftw.interfaces.numpy_fft.fft(ztr.data)
+        ftfr = fft(rtr.data)
+        ftft = fft(ttr.data)
+        ftfz = fft(ztr.data)
 
         if wvtype=='P':
             # Transfer function
-            tfr.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(ftfr,ftfz))))
-            tft.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(ftft,ftfz))))
+            tfr.data = fftshift(np.real(ifft(np.divide(ftfr,ftfz))))
+            tft.data = fftshift(np.real(ifft(np.divide(ftft,ftfz))))
         elif wvtype=='Si':
-            tfr.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfz,ftfr))))
-            tft.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfz,ftft))))
+            tfr.data = fftshift(np.real(ifft(np.divide(-ftfz,ftfr))))
+            tft.data = fftshift(np.real(ifft(np.divide(-ftfz,ftft))))
         elif wvtype=='SV':
-            tfr.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfz,ftfr))))
+            tfr.data = fftshift(np.real(ifft(np.divide(-ftfz,ftfr))))
         elif wvtype=='SH':
-            tft.data = np.fft.fftshift(np.real(pyfftw.interfaces.numpy_fft.ifft(np.divide(-ftfz,ftft))))
+            tft.data = fftshift(np.real(ifft(np.divide(-ftfz,ftft))))
 
     # Store in stream
     tfs = Stream(traces=[tfr, tft])

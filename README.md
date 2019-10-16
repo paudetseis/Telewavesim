@@ -38,7 +38,6 @@ Also, the following packages are required:
 
 - [`gfortran`](https://gcc.gnu.org/wiki/GFortran) (or any Fortran compiler)
 - [`obspy`](https://github.com/obspy/obspy/wiki)
-- [`pyfftw`](https://pyfftw.readthedocs.io/en/latest/)
 
 By  default, both `numpy` and `matplotlib` are installed as dependencies of `obspy`.
 
@@ -49,7 +48,7 @@ We recommend creating a custom
 where `telewavesim` can be installed along with its dependencies:
 
 ```bash
-conda create -n tws python=3.7 obspy pyfftw -c conda-forge
+conda create -n tws python=3.7 obspy -c conda-forge
 ```
 
 Activate the newly created environment:
@@ -70,7 +69,7 @@ cd Telewavesim
 
 ```bash
 pip install .
-``` 
+```
 
 ### Installing from Pypi
 
