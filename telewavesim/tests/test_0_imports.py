@@ -1,19 +1,9 @@
 def test_numpy_import():
     import numpy
 
-    return
-
 
 def test_obspy_import():
     import obspy
-
-    return
-
-
-def test_pyfftw_import():
-    import pyfftw
-
-    return
 
 
 def test_telewavesim_modules():

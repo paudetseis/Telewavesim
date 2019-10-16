@@ -60,7 +60,6 @@ Also, the following packages are required:
 
 - ``gfortran`` (https://gcc.gnu.org/wiki/GFortran) (or any Fortran compiler)
 - ``obspy`` (https://github.com/obspy/obspy/wiki)
-- ``pyfftw`` (https://pyfftw.readthedocs.io/en/latest/)
 
 By  default, both ``numpy`` and ``matplotlib`` are installed as dependencies of ``obspy``. \
 See below for full installation details.
@@ -83,7 +82,7 @@ where ``telewavesim`` can be installed along with its dependencies.
 
 .. sourcecode:: bash
 
-   conda create -n tws python=3.7 obspy pyfftw -c conda-forge
+   conda create -n tws python=3.7 obspy -c conda-forge
 
 or create it from the ``tws_env.yml`` file:
 
