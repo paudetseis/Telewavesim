@@ -55,17 +55,33 @@ Installation
 Dependencies
 ++++++++++++
 
-The current version was developed using **Python3.7** \
+The current version was developed using **Python3.7**.
 Also, the following packages are required:
 
-- ``gfortran`` (https://gcc.gnu.org/wiki/GFortran) (or any Fortran compiler)
-- ``obspy`` (https://github.com/obspy/obspy/wiki)
+- `gfortran <https://gcc.gnu.org/wiki/GFortran>`_ (or any Fortran compiler)
+- `obspy <https://github.com/obspy/obspy/wiki>`_
 
-By  default, both ``numpy`` and ``matplotlib`` are installed as dependencies of ``obspy``. \
-See below for full installation details.
+By  default, both ``numpy`` and ``matplotlib`` are installed as dependencies of ``obspy``.
 
-Download the software
-+++++++++++++++++++++
+Conda environment
++++++++++++++++++
+
+We recommend creating a custom
+`conda environment <https://conda.io/docs/user-guide/tasks/manage-environments.html>`_
+where ``telewavesim`` can be installed along with its dependencies:
+
+.. sourcecode:: bash
+
+   conda create -n tws python=3.7 obspy -c conda-forge
+
+Activate the newly created environment:
+
+.. sourcecode:: bash
+
+   conda activate tws
+
+Installing from source
+++++++++++++++++++++++
 
 - Clone the repository:
 
@@ -74,44 +90,19 @@ Download the software
    git clone https://github.com/paudetseis/Telewavesim.git
    cd Telewavesim
 
-Conda environment
-+++++++++++++++++
-
-We recommend creating a custom ``conda`` environment
-where ``telewavesim`` can be installed along with its dependencies.
-
-.. sourcecode:: bash
-
-   conda create -n tws python=3.7 obspy -c conda-forge
-
-or create it from the ``tws_env.yml`` file:
-
-.. sourcecode:: bash
-
-   conda env create -f tws_env.yml
-
-Activate the newly created environment:
-
-.. sourcecode:: bash
-
-   conda activate tws
-
-Installing using pip
-++++++++++++++++++++
-
-Once the previous steps are performed, you can install ``telewavesim`` using pip:
+- Install using ``pip``:
 
 .. sourcecode:: bash
 
    pip install .
 
-.. note::
+Possible installation pitfalls with conda
++++++++++++++++++++++++++++++++++++++++++
 
-   Please note, if you are actively working on the code, or making frequent edits, it is advisable
-   to perform the pip installation with the ``-e`` flag. This enables an editable installation, where
-   symbolic links are used rather than straight copies. This means that any changes made in the
-   local folders will be reflected in the packages available on the system.
-
+Using ``conda`` it might be necessary to use the fortran compiler provided with
+conda-forge. Add ``gfortran_osx-64`` or ``gfortran_linux-64`` package to the
+above ``conda`` environment calls. On Linux it might further be necessary to install the
+``lapack`` conda package.
 
 """
 

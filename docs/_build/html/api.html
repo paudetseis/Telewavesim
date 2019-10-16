@@ -83,14 +83,18 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p class="caption"><span class="caption-text">Quick Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/paudetseis/Telewavesim">Git repository</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Licence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#installation">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#download-the-software">Download the software</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#conda-environment">Conda environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installing-using-pip">Installing using pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-from-source">Installing from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#possible-installation-pitfalls-with-conda">Possible installation pitfalls with conda</a></li>
 </ul>
 </li>
 </ul>
@@ -198,33 +202,20 @@ SOFTWARE.</p>
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
-<p>The current version was developed using <strong>Python3.7</strong> Also, the following packages are required:</p>
+<p>The current version was developed using <strong>Python3.7</strong>.
+Also, the following packages are required:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">gfortran</span></code> (<a class="reference external" href="https://gcc.gnu.org/wiki/GFortran">https://gcc.gnu.org/wiki/GFortran</a>) (or any Fortran compiler)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">obspy</span></code> (<a class="reference external" href="https://github.com/obspy/obspy/wiki">https://github.com/obspy/obspy/wiki</a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pyfftw</span></code> (<a class="reference external" href="https://pyfftw.readthedocs.io/en/latest/">https://pyfftw.readthedocs.io/en/latest/</a>)</p></li>
+<li><p><a class="reference external" href="https://gcc.gnu.org/wiki/GFortran">gfortran</a> (or any Fortran compiler)</p></li>
+<li><p><a class="reference external" href="https://github.com/obspy/obspy/wiki">obspy</a></p></li>
 </ul>
-<p>By  default, both <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> are installed as dependencies of <code class="docutils literal notranslate"><span class="pre">obspy</span></code>. See below for full installation details.</p>
-</div>
-<div class="section" id="download-the-software">
-<h2>Download the software<a class="headerlink" href="#download-the-software" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Clone the repository:</p></li>
-</ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/paudetseis/Telewavesim.git
-<span class="nb">cd</span> Telewavesim
-</pre></div>
-</div>
+<p>By  default, both <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> are installed as dependencies of <code class="docutils literal notranslate"><span class="pre">obspy</span></code>.</p>
 </div>
 <div class="section" id="conda-environment">
 <h2>Conda environment<a class="headerlink" href="#conda-environment" title="Permalink to this headline">¶</a></h2>
-<p>We recommend creating a custom <code class="docutils literal notranslate"><span class="pre">conda</span></code> environment
-where <code class="docutils literal notranslate"><span class="pre">telewavesim</span></code> can be installed along with its dependencies.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n tws <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7 obspy pyfftw -c conda-forge
-</pre></div>
-</div>
-<p>or create it from the <code class="docutils literal notranslate"><span class="pre">tws_env.yml</span></code> file:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda env create -f tws_env.yml
+<p>We recommend creating a custom
+<a class="reference external" href="https://conda.io/docs/user-guide/tasks/manage-environments.html">conda environment</a>
+where <code class="docutils literal notranslate"><span class="pre">telewavesim</span></code> can be installed along with its dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n tws <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7 obspy -c conda-forge
 </pre></div>
 </div>
 <p>Activate the newly created environment:</p>
@@ -232,19 +223,28 @@ where <code class="docutils literal notranslate"><span class="pre">telewavesim</
 </pre></div>
 </div>
 </div>
-<div class="section" id="installing-using-pip">
-<h2>Installing using pip<a class="headerlink" href="#installing-using-pip" title="Permalink to this headline">¶</a></h2>
-<p>Once the previous steps are performed, you can install <code class="docutils literal notranslate"><span class="pre">telewavesim</span></code> using pip:</p>
+<div class="section" id="installing-from-source">
+<h2>Installing from source<a class="headerlink" href="#installing-from-source" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Clone the repository:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/paudetseis/Telewavesim.git
+<span class="nb">cd</span> Telewavesim
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Install using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p></li>
+</ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install .
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Please note, if you are actively working on the code, or making frequent edits, it is advisable
-to perform the pip installation with the <code class="docutils literal notranslate"><span class="pre">-e</span></code> flag. This enables an editable installation, where
-symbolic links are used rather than straight copies. This means that any changes made in the
-local folders will be reflected in the packages available on the system.</p>
 </div>
+<div class="section" id="possible-installation-pitfalls-with-conda">
+<h2>Possible installation pitfalls with conda<a class="headerlink" href="#possible-installation-pitfalls-with-conda" title="Permalink to this headline">¶</a></h2>
+<p>Using <code class="docutils literal notranslate"><span class="pre">conda</span></code> it might be necessary to use the fortran compiler provided with
+conda-forge. Add <code class="docutils literal notranslate"><span class="pre">gfortran_osx-64</span></code> or <code class="docutils literal notranslate"><span class="pre">gfortran_linux-64</span></code> package to the
+above <code class="docutils literal notranslate"><span class="pre">conda</span></code> environment calls. On Linux it might further be necessary to install the
+<code class="docutils literal notranslate"><span class="pre">lapack</span></code> conda package.</p>
 </div>
 </div>
 
