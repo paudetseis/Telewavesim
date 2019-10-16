@@ -67,7 +67,7 @@ def test_Porter2011():
                           wvtype='P')
 
 
-def test_Autdet2016():
+def test_Audet2016():
     from obspy.core import Stream
     from obspy.signal.rotate import rotate_ne_rt
     from telewavesim import utils as ut
