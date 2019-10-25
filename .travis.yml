@@ -26,7 +26,7 @@ before_install:
     fi
   - conda config --add channels conda-forge
   - conda create -q -n testenv
-      python=$PYTHON_VERSION obspy $GF
+      python=$PYTHON_VERSION obspy $GF "numpy>=1.15"
       pytest-cov
   - conda activate testenv
   - conda list
