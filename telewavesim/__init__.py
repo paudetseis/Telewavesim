@@ -55,7 +55,7 @@ Installation
 Dependencies
 ++++++++++++
 
-The current version was developed using **Python3.7**.
+The current version works well with **Python>3.5**.
 Also, the following packages are required:
 
 - `gfortran <https://gcc.gnu.org/wiki/GFortran>`_ (or any Fortran compiler)
@@ -103,6 +103,62 @@ Using ``conda`` it might be necessary to use the fortran compiler provided with
 conda-forge. Add ``gfortran_osx-64`` or ``gfortran_linux-64`` package to the
 above ``conda`` environment calls. On Linux it might further be necessary to install the
 ``lapack`` conda package.
+
+Usage
+-----
+
+Jupyter Notebooks
++++++++++++++++++
+
+Included in this package is a set of Jupyter Notebooks (see Table of Content), which give 
+examples on how to call the various routines and obtain plane wave seismograms and receiver 
+functions. The Notebooks describe how to reproduce published examples of synthetic data 
+from `Audet (2016) <https://doi.org/10.1093/gji/ggw111>`_ and 
+`Porter et al. (2011) <https://doi.org/10.1130/L126.1>`_.
+
+
+After ``telewaveim``, these notebooks can be locally installed (i.e., in a local folder 
+``Notebooks``) from the package by typing in a ``python`` window:
+
+.. sourcecode:: phython
+
+   from telewavesim import doc
+   doc.install_doc(path='Notebooks')
+
+To run the notebooks you will have to further install ``jupyter``. From the terminal, type:
+
+.. sourcecode:: bash
+
+   conda install jupyter
+
+Followed by:
+
+.. sourcecode:: bash
+
+   cd Notebooks
+   jupyter notebook
+
+You can then save the notebooks as ``python`` scripts, check out the model files and you 
+should be good to go!
+
+Setting up new models
++++++++++++++++++++++
+
+To set up the models, install the ``Jupyter`` notebooks and check out the examples in the 
+``models`` folder, or visit the `wiki <https://github.com/paudetseis/Telewavesim/wiki/Models>`_ page 
+for ``telewavesim``.
+
+Testing
++++++++
+
+A series of tests are located in the ``tests`` subdirectory. In order to perform these tests, 
+run ``pytest`` (``conda install pytest`` if needed):
+
+.. sourcecode:: bash
+
+   pytest -v --pyargs telewavesim
+
+
 
 """
 
