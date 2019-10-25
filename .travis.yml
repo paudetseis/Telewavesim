@@ -19,14 +19,9 @@ before_install:
   - export NPY_DISTUTILS_APPEND_FLAGS=1
   - wget https://raw.githubusercontent.com/trichter/conda4travis/latest/conda4travis.sh -O conda4travis.sh
   - source conda4travis.sh
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      GF="gfortran_osx-64";
-    elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      GF="gfortran_linux-64";
-    fi
   - conda config --add channels conda-forge
   - conda create -q -n testenv
-      python=$PYTHON_VERSION obspy $GF "numpy>=1.15"
+      python=$PYTHON_VERSION obspy "gfortran_${TRAVIS_OS_NAME}-64" "numpy>=1.15"
       pytest-cov
   - conda activate testenv
   - conda list
