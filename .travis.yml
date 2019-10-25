@@ -16,6 +16,7 @@ matrix:
       env: PYTHON_VERSION=3.7
 
 before_install:
+  - export NPY_DISTUTILS_APPEND_FLAGS=1
   - wget https://raw.githubusercontent.com/trichter/conda4travis/latest/conda4travis.sh -O conda4travis.sh
   - source conda4travis.sh
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
