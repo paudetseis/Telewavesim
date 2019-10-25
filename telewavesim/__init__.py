@@ -120,7 +120,7 @@ from `Audet (2016) <https://doi.org/10.1093/gji/ggw111>`_ and
 After ``telewaveim``, these notebooks can be locally installed (i.e., in a local folder 
 ``Notebooks``) from the package by typing in a ``python`` window:
 
-.. sourcecode:: phython
+.. sourcecode:: python
 
    from telewavesim import doc
    doc.install_doc(path='Notebooks')
