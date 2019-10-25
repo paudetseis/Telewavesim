@@ -1,5 +1,4 @@
 import os.path
-import platform
 import re
 from numpy.distutils.core import setup, Extension
 
@@ -14,25 +13,9 @@ def find_version(*paths):
     raise RuntimeError("Unable to find version string.")
 
 
-if platform.system() == 'Linux':
-    # this hack hopefully  will become unecessary in the future
-    # see issue #2
-    # ci fail: https://travis-ci.org/trichter/Telewavesim/builds/594469551
-    from numpy import __config__
-    attrs = ['blas_mkl_info', 'blas_opt_info', 'lapack_mkl_info',
-             'lapack_opt_info', 'openblas_lapack_info']
-    libdirs = set()
-    for attr in attrs:
-        obj = getattr(__config__, attr, {}).get('library_dirs')
-        if obj is not None:
-            libdirs.update(obj)
-    ext_kw = dict(library_dirs=list(libdirs), libraries=['lapack'])
-else:
-    ext_kw = {}
-
 ext = [Extension(name='telewavesim.rmat_f',
                  sources=['src/rmat.f90', 'src/rmat_sub.f90'],
-                 **ext_kw)]
+                 libraries=['lapack'])]
 
 setup(
     name                = 'telewavesim',
