@@ -18,26 +18,26 @@ ext = [Extension(name='telewavesim.rmat_f',
                  libraries=['lapack'])]
 
 setup(
-    name                = 'telewavesim',
-    version             = find_version('telewavesim', '__init__.py'),
-    description         = 'Python package for teleseismic body-wave modeling',
-    author              = 'Pascal Audet, Colin J. Thomson, Michael G. Bostock',
-    maintainer          = 'Pascal Audet',
-    author_email        = 'pascal.audet@uottawa.ca',
-    url                 = 'https://github.com/paudetseis/Telewavesim',
-    classifiers         = [
+    name='telewavesim',
+    version=find_version('telewavesim', '__init__.py'),
+    description='Python package for teleseismic body-wave modeling',
+    author='Pascal Audet, Colin J. Thomson, Michael G. Bostock',
+    maintainer='Pascal Audet',
+    author_email='pascal.audet@uottawa.ca',
+    url='https://github.com/paudetseis/Telewavesim',
+    classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Fortran',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7'],
-    install_requires    = ['numpy>=1.15', 'obspy>=1.0.0', 'matplotlib'],
-    python_requires     = '>=3.5',
-    tests_require       = ['pytest'],
-    ext_modules         = ext,
-    packages            = ['telewavesim', 'telewavesim.tests'],
-    package_data        = {
+    install_requires=['numpy>=1.15', 'obspy>=1.0.0', 'matplotlib'],
+    python_requires='>=3.5',
+    tests_require=['pytest'],
+    ext_modules=ext,
+    packages=['telewavesim', 'telewavesim.tests'],
+    package_data={
         'telewavesim': [
             'examples/*.ipynb',
             'examples/models/*.txt',
