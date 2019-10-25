@@ -33,7 +33,7 @@ workflows are covered in the Jupyter notebooks bundled with this package.
 
 ### Dependencies
 
-The current version was developed using **Python3.7**
+The current version can be used with Python version 3.5 and above.
 Also, the following packages are required:
 
 - [`gfortran`](https://gcc.gnu.org/wiki/GFortran) (or any Fortran compiler)

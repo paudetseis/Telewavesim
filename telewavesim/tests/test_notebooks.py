@@ -26,6 +26,8 @@ from os.path import join
 
 
 def test_Porter2011():
+    import matplotlib
+    matplotlib.use('Agg')
     import numpy as np
     from obspy.core import Stream
     from telewavesim import utils as ut
@@ -44,7 +46,8 @@ def test_Porter2011():
     # Loop over range of data
     for bb in baz:
         # Calculate the plane waves seismograms
-        trxyz = ut.run_plane(model, slow, npts, dt, bb, wvtype=wvtype, obs=False)
+        trxyz = ut.run_plane(model, slow, npts, dt, bb, wvtype=wvtype,
+                             obs=False)
         # Then the transfer functions in Z-R-T coordinate system
         tfs = ut.tf_from_xyz(trxyz, pvh=False)
         # Append to streams
@@ -63,11 +66,12 @@ def test_Porter2011():
         wg.rf_wiggles_baz(trR, trT, trR_stack, trT_stack, 'test', btyp='baz',
                           scale=1.e3, tmin=-5., tmax=8., save=True,
                           ftitle=join(tempdir, 'porter2011.png'),
-#                          ftitle='porter2011',
                           wvtype='P')
 
 
 def test_Audet2016():
+    import matplotlib
+    matplotlib.use('Agg')
     from obspy.core import Stream
     from obspy.signal.rotate import rotate_ne_rt
     from telewavesim import utils as ut
@@ -81,7 +85,8 @@ def test_Audet2016():
     c = 1.500    # P-wave velocity in salt water (km/s)
     rhof = 1027.  # Density of salt water (kg/m^3)
     slow = 0.06  # Horizontal slowness (or ray parameter) in s/km
-    # Back-azimuth direction in degrees (has no influence if model is isotropic)
+    # Back-azimuth direction in degrees
+    # (has no influence if model is isotropic)
     baz = 0.
     model = ut.read_model(modfile)
     assert list(model.rho) == [2800.0, 2800.0, 3200.0]
@@ -104,11 +109,12 @@ def test_Audet2016():
     with tempfile.TemporaryDirectory() as tempdir:
         wg.pw_wiggles_Audet2016(strf, t1=t1, tmax=10., f1=f1, f2=f2,
                                 ftitle=join(tempdir, 'audet2016'),
-#                                ftitle='audet2016',
                                 scale=2.e-7, save=True)
 
 
 def test_SKS():
+    import matplotlib
+    matplotlib.use('Agg')
     import numpy as np
     from obspy.core import Stream
     from obspy.signal.rotate import rotate_ne_rt
@@ -155,5 +161,4 @@ def test_SKS():
         wg.pw_wiggles_baz(trR, trT, 'test', btyp='baz', scale=0.05,
                           t1=t1, tmin=0., tmax=40, save=True,
                           ftitle=join(tempdir, 'sks'),
-#                          ftitle='sks',
                           wvtype='SV')
