@@ -25,7 +25,6 @@ setup(
     maintainer          = 'Pascal Audet',
     author_email        = 'pascal.audet@uottawa.ca',
     url                 = 'https://github.com/paudetseis/Telewavesim',
-    download_url        = 'https://github.com/paudetseis/Telewavesim/archive/0.1.0.tar.gz',
     classifiers         = [
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',
