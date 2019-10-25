@@ -26,6 +26,8 @@ from os.path import join
 
 
 def test_Porter2011():
+    import matplotlib
+    matplotlib.use('Agg')
     import numpy as np
     from obspy.core import Stream
     from telewavesim import utils as ut
@@ -68,6 +70,8 @@ def test_Porter2011():
 
 
 def test_Audet2016():
+    import matplotlib
+    matplotlib.use('Agg')
     from obspy.core import Stream
     from obspy.signal.rotate import rotate_ne_rt
     from telewavesim import utils as ut
@@ -109,6 +113,8 @@ def test_Audet2016():
 
 
 def test_SKS():
+    import matplotlib
+    matplotlib.use('Agg')
     import numpy as np
     from obspy.core import Stream
     from obspy.signal.rotate import rotate_ne_rt
