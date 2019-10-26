@@ -31,7 +31,11 @@ workflows are covered in the Jupyter notebooks bundled with this package.
 
 Installation, Usage, API documentation and Jupyter Notebooks are described at https://paudetseis.github.io/Telewavesim/
 
-## References
+#### Contribute
+
+All contributions are welcome, e.g. report bugs, discuss or add new features. For example, the package could profit from including more elastic constants or additional noteboobs that describe published examples of teleseismic body-wave modeling. Suggestions for improvements (speed, accuracy, etc.) are also welcome.
+
+#### References
 
 - Bostock, M.G., and Trehu, A.M. (2012). Wave-field decomposition of ocean-bottom seismograms. Bulletin of the Seismological Society of America, 102, 1681-1692. https://doi.org/10.1785/0120110162
 
