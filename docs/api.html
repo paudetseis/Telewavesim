@@ -97,6 +97,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#possible-installation-pitfalls-with-conda">Possible installation pitfalls with conda</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#jupyter-notebooks">Jupyter Notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-new-models">Setting up new models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Module</span></p>
 <ul>
@@ -202,7 +208,7 @@ SOFTWARE.</p>
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
-<p>The current version was developed using <strong>Python3.7</strong>.
+<p>The current version works well with <strong>Python&gt;3.5</strong>.
 Also, the following packages are required:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://gcc.gnu.org/wiki/GFortran">gfortran</a> (or any Fortran compiler)</p></li>
@@ -245,6 +251,48 @@ where <code class="docutils literal notranslate"><span class="pre">telewavesim</
 conda-forge. Add <code class="docutils literal notranslate"><span class="pre">gfortran_osx-64</span></code> or <code class="docutils literal notranslate"><span class="pre">gfortran_linux-64</span></code> package to the
 above <code class="docutils literal notranslate"><span class="pre">conda</span></code> environment calls. On Linux it might further be necessary to install the
 <code class="docutils literal notranslate"><span class="pre">lapack</span></code> conda package.</p>
+</div>
+</div>
+<div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="jupyter-notebooks">
+<h2>Jupyter Notebooks<a class="headerlink" href="#jupyter-notebooks" title="Permalink to this headline">¶</a></h2>
+<p>Included in this package is a set of Jupyter Notebooks (see Table of Content), which give
+examples on how to call the various routines and obtain plane wave seismograms and receiver
+functions. The Notebooks describe how to reproduce published examples of synthetic data
+from <a class="reference external" href="https://doi.org/10.1093/gji/ggw111">Audet (2016)</a> and
+<a class="reference external" href="https://doi.org/10.1130/L126.1">Porter et al. (2011)</a>.</p>
+<p>After <code class="docutils literal notranslate"><span class="pre">telewaveim</span></code>, these notebooks can be locally installed (i.e., in a local folder
+<code class="docutils literal notranslate"><span class="pre">Notebooks</span></code>) from the package by typing in a <code class="docutils literal notranslate"><span class="pre">python</span></code> window:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="kn">import</span> <span class="n">doc</span>
+<span class="n">doc</span><span class="o">.</span><span class="n">install_doc</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s1">&#39;Notebooks&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To run the notebooks you will have to further install <code class="docutils literal notranslate"><span class="pre">jupyter</span></code>. From the terminal, type:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install jupyter
+</pre></div>
+</div>
+<p>Followed by:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> Notebooks
+jupyter notebook
+</pre></div>
+</div>
+<p>You can then save the notebooks as <code class="docutils literal notranslate"><span class="pre">python</span></code> scripts, check out the model files and you
+should be good to go!</p>
+</div>
+<div class="section" id="setting-up-new-models">
+<h2>Setting up new models<a class="headerlink" href="#setting-up-new-models" title="Permalink to this headline">¶</a></h2>
+<p>To set up the models, install the <code class="docutils literal notranslate"><span class="pre">Jupyter</span></code> notebooks and check out the examples in the
+<code class="docutils literal notranslate"><span class="pre">models</span></code> folder, or visit the <a class="reference external" href="https://github.com/paudetseis/Telewavesim/wiki/Models">wiki</a> page
+for <code class="docutils literal notranslate"><span class="pre">telewavesim</span></code>.</p>
+</div>
+<div class="section" id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<p>A series of tests are located in the <code class="docutils literal notranslate"><span class="pre">tests</span></code> subdirectory. In order to perform these tests,
+run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> (<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">pytest</span></code> if needed):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest -v --pyargs telewavesim
+</pre></div>
+</div>
 </div>
 </div>
 
