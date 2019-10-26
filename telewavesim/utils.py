@@ -74,7 +74,7 @@ def set_tri_tensor(a, b, tr, pl, ani):
         ani (float): Percent anisotropy
 
     Returns:
-        (np.ndarray): cc: Elastic tensor (GPa /density) \
+        (np.ndarray): cc: Elastic tensor (GPa / kg/m^3) \
         (shape ``(3, 3, 3, 3)``)
 
     """
@@ -120,7 +120,7 @@ def set_aniso_tensor(tr, pl, typ='atg'):
 
     Returns:
         (tuple): Tuple containing:
-            * cc (np.ndarray): Elastic tensor (GPa /density)\
+            * cc (np.ndarray): Elastic tensor (GPa / kg/m^3)\
             (shape ``(3, 3, 3, 3)``)
             * rho (float): Density (kg/m^3)
 
@@ -610,16 +610,10 @@ class Model(object):
         """
         Update the elastic thickness tensor ``a``.
 
-        Need to be called, wehen model parameters change.
+        Need to be called, when model parameters change.
         """
         self.nlay = len(self.thickn)
         self.a = np.zeros((3,3,3,3,self.nlay))
-#        self.evecs = np.zeros((6,6,self.nlay),dtype=complex)
-#        self.evals = np.zeros((6,self.nlay),dtype=complex)
-#        self.Tui = np.zeros((3,3,self.nlay),dtype=complex)
-#        self.Rui = np.zeros((3,3,self.nlay),dtype=complex)
-#        self.Tdi = np.zeros((3,3,self.nlay),dtype=complex)
-#        self.Rdi = np.zeros((3,3,self.nlay),dtype=complex)
 
         mins = ['atg', 'bt', 'cpx', 'dol', 'ep', 'grt', 'gln', 'hbl', 'jade',\
                 'lws', 'lz', 'ms', 'ol', 'opx', 'plag', 'qtz', 'zo']
@@ -746,7 +740,7 @@ def run_plane(model, slow, npts, dt, baz=0, wvtype='P', obs=False, dp=None, c=1.
         yx, yy, yz = pw_f.plane_obs(npts,model.nlay,np.array(wvtype, dtype='c'))
 
     else:
-#        obs2for(1000, c, rhof)
+
         # Get the Fourier transform of seismograms for ``land`` case
         yx, yy, yz = pw_f.plane_land(npts,model.nlay,np.array(wvtype, dtype='c'))
 
@@ -820,7 +814,6 @@ def tf_from_xyz(trxyz, pvh=False, vp=None, vs=None):
 
     # Rotate to radial and transverse
     rtr.data, ttr.data = rotate_ne_rt(ntr.data, etr.data, baz)
-    # print(rtr.data, ttr.data)
 
     if pvh:
 #         vp = np.sqrt(cf.a[2,2,2,2,0])/1.e3
