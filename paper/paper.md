@@ -15,6 +15,8 @@ authors:
   - name: Michael G. Bostock
     orcid: 0000-0003-1172-7240
     affiliation: 4
+  - name: Tom Eulenfeld
+    affiliation: 5
 affiliations:
   - name: Department of Earth and Environmental Sciences, University of Ottawa, Canada
     index: 1
@@ -24,6 +26,8 @@ affiliations:
     index: 3
   - name: Department of Earth, Ocean and Atmospheric Sciences, The University of British Columbia, Canada
     index: 4
+  - name: Institute of Geosciences, Friedrich Schiller University Jena, Germany
+    index: 5
 
 
 date: 2 October 2019
