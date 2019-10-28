@@ -15,6 +15,8 @@ authors:
   - name: Michael G. Bostock
     orcid: 0000-0003-1172-7240
     affiliation: 4
+  - name: Tom Eulenfeld
+    affiliation: 5
 affiliations:
   - name: Department of Earth and Environmental Sciences, University of Ottawa, Canada
     index: 1
@@ -24,6 +26,8 @@ affiliations:
     index: 3
   - name: Department of Earth, Ocean and Atmospheric Sciences, The University of British Columbia, Canada
     index: 4
+  - name: Institute of Geosciences, Friedrich Schiller University Jena, Germany
+    index: 5
 
 
 date: 2 October 2019
@@ -51,7 +55,7 @@ allows wrapping low-level Fortran routines for speed while maintaining flexibili
 and ease of use for code interaction and plotting. The integration of ``obspy`` 
 [@obspy] ``Stream`` objects allows flexibility in manipulating and visualzing 
 the resulting seismograms. The software contains a wide range of elastic stiffness 
-definitions extracted from the literature (@Brownlee:2017) to accurately represent 
+definitions extracted from the literature [@Brownlee:2017] to accurately represent 
 seismic anisotropy due to various mineralogies and rock types. The software also 
 accurately models acoustic reverberations from an overlying column of water, 
 effectively simulating ocean-bottom seismograph (OBS) station recordings. 
@@ -60,7 +64,7 @@ The software will be useful in a variety of teleseismic receiver-based studies,
 such as P or S receiver functions, shear-wave splitting from 
 core-refracted teleseismic shear waves (i.e., SKS, SKKS), etc. It may also be the 
 starting point for stochastic inverse methods (e.g., Monte Carlo sampling) and more
-general (i.e., point) sources through slowness integration (@Frazer:1984}. Common 
+general (i.e., point) sources through slowness integration [@Frazer:1984]. Common 
 computational workflows that reproduce published examples [@Audet:2016; @Porter:2011] 
 are covered in the Jupyter notebooks bundled with this package. These notebooks 
 can be further used in a teaching environment to study the effects of seismic wave 

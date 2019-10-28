@@ -91,6 +91,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Licence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#usage">Usage</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Module</span></p>
 <ul class="current">
@@ -172,7 +173,8 @@
 </div>
 <div class="section" id="module-telewavesim.elast">
 <span id="module-elast"></span><h1>Module elast<a class="headerlink" href="#module-telewavesim.elast" title="Permalink to this headline">¶</a></h1>
-<p>Functions to define elastic stiffness matrices.</p>
+<p>Functions to define elastic stiffness matrices. Most references for elastic constants
+are included in the paper by <a class="reference external" href="https://doi.org/10.1002/2017TC004625">Brownlee et al. (2017)</a>.</p>
 <dl class="function">
 <dt id="telewavesim.elast.iso_tensor">
 <code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">iso_tensor</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.iso_tensor" title="Permalink to this definition">¶</a></dt>
@@ -201,34 +203,6 @@
 <span class="go">       [       0.,        0.,        0.,        0., 12960000.,        0.],</span>
 <span class="go">       [       0.,        0.,        0.,        0.,        0., 12960000.]])</span>
 </pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="telewavesim.elast.tri_tensor">
-<code class="sig-prename descclassname">telewavesim.elast.</code><code class="sig-name descname">tri_tensor</code><span class="sig-paren">(</span><em class="sig-param">AA</em>, <em class="sig-param">CC</em>, <em class="sig-param">FF</em>, <em class="sig-param">LL</em>, <em class="sig-param">NN</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.elast.tri_tensor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Elastic constants (GPa /density) of transversely isotropic material in Voigt notation     (hexagonal symmetry). See Porter et al. (2011) for details.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>AA</strong> (<em>float</em>) – elastic modulus (GPa /density)</p></li>
-<li><p><strong>CC</strong> (<em>float</em>) – elastic modulus (GPa /density)</p></li>
-<li><p><strong>FF</strong> (<em>float</em>) – elastic modulus (GPa /density)</p></li>
-<li><p><strong>LL</strong> (<em>float</em>) – elastic modulus (GPa /density)</p></li>
-<li><p><strong>NN</strong> (<em>float</em>) – elastic modulus (GPa /density)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a: Elastic tensor (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(np.ndarray)</p>
-</dd>
-</dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Using <code class="docutils literal notranslate"><span class="pre">tri_tensor</span></code> does not make sense on its own.
-Use it with <code class="docutils literal notranslate"><span class="pre">telewavesim.utils.set_tri_tensor</span></code></p>
 </div>
 </dd></dl>
 
