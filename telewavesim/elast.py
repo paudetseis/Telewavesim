@@ -22,7 +22,8 @@
 
 '''
 
-Functions to define elastic stiffness matrices.
+Functions to define elastic stiffness matrices. Most references for elastic constants 
+are included in the paper by `Brownlee et al. (2017) <https://doi.org/10.1002/2017TC004625>`_.
 
 '''
 
@@ -70,7 +71,7 @@ def iso_tensor(a, b):
     C[5,0] = C[0,5];    C[5,1] = C[1,5];    C[5,2] = C[2,5];    C[5,3] = C[3,5];    C[5,4] = C[4,5];    C[5,5] = Cjj
 
     return C
-    
+
     
 def antigorite():
     """

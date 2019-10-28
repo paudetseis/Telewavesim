@@ -464,8 +464,10 @@ x_2, x_3, x_1 axes. Note that the sequence of the rotation is important:
 <dt id="telewavesim.utils.calc_ttime">
 <code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">calc_ttime</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">slow</em>, <em class="sig-param">wvtype='P'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.calc_ttime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates total propagation time through model given the corresponding
-wave type. The
-bottom layer is irrelevant in this calculation.</p>
+<code class="docutils literal notranslate"><span class="pre">'P'</span></code> or <code class="docutils literal notranslate"><span class="pre">'S'</span></code> wave type. The bottom layer is irrelevant in this calculation.
+All <code class="docutils literal notranslate"><span class="pre">'S'</span></code> wave types will return the same predicted time. This function is useful
+mainly for plotting purposes. For example, to show the first phase arrival at a time of
+0, the traces can be shifted by the total propagation time through the model.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">conf</span></code> global variables need to be set for this calculation
