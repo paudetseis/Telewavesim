@@ -31,9 +31,11 @@ workflows are covered in the Jupyter notebooks bundled with this package.
 
 Installation, Usage, API documentation and Jupyter Notebooks are described at https://paudetseis.github.io/Telewavesim/
 
-#### Contribute
+#### Contributing
 
-All contributions are welcome, e.g. report bugs, discuss or add new features. For example, the package could profit from including more elastic constants or additional noteboobs that describe published examples of teleseismic body-wave modeling. Suggestions for improvements (speed, accuracy, etc.) are also welcome.
+All constructive contributions are welcome, e.g. bug reports, discussions or suggestions for new features. You can either [open an issue on GitHub](https://github.com/paudetseis/Telewavesim/issues) or make a pull request with your proposed changes. Before making a pull request, check if there is a corresponding issue opened and reference it in the pull request. If there isn't one, it is recommended to open one with your rationale for the change. New functionality or significant changes to the code that alter its behavior should come with corresponding tests and documentation. If you are new to contributing, you can open a work-in-progress pull request and have it iteratively reviewed.
+
+Examples of straightforward contributions include adding more elastic constants or notebooks that describe published examples of teleseismic body-wave modeling. Suggestions for improvements (speed, accuracy, etc.) are also welcome.
 
 #### References
 
