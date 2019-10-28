@@ -551,8 +551,10 @@ def stack_all(st1, st2, pws=False):
 def calc_ttime(model, slow, wvtype='P'):
     """
     Calculates total propagation time through model given the corresponding
-    wave type. The
-    bottom layer is irrelevant in this calculation.
+    ``'P'`` or ``'S'`` wave type. The bottom layer is irrelevant in this calculation. 
+    All ``'S'`` wave types will return the same predicted time. This function is useful
+    mainly for plotting purposes. For example, to show the first phase arrival at a time of
+    0, the traces can be shifted by the total propagation time through the model.
 
     .. note::
 
