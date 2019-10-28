@@ -98,7 +98,35 @@ def set_tri_tensor(a, b, tr, pl, ani):
     # eta = FF/(AA - 2.*LL)
 
     # Get tensor with horizontal axis
-    cc = es.tri_tensor(AA, CC, FF, LL, NN)
+    cc = np.zeros((3,3,3,3))
+        
+    cc[0,0,0,0] = AA
+    cc[1,1,1,1] = AA
+    cc[2,2,2,2] = CC
+
+    cc[0,0,1,1] = (AA - 2.*NN)
+    cc[1,1,0,0] = (AA - 2.*NN)
+
+    cc[0,0,2,2] = FF
+    cc[2,2,0,0] = FF
+
+    cc[1,1,2,2] = FF
+    cc[2,2,1,1] = FF
+
+    cc[1,2,1,2] = LL
+    cc[2,1,2,1] = LL
+    cc[2,1,1,2] = LL
+    cc[1,2,2,1] = LL
+
+    cc[2,0,2,0] = LL
+    cc[0,2,0,2] = LL
+    cc[2,0,0,2] = LL
+    cc[0,2,2,0] = LL
+ 
+    cc[0,1,0,1] = NN
+    cc[1,0,1,0] = NN
+    cc[0,1,1,0] = NN
+    cc[1,0,0,1] = NN
 
     # Rotate tensor using trend and plunge
     cc = rot_tensor(cc, pl, tr, 0.)
@@ -522,7 +550,8 @@ def stack_all(st1, st2, pws=False):
 
 def calc_ttime(model, slow, wvtype='P'):
     """
-    Calculates total propagation time through model. The
+    Calculates total propagation time through model given the corresponding
+    wave type. The
     bottom layer is irrelevant in this calculation.
 
     .. note::
@@ -543,7 +572,7 @@ def calc_ttime(model, slow, wvtype='P'):
     Example
     -------
     >>> from telewavesim import utils
-    >>> # Define two-layer model model with identical material
+    >>> # Define two-layer model with identical material
     >>> model = utils.Model([10, 0], None, 0, 0, 'atg', 0, 0, 0)
     >>> # Only topmost layer is useful for travel time calculation
     >>> wvtype = 'P'
@@ -702,16 +731,32 @@ def obs2for(dp, c, rhof):
     cf_f.rhof = rhof
 
 
-def run_plane(model, slow, npts, dt, baz=0, wvtype='P', obs=False, dp=None, c=1.5, rhof=1027):
+def run_plane(model, slow, npts, dt, baz=0, wvtype='P', obs=False, dp=100., c=1.5, rhof=1027):
     """
     Function to run the ``plane`` module and return 3-component seismograms as an ``obspy``
-    ``Stream`` object.
+    ``Stream`` object. This function builds the seismic response spectrum frequency by frequency using the
+    matrix propagation approach. Required arguments are the seismic model, slowness value, and the sampling
+    properties (maximum number of samples and the sampling distance in seconds). 
+
+    By default, the function uses
+    a back-azimuth value of 0 degree, which is suitable for events coming from the North pole or isotropic 
+    seismic velocity models (i.e., those that do not vary with direction of incoming waves). For anisotropic
+    velocity models, users need to specify the back-aZimiuth value in degrees. Furthermore, the default
+    type of the incoming teleseismic body wave is ``'P'`` for compressional wave. Other options are 
+    ``'SV'``, ``'SH'``, or ``'Si'`` for vertically-polarized shear wave, horizontally-polarized shear wave
+    or isotropic shear wave, respectively. Wave modes cannot be mixed. 
+
+    Finally, it is possible to simulate the seismic response for ocean-bottom seismic (OBS) stations using
+    the flag ``obs=True``. If the flag is set to ``True``, the user can specify the water depth below sea 
+    level (in meters, positive value) as well as the properties of the sea water (defaults are acoustic
+    wavespeed of 1.5 km/s and density of 1027 kg/m^3).
 
     Args:
+        - model (Model object): Instance of the ``Model`` class that contains the physical properties of subsurface layers.
         - slow (float): Slowness (s/km)
         - baz (float): Back-azimuth (degree)
         - npts (int): Number of samples in time series
-        - dt (float): Sampling intervall (s)
+        - dt (float): Sampling distance (s)
         - baz (float, optional): Back-azimuth (degree)
         - wvtype (str, optional, default: ``'P'``): Incident wavetype (``'P'``, ``'SV'``, ``'SH'``, ``'Si'``)
         - obs (bool, optional): Whether or not the analysis is done for an OBS stations
@@ -723,6 +768,49 @@ def run_plane(model, slow, npts, dt, baz=0, wvtype='P', obs=False, dp=None, c=1.
 
     Returns:
         (obspy.stream): trxyz: Stream containing 3-component displacement seismograms
+
+
+    Example
+    -------
+    
+    Basic example:
+
+    >>> from telewavesim import utils
+    >>> # Define three-layer model with isotropic crust and antigorite upper mantle layer over isotropic half-space
+    >>> model = utils.Model([20, 10, 0], [2800., None, 3300.], [4.6, 0, 6.0], [2.6, 0, 3.6], ['iso', 'atg', 'iso'], [0, 0, 0], [0, 0, 0], [0, 0, 0])
+    >>> slow = 0.06     # s/km
+    >>> npts = 1500
+    >>> dt = 0.025      # s
+    >>> st = utils.run_plane(model, slow, npts, dt)
+
+    >>> type(st)
+    <class 'obspy.core.stream.Stream'>
+    >>> print(st)
+    3 Trace(s) in Stream:
+    ...N | 1970-01-01T00:00:00.000000Z - 1970-01-01T00:00:37.475000Z | 40.0 Hz, 1500 samples
+    ...E | 1970-01-01T00:00:00.000000Z - 1970-01-01T00:00:37.475000Z | 40.0 Hz, 1500 samples
+    ...Z | 1970-01-01T00:00:00.000000Z - 1970-01-01T00:00:37.475000Z | 40.0 Hz, 1500 samples
+    >>> st.plot(size=(600, 450))
+
+    .. figure:: ../telewavesim/examples/picture/Figure_land.png
+       :align: center
+
+    OBS station:
+
+    >>> from telewavesim import utils
+    >>> # Define two-layer model with foliated eclogitic crust over isotropic half-space
+    >>> model = utils.Model([20, 0], [None, 3300.], [0, 6.0], [0, 3.6], ['EC_f', 'iso'], [0, 0], [0, 0], [0, 0])
+    >>> slow = 0.06     # s/km
+    >>> npts = 3000
+    >>> dt = 0.01      # s
+    >>> wvtype = 'SV'
+    >>> baz = 45.
+    >>> dp = 1000.
+    >>> st = utils.run_plane(model, slow, npts, dt, baz=baz, wvtype=wvtype, obs=True, dp=dp)
+    >>> st.plot(size=(600, 450))
+
+    .. figure:: ../telewavesim/examples/picture/Figure_obs.png
+       :align: center
 
     """
 
@@ -776,9 +864,9 @@ def get_trxyz(yx, yy, yz, npts, dt, slow, baz, wvtype):
     tuz = Trace(data=uz)
 
     # Update trace header
-    tux = update_stats(tux, dt, slow, baz, wvtype)
-    tuy = update_stats(tuy, dt, slow, baz, wvtype)
-    tuz = update_stats(tuz, dt, slow, baz, wvtype)
+    tux = update_stats(tux, dt, slow, baz, wvtype, 'N')
+    tuy = update_stats(tuy, dt, slow, baz, wvtype, 'E')
+    tuz = update_stats(tuz, dt, slow, baz, wvtype, 'Z')
 
     # Append to stream
     trxyz = Stream(traces=[tux, tuy, tuz])
@@ -863,7 +951,7 @@ def tf_from_xyz(trxyz, pvh=False, vp=None, vs=None):
     return tfs
 
 
-def update_stats(tr, dt, slow, baz, wvtype):
+def update_stats(tr, dt, slow, baz, wvtype, cha):
     """
     Updates the ``stats`` doctionary from an obspy ``Trace`` object.
 
@@ -882,5 +970,6 @@ def update_stats(tr, dt, slow, baz, wvtype):
     tr.stats.slow = slow
     tr.stats.baz = baz
     tr.stats.wvtype = wvtype
+    tr.stats.channel = cha
 
     return tr

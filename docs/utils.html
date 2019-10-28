@@ -91,6 +91,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Licence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#usage">Usage</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Module</span></p>
 <ul class="current">
@@ -210,7 +211,7 @@ axis.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>cc: Elastic tensor (GPa /density)         (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p>
+<dd class="field-even"><p>cc: Elastic tensor (GPa / kg/m^3)         (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>(np.ndarray)</p>
@@ -233,7 +234,7 @@ axis.</p>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><dl class="simple">
 <dt>Tuple containing:</dt><dd><ul class="simple">
-<li><p>cc (np.ndarray): Elastic tensor (GPa /density)            (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p></li>
+<li><p>cc (np.ndarray): Elastic tensor (GPa / kg/m^3)            (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p></li>
 <li><p>rho (float): Density (kg/m^3)</p></li>
 </ul>
 </dd>
@@ -462,7 +463,8 @@ x_2, x_3, x_1 axes. Note that the sequence of the rotation is important:
 <dl class="function">
 <dt id="telewavesim.utils.calc_ttime">
 <code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">calc_ttime</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">slow</em>, <em class="sig-param">wvtype='P'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.calc_ttime" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates total propagation time through model. The
+<dd><p>Calculates total propagation time through model given the corresponding
+wave type. The
 bottom layer is irrelevant in this calculation.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -488,7 +490,7 @@ and setting the variable <code class="docutils literal notranslate"><span class=
 </dl>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">utils</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define two-layer model model with identical material</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define two-layer model with identical material</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">Model</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;atg&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Only topmost layer is useful for travel time calculation</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wvtype</span> <span class="o">=</span> <span class="s1">&#39;P&#39;</span>
@@ -521,7 +523,7 @@ and setting the variable <code class="docutils literal notranslate"><span class=
 <dt id="telewavesim.utils.Model.update_tensor">
 <code class="sig-name descname">update_tensor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.Model.update_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the elastic thickness tensor <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
-<p>Need to be called, wehen model parameters change.</p>
+<p>Need to be called, when model parameters change.</p>
 </dd></dl>
 
 </dd></dl>
@@ -575,16 +577,30 @@ and setting the variable <code class="docutils literal notranslate"><span class=
 
 <dl class="function">
 <dt id="telewavesim.utils.run_plane">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">run_plane</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">slow</em>, <em class="sig-param">npts</em>, <em class="sig-param">dt</em>, <em class="sig-param">baz=0</em>, <em class="sig-param">wvtype='P'</em>, <em class="sig-param">obs=False</em>, <em class="sig-param">dp=None</em>, <em class="sig-param">c=1.5</em>, <em class="sig-param">rhof=1027</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.run_plane" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">run_plane</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">slow</em>, <em class="sig-param">npts</em>, <em class="sig-param">dt</em>, <em class="sig-param">baz=0</em>, <em class="sig-param">wvtype='P'</em>, <em class="sig-param">obs=False</em>, <em class="sig-param">dp=100.0</em>, <em class="sig-param">c=1.5</em>, <em class="sig-param">rhof=1027</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.run_plane" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to run the <code class="docutils literal notranslate"><span class="pre">plane</span></code> module and return 3-component seismograms as an <code class="docutils literal notranslate"><span class="pre">obspy</span></code>
-<code class="docutils literal notranslate"><span class="pre">Stream</span></code> object.</p>
+<code class="docutils literal notranslate"><span class="pre">Stream</span></code> object. This function builds the seismic response spectrum frequency by frequency using the
+matrix propagation approach. Required arguments are the seismic model, slowness value, and the sampling
+properties (maximum number of samples and the sampling distance in seconds).</p>
+<p>By default, the function uses
+a back-azimuth value of 0 degree, which is suitable for events coming from the North pole or isotropic
+seismic velocity models (i.e., those that do not vary with direction of incoming waves). For anisotropic
+velocity models, users need to specify the back-aZimiuth value in degrees. Furthermore, the default
+type of the incoming teleseismic body wave is <code class="docutils literal notranslate"><span class="pre">'P'</span></code> for compressional wave. Other options are
+<code class="docutils literal notranslate"><span class="pre">'SV'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SH'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'Si'</span></code> for vertically-polarized shear wave, horizontally-polarized shear wave
+or isotropic shear wave, respectively. Wave modes cannot be mixed.</p>
+<p>Finally, it is possible to simulate the seismic response for ocean-bottom seismic (OBS) stations using
+the flag <code class="docutils literal notranslate"><span class="pre">obs=True</span></code>. If the flag is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the user can specify the water depth below sea
+level (in meters, positive value) as well as the properties of the sea water (defaults are acoustic
+wavespeed of 1.5 km/s and density of 1027 kg/m^3).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>-</em>) – Instance of the <code class="docutils literal notranslate"><span class="pre">Model</span></code> class that contains the physical properties of subsurface layers.</p></li>
 <li><p><strong>slow</strong> (<em>-</em>) – Slowness (s/km)</p></li>
 <li><p><strong>baz</strong> (<em>-</em>) – Back-azimuth (degree)</p></li>
 <li><p><strong>npts</strong> (<em>-</em>) – Number of samples in time series</p></li>
-<li><p><strong>dt</strong> (<em>-</em>) – Sampling intervall (s)</p></li>
+<li><p><strong>dt</strong> (<em>-</em>) – Sampling distance (s)</p></li>
 <li><p><strong>baz</strong> – Back-azimuth (degree)</p></li>
 <li><p><strong>wvtype</strong><strong> (</strong><strong>str</strong><strong>, </strong><strong>optional</strong><strong>, </strong><strong>default</strong> (<em>-</em>) – <code class="docutils literal notranslate"><span class="pre">'P'</span></code>): Incident wavetype (<code class="docutils literal notranslate"><span class="pre">'P'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SV'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SH'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Si'</span></code>)</p></li>
 <li><p><strong>obs</strong> (<em>-</em>) – Whether or not the analysis is done for an OBS stations</p></li>
@@ -607,6 +623,47 @@ and setting the variable <code class="docutils literal notranslate"><span class=
 <dd class="field-even"><p>(obspy.stream)</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<p>Basic example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define three-layer model with isotropic crust and antigorite upper mantle layer over isotropic half-space</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">Model</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2800.</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mf">3300.</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;iso&#39;</span><span class="p">,</span> <span class="s1">&#39;atg&#39;</span><span class="p">,</span> <span class="s1">&#39;iso&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slow</span> <span class="o">=</span> <span class="mf">0.06</span>     <span class="c1"># s/km</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">npts</span> <span class="o">=</span> <span class="mi">1500</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.025</span>      <span class="c1"># s</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">run_plane</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">slow</span><span class="p">,</span> <span class="n">npts</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+<span class="go">&lt;class &#39;obspy.core.stream.Stream&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+<span class="go">3 Trace(s) in Stream:</span>
+<span class="go">...N | 1970-01-01T00:00:00.000000Z - 1970-01-01T00:00:37.475000Z | 40.0 Hz, 1500 samples</span>
+<span class="go">...E | 1970-01-01T00:00:00.000000Z - 1970-01-01T00:00:37.475000Z | 40.0 Hz, 1500 samples</span>
+<span class="go">...Z | 1970-01-01T00:00:00.000000Z - 1970-01-01T00:00:37.475000Z | 40.0 Hz, 1500 samples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">450</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="figure align-center">
+<img alt="_images/Figure_land.png" src="_images/Figure_land.png" />
+</div>
+<p>OBS station:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define two-layer model with foliated eclogitic crust over isotropic half-space</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">Model</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mf">3300.</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;EC_f&#39;</span><span class="p">,</span> <span class="s1">&#39;iso&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slow</span> <span class="o">=</span> <span class="mf">0.06</span>     <span class="c1"># s/km</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">npts</span> <span class="o">=</span> <span class="mi">3000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span>      <span class="c1"># s</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wvtype</span> <span class="o">=</span> <span class="s1">&#39;SV&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">baz</span> <span class="o">=</span> <span class="mf">45.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dp</span> <span class="o">=</span> <span class="mf">1000.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">run_plane</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">slow</span><span class="p">,</span> <span class="n">npts</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">baz</span><span class="o">=</span><span class="n">baz</span><span class="p">,</span> <span class="n">wvtype</span><span class="o">=</span><span class="n">wvtype</span><span class="p">,</span> <span class="n">obs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">450</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="figure align-center">
+<img alt="_images/Figure_obs.png" src="_images/Figure_obs.png" />
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -655,7 +712,7 @@ then an <code class="docutils literal notranslate"><span class="pre">obspy</span
 
 <dl class="function">
 <dt id="telewavesim.utils.update_stats">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">update_stats</code><span class="sig-paren">(</span><em class="sig-param">tr</em>, <em class="sig-param">dt</em>, <em class="sig-param">slow</em>, <em class="sig-param">baz</em>, <em class="sig-param">wvtype</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.update_stats" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">update_stats</code><span class="sig-paren">(</span><em class="sig-param">tr</em>, <em class="sig-param">dt</em>, <em class="sig-param">slow</em>, <em class="sig-param">baz</em>, <em class="sig-param">wvtype</em>, <em class="sig-param">cha</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.update_stats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the <code class="docutils literal notranslate"><span class="pre">stats</span></code> doctionary from an obspy <code class="docutils literal notranslate"><span class="pre">Trace</span></code> object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

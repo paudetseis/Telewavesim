@@ -70,61 +70,7 @@ def iso_tensor(a, b):
     C[5,0] = C[0,5];    C[5,1] = C[1,5];    C[5,2] = C[2,5];    C[5,3] = C[3,5];    C[5,4] = C[4,5];    C[5,5] = Cjj
 
     return C
-
-
-def tri_tensor(AA,CC,FF,LL,NN):
-    """
-    Elastic constants (GPa /density) of transversely isotropic material in Voigt notation \
-    (hexagonal symmetry). See Porter et al. (2011) for details.
-
-    Args:
-        AA (float): elastic modulus (GPa /density)
-        CC (float): elastic modulus (GPa /density)
-        FF (float): elastic modulus (GPa /density)
-        LL (float): elastic modulus (GPa /density)
-        NN (float): elastic modulus (GPa /density)
-
-    Returns:
-        (np.ndarray): a: Elastic tensor (shape ``(3, 3, 3, 3)``)
-
-    Note:
-        Using ``tri_tensor`` does not make sense on its own. 
-        Use it with ``telewavesim.utils.set_tri_tensor``
-
-    """
-
-    a = np.zeros((3,3,3,3))
-        
-    a[0,0,0,0] = AA
-    a[1,1,1,1] = AA
-    a[2,2,2,2] = CC
-
-    a[0,0,1,1] = (AA - 2.*NN)
-    a[1,1,0,0] = (AA - 2.*NN)
-
-    a[0,0,2,2] = FF
-    a[2,2,0,0] = FF
-
-    a[1,1,2,2] = FF
-    a[2,2,1,1] = FF
-
-    a[1,2,1,2] = LL
-    a[2,1,2,1] = LL
-    a[2,1,1,2] = LL
-    a[1,2,2,1] = LL
-
-    a[2,0,2,0] = LL
-    a[0,2,0,2] = LL
-    a[2,0,0,2] = LL
-    a[0,2,2,0] = LL
- 
-    a[0,1,0,1] = NN
-    a[1,0,1,0] = NN
-    a[0,1,1,0] = NN
-    a[1,0,0,1] = NN
-
-    return a
-
+    
     
 def antigorite():
     """
