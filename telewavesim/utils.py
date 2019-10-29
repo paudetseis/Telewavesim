@@ -643,7 +643,7 @@ class Model(object):
         """
         Update the elastic thickness tensor ``a``.
 
-        Need to be called, when model parameters change.
+        Needs to be called when model parameters change.
         """
         self.nlay = len(self.thickn)
         self.a = np.zeros((3, 3, 3, 3, self.nlay))
@@ -761,23 +761,22 @@ def run_plane(model, slow, npts, dt, baz=0, wvtype='P',
     (defaults are acoustic wavespeed of 1.5 km/s and density of 1027 kg/m^3).
 
     Args:
-        - model (Model object):
+        model (Model):
             Instance of the ``Model`` class that contains the physical
             properties of subsurface layers.
-        - slow (float): Slowness (s/km)
-        - baz (float): Back-azimuth (degree)
-        - npts (int): Number of samples in time series
-        - dt (float): Sampling distance (s)
-        - baz (float, optional): Back-azimuth (degree)
-        - wvtype (str, optional, default: ``'P'``):
+        slow (float): Slowness (s/km)
+        baz (float): Back-azimuth (degree)
+        npts (int): Number of samples in time series
+        dt (float): Sampling distance (s)
+        baz (float, optional): Back-azimuth (degree)
+        wvtype (str, optional, default: ``'P'``):
             Incident wavetype (``'P'``, ``'SV'``, ``'SH'``, ``'Si'``)
-        - obs (bool, optional):
+        obs (bool, optional):
             Whether or not the analysis is done for an OBS stations
-    ``obs parameters``:
-        - dp (float, optional): Deployment depth below sea level (m)
-        - c (float, optional):
+        dp (float, optional): Deployment depth below sea level (m)
+        c (float, optional):
             P-wave velocity of salt water (default = ``1.5`` km/s)
-        - rhof (float, optional):
+        rhof (float, optional):
             Density of salt water (default = ``1027.0`` kg/m^3)
 
 

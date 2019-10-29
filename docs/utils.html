@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Module utils &mdash; telewavesim 0.1.0 documentation</title>
+  <title>Module utils &mdash; telewavesim 0.2.0-dev documentation</title>
   
 
   
@@ -322,8 +322,8 @@ G.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cc</span><span class="p">,</span> <span class="n">rho</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">set_aniso_tensor</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="s1">&#39;atg&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">cc2voigt</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">utils</span><span class="o">.</span><span class="n">VRH_average</span><span class="p">(</span><span class="n">C</span><span class="o">*</span><span class="n">rho</span><span class="p">)</span>
-<span class="go">(75655555555.555557, 48113333333.333336, 61245706544.967415, 28835098086.844658,</span>
-<span class="go">68450631050.26149, 38474215710.088997)</span>
+<span class="go">(75655555555.555557, 48113333333.333336, 61245706544.967415,</span>
+<span class="go">28835098086.844658, 68450631050.26149, 38474215710.088997)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -389,9 +389,10 @@ beta, gamma)</p>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The three angles (<code class="docutils literal notranslate"><span class="pre">alpha</span></code>, <code class="docutils literal notranslate"><span class="pre">beta</span></code>, <code class="docutils literal notranslate"><span class="pre">gam</span></code>) correspond to rotation about the
-x_2, x_3, x_1 axes. Note that the sequence of the rotation is important:
-(AB ~= BA). In this case we rotate about x_2 first, x_3 second and x_1 third.</p>
+<p>The three angles (<code class="docutils literal notranslate"><span class="pre">alpha</span></code>, <code class="docutils literal notranslate"><span class="pre">beta</span></code>, <code class="docutils literal notranslate"><span class="pre">gam</span></code>) correspond to rotation
+about the x_2, x_3, x_1 axes. Note that the sequence of the rotation
+is important: (AB ~= BA). In this case we rotate about x_2 first,
+x_3 second and x_1 third.</p>
 <p>For trend and plunge of symmetry axis (e.g., tri_tensor):</p>
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">alpha</span></code> = plunge</p>
@@ -464,17 +465,11 @@ x_2, x_3, x_1 axes. Note that the sequence of the rotation is important:
 <dt id="telewavesim.utils.calc_ttime">
 <code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">calc_ttime</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">slow</em>, <em class="sig-param">wvtype='P'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.calc_ttime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates total propagation time through model given the corresponding
-<code class="docutils literal notranslate"><span class="pre">'P'</span></code> or <code class="docutils literal notranslate"><span class="pre">'S'</span></code> wave type. The bottom layer is irrelevant in this calculation.
-All <code class="docutils literal notranslate"><span class="pre">'S'</span></code> wave types will return the same predicted time. This function is useful
-mainly for plotting purposes. For example, to show the first phase arrival at a time of
-0, the traces can be shifted by the total propagation time through the model.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">conf</span></code> global variables need to be set for this calculation
-to succeed. This is typically ensured through reading of the
-model file from the function <code class="docutils literal notranslate"><span class="pre">utils.read_model(modfile)</span></code>,
-and setting the variable <code class="docutils literal notranslate"><span class="pre">conf.wvtype</span></code></p>
-</div>
+<code class="docutils literal notranslate"><span class="pre">'P'</span></code> or <code class="docutils literal notranslate"><span class="pre">'S'</span></code> wave type. The bottom layer is irrelevant in this
+calculation. All <code class="docutils literal notranslate"><span class="pre">'S'</span></code> wave types will return the same predicted time.
+This function is useful mainly for plotting purposes. For example, to show
+the first phase arrival at a time of 0, the traces can be shifted by the
+total propagation time through the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -512,10 +507,22 @@ and setting the variable <code class="docutils literal notranslate"><span class=
 <li><p>rho (np.ndarray): Density (kg/m^3) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
 <li><p>vp (np.ndarray): P-wave velocity (km/s) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
 <li><p>vs (np.ndarray): S-wave velocity (km/s) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
-<li><p>isoflg (list of str, optional, defaut: <code class="docutils literal notranslate"><span class="pre">'iso'</span></code>): Flags for type of layer material (dimension <code class="docutils literal notranslate"><span class="pre">nlay</span></code>)</p></li>
+<li><dl class="simple">
+<dt>isoflg (list of str, optional, defaut: <code class="docutils literal notranslate"><span class="pre">'iso'</span></code>):</dt><dd><p>Flags for type of layer material (dimension <code class="docutils literal notranslate"><span class="pre">nlay</span></code>)</p>
+</dd>
+</dl>
+</li>
 <li><p>ani (np.ndarray, optional): Anisotropy (percent) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
-<li><p>tr (np.ndarray, optional): Trend of symmetry axis (degree) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
-<li><p>pl (np.ndarray, optional): Plunge of symmetry axis (degree) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
+<li><dl class="simple">
+<dt>tr (np.ndarray, optional):</dt><dd><p>Trend of symmetry axis (degree) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>pl (np.ndarray, optional):</dt><dd><p>Plunge of symmetry axis (degree) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p>
+</dd>
+</dl>
+</li>
 <li><p>nlay (int): Number of layers</p></li>
 <li><p>a (np.ndarray): Elastic thickness (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">nlay)</span></code>)</p></li>
 </ul>
@@ -525,7 +532,7 @@ and setting the variable <code class="docutils literal notranslate"><span class=
 <dt id="telewavesim.utils.Model.update_tensor">
 <code class="sig-name descname">update_tensor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.Model.update_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the elastic thickness tensor <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
-<p>Need to be called, when model parameters change.</p>
+<p>Needs to be called when model parameters change.</p>
 </dd></dl>
 
 </dd></dl>
@@ -580,49 +587,50 @@ and setting the variable <code class="docutils literal notranslate"><span class=
 <dl class="function">
 <dt id="telewavesim.utils.run_plane">
 <code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">run_plane</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">slow</em>, <em class="sig-param">npts</em>, <em class="sig-param">dt</em>, <em class="sig-param">baz=0</em>, <em class="sig-param">wvtype='P'</em>, <em class="sig-param">obs=False</em>, <em class="sig-param">dp=100.0</em>, <em class="sig-param">c=1.5</em>, <em class="sig-param">rhof=1027</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.run_plane" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to run the <code class="docutils literal notranslate"><span class="pre">plane</span></code> module and return 3-component seismograms as an <code class="docutils literal notranslate"><span class="pre">obspy</span></code>
-<code class="docutils literal notranslate"><span class="pre">Stream</span></code> object. This function builds the seismic response spectrum frequency by frequency using the
-matrix propagation approach. Required arguments are the seismic model, slowness value, and the sampling
-properties (maximum number of samples and the sampling distance in seconds).</p>
-<p>By default, the function uses
-a back-azimuth value of 0 degree, which is suitable for events coming from the North pole or isotropic
-seismic velocity models (i.e., those that do not vary with direction of incoming waves). For anisotropic
-velocity models, users need to specify the back-aZimiuth value in degrees. Furthermore, the default
-type of the incoming teleseismic body wave is <code class="docutils literal notranslate"><span class="pre">'P'</span></code> for compressional wave. Other options are
-<code class="docutils literal notranslate"><span class="pre">'SV'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SH'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'Si'</span></code> for vertically-polarized shear wave, horizontally-polarized shear wave
-or isotropic shear wave, respectively. Wave modes cannot be mixed.</p>
-<p>Finally, it is possible to simulate the seismic response for ocean-bottom seismic (OBS) stations using
-the flag <code class="docutils literal notranslate"><span class="pre">obs=True</span></code>. If the flag is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the user can specify the water depth below sea
-level (in meters, positive value) as well as the properties of the sea water (defaults are acoustic
-wavespeed of 1.5 km/s and density of 1027 kg/m^3).</p>
+<dd><p>Function to run the <code class="docutils literal notranslate"><span class="pre">plane</span></code> module and return 3-component seismograms as
+an <code class="docutils literal notranslate"><span class="pre">obspy.Stream</span></code> object. This function builds the seismic response
+spectrum by frequency using the matrix propagation approach.
+Required arguments are the seismic model, slowness value, and the sampling
+properties (maximum number of samples and
+the sampling distance in seconds).</p>
+<p>By default, the function uses a back-azimuth value of 0 degree,
+which is suitable for events coming from the North pole or isotropic
+seismic velocity models (i.e., those that do not vary with direction of
+incoming waves).
+For anisotropic velocity models, users need to specify the back-azimuth
+value in degrees. Furthermore, the default type of the incoming
+teleseismic body wave is <code class="docutils literal notranslate"><span class="pre">'P'</span></code> for compressional wave. Other options are
+<code class="docutils literal notranslate"><span class="pre">'SV'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SH'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'Si'</span></code> for vertically-polarized shear wave,
+horizontally-polarized shear wave or isotropic shear wave, respectively.
+Wave modes cannot be mixed.</p>
+<p>Finally, it is possible to simulate the seismic response for ocean-bottom
+seismic (OBS) stations using the flag <code class="docutils literal notranslate"><span class="pre">obs=True</span></code>. If the flag is set to
+<code class="docutils literal notranslate"><span class="pre">True</span></code>, the user can specify the water depth below sea level
+(in meters, positive value) as well as the properties of the sea water
+(defaults are acoustic wavespeed of 1.5 km/s and density of 1027 kg/m^3).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> (<em>-</em>) – Instance of the <code class="docutils literal notranslate"><span class="pre">Model</span></code> class that contains the physical properties of subsurface layers.</p></li>
-<li><p><strong>slow</strong> (<em>-</em>) – Slowness (s/km)</p></li>
-<li><p><strong>baz</strong> (<em>-</em>) – Back-azimuth (degree)</p></li>
-<li><p><strong>npts</strong> (<em>-</em>) – Number of samples in time series</p></li>
-<li><p><strong>dt</strong> (<em>-</em>) – Sampling distance (s)</p></li>
+<li><p><strong>model</strong> (<a class="reference internal" href="#telewavesim.utils.Model" title="telewavesim.utils.Model"><em>Model</em></a>) – Instance of the <code class="docutils literal notranslate"><span class="pre">Model</span></code> class that contains the physical
+properties of subsurface layers.</p></li>
+<li><p><strong>slow</strong> (<em>float</em>) – Slowness (s/km)</p></li>
+<li><p><strong>baz</strong> (<em>float</em><em>, </em><em>optional</em>) – Back-azimuth (degree)</p></li>
+<li><p><strong>npts</strong> (<em>int</em>) – Number of samples in time series</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Sampling distance (s)</p></li>
 <li><p><strong>baz</strong> – Back-azimuth (degree)</p></li>
-<li><p><strong>wvtype</strong><strong> (</strong><strong>str</strong><strong>, </strong><strong>optional</strong><strong>, </strong><strong>default</strong> (<em>-</em>) – <code class="docutils literal notranslate"><span class="pre">'P'</span></code>): Incident wavetype (<code class="docutils literal notranslate"><span class="pre">'P'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SV'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SH'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Si'</span></code>)</p></li>
-<li><p><strong>obs</strong> (<em>-</em>) – Whether or not the analysis is done for an OBS stations</p></li>
+<li><p><strong>(</strong><strong>str</strong><strong>, </strong><strong>optional</strong><strong>, </strong><strong>default</strong> (<em>wvtype</em>) – <code class="docutils literal notranslate"><span class="pre">'P'</span></code>):
+Incident wavetype (<code class="docutils literal notranslate"><span class="pre">'P'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SV'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SH'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Si'</span></code>)</p></li>
+<li><p><strong>obs</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether or not the analysis is done for an OBS stations</p></li>
+<li><p><strong>dp</strong> (<em>float</em><em>, </em><em>optional</em>) – Deployment depth below sea level (m)</p></li>
+<li><p><strong>c</strong> (<em>float</em><em>, </em><em>optional</em>) – P-wave velocity of salt water (default = <code class="docutils literal notranslate"><span class="pre">1.5</span></code> km/s)</p></li>
+<li><p><strong>rhof</strong> (<em>float</em><em>, </em><em>optional</em>) – Density of salt water (default = <code class="docutils literal notranslate"><span class="pre">1027.0</span></code> kg/m^3)</p></li>
 </ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">obs</span> <span class="pre">parameters</span></code>:</dt><dd><ul class="simple">
-<li><p>dp (float, optional): Deployment depth below sea level (m)</p></li>
-<li><p>c (float, optional): P-wave velocity of salt water (default = <code class="docutils literal notranslate"><span class="pre">1.5</span></code> km/s)</p></li>
-<li><p>rhof (float, optional): Density of salt water (default = <code class="docutils literal notranslate"><span class="pre">1027.0</span></code> kg/m^3)</p></li>
-</ul>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>trxyz: Stream containing 3-component displacement seismograms</p>
 </dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>trxyz: Stream containing 3-component displacement seismograms</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>(obspy.stream)</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(obspy.stream)</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -671,8 +679,8 @@ wavespeed of 1.5 km/s and density of 1027 kg/m^3).</p>
 <dl class="function">
 <dt id="telewavesim.utils.get_trxyz">
 <code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">get_trxyz</code><span class="sig-paren">(</span><em class="sig-param">yx</em>, <em class="sig-param">yy</em>, <em class="sig-param">yz</em>, <em class="sig-param">npts</em>, <em class="sig-param">dt</em>, <em class="sig-param">slow</em>, <em class="sig-param">baz</em>, <em class="sig-param">wvtype</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.get_trxyz" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to store displacement seismograms into <code class="docutils literal notranslate"><span class="pre">obspy</span></code> <code class="docutils literal notranslate"><span class="pre">Trace</span></code> obsjects and
-then an <code class="docutils literal notranslate"><span class="pre">obspy</span></code> <code class="docutils literal notranslate"><span class="pre">Stream</span></code> object.</p>
+<dd><p>Function to store displacement seismograms into <code class="docutils literal notranslate"><span class="pre">obspy.Trace</span></code> objects
+and then an <code class="docutils literal notranslate"><span class="pre">obspy</span></code> <code class="docutils literal notranslate"><span class="pre">Stream</span></code> object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -682,7 +690,11 @@ then an <code class="docutils literal notranslate"><span class="pre">obspy</span
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>trxyz: Stream containing 3-component displacement seismograms</p>
+<dd class="field-even"><p><dl class="simple">
+<dt>trxyz: Stream containing 3-component displacement</dt><dd><p>seismograms</p>
+</dd>
+</dl>
+</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>(obspy.stream)</p>
