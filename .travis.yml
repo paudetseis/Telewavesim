@@ -34,13 +34,13 @@ install:
   - pip install -v --no-deps .
 script:
   - if [[ $DOCS != 1 ]]; then
-      mkdir empty; cd empty; pytest -v --cov=telewavesim --pyargs telewavesim
+      mkdir empty; cd empty; pytest -v --cov=telewavesim --pyargs telewavesim;
     else
-      cd docs; make html
+      cd docs; make html;
     fi
 after_success:
   - if [[ $DOCS != 1 ]]; then
-      bash <(curl -s https://codecov.io/bash)
+      bash <(curl -s https://codecov.io/bash);
     fi
 notifications:
     email: false
