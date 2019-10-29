@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Licence &mdash; telewavesim 0.1.0 documentation</title>
+  <title>Licence &mdash; telewavesim 0.2.0-dev documentation</title>
   
 
   
@@ -93,14 +93,29 @@
 <li class="toctree-l1"><a class="reference internal" href="#installation">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#conda-environment">Conda environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installing-from-source">Installing from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-latest-version-from-pypi">Installing latest version from PyPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-development-version-from-source">Installing development version from source</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#possible-installation-pitfalls-with-conda">Possible installation pitfalls with conda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#usage">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#jupyter-notebooks">Jupyter Notebooks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#setting-up-new-models">Setting up new models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-new-models">Setting up new models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#from-the-model-file">From the model file</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#layer-flag-set-to-iso">Layer flag set to <code class="docutils literal notranslate"><span class="pre">iso</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#layer-flag-set-to-tri">Layer flag set to <code class="docutils literal notranslate"><span class="pre">tri</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#layer-flag-set-to-another-type-of-material">Layer flag set to another type of material</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#from-the-model-class">From the Model class</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-usage">Basic usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modeling-a-single-event">Modeling a single event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#single-event-for-obs-station">Single event for OBS station</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -214,7 +229,8 @@ Also, the following packages are required:</p>
 <li><p><a class="reference external" href="https://gcc.gnu.org/wiki/GFortran">gfortran</a> (or any Fortran compiler)</p></li>
 <li><p><a class="reference external" href="https://github.com/obspy/obspy/wiki">obspy</a></p></li>
 </ul>
-<p>By  default, both <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> are installed as dependencies of <code class="docutils literal notranslate"><span class="pre">obspy</span></code>.</p>
+<p>By  default, both <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> are installed as dependencies
+of <code class="docutils literal notranslate"><span class="pre">obspy</span></code>.</p>
 </div>
 <div class="section" id="conda-environment">
 <h2>Conda environment<a class="headerlink" href="#conda-environment" title="Permalink to this headline">¶</a></h2>
@@ -229,8 +245,15 @@ where <code class="docutils literal notranslate"><span class="pre">telewavesim</
 </pre></div>
 </div>
 </div>
-<div class="section" id="installing-from-source">
-<h2>Installing from source<a class="headerlink" href="#installing-from-source" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="installing-latest-version-from-pypi">
+<h2>Installing latest version from PyPi<a class="headerlink" href="#installing-latest-version-from-pypi" title="Permalink to this headline">¶</a></h2>
+<p>Install the latest version from PyPi with the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install telewavesim
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-development-version-from-source">
+<h2>Installing development version from source<a class="headerlink" href="#installing-development-version-from-source" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Clone the repository:</p></li>
 </ul>
@@ -249,26 +272,38 @@ where <code class="docutils literal notranslate"><span class="pre">telewavesim</
 <h2>Possible installation pitfalls with conda<a class="headerlink" href="#possible-installation-pitfalls-with-conda" title="Permalink to this headline">¶</a></h2>
 <p>Using <code class="docutils literal notranslate"><span class="pre">conda</span></code> it might be necessary to use the fortran compiler provided with
 conda-forge. Add <code class="docutils literal notranslate"><span class="pre">gfortran_osx-64</span></code> or <code class="docutils literal notranslate"><span class="pre">gfortran_linux-64</span></code> package to the
-above <code class="docutils literal notranslate"><span class="pre">conda</span></code> environment calls. On Linux it might further be necessary to install the
-<code class="docutils literal notranslate"><span class="pre">lapack</span></code> conda package.</p>
+above <code class="docutils literal notranslate"><span class="pre">conda</span></code> environment calls.
+On Linux it might further be necessary to install the <code class="docutils literal notranslate"><span class="pre">lapack</span></code> conda package.</p>
+</div>
+<div class="section" id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<p>A series of tests are located in the <code class="docutils literal notranslate"><span class="pre">tests</span></code> subdirectory.
+In order to perform these tests, run <code class="docutils literal notranslate"><span class="pre">pytest</span></code>
+(<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">pytest</span></code> if needed):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest -v --pyargs telewavesim
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="jupyter-notebooks">
 <h2>Jupyter Notebooks<a class="headerlink" href="#jupyter-notebooks" title="Permalink to this headline">¶</a></h2>
-<p>Included in this package is a set of Jupyter Notebooks (see Table of Content), which give
-examples on how to call the various routines and obtain plane wave seismograms and receiver
-functions. The Notebooks describe how to reproduce published examples of synthetic data
+<p>Included in this package is a set of Jupyter Notebooks (see Table of Content),
+which give examples on how to call the various routines and obtain plane wave
+seismograms and receiver functions.
+The Notebooks describe how to reproduce published examples of synthetic data
 from <a class="reference external" href="https://doi.org/10.1093/gji/ggw111">Audet (2016)</a> and
 <a class="reference external" href="https://doi.org/10.1130/L126.1">Porter et al. (2011)</a>.</p>
-<p>After <code class="docutils literal notranslate"><span class="pre">telewaveim</span></code>, these notebooks can be locally installed (i.e., in a local folder
-<code class="docutils literal notranslate"><span class="pre">Notebooks</span></code>) from the package by typing in a <code class="docutils literal notranslate"><span class="pre">python</span></code> window:</p>
+<p>After <code class="docutils literal notranslate"><span class="pre">telewaveim</span></code>, these notebooks can be locally installed
+(i.e., in a local folder <code class="docutils literal notranslate"><span class="pre">Notebooks</span></code>) from the package
+by typing in a <code class="docutils literal notranslate"><span class="pre">python</span></code> window:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="kn">import</span> <span class="n">doc</span>
 <span class="n">doc</span><span class="o">.</span><span class="n">install_doc</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s1">&#39;Notebooks&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>To run the notebooks you will have to further install <code class="docutils literal notranslate"><span class="pre">jupyter</span></code>. From the terminal, type:</p>
+<p>To run the notebooks you will have to further install <code class="docutils literal notranslate"><span class="pre">jupyter</span></code>.
+From the terminal, type:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install jupyter
 </pre></div>
 </div>
@@ -277,21 +312,219 @@ from <a class="reference external" href="https://doi.org/10.1093/gji/ggw111">Aud
 jupyter notebook
 </pre></div>
 </div>
-<p>You can then save the notebooks as <code class="docutils literal notranslate"><span class="pre">python</span></code> scripts, check out the model files and you
-should be good to go!</p>
+<p>You can then save the notebooks as <code class="docutils literal notranslate"><span class="pre">python</span></code> scripts,
+check out the model files and set up your own examples.</p>
 </div>
 <div class="section" id="setting-up-new-models">
 <h2>Setting up new models<a class="headerlink" href="#setting-up-new-models" title="Permalink to this headline">¶</a></h2>
-<p>To set up the models, install the <code class="docutils literal notranslate"><span class="pre">Jupyter</span></code> notebooks and check out the examples in the
-<code class="docutils literal notranslate"><span class="pre">models</span></code> folder, or visit the <a class="reference external" href="https://github.com/paudetseis/Telewavesim/wiki/Models">wiki</a> page
-for <code class="docutils literal notranslate"><span class="pre">telewavesim</span></code>.</p>
-</div>
-<div class="section" id="testing">
-<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
-<p>A series of tests are located in the <code class="docutils literal notranslate"><span class="pre">tests</span></code> subdirectory. In order to perform these tests,
-run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> (<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">pytest</span></code> if needed):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest -v --pyargs telewavesim
+<div class="section" id="from-the-model-file">
+<h3>From the model file<a class="headerlink" href="#from-the-model-file" title="Permalink to this headline">¶</a></h3>
+<p>In the Jupiter notebooks you will find a folder named <code class="docutils literal notranslate"><span class="pre">models</span></code> where a
+few examples are provided. The header of the file <code class="docutils literal notranslate"><span class="pre">model_Audet2016.txt</span></code>
+looks like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">################################################</span>
+<span class="c1">#</span>
+<span class="c1">#   Model file to use with `telewavesim` for</span>
+<span class="c1">#   modeling teleseismic body wave propagation</span>
+<span class="c1">#   through stratified media.</span>
+<span class="c1">#</span>
+<span class="c1">#   Lines starting with &#39;#&#39; are ignored. Each</span>
+<span class="c1">#   line corresponds to a unique layer. The</span>
+<span class="c1">#   bottom layer is assumed to be a half-space</span>
+<span class="c1">#   (Thickness is irrelevant).</span>
+<span class="c1">#</span>
+<span class="c1">#   Format:</span>
+<span class="c1">#       Column  Contents</span>
+<span class="c1">#          0    Thickness (km)</span>
+<span class="c1">#          1    Density (kg/m^3)</span>
+<span class="c1">#          2    Layer P-wave velocity (km/s)</span>
+<span class="c1">#          3    Layer S-wave velocity (km/s)</span>
+<span class="c1">#          4    Layer flag</span>
+<span class="c1">#                   iso: isotropic</span>
+<span class="c1">#                   tri: transverse isotropy</span>
+<span class="c1">#                   [other]: other minerals or rocks</span>
+<span class="c1">#          5    % Transverse anisotropy (if Layer is set to &#39;tri&#39;)</span>
+<span class="c1">#                   0: isotropic</span>
+<span class="c1">#                   +: fast symmetry axis</span>
+<span class="c1">#                   -: slow symmetry axis</span>
+<span class="c1">#          6    Trend of symmetry axis (degrees)</span>
+<span class="c1">#          7    Plunge of symmetry axis (degrees)</span>
+<span class="c1">#</span>
+<span class="c1">################################################</span>
 </pre></div>
+</div>
+<p>The header is not required and can be deleted when you become familiar
+with the various definitions. Note that the code requires 8 entries per
+layer, regardless of whether or not the variable is required (it will
+simply be ignored if it’s not).</p>
+<p>Let us break down each line, depending on how you set <code class="docutils literal notranslate"><span class="pre">Layer</span> <span class="pre">flag</span></code>:</p>
+<div class="section" id="layer-flag-set-to-iso">
+<h4>Layer flag set to <code class="docutils literal notranslate"><span class="pre">iso</span></code><a class="headerlink" href="#layer-flag-set-to-iso" title="Permalink to this headline">¶</a></h4>
+<p>This flag represents a case where the layer is isotropic.</p>
+<ul class="simple">
+<li><p>Set column 0 (<code class="docutils literal notranslate"><span class="pre">Thickness</span></code>), column 1 (<code class="docutils literal notranslate"><span class="pre">Density</span></code>), column 2 (<code class="docutils literal notranslate"><span class="pre">P-wave</span> <span class="pre">velocity</span></code>), column 3 (<code class="docutils literal notranslate"><span class="pre">S-wave</span> <span class="pre">velocity</span></code>) and column 4 (as <code class="docutils literal notranslate"><span class="pre">iso</span></code>)</p></li>
+<li><p>Set columns 5 to 7 to <code class="docutils literal notranslate"><span class="pre">0.</span></code> or any other numerical value - they will be ignored by the software.</p></li>
+</ul>
+</div>
+<div class="section" id="layer-flag-set-to-tri">
+<h4>Layer flag set to <code class="docutils literal notranslate"><span class="pre">tri</span></code><a class="headerlink" href="#layer-flag-set-to-tri" title="Permalink to this headline">¶</a></h4>
+<p>This flag represents a transversely isotropic layer. We adhere with
+the definition in
+<a class="reference external" href="https://doi.org/10.1130/L126.1">Porter et al. (2011)</a>,
+whereby the parameter <code class="docutils literal notranslate"><span class="pre">eta</span></code>, which describes the curvature of the
+velocity “ellipsoid” between the Vp-fast and Vp-slow axes, varies
+with anisotropy for a 2-psi model and is not fixed.</p>
+<p>The column 5 in this case sets the percent anisotropy for both
+Vp and Vs (equal anisotropy for both Vp and Vs) and is the only
+instance where this column is required.</p>
+<ul class="simple">
+<li><p>Set all columns to the required numerical value (and column 4 to <code class="docutils literal notranslate"><span class="pre">tri</span></code>)</p></li>
+</ul>
+</div>
+<div class="section" id="layer-flag-set-to-another-type-of-material">
+<h4>Layer flag set to another type of material<a class="headerlink" href="#layer-flag-set-to-another-type-of-material" title="Permalink to this headline">¶</a></h4>
+<p>This flag should be set to the specific single-crystal or rock
+abbreviation, for which the elastic properties have been determined
+in the lab. Currently available options are:</p>
+<p>The module <a class="reference internal" href="elast.html#module-telewavesim.elast" title="telewavesim.elast"><code class="xref py py-mod docutils literal notranslate"><span class="pre">elast</span></code></a> contains the definition of the
+stiffness matrices for these minerals and rocks. Check out the module or
+the documentation for more details.</p>
+<ul class="simple">
+<li><p>Set entries in column 0 (<code class="docutils literal notranslate"><span class="pre">Thickness</span></code>), column 4 (an abbreviation among the above options), and optionally columns 6 and 7 if you wish to rotate the corresponding tensor about two axes (trend and plunge of the equivalent of the symmetry axis in transverse isotropy). Columns 1 to 3 can be set to any numerical value and will be ignored by the software.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The code can handle general anisotropy (with 21 independent components in
+the elastic tensor) for any type of material. Currently, however,
+the code contains a limited number of elastic tensors (see
+<a class="reference internal" href="elast.html#module-telewavesim.elast" title="telewavesim.elast"><code class="xref py py-mod docutils literal notranslate"><span class="pre">elast</span></code></a>) but we encourage users to suggest their own
+tensors determined from the lab. This can be done by raising an issue
+on the GitHub page or making a pull request with the suggested addition
+to the <a class="reference internal" href="elast.html#module-telewavesim.elast" title="telewavesim.elast"><code class="xref py py-mod docutils literal notranslate"><span class="pre">elast</span></code></a> module.</p>
+</div>
+</div>
+</div>
+<div class="section" id="from-the-model-class">
+<h3>From the Model class<a class="headerlink" href="#from-the-model-class" title="Permalink to this headline">¶</a></h3>
+<p>Models can also be defined on the fly in Python using lists that contain
+the relevant information as input into an instance of the
+<a class="reference internal" href="utils.html#telewavesim.utils.Model" title="telewavesim.utils.Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></a> class.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim.utils</span> <span class="kn">import</span> <span class="n">Model</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Define a two-layer model with isotropic properties</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">thick</span> <span class="o">=</span> <span class="p">[</span><span class="mf">20.</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>       <span class="c1"># Second layer thickness is irrelevant</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rho</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2800.</span><span class="p">,</span> <span class="mf">3300.</span><span class="p">]</span>   <span class="c1"># Second rho value is irrelevant as we use a pre-defined elastic tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vp</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.6</span><span class="p">,</span> <span class="mf">6.</span><span class="p">]</span>         <span class="c1"># Likewise for vp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.6</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">]</span>        <span class="c1"># Likewise for vs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flag</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;iso&#39;</span><span class="p">,</span> <span class="s1">&#39;iso&#39;</span><span class="p">]</span>  <span class="c1"># Both layers are isotropic</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">thick</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">vp</span><span class="p">,</span> <span class="n">vs</span><span class="p">,</span> <span class="n">flag</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Define a two-layer model with foliated eclogitic crust over isotropic half-space</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example using a single line</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="mf">3300.</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;EC_f&#39;</span><span class="p">,</span> <span class="s1">&#39;iso&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this example we did not specify the last 3 entries (% aniso, trend, plunge), such
+that the tensor is aligned with a horizontal axis (plunge of 0) of symmetry pointing
+North (trend of 0).</p>
+</div>
+<ul class="simple">
+<li><p>Define a two-layer model with transversely isotropic crust over isotropic half-space</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example using a single line</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">([</span><span class="mf">20.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">2800.</span><span class="p">,</span> <span class="mf">3300.</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">6.</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.6</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;tri&#39;</span><span class="p">,</span> <span class="s1">&#39;iso&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">5.</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">30.</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">10.</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this example all entries for the first layer are required. Here the anisotropy is
+set to 5% (i.e., fast axis of symmetry; for slow axis the user should input <code class="docutils literal notranslate"><span class="pre">-5.</span></code>)
+and the axis of symmetry has a trend of 30 degrees and a plunge of 10 degrees.</p>
+</div>
+<ul class="simple">
+<li><p>Define a three-layer model with isotropic crust and antigorite upper mantle layer over isotropic half-space</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">thick</span> <span class="o">=</span> <span class="p">[</span><span class="mf">20.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>        <span class="c1"># Third layer thickness is irrelevant</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rho</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2800.</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="mf">3300.</span><span class="p">]</span>   <span class="c1"># Second rho value is irrelevant as we use a pre-defined elastic tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vp</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.6</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">6.</span><span class="p">]</span>           <span class="c1"># Likewise for vp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.6</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">]</span>          <span class="c1"># Likewise for vs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flag</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;iso&#39;</span><span class="p">,</span> <span class="s1">&#39;atg&#39;</span><span class="p">,</span> <span class="s1">&#39;iso&#39;</span><span class="p">]</span> <span class="c1"># Specifies the second layer as &#39;antigorite&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pct_aniso</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span>     <span class="c1"># Percent anisotropy - irrelevant as we use a pre-defined elastic tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trend</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">45.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]</span>        <span class="c1"># Trend of 45 degrees for the antigorite layer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plunge</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">20.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]</span>       <span class="c1"># Plunge of 20 degrees for the antigorite layer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">thick</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">vp</span><span class="p">,</span> <span class="n">vs</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="n">pct_aniso</span><span class="p">,</span> <span class="n">trend</span><span class="p">,</span> <span class="n">plunge</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">rho</span>
+<span class="go">array([2800.0, 2620.0, 3300.0], dtype=object)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">isoflg</span>
+<span class="go">[&#39;iso&#39;, &#39;atg&#39;, &#39;iso&#39;]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="basic-usage">
+<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
+<p>These examples are extracted from the <a class="reference internal" href="utils.html#telewavesim.utils.run_plane" title="telewavesim.utils.run_plane"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_plane()</span></code></a> function.</p>
+<p>By default, the function uses a back-azimuth value of 0 degree,
+which is suitable for events coming from the North pole or isotropic
+seismic velocity models (i.e., those that do not vary with direction of
+incoming waves).</p>
+<p>For anisotropic velocity models, users need to specify the back-azimuth
+value in degrees. Furthermore, the default type of the incoming
+teleseismic body wave is <code class="docutils literal notranslate"><span class="pre">'P'</span></code> for compressional wave. Other options are
+<code class="docutils literal notranslate"><span class="pre">'SV'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SH'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'Si'</span></code> for vertically-polarized shear wave,
+horizontally-polarized shear wave or isotropic shear wave, respectively.
+Wave modes cannot be mixed.</p>
+<div class="section" id="modeling-a-single-event">
+<h3>Modeling a single event<a class="headerlink" href="#modeling-a-single-event" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define three-layer model with isotropic crust and antigorite upper mantle layer over isotropic half-space</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">Model</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2800.</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="mf">3300.</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;iso&#39;</span><span class="p">,</span> <span class="s1">&#39;atg&#39;</span><span class="p">,</span> <span class="s1">&#39;iso&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slow</span> <span class="o">=</span> <span class="mf">0.06</span>     <span class="c1"># s/km</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">npts</span> <span class="o">=</span> <span class="mi">1500</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.025</span>      <span class="c1"># s</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">run_plane</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">slow</span><span class="p">,</span> <span class="n">npts</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+<span class="go">&lt;class &#39;obspy.core.stream.Stream&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+<span class="go">3 Trace(s) in Stream:</span>
+<span class="go">...N | 1970-01-01T00:00:00.000000Z - 1970-01-01T00:00:37.475000Z | 40.0 Hz, 1500 samples</span>
+<span class="go">...E | 1970-01-01T00:00:00.000000Z - 1970-01-01T00:00:37.475000Z | 40.0 Hz, 1500 samples</span>
+<span class="go">...Z | 1970-01-01T00:00:00.000000Z - 1970-01-01T00:00:37.475000Z | 40.0 Hz, 1500 samples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">450</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="figure align-center">
+<img alt="_images/Figure_land.png" src="_images/Figure_land.png" />
+</div>
+</div>
+<div class="section" id="single-event-for-obs-station">
+<h3>Single event for OBS station<a class="headerlink" href="#single-event-for-obs-station" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define two-layer model with foliated eclogitic crust over isotropic half-space</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">Model</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="mf">3300.</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;EC_f&#39;</span><span class="p">,</span> <span class="s1">&#39;iso&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slow</span> <span class="o">=</span> <span class="mf">0.06</span>     <span class="c1"># s/km</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">npts</span> <span class="o">=</span> <span class="mi">3000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span>      <span class="c1"># s</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wvtype</span> <span class="o">=</span> <span class="s1">&#39;SV&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">baz</span> <span class="o">=</span> <span class="mf">45.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dp</span> <span class="o">=</span> <span class="mf">1000.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">run_plane</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">slow</span><span class="p">,</span> <span class="n">npts</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">baz</span><span class="o">=</span><span class="n">baz</span><span class="p">,</span> <span class="n">wvtype</span><span class="o">=</span><span class="n">wvtype</span><span class="p">,</span> <span class="n">obs</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">450</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="figure align-center">
+<img alt="_images/Figure_obs.png" src="_images/Figure_obs.png" />
+</div>
 </div>
 </div>
 </div>
