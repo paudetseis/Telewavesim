@@ -610,13 +610,13 @@ class Model(object):
         - rho (np.ndarray): Density (kg/m^3) (shape ``(nlay)``)
         - vp (np.ndarray): P-wave velocity (km/s) (shape ``(nlay)``)
         - vs (np.ndarray): S-wave velocity (km/s) (shape ``(nlay)``)
-        - isoflg (list of str, optional, defaut: ``'iso'``): Flags for type of
-          layer material (dimension ``nlay``)
+        - isoflg (list of str, optional, defaut: ``'iso'``):
+            Flags for type of layer material (dimension ``nlay``)
         - ani (np.ndarray, optional): Anisotropy (percent) (shape ``(nlay)``)
-        - tr (np.ndarray, optional): Trend of symmetry axis (degree)
-          (shape ``(nlay)``)
-        - pl (np.ndarray, optional): Plunge of symmetry axis (degree)
-          (shape ``(nlay)``)
+        - tr (np.ndarray, optional):
+            Trend of symmetry axis (degree) (shape ``(nlay)``)
+        - pl (np.ndarray, optional):
+            Plunge of symmetry axis (degree) (shape ``(nlay)``)
 
         - nlay (int): Number of layers
         - a (np.ndarray): Elastic thickness (shape ``(3, 3, 3, 3, nlay)``)
@@ -761,28 +761,29 @@ def run_plane(model, slow, npts, dt, baz=0, wvtype='P',
     (defaults are acoustic wavespeed of 1.5 km/s and density of 1027 kg/m^3).
 
     Args:
-        - model (Model object): Instance of the ``Model`` class that contains
-          the physical properties of subsurface layers.
+        - model (Model object):
+            Instance of the ``Model`` class that contains the physical
+            properties of subsurface layers.
         - slow (float): Slowness (s/km)
         - baz (float): Back-azimuth (degree)
         - npts (int): Number of samples in time series
         - dt (float): Sampling distance (s)
         - baz (float, optional): Back-azimuth (degree)
-        - wvtype (str, optional, default: ``'P'``): Incident wavetype
-          (``'P'``, ``'SV'``, ``'SH'``, ``'Si'``)
-        - obs (bool, optional): Whether or not the analysis is done for an
-          OBS stations
+        - wvtype (str, optional, default: ``'P'``):
+            Incident wavetype (``'P'``, ``'SV'``, ``'SH'``, ``'Si'``)
+        - obs (bool, optional):
+            Whether or not the analysis is done for an OBS stations
     ``obs parameters``:
         - dp (float, optional): Deployment depth below sea level (m)
-        - c (float, optional): P-wave velocity of salt water
-          (default = ``1.5`` km/s)
-        - rhof (float, optional): Density of salt water
-          (default = ``1027.0`` kg/m^3)
+        - c (float, optional):
+            P-wave velocity of salt water (default = ``1.5`` km/s)
+        - rhof (float, optional):
+            Density of salt water (default = ``1027.0`` kg/m^3)
 
 
     Returns:
-        (obspy.stream): trxyz: Stream containing 3-component displacement
-          seismograms
+        (obspy.stream):
+            trxyz: Stream containing 3-component displacement seismograms
 
 
     Example
