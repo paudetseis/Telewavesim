@@ -23,6 +23,7 @@ before_install:
   - conda create -q -n testenv
       python=$PYTHON_VERSION obspy "gfortran_${TRAVIS_OS_NAME}-64" "numpy>=1.15"
       pytest-cov
+      sphinx sphinx_rtd_theme
   - conda activate testenv
   - conda list
 install:
@@ -30,7 +31,15 @@ install:
 script:
   - mkdir empty; cd empty
   - pytest -v --cov=telewavesim --pyargs telewavesim
+  - cd ../docs
+  - make html
+  - cd ..
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 notifications:
     email: false
+deploy:
+  provider: pages:git
+  deploy_key: <deploy_key>
+  edge: true # opt in to dpl v2
+  local_dir: docs
