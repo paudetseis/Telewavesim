@@ -9,8 +9,8 @@
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
 
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
 
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -27,6 +27,7 @@ Utility functions to interact with ``telewavesim`` modules.
 '''
 import itertools
 import numpy as np
+from numpy import sin, cos
 from numpy.fft import fft, fftshift, ifft
 from scipy.signal import hilbert
 from obspy.core import Trace, Stream
@@ -34,6 +35,12 @@ from obspy.signal.rotate import rotate_ne_rt
 from telewavesim import elast as es
 from telewavesim.rmat_f import conf as cf_f
 from telewavesim.rmat_f import plane as pw_f
+
+
+MINERALS = ['atg', 'bt', 'cpx', 'dol', 'ep', 'grt', 'gln', 'hbl', 'jade',
+            'lws', 'lz', 'ms', 'ol', 'opx', 'plag', 'qtz', 'zo']
+
+ROCKS = ['BS_f', 'BS_m', 'EC_f', 'EC_m', 'HB', 'LHZ', 'SP_37', 'SP_80']
 
 
 def set_iso_tensor(a, b):
@@ -94,39 +101,39 @@ def set_tri_tensor(a, b, tr, pl, ani):
     NN = (b*1.e3 - db/2.)**2
     AC = (a*1.e3)**2
     FF = -LL + np.sqrt((2.*AC)**2 - 2.*AC*(AA + CC + 2.*LL) +
-            (AA + LL)*(CC + LL))
+                       (AA + LL)*(CC + LL))
     # eta = FF/(AA - 2.*LL)
 
     # Get tensor with horizontal axis
-    cc = np.zeros((3,3,3,3))
-        
-    cc[0,0,0,0] = AA
-    cc[1,1,1,1] = AA
-    cc[2,2,2,2] = CC
+    cc = np.zeros((3, 3, 3, 3))
 
-    cc[0,0,1,1] = (AA - 2.*NN)
-    cc[1,1,0,0] = (AA - 2.*NN)
+    cc[0, 0, 0, 0] = AA
+    cc[1, 1, 1, 1] = AA
+    cc[2, 2, 2, 2] = CC
 
-    cc[0,0,2,2] = FF
-    cc[2,2,0,0] = FF
+    cc[0, 0, 1, 1] = (AA - 2.*NN)
+    cc[1, 1, 0, 0] = (AA - 2.*NN)
 
-    cc[1,1,2,2] = FF
-    cc[2,2,1,1] = FF
+    cc[0, 0, 2, 2] = FF
+    cc[2, 2, 0, 0] = FF
 
-    cc[1,2,1,2] = LL
-    cc[2,1,2,1] = LL
-    cc[2,1,1,2] = LL
-    cc[1,2,2,1] = LL
+    cc[1, 1, 2, 2] = FF
+    cc[2, 2, 1, 1] = FF
 
-    cc[2,0,2,0] = LL
-    cc[0,2,0,2] = LL
-    cc[2,0,0,2] = LL
-    cc[0,2,2,0] = LL
- 
-    cc[0,1,0,1] = NN
-    cc[1,0,1,0] = NN
-    cc[0,1,1,0] = NN
-    cc[1,0,0,1] = NN
+    cc[1, 2, 1, 2] = LL
+    cc[2, 1, 2, 1] = LL
+    cc[2, 1, 1, 2] = LL
+    cc[1, 2, 2, 1] = LL
+
+    cc[2, 0, 2, 0] = LL
+    cc[0, 2, 0, 2] = LL
+    cc[2, 0, 0, 2] = LL
+    cc[0, 2, 2, 0] = LL
+
+    cc[0, 1, 0, 1] = NN
+    cc[1, 0, 1, 0] = NN
+    cc[0, 1, 1, 0] = NN
+    cc[1, 0, 0, 1] = NN
 
     # Rotate tensor using trend and plunge
     cc = rot_tensor(cc, pl, tr, 0.)
@@ -161,57 +168,57 @@ def set_aniso_tensor(tr, pl, typ='atg'):
     # Get tensor with horizontal axis
 
     # Minerals
-    if typ=='atg':
+    if typ == 'atg':
         C, rho = es.antigorite()
-    elif typ=='bt':
+    elif typ == 'bt':
         C, rho = es.biotite()
-    elif typ=='cpx':
+    elif typ == 'cpx':
         C, rho = es.clinopyroxene_92()
-    elif typ=='dol':
+    elif typ == 'dol':
         C, rho = es.dolomite()
-    elif typ=='ep':
+    elif typ == 'ep':
         C, rho = es.epidote()
-    elif typ=='grt':
+    elif typ == 'grt':
         C, rho = es.garnet()
-    elif typ=='gln':
+    elif typ == 'gln':
         C, rho = es.glaucophane()
-    elif typ=='hbl':
+    elif typ == 'hbl':
         C, rho = es.hornblende()
-    elif typ=='jade':
+    elif typ == 'jade':
         C, rho = es.jadeite()
-    elif typ=='lws':
+    elif typ == 'lws':
         C, rho = es.lawsonite()
-    elif typ=='lz':
+    elif typ == 'lz':
         C, rho = es.lizardite()
-    elif typ=='ms':
+    elif typ == 'ms':
         C, rho = es.muscovite()
-    elif typ=='ol':
+    elif typ == 'ol':
         C, rho = es.olivine()
-    elif typ=='opx':
+    elif typ == 'opx':
         C, rho = es.orthopyroxene()
-    elif typ=='plag':
+    elif typ == 'plag':
         C, rho = es.plagioclase_06()
-    elif typ=='qtz':
+    elif typ == 'qtz':
         C, rho = es.quartz()
-    elif typ=='zo':
+    elif typ == 'zo':
         C, rho = es.zoisite()
 
     # Rocks
-    elif typ=='BS_f':
+    elif typ == 'BS_f':
         C, rho = es.blueschist_felsic()
-    elif typ=='BS_m':
+    elif typ == 'BS_m':
         C, rho = es.blueschist_mafic()
-    elif typ=='EC_f':
+    elif typ == 'EC_f':
         C, rho = es.eclogite_foliated()
-    elif typ=='EC_m':
+    elif typ == 'EC_m':
         C, rho = es.eclogite_massive()
-    elif typ=='HB':
+    elif typ == 'HB':
         C, rho = es.harzburgite()
-    elif typ=='SP_37':
+    elif typ == 'SP_37':
         C, rho = es.serpentinite_37()
-    elif typ=='SP_80':
+    elif typ == 'SP_80':
         C, rho = es.serpentinite_80()
-    elif typ=='LHZ':
+    elif typ == 'LHZ':
         C, rho = es.lherzolite()
 
     else:
@@ -237,6 +244,7 @@ def full_3x3_to_Voigt_6_index(i, j):
         return i
     return 6-i-j
 
+
 def voigt2cc(C):
     """
     Convert the Voigt representation of the stiffness matrix to the full
@@ -251,8 +259,8 @@ def voigt2cc(C):
     """
 
     C = np.asarray(C)
-    cc = np.zeros((3,3,3,3), dtype=float)
-    for i, j, k, l in itertools.product(range(3), range(3), range(3), range(3)):
+    cc = np.zeros((3, 3, 3, 3), dtype=float)
+    for i, j, k, l in itertools.product(range(3), repeat=4):
         Voigt_i = full_3x3_to_Voigt_6_index(i, j)
         Voigt_j = full_3x3_to_Voigt_6_index(k, l)
         cc[i, j, k, l] = C[Voigt_i, Voigt_j]
@@ -275,12 +283,12 @@ def cc2voigt(cc):
     Voigt_notation = [(0, 0), (1, 1), (2, 2), (1, 2), (0, 2), (0, 1)]
 
     cc = np.asarray(cc)
-    C = np.zeros((6,6))
+    C = np.zeros((6, 6))
     for i in range(6):
         for j in range(6):
             k, l = Voigt_notation[i]
             m, n = Voigt_notation[j]
-            C[i,j] = cc[k,l,m,n]
+            C[i, j] = cc[k, l, m, n]
 
     return C
 
@@ -309,8 +317,8 @@ def VRH_average(C):
     >>> cc, rho = utils.set_aniso_tensor(0., 0., typ='atg')
     >>> C = utils.cc2voigt(cc)
     >>> utils.VRH_average(C*rho)
-    (75655555555.555557, 48113333333.333336, 61245706544.967415, 28835098086.844658,
-    68450631050.26149, 38474215710.088997)
+    (75655555555.555557, 48113333333.333336, 61245706544.967415,
+    28835098086.844658, 68450631050.26149, 38474215710.088997)
 
     """
 
@@ -318,23 +326,26 @@ def VRH_average(C):
     S = np.linalg.inv(C)
 
     # Voigt averaging
-    Kvoigt = (C[0,0] + C[1,1] + C[2,2] + 2.*C[0,1] + 2.*C[0,2] + 2.*C[1,2])/9.
-    Gvoigt = (C[0,0] + C[1,1] + C[2,2] - C[0,1] - C[0,2] - C[1,2] + 3.*C[3,3] + \
-        3.*C[4,4] + 3.*C[5,5])/15.
+    Kvoigt = (C[0, 0] + C[1, 1] + C[2, 2] + 2 * C[0, 1] + 2 * C[0, 2] +
+              2 * C[1, 2]) / 9
+    Gvoigt = (C[0, 0] + C[1, 1] + C[2, 2] - C[0, 1] - C[0, 2] - C[1, 2] +
+              3 * C[3, 3] + 3 * C[4, 4] + 3 * C[5, 5]) / 15
 
     # Reuss averaging
-    Kreuss = 1./(S[0,0] + S[1,1] + S[2,2] + 2.*S[0,1] + 2.*S[0,2] + 2.*S[1,2])
-    Greuss = 15./(4.*S[0,0] + 4.*S[1,1] + 4.*S[2,2] - 4.*S[0,1] - 4.*S[0,2] - \
-        4.*S[1,2] + 3.*S[3,3] + 3.*S[4,4] + 3.*S[5,5])
+    Kreuss = 1 / (S[0, 0] + S[1, 1] + S[2, 2] + 2 * S[0, 1] + 2 * S[0, 2] +
+                  2 * S[1, 2])
+    Greuss = 15 / (4 * S[0, 0] + 4 * S[1, 1] + 4 * S[2, 2] - 4 * S[0, 1] -
+                   4 * S[0, 2] - 4 * S[1, 2] + 3 * S[3, 3] + 3 * S[4, 4] +
+                   3 * S[5, 5])
 
     # Voigt-Reuss-Hill average
-    Kvrh = (Kvoigt + Kreuss)/2.
-    Gvrh = (Gvoigt + Greuss)/2.
+    Kvrh = (Kvoigt + Kreuss) / 2
+    Gvrh = (Gvoigt + Greuss) / 2
 
     return Kvoigt, Gvoigt, Kreuss, Greuss, Kvrh, Gvrh
 
 
-def mod2vel(K,G,rho):
+def mod2vel(K, G, rho):
     """
 
     Calculates the isotropic P and S wave velocities from given
@@ -367,7 +378,7 @@ def mod2vel(K,G,rho):
     return Vp, Vs
 
 
-def rot_tensor(a,alpha,beta,gam):
+def rot_tensor(a, alpha, beta, gam):
     """
 
     Performs a rotation of the tensor cc (c_ijkl) about three angles (alpha,
@@ -384,9 +395,10 @@ def rot_tensor(a,alpha,beta,gam):
 
     .. note::
 
-        The three angles (``alpha``, ``beta``, ``gam``) correspond to rotation about the
-        x_2, x_3, x_1 axes. Note that the sequence of the rotation is important:
-        (AB ~= BA). In this case we rotate about x_2 first, x_3 second and x_1 third.
+        The three angles (``alpha``, ``beta``, ``gam``) correspond to rotation
+        about the x_2, x_3, x_1 axes. Note that the sequence of the rotation
+        is important: (AB ~= BA). In this case we rotate about x_2 first,
+        x_3 second and x_1 third.
 
         For trend and plunge of symmetry axis (e.g., tri_tensor):
 
@@ -396,39 +408,29 @@ def rot_tensor(a,alpha,beta,gam):
 
     """
 
-    rot = np.zeros((3,3))
-    aa = np.zeros((3,3,3,3))
+    rot = np.zeros((3, 3))
+    aa = np.zeros((3, 3, 3, 3))
 
-    rot[0,0] = np.cos(alpha)*np.cos(beta)
-    rot[0,1] = np.sin(beta)
-    rot[0,2] = np.sin(alpha)*np.cos(beta)
+    rot[0, 0] = cos(alpha) * cos(beta)
+    rot[0, 1] = sin(beta)
+    rot[0, 2] = sin(alpha) * cos(beta)
 
-    rot[1,0] = -np.cos(gam)*np.sin(beta)*np.cos(alpha) - \
-            np.sin(gam)*np.sin(alpha)
-    rot[1,1] = np.cos(gam)*np.cos(beta)
-    rot[1,2] = -np.cos(gam)*np.sin(beta)*np.sin(alpha) + \
-            np.sin(gam)*np.cos(alpha)
-    rot[2,0] = np.sin(gam)*np.sin(beta)*np.cos(alpha) - \
-            np.cos(gam)*np.sin(alpha)
-    rot[2,1] = -np.sin(gam)*np.cos(beta)
-    rot[2,2] = np.sin(gam)*np.sin(beta)*np.sin(alpha) + \
-            np.cos(gam)*np.cos(alpha)
+    rot[1, 0] = -cos(gam) * sin(beta) * cos(alpha) - sin(gam) * sin(alpha)
+    rot[1, 1] = +cos(gam) * cos(beta)
+    rot[1, 2] = -cos(gam) * sin(beta) * sin(alpha) + sin(gam) * cos(alpha)
+    rot[2, 0] = +sin(gam) * sin(beta) * cos(alpha) - cos(gam) * sin(alpha)
+    rot[2, 1] = -sin(gam) * cos(beta)
+    rot[2, 2] = +sin(gam) * sin(beta) * sin(alpha) + cos(gam) * cos(alpha)
 
     #
     #  c_ijkl ---> c_mnrs
     #
-    for m in range(3):
-        for n in range(3):
-            for r in range(3):
-                for s in range(3):
-                    asum=0.0
-                    for i in range(3):
-                        for j in range(3):
-                            for k in range(3):
-                                for l in range(3):
-                                    rr = rot[m,i]*rot[n,j]*rot[r,k]*rot[s,l]
-                                    asum = asum + rr*a[i,j,k,l]
-                    aa[m,n,r,s] = asum
+    for m, n, r, s in itertools.product(range(3), repeat=4):
+        asum = 0.0
+        for i, j, k, l in itertools.product(range(3), repeat=4):
+            rr = rot[m, i] * rot[n, j] * rot[r, k] * rot[s, l]
+            asum = asum + rr * a[i, j, k, l]
+        aa[m, n, r, s] = asum
 
     return aa
 
@@ -472,14 +474,14 @@ def rotate_zrt_pvh(trZ, trR, trT, slow, vp=6., vs=3.5):
     rot = np.array([[-m11, m12], [-m21, m22]])
 
     # Vector of Radial and Vertical
-    r_z = np.array([trR.data,trZ.data])
+    r_z = np.array([trR.data, trZ.data])
 
     # Rotation
     vec = np.dot(rot, r_z)
 
     # Extract P and SV components
-    trP.data = vec[0,:]
-    trV.data = vec[1,:]
+    trP.data = vec[0, :]
+    trV.data = vec[1, :]
     trH.data = -trT.data/2.
 
     return trP, trV, trH
@@ -542,8 +544,8 @@ def stack_all(st1, st2, pws=False):
         weight2 = np.ones(len(st1[0].data))
 
     # Put back into traces
-    stack1 = Trace(data=weight1*tmp1,header=str_stats)
-    stack2 = Trace(data=weight2*tmp2,header=str_stats)
+    stack1 = Trace(data=weight1*tmp1, header=str_stats)
+    stack2 = Trace(data=weight2*tmp2, header=str_stats)
 
     return stack1, stack2
 
@@ -551,17 +553,11 @@ def stack_all(st1, st2, pws=False):
 def calc_ttime(model, slow, wvtype='P'):
     """
     Calculates total propagation time through model given the corresponding
-    ``'P'`` or ``'S'`` wave type. The bottom layer is irrelevant in this calculation. 
-    All ``'S'`` wave types will return the same predicted time. This function is useful
-    mainly for plotting purposes. For example, to show the first phase arrival at a time of
-    0, the traces can be shifted by the total propagation time through the model.
-
-    .. note::
-
-       The ``conf`` global variables need to be set for this calculation
-       to succeed. This is typically ensured through reading of the
-       model file from the function ``utils.read_model(modfile)``,
-       and setting the variable ``conf.wvtype``
+    ``'P'`` or ``'S'`` wave type. The bottom layer is irrelevant in this
+    calculation. All ``'S'`` wave types will return the same predicted time.
+    This function is useful mainly for plotting purposes. For example, to show
+    the first phase arrival at a time of 0, the traces can be shifted by the
+    total propagation time through the model.
 
     Args:
         model (Model): Model object
@@ -584,23 +580,22 @@ def calc_ttime(model, slow, wvtype='P'):
 
     """
 
-
     t1 = 0.
 
     for i in range(model.nlay-1):
         if model.isoflg[i] == 'iso':
-            a0 = model.a[2,2,2,2,i]
-            b0 = model.a[1,2,1,2,i]
+            a0 = model.a[2, 2, 2, 2, i]
+            b0 = model.a[1, 2, 1, 2, i]
         else:
-            cc = cc2voigt(model.a[:,:,:,:,i])
+            cc = cc2voigt(model.a[:, :, :, :, i])
             rho = model.rho[i]
-            K1,G1,K2,G2,K,G = VRH_average(cc*rho)
-            a0, b0 = mod2vel(K,G,rho)
+            K1, G1, K2, G2, K, G = VRH_average(cc*rho)
+            a0, b0 = mod2vel(K, G, rho)
             a0 = a0**2
             b0 = b0**2
-        if wvtype=='P':
+        if wvtype == 'P':
             t1 += 1000*model.thickn[i]*np.sqrt(1./a0 - (slow*1.e-3)**2)
-        elif wvtype=='Si' or wvtype=='SV' or wvtype=='SH':
+        elif wvtype == 'Si' or wvtype == 'SV' or wvtype == 'SH':
             t1 += 1000*model.thickn[i]*np.sqrt(1./b0 - (slow*1.e-3)**2)
         else:
             raise ValueError('Invalid wave type')
@@ -615,23 +610,30 @@ class Model(object):
         - rho (np.ndarray): Density (kg/m^3) (shape ``(nlay)``)
         - vp (np.ndarray): P-wave velocity (km/s) (shape ``(nlay)``)
         - vs (np.ndarray): S-wave velocity (km/s) (shape ``(nlay)``)
-        - isoflg (list of str, optional, defaut: ``'iso'``): Flags for type of layer material (dimension ``nlay``)
+        - isoflg (list of str, optional, defaut: ``'iso'``): Flags for type of
+          layer material (dimension ``nlay``)
         - ani (np.ndarray, optional): Anisotropy (percent) (shape ``(nlay)``)
-        - tr (np.ndarray, optional): Trend of symmetry axis (degree) (shape ``(nlay)``)
-        - pl (np.ndarray, optional): Plunge of symmetry axis (degree) (shape ``(nlay)``)
+        - tr (np.ndarray, optional): Trend of symmetry axis (degree)
+          (shape ``(nlay)``)
+        - pl (np.ndarray, optional): Plunge of symmetry axis (degree)
+          (shape ``(nlay)``)
 
         - nlay (int): Number of layers
         - a (np.ndarray): Elastic thickness (shape ``(3, 3, 3, 3, nlay)``)
     """
-    def __init__(self, thickn, rho, vp, vs, isoflg='iso', ani=None, tr=None, pl=None):
+
+    def __init__(self, thickn, rho, vp, vs, isoflg='iso',
+                 ani=None, tr=None, pl=None):
         def _get_val(v):
-            return np.array([v] * self.nlay if isinstance(v, (int, float)) else v) if v is not None else None
+            return (np.array([v] * self.nlay if isinstance(v, (int, float))
+                             else v) if v is not None else None)
         self.nlay = len(thickn)
         self.thickn = np.array(thickn)
         self.rho = np.array(rho) if rho is not None else [None] * self.nlay
         self.vp = np.array(vp)
         self.vs = np.array(vs)
-        self.isoflg = list(isoflg) if not isinstance(isoflg, str) else [isoflg] * self.nlay
+        self.isoflg = (list(isoflg) if not isinstance(isoflg, str)
+                       else [isoflg] * self.nlay)
         self.ani = _get_val(ani)
         self.tr = _get_val(tr)
         self.pl = _get_val(pl)
@@ -644,27 +646,25 @@ class Model(object):
         Need to be called, when model parameters change.
         """
         self.nlay = len(self.thickn)
-        self.a = np.zeros((3,3,3,3,self.nlay))
-
-        mins = ['atg', 'bt', 'cpx', 'dol', 'ep', 'grt', 'gln', 'hbl', 'jade',\
-                'lws', 'lz', 'ms', 'ol', 'opx', 'plag', 'qtz', 'zo']
-
-        rocks = ['BS_f', 'BS_m', 'EC_f', 'EC_m', 'HB', 'LHZ', 'SP_37', 'SP_80']
+        self.a = np.zeros((3, 3, 3, 3, self.nlay))
 
         for j in range(self.nlay):
-            if self.isoflg[j]=='iso':
-                cc = set_iso_tensor(self.vp[j],self.vs[j])
-                self.a[:,:,:,:,j] = cc
-            elif self.isoflg[j]=='tri':
-                cc = set_tri_tensor(self.vp[j],self.vs[j],self.tr[j],self.pl[j],self.ani[j])
-                self.a[:,:,:,:,j] = cc
-            elif self.isoflg[j] in mins or self.isoflg[j] in rocks:
-                cc, rho = set_aniso_tensor(self.tr[j],self.pl[j],typ=self.isoflg[j])
-                self.a[:,:,:,:,j] = cc
+            if self.isoflg[j] == 'iso':
+                cc = set_iso_tensor(self.vp[j], self.vs[j])
+                self.a[:, :, :, :, j] = cc
+            elif self.isoflg[j] == 'tri':
+                cc = set_tri_tensor(self.vp[j], self.vs[j],
+                                    self.tr[j], self.pl[j], self.ani[j])
+                self.a[:, :, :, :, j] = cc
+            elif self.isoflg[j] in MINERALS or self.isoflg[j] in ROCKS:
+                cc, rho = set_aniso_tensor(self.tr[j], self.pl[j],
+                                           typ=self.isoflg[j])
+                self.a[:, :, :, :, j] = cc
                 self.rho[j] = rho
             else:
-                msg = '\nFlag not defined: use either "iso", "tri" or one among\n%s\n%s\n'
-                raise(Exception(msg % (mins, rocks)))
+                msg = ('\nFlag not defined: use either "iso", "tri" or one '
+                       'among\n%s\n%s\n')
+                raise ValueError(msg % (MINERALS, ROCKS))
 
 
 def read_model(modfile, encoding=None):
@@ -689,16 +689,16 @@ def model2for(model):
     """
 
     nlaymx = cf_f.nlaymx
-    cf_f.a = np.zeros((3,3,3,3,nlaymx))
+    cf_f.a = np.zeros((3, 3, 3, 3, nlaymx))
     cf_f.rho = np.zeros((nlaymx))
     cf_f.thickn = np.zeros((nlaymx))
     cf_f.isoflg = np.zeros((nlaymx), dtype='int')
 
     for i in range(model.nlay):
-        cf_f.a[:,:,:,:,i] = model.a[:,:,:,:,i]
+        cf_f.a[:, :, :, :, i] = model.a[:, :, :, :, i]
         cf_f.rho[i] = model.rho[i]
         cf_f.thickn[i] = 1000. * model.thickn[i]
-        if model.isoflg[i]=='iso':
+        if model.isoflg[i] == 'iso':
             cf_f.isoflg[i] = 1
         else:
             cf_f.isoflg[i] = 0
@@ -733,48 +733,61 @@ def obs2for(dp, c, rhof):
     cf_f.rhof = rhof
 
 
-def run_plane(model, slow, npts, dt, baz=0, wvtype='P', obs=False, dp=100., c=1.5, rhof=1027):
+def run_plane(model, slow, npts, dt, baz=0, wvtype='P',
+              obs=False, dp=100., c=1.5, rhof=1027):
     """
-    Function to run the ``plane`` module and return 3-component seismograms as an ``obspy``
-    ``Stream`` object. This function builds the seismic response spectrum frequency by frequency using the
-    matrix propagation approach. Required arguments are the seismic model, slowness value, and the sampling
-    properties (maximum number of samples and the sampling distance in seconds). 
+    Function to run the ``plane`` module and return 3-component seismograms as
+    an ``obspy.Stream`` object. This function builds the seismic response
+    spectrum by frequency using the matrix propagation approach.
+    Required arguments are the seismic model, slowness value, and the sampling
+    properties (maximum number of samples and
+    the sampling distance in seconds).
 
-    By default, the function uses
-    a back-azimuth value of 0 degree, which is suitable for events coming from the North pole or isotropic 
-    seismic velocity models (i.e., those that do not vary with direction of incoming waves). For anisotropic
-    velocity models, users need to specify the back-aZimiuth value in degrees. Furthermore, the default
-    type of the incoming teleseismic body wave is ``'P'`` for compressional wave. Other options are 
-    ``'SV'``, ``'SH'``, or ``'Si'`` for vertically-polarized shear wave, horizontally-polarized shear wave
-    or isotropic shear wave, respectively. Wave modes cannot be mixed. 
+    By default, the function uses a back-azimuth value of 0 degree,
+    which is suitable for events coming from the North pole or isotropic
+    seismic velocity models (i.e., those that do not vary with direction of
+    incoming waves).
+    For anisotropic velocity models, users need to specify the back-azimuth
+    value in degrees. Furthermore, the default type of the incoming
+    teleseismic body wave is ``'P'`` for compressional wave. Other options are
+    ``'SV'``, ``'SH'``, or ``'Si'`` for vertically-polarized shear wave,
+    horizontally-polarized shear wave or isotropic shear wave, respectively.
+    Wave modes cannot be mixed.
 
-    Finally, it is possible to simulate the seismic response for ocean-bottom seismic (OBS) stations using
-    the flag ``obs=True``. If the flag is set to ``True``, the user can specify the water depth below sea 
-    level (in meters, positive value) as well as the properties of the sea water (defaults are acoustic
-    wavespeed of 1.5 km/s and density of 1027 kg/m^3).
+    Finally, it is possible to simulate the seismic response for ocean-bottom
+    seismic (OBS) stations using the flag ``obs=True``. If the flag is set to
+    ``True``, the user can specify the water depth below sea level
+    (in meters, positive value) as well as the properties of the sea water
+    (defaults are acoustic wavespeed of 1.5 km/s and density of 1027 kg/m^3).
 
     Args:
-        - model (Model object): Instance of the ``Model`` class that contains the physical properties of subsurface layers.
+        - model (Model object): Instance of the ``Model`` class that contains
+          the physical properties of subsurface layers.
         - slow (float): Slowness (s/km)
         - baz (float): Back-azimuth (degree)
         - npts (int): Number of samples in time series
         - dt (float): Sampling distance (s)
         - baz (float, optional): Back-azimuth (degree)
-        - wvtype (str, optional, default: ``'P'``): Incident wavetype (``'P'``, ``'SV'``, ``'SH'``, ``'Si'``)
-        - obs (bool, optional): Whether or not the analysis is done for an OBS stations
+        - wvtype (str, optional, default: ``'P'``): Incident wavetype
+          (``'P'``, ``'SV'``, ``'SH'``, ``'Si'``)
+        - obs (bool, optional): Whether or not the analysis is done for an
+          OBS stations
     ``obs parameters``:
         - dp (float, optional): Deployment depth below sea level (m)
-        - c (float, optional): P-wave velocity of salt water (default = ``1.5`` km/s)
-        - rhof (float, optional): Density of salt water (default = ``1027.0`` kg/m^3)
+        - c (float, optional): P-wave velocity of salt water
+          (default = ``1.5`` km/s)
+        - rhof (float, optional): Density of salt water
+          (default = ``1027.0`` kg/m^3)
 
 
     Returns:
-        (obspy.stream): trxyz: Stream containing 3-component displacement seismograms
+        (obspy.stream): trxyz: Stream containing 3-component displacement
+          seismograms
 
 
     Example
     -------
-    
+
     Basic example:
 
     >>> from telewavesim import utils
@@ -827,12 +840,14 @@ def run_plane(model, slow, npts, dt, baz=0, wvtype='P', obs=False, dp=100., c=1.
         obs2for(dp, c, rhof)
 
         # Get the Fourier transform of seismograms for ``obs``case
-        yx, yy, yz = pw_f.plane_obs(npts,model.nlay,np.array(wvtype, dtype='c'))
+        yx, yy, yz = pw_f.plane_obs(
+            npts, model.nlay, np.array(wvtype, dtype='c'))
 
     else:
 
         # Get the Fourier transform of seismograms for ``land`` case
-        yx, yy, yz = pw_f.plane_land(npts,model.nlay,np.array(wvtype, dtype='c'))
+        yx, yy, yz = pw_f.plane_land(
+            npts, model.nlay, np.array(wvtype, dtype='c'))
 
     # Transfer displacement seismograms to an ``obspy`` ``Stream`` object.
     trxyz = get_trxyz(yx, yy, yz, npts, dt, slow, baz, wvtype)
@@ -842,8 +857,8 @@ def run_plane(model, slow, npts, dt, baz=0, wvtype='P', obs=False, dp=100., c=1.
 
 def get_trxyz(yx, yy, yz, npts, dt, slow, baz, wvtype):
     """
-    Function to store displacement seismograms into ``obspy`` ``Trace`` obsjects and
-    then an ``obspy`` ``Stream`` object.
+    Function to store displacement seismograms into ``obspy.Trace`` objects
+    and then an ``obspy`` ``Stream`` object.
 
     Args:
         ux (np.ndarray): x-component displacement seismogram
@@ -851,7 +866,8 @@ def get_trxyz(yx, yy, yz, npts, dt, slow, baz, wvtype):
         uz (np.ndarray): z-component displacement seismogram
 
     Returns:
-        (obspy.stream): trxyz: Stream containing 3-component displacement seismograms
+        (obspy.stream): trxyz: Stream containing 3-component displacement
+          seismograms
 
     """
 
@@ -881,13 +897,18 @@ def tf_from_xyz(trxyz, pvh=False, vp=None, vs=None):
     Function to generate transfer functions from displacement traces.
 
     Args:
-        trxyz (obspy.stream): Obspy ``Stream`` object in cartesian coordinate system
-        pvh (bool, optional): Whether to rotate from Z-R-T coordinate system to P-SV-SH wave mode
-        vp (float, optional): Vp velocity at surface for rotation to P-SV-SH system
-        vs (float, optional): Vs velocity at surface for rotation to P-SV-SH system
+        trxyz (obspy.stream):
+            Obspy ``Stream`` object in cartesian coordinate system
+        pvh (bool, optional):
+            Whether to rotate from Z-R-T coordinate system to P-SV-SH wave mode
+        vp (float, optional):
+            Vp velocity at surface for rotation to P-SV-SH system
+        vs (float, optional):
+            Vs velocity at surface for rotation to P-SV-SH system
 
     Returns:
-        (obspy.stream): tfs: Stream containing Radial and Transverse transfer functions
+        (obspy.stream):
+            tfs: Stream containing Radial and Transverse transfer functions
 
     """
 
@@ -906,45 +927,49 @@ def tf_from_xyz(trxyz, pvh=False, vp=None, vs=None):
     rtr.data, ttr.data = rotate_ne_rt(ntr.data, etr.data, baz)
 
     if pvh:
-#         vp = np.sqrt(cf.a[2,2,2,2,0])/1.e3
-#         vs = np.sqrt(cf.a[1,2,1,2,0])/1.e3
+        # vp = np.sqrt(cf.a[2,2,2,2,0])/1.e3
+        # vs = np.sqrt(cf.a[1,2,1,2,0])/1.e3
         trP, trV, trH = rotate_zrt_pvh(ztr, rtr, ttr, vp=vp, vs=vs)
 
-        tfr = trV.copy(); tfr.data = np.zeros(len(tfr.data))
-        tft = trH.copy(); tft.data = np.zeros(len(tft.data))
+        tfr = trV.copy()
+        tfr.data = np.zeros(len(tfr.data))
+        tft = trH.copy()
+        tft.data = np.zeros(len(tft.data))
         ftfv = fft(trV.data)
         ftfh = fft(trH.data)
         ftfp = fft(trP.data)
 
-        if wvtype=='P':
+        if wvtype == 'P':
             # Transfer function
-            tfr.data = fftshift(np.real(ifft(np.divide(ftfv,ftfp))))
-            tft.data = fftshift(np.real(ifft(np.divide(ftfh,ftfp))))
-        elif wvtype=='Si':
-            tfr.data = fftshift(np.real(ifft(np.divide(-ftfp,ftfv))))
-            tft.data = fftshift(np.real(ifft(np.divide(-ftfp,ftfh))))
-        elif wvtype=='SV':
-            tfr.data = fftshift(np.real(ifft(np.divide(-ftfp,ftfv))))
-        elif wvtype=='SH':
-            tft.data = fftshift(np.real(ifft(np.divide(-ftfp,ftfh))))
+            tfr.data = fftshift(np.real(ifft(np.divide(ftfv, ftfp))))
+            tft.data = fftshift(np.real(ifft(np.divide(ftfh, ftfp))))
+        elif wvtype == 'Si':
+            tfr.data = fftshift(np.real(ifft(np.divide(-ftfp, ftfv))))
+            tft.data = fftshift(np.real(ifft(np.divide(-ftfp, ftfh))))
+        elif wvtype == 'SV':
+            tfr.data = fftshift(np.real(ifft(np.divide(-ftfp, ftfv))))
+        elif wvtype == 'SH':
+            tft.data = fftshift(np.real(ifft(np.divide(-ftfp, ftfh))))
     else:
-        tfr = rtr.copy(); tfr.data = np.zeros(len(tfr.data))
-        tft = ttr.copy(); tft.data = np.zeros(len(tft.data))
+        tfr = rtr.copy()
+        tfr.data = np.zeros(len(tfr.data))
+        tft = ttr.copy()
+        tft.data = np.zeros(len(tft.data))
         ftfr = fft(rtr.data)
         ftft = fft(ttr.data)
         ftfz = fft(ztr.data)
 
-        if wvtype=='P':
+        if wvtype == 'P':
             # Transfer function
-            tfr.data = fftshift(np.real(ifft(np.divide(ftfr,ftfz))))
-            tft.data = fftshift(np.real(ifft(np.divide(ftft,ftfz))))
-        elif wvtype=='Si':
-            tfr.data = fftshift(np.real(ifft(np.divide(-ftfz,ftfr))))
-            tft.data = fftshift(np.real(ifft(np.divide(-ftfz,ftft))))
-        elif wvtype=='SV':
-            tfr.data = fftshift(np.real(ifft(np.divide(-ftfz,ftfr))))
-        elif wvtype=='SH':
-            tft.data = fftshift(np.real(ifft(np.divide(-ftfz,ftft))))
+            tfr.data = fftshift(np.real(ifft(np.divide(ftfr, ftfz))))
+            tft.data = fftshift(np.real(ifft(np.divide(ftft, ftfz))))
+        elif wvtype == 'Si':
+            tfr.data = fftshift(np.real(ifft(np.divide(-ftfz, ftfr))))
+            tft.data = fftshift(np.real(ifft(np.divide(-ftfz, ftft))))
+        elif wvtype == 'SV':
+            tfr.data = fftshift(np.real(ifft(np.divide(-ftfz, ftfr))))
+        elif wvtype == 'SH':
+            tft.data = fftshift(np.real(ifft(np.divide(-ftfz, ftft))))
 
     # Store in stream
     tfs = Stream(traces=[tfr, tft])
