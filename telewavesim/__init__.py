@@ -178,4 +178,4 @@ In order to perform these tests, run ``pytest``
 
 """
 
-__version__ = '0.1.0'
+__version__ = '0.2.0-dev'
