@@ -9,8 +9,8 @@
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
 
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
 
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -61,7 +61,8 @@ Also, the following packages are required:
 - `gfortran <https://gcc.gnu.org/wiki/GFortran>`_ (or any Fortran compiler)
 - `obspy <https://github.com/obspy/obspy/wiki>`_
 
-By  default, both ``numpy`` and ``matplotlib`` are installed as dependencies of ``obspy``.
+By  default, both ``numpy`` and ``matplotlib`` are installed as dependencies
+of ``obspy``.
 
 Conda environment
 +++++++++++++++++
@@ -80,8 +81,18 @@ Activate the newly created environment:
 
    conda activate tws
 
-Installing from source
-++++++++++++++++++++++
+Installing latest version from PyPi
++++++++++++++++++++++++++++++++++++
+
+Install the latest version from PyPi with the following command:
+
+.. sourcecode:: bash
+
+    pip install telewavesim
+
+
+Installing development version from source
+++++++++++++++++++++++++++++++++++++++++++
 
 - Clone the repository:
 
@@ -101,8 +112,8 @@ Possible installation pitfalls with conda
 
 Using ``conda`` it might be necessary to use the fortran compiler provided with
 conda-forge. Add ``gfortran_osx-64`` or ``gfortran_linux-64`` package to the
-above ``conda`` environment calls. On Linux it might further be necessary to install the
-``lapack`` conda package.
+above ``conda`` environment calls.
+On Linux it might further be necessary to install the ``lapack`` conda package.
 
 Usage
 -----
@@ -110,22 +121,25 @@ Usage
 Jupyter Notebooks
 +++++++++++++++++
 
-Included in this package is a set of Jupyter Notebooks (see Table of Content), which give 
-examples on how to call the various routines and obtain plane wave seismograms and receiver 
-functions. The Notebooks describe how to reproduce published examples of synthetic data 
-from `Audet (2016) <https://doi.org/10.1093/gji/ggw111>`_ and 
+Included in this package is a set of Jupyter Notebooks (see Table of Content),
+which give examples on how to call the various routines and obtain plane wave
+seismograms and receiver functions.
+The Notebooks describe how to reproduce published examples of synthetic data
+from `Audet (2016) <https://doi.org/10.1093/gji/ggw111>`_ and
 `Porter et al. (2011) <https://doi.org/10.1130/L126.1>`_.
 
 
-After ``telewaveim``, these notebooks can be locally installed (i.e., in a local folder 
-``Notebooks``) from the package by typing in a ``python`` window:
+After ``telewaveim``, these notebooks can be locally installed
+(i.e., in a local folder ``Notebooks``) from the package
+by typing in a ``python`` window:
 
 .. sourcecode:: python
 
    from telewavesim import doc
    doc.install_doc(path='Notebooks')
 
-To run the notebooks you will have to further install ``jupyter``. From the terminal, type:
+To run the notebooks you will have to further install ``jupyter``.
+From the terminal, type:
 
 .. sourcecode:: bash
 
@@ -138,21 +152,23 @@ Followed by:
    cd Notebooks
    jupyter notebook
 
-You can then save the notebooks as ``python`` scripts, check out the model files and you 
-should be good to go!
+You can then save the notebooks as ``python`` scripts,
+check out the model files and you should be good to go!
 
 Setting up new models
 +++++++++++++++++++++
 
-To set up the models, install the ``Jupyter`` notebooks and check out the examples in the 
-``models`` folder, or visit the `wiki <https://github.com/paudetseis/Telewavesim/wiki/Models>`_ page 
+To set up the models, install the ``Jupyter`` notebooks and
+check out the examples in the ``models`` folder, or visit the
+`wiki <https://github.com/paudetseis/Telewavesim/wiki/Models>`_ page
 for ``telewavesim``.
 
 Testing
 +++++++
 
-A series of tests are located in the ``tests`` subdirectory. In order to perform these tests, 
-run ``pytest`` (``conda install pytest`` if needed):
+A series of tests are located in the ``tests`` subdirectory.
+In order to perform these tests, run ``pytest``
+(``conda install pytest`` if needed):
 
 .. sourcecode:: bash
 
@@ -162,4 +178,4 @@ run ``pytest`` (``conda install pytest`` if needed):
 
 """
 
-__version__ = '0.1.0'
+__version__ = '0.2.0-dev'

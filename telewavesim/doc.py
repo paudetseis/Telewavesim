@@ -9,8 +9,8 @@
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
 
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
 
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -36,7 +36,8 @@ def install_doc(path="./Telewavesim-Examples"):
 
     WARNING: If the path exists, the files will be written into the path
     and will overwrite any existing files with which they collide. The default
-    path ("./Telewavesim-Examples") is chosen to make collision less likely/problematic
+    path ("./Telewavesim-Examples") is chosen to make collision less
+    likely/problematic.
 
     The documentation for Telewavesim is in the form of jupyter notebooks.
 
@@ -44,7 +45,6 @@ def install_doc(path="./Telewavesim-Examples"):
 
     Notebooks_Path = _pkg_resources.resource_filename(
         "telewavesim", "examples")
-
 
     _dir_util.copy_tree(
         Notebooks_Path,

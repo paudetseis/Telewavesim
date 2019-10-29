@@ -22,8 +22,9 @@
 
 '''
 
-Functions to define elastic stiffness matrices. Most references for elastic constants 
-are included in the paper by `Brownlee et al. (2017) <https://doi.org/10.1002/2017TC004625>`_.
+Functions to define elastic stiffness matrices. Most references for elastic
+constants are included in the paper by
+`Brownlee et al. (2017) <https://doi.org/10.1002/2017TC004625>`_.
 
 '''
 
@@ -72,7 +73,7 @@ def iso_tensor(a, b):
 
     return C
 
-    
+
 def antigorite():
     """
     Elastic constants of antigorite mineral (GPa) from
@@ -87,7 +88,7 @@ def antigorite():
 
     Example
     -------
-    
+
     >>> from telewavesim import elast
     >>> elast.antigorite()[0]
     array([[208.4,  66.2,  15.9,   0. ,   2.4,   0. ],
@@ -286,7 +287,7 @@ def clinopyroxene_92():
 
     return C, rho
 
-    
+
 def clinopyroxene_98():
     """
     Elastic constants of clinopyroxene mineral (GPa) from
@@ -326,7 +327,7 @@ def clinopyroxene_98():
 
     return C, rho
 
-    
+
 def dolomite():
     """
     Elastic constants of dolomite mineral (GPa) from
@@ -537,7 +538,7 @@ def garnet():
 
     return C, rho
 
-    
+
 def glaucophane():
     """
     Elastic constants of glaucophane mineral (GPa) from
@@ -577,7 +578,7 @@ def glaucophane():
 
     return C, rho
 
-    
+
 def harzburgite():
     """
     Elastic constants of harzburgite rock (GPa) from
@@ -657,7 +658,7 @@ def hornblende():
 
     return C, rho
 
-    
+
 def jadeite():
     """
     Elastic constants of jadeite mineral (GPa) from
@@ -697,7 +698,7 @@ def jadeite():
 
     return C, rho
 
-    
+
 def lawsonite():
     """
     Elastic constants of jadeite mineral (GPa) from
@@ -737,7 +738,7 @@ def lawsonite():
 
     return C, rho
 
-    
+
 def lherzolite():
     """
     Elastic constants of lherzolite rock (GPa) from
@@ -783,7 +784,7 @@ def lherzolite():
 
     return C, rho
 
-    
+
 def lizardite_atom():
     """
     Elastic constants of lizardite mineral (GPa) from
@@ -909,7 +910,7 @@ def muscovite():
 
     return C, rho
 
-    
+
 def olivine():
     """
     Elastic constants of olivine mineral (GPa) from
@@ -949,7 +950,7 @@ def olivine():
 
     return C, rho
 
-    
+
 def orthopyroxene():
     """
     Elastic constants of orthopyroxene mineral (GPa) from
@@ -989,7 +990,7 @@ def orthopyroxene():
 
     return C, rho
 
-    
+
 def plagioclase_64():
     """
     Elastic constants of plagioclase mineral (GPa) from
@@ -1029,7 +1030,7 @@ def plagioclase_64():
 
     return C, rho
 
-    
+
 def plagioclase_06():
     """
     Elastic constants of plagioclase mineral (GPa) from
@@ -1069,7 +1070,7 @@ def plagioclase_06():
 
     return C, rho
 
-    
+
 def quartz():
     """
     Elastic constants of quartz mineral (GPa) from
@@ -1109,13 +1110,14 @@ def quartz():
 
     return C, rho
 
-    
+
 def serpentinite_37():
     """
     Elastic constants of serpentinite rock sample HPS-M (GPa) from
     Watanabe et al., 2011, in Voigt notation.
-    
-    - Mineralogy: ``Ol`` (57.7%), ``Atg`` (36.9%), ``Trm`` (4.5%), ``Mgt`` (1.1%)
+
+    - Mineralogy:
+        ``Ol`` (57.7%), ``Atg`` (36.9%), ``Trm`` (4.5%), ``Mgt`` (1.1%)
 
     - Abbreviation: ``'SP_37'``
 
@@ -1162,7 +1164,7 @@ def serpentinite_80():
     """
     Elastic constants of serpentinite rock sample HKB-B (GPa) from
     Watanabe et al., 2011, in Voigt notation
-    
+
     - Mineralogy: ``Ol`` (12.0%), ``Atg`` (80.2%), ``Mgt`` (7.8%)
 
     - Abbreviation: ``'SP_80'``

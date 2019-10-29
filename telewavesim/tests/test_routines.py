@@ -33,6 +33,7 @@ def test_plane_obs():
     # tangential component should all be close to zero
     assert np.allclose(uy, np.zeros(len(uy))), 'non-zero values in uy'
 
+
 def test_plane_land():
     modfile = resource_filename('telewavesim',
                                 'examples/models/model_Audet2016.txt')
@@ -66,4 +67,3 @@ def test_plane_land():
     # zero-lag should be maximized on radial component
     assert tfs[0].data[int(nt/2)] > tfs[1].data[int(nt/2)], \
         'Failed! Zero-lag is not maximized on radial component'
-
