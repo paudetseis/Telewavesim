@@ -48,4 +48,5 @@ deploy:
   provider: pages:git
   edge: true # opt in to dpl v2
   on:
-    condition: $DOCS=1
+    all_branches: true
+    condition: $DOCS = 1
