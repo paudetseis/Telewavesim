@@ -36,7 +36,7 @@ script:
   - if [[ $DOCS != 1 ]]; then
       mkdir empty; cd empty; pytest -v --cov=telewavesim --pyargs telewavesim;
     else
-      cd docs; make html; cd ..;
+      cd docs; make html; touch _build/html/.nojekyll; cd ..;
     fi
 after_success:
   - if [[ $DOCS != 1 ]]; then
