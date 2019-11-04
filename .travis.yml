@@ -76,6 +76,7 @@ env:
 deploy:
   provider: pages:git
   edge: true # opt in to dpl v2
+  deploy_key: ../.travis/github_deploy_key.enc
   on:
     all_branches: true
     condition: $DOCS = 1
