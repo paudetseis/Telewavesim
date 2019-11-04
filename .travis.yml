@@ -44,14 +44,8 @@ after_success:
     else
       openssl aes-256-cbc -K $encrypted_4b1a607b6302_key -iv $encrypted_4b1a607b6302_iv -in ".travis/github_deploy_key.enc" -out ".travis/github_deploy_key" -d;
     fi
-
 notifications:
     email: false
-
-env:
-  global:
-    - secure: "V6kLcawuOMVRGCfv0HGHexQh83Wk1H1FkSg/ho3gCBOfYPOyDzCXkAjVAj4qMcT07zm5w8XZvKKH8EoZAttU2ZqAFn9UDZkMItt4wcopFBXakX1ja8uD3XNZs9LJF/nv7PHRashYlvR8JEig4/1JhmBz9ovbgSlSghps9lmuvUdmAl+6s2UhJTqcKovhJGdIa1GnAPKicy8ioxYPYGDcfxlw46XZPFWzfEugwKZNYYIVa2q97zo9VRSk5iO7BMFTR6hGpli3O0dV83S28hQC81Wo/DR66ZfMiAR6xS2pEzR9X2A4D3Z7LpgtIROVh4RtNzR7CQGKOcqSaedTEr2MQ68sn+ZbzXBCP0w82wsdSWXY8MQhzVJ+N4POL1piXNY3CGdeW/GEfe5VSkm8hkwtRIW2Iz8pDSPV2Z4z0PNtDomxfRgIARriuShwP1kubJQSp+z1civVsW4pPlZT4QTQaqkSMAjPCJ0rceJKdpn6jqyl4oR2Sex4bn8Ajtr+YllTVkAX70YcRS4p9UsTyqCEuAQKKA8ZrKABvoIzrzQzoWyXsHO9ITNqrK/bhPH+rC+tEAoKzQWNa61Fi29PvIQ2mfhJq16WDept76u498IJnwNQ3w3gXcX38rL8At52WC5zF7CIMhfRZ0hvtwRxIkEnWoJBUmC4AbzmrCnMGn4XzlA="
-
 deploy:
   provider: pages:git
   edge: true # opt in to dpl v2
