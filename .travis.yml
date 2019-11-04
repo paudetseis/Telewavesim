@@ -52,5 +52,4 @@ deploy:
   deploy_key: .travis/github_deploy_key
   local_dir: docs/_build/html
   on:
-    all_branches: true
     condition: $DOCS = 1
