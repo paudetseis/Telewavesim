@@ -21,7 +21,7 @@ This package contains ``python`` and ``fortran`` modules to synthesize teleseism
    :caption: Getting Started
 
    api
-   
+
 .. toctree::
    :maxdepth: 1
    :caption: Module
@@ -34,7 +34,7 @@ This package contains ``python`` and ``fortran`` modules to synthesize teleseism
    :maxdepth: 1
    :caption: Jupyter Notebooks
 
-   Example 1: A simple example for OBS <https://github.com/paudetseis/Telewavesim/blob/master/telewavesim/examples/Notebooks/sim_obs_Audet2016.ipynb>
-   Example 2: Lower crustal anisotropy <https://github.com/paudetseis/Telewavesim/blob/master/telewavesim/examples/Notebooks/sim_Prfs_Porter2011.ipynb>
-   Example 3: Simulating SKS splitting <https://github.com/paudetseis/Telewavesim/blob/master/telewavesim/examples/Notebooks/sim_SKS.ipynb>
+   Example 1: A simple example for OBS <https://nbviewer.jupyter.org/github/paudetseis/Telewavesim/blob/master/telewavesim/examples/Notebooks/sim_obs_Audet2016.ipynb>
+   Example 2: Lower crustal anisotropy <https://nbviewer.jupyter.org/github/paudetseis/Telewavesim/blob/master/telewavesim/examples/Notebooks/sim_Prfs_Porter2011.ipynb>
+   Example 3: Simulating SKS splitting <https://nbviewer.jupyter.org/github/paudetseis/Telewavesim/blob/master/telewavesim/examples/Notebooks/sim_SKS.ipynb>
 

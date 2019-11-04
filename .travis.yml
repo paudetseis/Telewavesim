@@ -8,6 +8,8 @@ matrix:
       env: PYTHON_VERSION=3.6
     - os: linux
       env: PYTHON_VERSION=3.7
+    - os: linux
+      env: PYTHON_VERSION=3.7 DOCS=1
     - os: osx
       env: PYTHON_VERSION=3.5
     - os: osx
@@ -20,17 +22,34 @@ before_install:
   - wget https://raw.githubusercontent.com/trichter/conda4travis/latest/conda4travis.sh -O conda4travis.sh
   - source conda4travis.sh
   - conda config --add channels conda-forge
+  - if [[ $DOCS == 1 ]]; then
+      DEP="sphinx sphinx_rtd_theme";
+    fi
   - conda create -q -n testenv
       python=$PYTHON_VERSION obspy "gfortran_${TRAVIS_OS_NAME}-64" "numpy>=1.15"
-      pytest-cov
+      pytest-cov $DEP
   - conda activate testenv
   - conda list
 install:
   - pip install -v --no-deps .
 script:
-  - mkdir empty; cd empty
-  - pytest -v --cov=telewavesim --pyargs telewavesim
+  - if [[ $DOCS != 1 ]]; then
+      mkdir empty; cd empty; pytest -v --cov=telewavesim --pyargs telewavesim;
+    else
+      cd docs; make html; cd ..;
+    fi
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - if [[ $DOCS != 1 ]]; then
+      bash <(curl -s https://codecov.io/bash);
+    else
+      openssl aes-256-cbc -K $encrypted_4b1a607b6302_key -iv $encrypted_4b1a607b6302_iv -in ".travis/github_deploy_key.enc" -out ".travis/github_deploy_key" -d;
+    fi
 notifications:
     email: false
+deploy:
+  provider: pages:git
+  edge: true # opt in to dpl v2
+  deploy_key: .travis/github_deploy_key
+  local_dir: docs/_build/html
+  on:
+    condition: $DOCS = 1
