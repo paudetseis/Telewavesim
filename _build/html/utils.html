@@ -1,0 +1,816 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Module utils &mdash; telewavesim 0.2.0-dev documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Module wiggles" href="wiggles.html" />
+    <link rel="prev" title="Module elast" href="elast.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> telewavesim
+          
+
+          
+            
+            <img src="_static/logo_tws.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/paudetseis/Telewavesim">Git repository</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Licence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#usage">Usage</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Module</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="elast.html">Module elast</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Module utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wiggles.html">Module wiggles</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Jupyter Notebooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://nbviewer.jupyter.org/github/paudetseis/Telewavesim/blob/master/telewavesim/examples/Notebooks/sim_obs_Audet2016.ipynb">Example 1: A simple example for OBS</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://nbviewer.jupyter.org/github/paudetseis/Telewavesim/blob/master/telewavesim/examples/Notebooks/sim_Prfs_Porter2011.ipynb">Example 2: Lower crustal anisotropy</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://nbviewer.jupyter.org/github/paudetseis/Telewavesim/blob/master/telewavesim/examples/Notebooks/sim_SKS.ipynb">Example 3: Simulating SKS splitting</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">telewavesim</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Module utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="figure align-center">
+<img alt="_images/tws_logo.png" src="_images/tws_logo.png" />
+</div>
+<div class="section" id="module-telewavesim.utils">
+<span id="module-utils"></span><h1>Module utils<a class="headerlink" href="#module-telewavesim.utils" title="Permalink to this headline">¶</a></h1>
+<p>Utility functions to interact with <code class="docutils literal notranslate"><span class="pre">telewavesim</span></code> modules.</p>
+<dl class="function">
+<dt id="telewavesim.utils.set_iso_tensor">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">set_iso_tensor</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.set_iso_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate tensor for isotropic material.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>float</em>) – P-wave velocity (km/s)</p></li>
+<li><p><strong>b</strong> (<em>float</em>) – S-wave velocity (km/s)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cc: Elastic tensor (GPa /density)         (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.set_tri_tensor">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">set_tri_tensor</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em>, <em class="sig-param">tr</em>, <em class="sig-param">pl</em>, <em class="sig-param">ani</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.set_tri_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate tensor for transverse isotropy. The
+tensor is rotated using the trend and plunge of the symmetry
+axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>float</em>) – P-wave velocity (km/s)</p></li>
+<li><p><strong>b</strong> (<em>float</em>) – S-wave velocity (km/s)</p></li>
+<li><p><strong>tr</strong> (<em>float</em>) – Trend angle of symmetry axis (degree)</p></li>
+<li><p><strong>pl</strong> (<em>float</em>) – Plunge angle of symmetry axis (degree)</p></li>
+<li><p><strong>ani</strong> (<em>float</em>) – Percent anisotropy</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cc: Elastic tensor (GPa / kg/m^3)         (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.set_aniso_tensor">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">set_aniso_tensor</code><span class="sig-paren">(</span><em class="sig-param">tr</em>, <em class="sig-param">pl</em>, <em class="sig-param">typ='atg'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.set_aniso_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate tensor for anisotropic minerals. The     tensor is rotated using the trend and plunge of the symmetry     axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tr</strong> (<em>float</em>) – Trend angle of symmetry axis (degree)</p></li>
+<li><p><strong>pl</strong> (<em>float</em>) – Plunge angle of symmetry axis (degree)</p></li>
+<li><p><strong>type</strong> (<em>str</em><em>, </em><em>optional</em>) – Type of elastic material</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Tuple containing:</dt><dd><ul class="simple">
+<li><p>cc (np.ndarray): Elastic tensor (GPa / kg/m^3)            (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p></li>
+<li><p>rho (float): Density (kg/m^3)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.full_3x3_to_Voigt_6_index">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">full_3x3_to_Voigt_6_index</code><span class="sig-paren">(</span><em class="sig-param">i</em>, <em class="sig-param">j</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.full_3x3_to_Voigt_6_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Conversion of tensor to Voigt notation for indices</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.voigt2cc">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">voigt2cc</code><span class="sig-paren">(</span><em class="sig-param">C</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.voigt2cc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the Voigt representation of the stiffness matrix to the full
+3x3x3x3 tensor representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>C</strong> (<em>np.ndarray</em>) – Stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cc: Elastic tensor (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.cc2voigt">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">cc2voigt</code><span class="sig-paren">(</span><em class="sig-param">cc</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.cc2voigt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert from the full 3x3x3x3 tensor representation
+to the Voigt notation of the stiffness matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cc</strong> (<em>np.ndarray</em>) – Elastic tensor (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>C: Stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.VRH_average">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">VRH_average</code><span class="sig-paren">(</span><em class="sig-param">C</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.VRH_average" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a Voigt-Reuss-Hill average of the anisotropic
+stifness matrix to the bulk modulus K and the shear modulus
+G.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>C</strong> (<em>np.ndarray</em>) – Stiffness matrix (shape <code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">6)</span></code>)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Tuple containing:</dt><dd><ul class="simple">
+<li><p>Kvoigt (float): Voigt average bulk modulus (GPa)</p></li>
+<li><p>Gvoigt (float): Voigt average shear modulus (GPa)</p></li>
+<li><p>Kreuss (float): Reuss average bulk modulus (GPa)</p></li>
+<li><p>Greuss (float): Reuss average shear modulus (GPa)</p></li>
+<li><p>Kvrh (float):   Voigt-Reuss-Hill average bulk modulus (GPa)</p></li>
+<li><p>Gvrh (float):   Voigt-Reuss-Hill average shear modulus (GPa)</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cc</span><span class="p">,</span> <span class="n">rho</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">set_aniso_tensor</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="s1">&#39;atg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">cc2voigt</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">utils</span><span class="o">.</span><span class="n">VRH_average</span><span class="p">(</span><span class="n">C</span><span class="o">*</span><span class="n">rho</span><span class="p">)</span>
+<span class="go">(75655555555.555557, 48113333333.333336, 61245706544.967415,</span>
+<span class="go">28835098086.844658, 68450631050.26149, 38474215710.088997)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.mod2vel">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">mod2vel</code><span class="sig-paren">(</span><em class="sig-param">K</em>, <em class="sig-param">G</em>, <em class="sig-param">rho</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.mod2vel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the isotropic P and S wave velocities from given
+bulk (K) and shear (G) moduli and density (rho) in kg/m^3</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>K</strong> (<em>float</em>) – Bulk modulus (GPa)</p></li>
+<li><p><strong>G</strong> (<em>float</em>) – Shear modulus (GPa)</p></li>
+<li><p><strong>rho</strong> (<em>float</em>) – Density (kg/m^3)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Vp (float): P-wave velocity (m/s)</p></li>
+<li><p>Vs (float): S-wave velocity (m/s)</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cc</span><span class="p">,</span> <span class="n">rho</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">set_aniso_tensor</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="s1">&#39;atg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">cc2voigt</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">K</span><span class="p">,</span> <span class="n">G</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">VRH_average</span><span class="p">(</span><span class="n">C</span><span class="o">*</span><span class="n">rho</span><span class="p">)[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">utils</span><span class="o">.</span><span class="n">mod2vel</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">rho</span><span class="p">)</span>
+<span class="go">(6760.617471753726, 3832.0771334254896)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.rot_tensor">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">rot_tensor</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">alpha</em>, <em class="sig-param">beta</em>, <em class="sig-param">gam</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.rot_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a rotation of the tensor cc (c_ijkl) about three angles (alpha,
+beta, gamma)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>np.ndarray</em>) – Elastic tensor with shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code></p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) – Angle in radians</p></li>
+<li><p><strong>beta</strong> (<em>float</em>) – Angle in radians</p></li>
+<li><p><strong>gam</strong> (<em>float</em>) – Angle in radians</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>aa: Rotated tensor with shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(np.ndarray)</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The three angles (<code class="docutils literal notranslate"><span class="pre">alpha</span></code>, <code class="docutils literal notranslate"><span class="pre">beta</span></code>, <code class="docutils literal notranslate"><span class="pre">gam</span></code>) correspond to rotation
+about the x_2, x_3, x_1 axes. Note that the sequence of the rotation
+is important: (AB ~= BA). In this case we rotate about x_2 first,
+x_3 second and x_1 third.</p>
+<p>For trend and plunge of symmetry axis (e.g., tri_tensor):</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">alpha</span></code> = plunge</p>
+<p><code class="docutils literal notranslate"><span class="pre">beta</span></code> = trend</p>
+</div></blockquote>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.rotate_zrt_pvh">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">rotate_zrt_pvh</code><span class="sig-paren">(</span><em class="sig-param">trZ</em>, <em class="sig-param">trR</em>, <em class="sig-param">trT</em>, <em class="sig-param">slow</em>, <em class="sig-param">vp=6.0</em>, <em class="sig-param">vs=3.5</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.rotate_zrt_pvh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotates traces from <cite>Z-R-T</cite> orientation to <cite>P-SV-SH</cite> wave mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trZ</strong> (<em>obspy.trace</em>) – Vertical component</p></li>
+<li><p><strong>trR</strong> (<em>obspy.trace</em>) – Radial component</p></li>
+<li><p><strong>trT</strong> (<em>obspy.trace</em>) – Transverse component</p></li>
+<li><p><strong>slow</strong> (<em>float</em>) – slowness of wave</p></li>
+<li><p><strong>vp</strong> (<em>float</em><em>, </em><em>optional</em>) – P-wave velocity used for rotation</p></li>
+<li><p><strong>vs</strong> (<em>float</em><em>, </em><em>optional</em>) – S-wave velocity used for rotation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>trP (obspy.trace): Compressional (P) wave mode</p></li>
+<li><p>trV (obspy.trace): Vertically polarized shear (SV) wave mode</p></li>
+<li><p>trH (obspy.trace): Horizontally polarized shear (SH) wave mode</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.stack_all">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">stack_all</code><span class="sig-paren">(</span><em class="sig-param">st1</em>, <em class="sig-param">st2</em>, <em class="sig-param">pws=False</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.stack_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stacks all traces in two <code class="docutils literal notranslate"><span class="pre">Stream</span></code> objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>st1</strong> (<em>obspy.stream</em>) – Stream 1</p></li>
+<li><p><strong>st2</strong> (<em>obspy.stream</em><em>,</em>) – Stream 2</p></li>
+<li><p><strong>pws</strong> (<em>bool</em><em>, </em><em>optional</em>) – Enables Phase-Weighted Stacking</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>stack1 (obspy.trace): Stacked trace for Stream 1</p></li>
+<li><p>stack2 (obspy.trace): Stacked trace for Stream 2</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.calc_ttime">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">calc_ttime</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">slow</em>, <em class="sig-param">wvtype='P'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.calc_ttime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates total propagation time through model given the corresponding
+<code class="docutils literal notranslate"><span class="pre">'P'</span></code> or <code class="docutils literal notranslate"><span class="pre">'S'</span></code> wave type. The bottom layer is irrelevant in this
+calculation. All <code class="docutils literal notranslate"><span class="pre">'S'</span></code> wave types will return the same predicted time.
+This function is useful mainly for plotting purposes. For example, to show
+the first phase arrival at a time of 0, the traces can be shifted by the
+total propagation time through the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<a class="reference internal" href="#telewavesim.utils.Model" title="telewavesim.utils.Model"><em>Model</em></a>) – Model object</p></li>
+<li><p><strong>slow</strong> (<em>float</em>) – Slowness value (s/km)</p></li>
+<li><p><strong>wvtype</strong> (<em>str</em>) – Incident wavetype (<code class="docutils literal notranslate"><span class="pre">'P'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SV'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SH'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Si'</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>t1: Time in seconds</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(float)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define two-layer model with identical material</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">Model</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;atg&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Only topmost layer is useful for travel time calculation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wvtype</span> <span class="o">=</span> <span class="s1">&#39;P&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slow</span> <span class="o">=</span> <span class="mf">0.06</span>     <span class="c1"># s/km</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">utils</span><span class="o">.</span><span class="n">calc_ttime</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">slow</span><span class="p">,</span> <span class="n">wvtype</span><span class="p">)</span>
+<span class="go">1.3519981570791182</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="telewavesim.utils.Model">
+<em class="property">class </em><code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">Model</code><span class="sig-paren">(</span><em class="sig-param">thickn</em>, <em class="sig-param">rho</em>, <em class="sig-param">vp</em>, <em class="sig-param">vs</em>, <em class="sig-param">isoflg='iso'</em>, <em class="sig-param">ani=None</em>, <em class="sig-param">tr=None</em>, <em class="sig-param">pl=None</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.Model" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">model</span> <span class="pre">parameters</span></code>:</dt><dd><ul class="simple">
+<li><p>thickn (np.ndarray): Thickness of layers (km) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
+<li><p>rho (np.ndarray): Density (kg/m^3) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
+<li><p>vp (np.ndarray): P-wave velocity (km/s) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
+<li><p>vs (np.ndarray): S-wave velocity (km/s) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
+<li><dl class="simple">
+<dt>isoflg (list of str, optional, defaut: <code class="docutils literal notranslate"><span class="pre">'iso'</span></code>):</dt><dd><p>Flags for type of layer material (dimension <code class="docutils literal notranslate"><span class="pre">nlay</span></code>)</p>
+</dd>
+</dl>
+</li>
+<li><p>ani (np.ndarray, optional): Anisotropy (percent) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
+<li><dl class="simple">
+<dt>tr (np.ndarray, optional):</dt><dd><p>Trend of symmetry axis (degree) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>pl (np.ndarray, optional):</dt><dd><p>Plunge of symmetry axis (degree) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p>
+</dd>
+</dl>
+</li>
+<li><p>nlay (int): Number of layers</p></li>
+<li><p>a (np.ndarray): Elastic thickness (shape <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">3,</span> <span class="pre">nlay)</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="telewavesim.utils.Model.update_tensor">
+<code class="sig-name descname">update_tensor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.Model.update_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the elastic thickness tensor <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
+<p>Need to be called, when model parameters change.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.read_model">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">read_model</code><span class="sig-paren">(</span><em class="sig-param">modfile</em>, <em class="sig-param">encoding=None</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.read_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads model parameters from file and returns a Model object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Model object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.model2for">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">model2for</code><span class="sig-paren">(</span><em class="sig-param">model</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.model2for" title="Permalink to this definition">¶</a></dt>
+<dd><p>Passes global model variables to Fortran <code class="docutils literal notranslate"><span class="pre">conf</span></code> module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p>Variables to pass are <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">rho</span></code>, <code class="docutils literal notranslate"><span class="pre">thickn</span></code>, <code class="docutils literal notranslate"><span class="pre">isoflg</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.wave2for">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">wave2for</code><span class="sig-paren">(</span><em class="sig-param">dt</em>, <em class="sig-param">slow</em>, <em class="sig-param">baz</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.wave2for" title="Permalink to this definition">¶</a></dt>
+<dd><p>Passes global wavefield variables to Fortran <code class="docutils literal notranslate"><span class="pre">conf</span></code> module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p>Variables to pass are <code class="docutils literal notranslate"><span class="pre">dt</span></code>, <code class="docutils literal notranslate"><span class="pre">slow</span></code>, <code class="docutils literal notranslate"><span class="pre">baz</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.obs2for">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">obs2for</code><span class="sig-paren">(</span><em class="sig-param">dp</em>, <em class="sig-param">c</em>, <em class="sig-param">rhof</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.obs2for" title="Permalink to this definition">¶</a></dt>
+<dd><p>Passes global OBS-related variables to Fortran <code class="docutils literal notranslate"><span class="pre">conf</span></code> module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<p>Variables to pass are <code class="docutils literal notranslate"><span class="pre">dp</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code>, <code class="docutils literal notranslate"><span class="pre">rhof</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.run_plane">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">run_plane</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">slow</em>, <em class="sig-param">npts</em>, <em class="sig-param">dt</em>, <em class="sig-param">baz=0</em>, <em class="sig-param">wvtype='P'</em>, <em class="sig-param">obs=False</em>, <em class="sig-param">dp=100.0</em>, <em class="sig-param">c=1.5</em>, <em class="sig-param">rhof=1027</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.run_plane" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to run the <code class="docutils literal notranslate"><span class="pre">plane</span></code> module and return 3-component seismograms as
+an <code class="docutils literal notranslate"><span class="pre">obspy.Stream</span></code> object. This function builds the seismic response
+spectrum by frequency using the matrix propagation approach.
+Required arguments are the seismic model, slowness value, and the sampling
+properties (maximum number of samples and
+the sampling distance in seconds).</p>
+<p>By default, the function uses a back-azimuth value of 0 degree,
+which is suitable for events coming from the North pole or isotropic
+seismic velocity models (i.e., those that do not vary with direction of
+incoming waves).
+For anisotropic velocity models, users need to specify the back-azimuth
+value in degrees. Furthermore, the default type of the incoming
+teleseismic body wave is <code class="docutils literal notranslate"><span class="pre">'P'</span></code> for compressional wave. Other options are
+<code class="docutils literal notranslate"><span class="pre">'SV'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SH'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'Si'</span></code> for vertically-polarized shear wave,
+horizontally-polarized shear wave or isotropic shear wave, respectively.
+Wave modes cannot be mixed.</p>
+<p>Finally, it is possible to simulate the seismic response for ocean-bottom
+seismic (OBS) stations using the flag <code class="docutils literal notranslate"><span class="pre">obs=True</span></code>. If the flag is set to
+<code class="docutils literal notranslate"><span class="pre">True</span></code>, the user can specify the water depth below sea level
+(in meters, positive value) as well as the properties of the sea water
+(defaults are acoustic wavespeed of 1.5 km/s and density of 1027 kg/m^3).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>-</em>) – Instance of the <code class="docutils literal notranslate"><span class="pre">Model</span></code> class that contains the physical
+properties of subsurface layers.</p></li>
+<li><p><strong>slow</strong> (<em>-</em>) – Slowness (s/km)</p></li>
+<li><p><strong>baz</strong> (<em>-</em>) – Back-azimuth (degree)</p></li>
+<li><p><strong>npts</strong> (<em>-</em>) – Number of samples in time series</p></li>
+<li><p><strong>dt</strong> (<em>-</em>) – Sampling distance (s)</p></li>
+<li><p><strong>baz</strong> – Back-azimuth (degree)</p></li>
+<li><p><strong>wvtype</strong><strong> (</strong><strong>str</strong><strong>, </strong><strong>optional</strong><strong>, </strong><strong>default</strong> (<em>-</em>) – <code class="docutils literal notranslate"><span class="pre">'P'</span></code>):
+Incident wavetype (<code class="docutils literal notranslate"><span class="pre">'P'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SV'</span></code>, <code class="docutils literal notranslate"><span class="pre">'SH'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Si'</span></code>)</p></li>
+<li><p><strong>obs</strong> (<em>-</em>) – Whether or not the analysis is done for an OBS stations</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">obs</span> <span class="pre">parameters</span></code>:</dt><dd><ul class="simple">
+<li><p>dp (float, optional): Deployment depth below sea level (m)</p></li>
+<li><dl class="simple">
+<dt>c (float, optional):</dt><dd><p>P-wave velocity of salt water (default = <code class="docutils literal notranslate"><span class="pre">1.5</span></code> km/s)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>rhof (float, optional):</dt><dd><p>Density of salt water (default = <code class="docutils literal notranslate"><span class="pre">1027.0</span></code> kg/m^3)</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>trxyz: Stream containing 3-component displacement seismograms</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(obspy.stream)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>Basic example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define three-layer model with isotropic crust and antigorite upper mantle layer over isotropic half-space</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">Model</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2800.</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mf">3300.</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;iso&#39;</span><span class="p">,</span> <span class="s1">&#39;atg&#39;</span><span class="p">,</span> <span class="s1">&#39;iso&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slow</span> <span class="o">=</span> <span class="mf">0.06</span>     <span class="c1"># s/km</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">npts</span> <span class="o">=</span> <span class="mi">1500</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.025</span>      <span class="c1"># s</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">run_plane</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">slow</span><span class="p">,</span> <span class="n">npts</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+<span class="go">&lt;class &#39;obspy.core.stream.Stream&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+<span class="go">3 Trace(s) in Stream:</span>
+<span class="go">...N | 1970-01-01T00:00:00.000000Z - 1970-01-01T00:00:37.475000Z | 40.0 Hz, 1500 samples</span>
+<span class="go">...E | 1970-01-01T00:00:00.000000Z - 1970-01-01T00:00:37.475000Z | 40.0 Hz, 1500 samples</span>
+<span class="go">...Z | 1970-01-01T00:00:00.000000Z - 1970-01-01T00:00:37.475000Z | 40.0 Hz, 1500 samples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">450</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="figure align-center">
+<img alt="_images/Figure_land.png" src="_images/Figure_land.png" />
+</div>
+<p>OBS station:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">telewavesim</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define two-layer model with foliated eclogitic crust over isotropic half-space</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">Model</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mf">3300.</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;EC_f&#39;</span><span class="p">,</span> <span class="s1">&#39;iso&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slow</span> <span class="o">=</span> <span class="mf">0.06</span>     <span class="c1"># s/km</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">npts</span> <span class="o">=</span> <span class="mi">3000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.01</span>      <span class="c1"># s</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wvtype</span> <span class="o">=</span> <span class="s1">&#39;SV&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">baz</span> <span class="o">=</span> <span class="mf">45.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dp</span> <span class="o">=</span> <span class="mf">1000.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">run_plane</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">slow</span><span class="p">,</span> <span class="n">npts</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">baz</span><span class="o">=</span><span class="n">baz</span><span class="p">,</span> <span class="n">wvtype</span><span class="o">=</span><span class="n">wvtype</span><span class="p">,</span> <span class="n">obs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">450</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="figure align-center">
+<img alt="_images/Figure_obs.png" src="_images/Figure_obs.png" />
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.get_trxyz">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">get_trxyz</code><span class="sig-paren">(</span><em class="sig-param">yx</em>, <em class="sig-param">yy</em>, <em class="sig-param">yz</em>, <em class="sig-param">npts</em>, <em class="sig-param">dt</em>, <em class="sig-param">slow</em>, <em class="sig-param">baz</em>, <em class="sig-param">wvtype</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.get_trxyz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to store displacement seismograms into <code class="docutils literal notranslate"><span class="pre">obspy.Trace</span></code> objects
+and then an <code class="docutils literal notranslate"><span class="pre">obspy</span></code> <code class="docutils literal notranslate"><span class="pre">Stream</span></code> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ux</strong> (<em>np.ndarray</em>) – x-component displacement seismogram</p></li>
+<li><p><strong>uy</strong> (<em>np.ndarray</em>) – y-component displacement seismogram</p></li>
+<li><p><strong>uz</strong> (<em>np.ndarray</em>) – z-component displacement seismogram</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>trxyz: Stream containing 3-component displacement</dt><dd><p>seismograms</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(obspy.stream)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.tf_from_xyz">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">tf_from_xyz</code><span class="sig-paren">(</span><em class="sig-param">trxyz</em>, <em class="sig-param">pvh=False</em>, <em class="sig-param">vp=None</em>, <em class="sig-param">vs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.tf_from_xyz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate transfer functions from displacement traces.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trxyz</strong> (<em>obspy.stream</em>) – Obspy <code class="docutils literal notranslate"><span class="pre">Stream</span></code> object in cartesian coordinate system</p></li>
+<li><p><strong>pvh</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to rotate from Z-R-T coordinate system to P-SV-SH wave mode</p></li>
+<li><p><strong>vp</strong> (<em>float</em><em>, </em><em>optional</em>) – Vp velocity at surface for rotation to P-SV-SH system</p></li>
+<li><p><strong>vs</strong> (<em>float</em><em>, </em><em>optional</em>) – Vs velocity at surface for rotation to P-SV-SH system</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tfs: Stream containing Radial and Transverse transfer functions</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(obspy.stream)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="telewavesim.utils.update_stats">
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">update_stats</code><span class="sig-paren">(</span><em class="sig-param">tr</em>, <em class="sig-param">dt</em>, <em class="sig-param">slow</em>, <em class="sig-param">baz</em>, <em class="sig-param">wvtype</em>, <em class="sig-param">cha</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.update_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the <code class="docutils literal notranslate"><span class="pre">stats</span></code> doctionary from an obspy <code class="docutils literal notranslate"><span class="pre">Trace</span></code> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tr</strong> (<em>obspy.trace</em>) – Trace object to update</p></li>
+<li><p><strong>nt</strong> (<em>int</em>) – Number of samples</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Sampling rate</p></li>
+<li><p><strong>slow</strong> (<em>float</em>) – Slowness value (s/km)</p></li>
+<li><p><strong>baz</strong> (<em>float</em>) – Back-azimuth value (degree)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tr: Trace with updated stats</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(obspy.trace)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="wiggles.html" class="btn btn-neutral float-right" title="Module wiggles" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="elast.html" class="btn btn-neutral float-left" title="Module elast" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Pascal Audet
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
