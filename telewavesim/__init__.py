@@ -247,7 +247,7 @@ This flag should be set to the specific single-crystal or rock
 abbreviation, for which the elastic properties have been determined 
 in the lab. Currently available options are:
 
-.. sourcecode::python
+.. sourcecode:: python
 
    mins = ['atg', 'bt', 'cpx', 'dol', 'ep', 'grt', 'gln', 'hbl', 'jade', \
            'lws', 'lz', 'ms', 'ol', 'opx', 'plag', 'qtz', 'zo']
