@@ -421,9 +421,5 @@ except:
                 _slib = _cdll.LoadLibrary("{}/{}".format(path, lib))
                 _shared_libraries.append( _slib )
 
-        # _sys.path.insert(0, str(path))
-        # _os.environ['LD_LIBRARY_PATH'] += ":"+str(path)
-    # _os.execv(_sys.argv[0], _sys.argv)
-
 
 __version__ = '0.2.0-dev'
