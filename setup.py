@@ -1,7 +1,7 @@
 import os.path
 import re
 from numpy.distutils.core import setup, Extension
-
+from numpy.distutils.system_info import get_info
 
 def find_version(*paths):
     fname = os.path.join(os.path.dirname(__file__), *paths)
@@ -13,30 +13,10 @@ def find_version(*paths):
     raise RuntimeError("Unable to find version string.")
 
 
-def get_library_dirs():
-    # this hack hopefully  will become unecessary in the future
-    # see issue #2 and #31
-    # https://github.com/paudetseis/Telewavesim/issues/2
-    # https://github.com/paudetseis/Telewavesim/issues/31
-    # ci fail: https://travis-ci.org/paudetseis/Telewavesim/jobs/608724887
-    # We do not use  numpy.distutils.system_info.get_info here
-    # because of these failing test runs:
-    # https://travis-ci.org/trichter/Telewavesim/builds/594474432
-    from numpy import __config__
-    attrs = ['blas_mkl_info', 'blas_opt_info', 'lapack_mkl_info',
-             'lapack_opt_info', 'openblas_lapack_info']
-    libdirs = set()
-    for attr in attrs:
-        obj = getattr(__config__, attr, {}).get('library_dirs')
-        if obj is not None:
-            libdirs.update(obj)
-    return list(libdirs)
-
-
 ext = [Extension(name='telewavesim.rmat_f',
                  sources=['src/rmat.f90', 'src/rmat_sub.f90'],
                  libraries=['lapack'],
-                 library_dirs=get_library_dirs())]
+                 library_dirs=get_info('lapack')['library_dirs'])]
 
 setup(
     name='telewavesim',
