@@ -404,13 +404,13 @@ Single event for OBS station
 
 
 """
-from numpy.distutils.system_info import get_info as _get_info
-import os as _os
-from ctypes import cdll as _cdll
 
 try:
     from . import rmat_f
 except:
+    from numpy.distutils.system_info import get_info as _get_info
+    import os as _os
+    from ctypes import cdll as _cdll
 
     _shared_libraries = []
 
