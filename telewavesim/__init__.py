@@ -404,5 +404,22 @@ Single event for OBS station
 
 
 """
+from numpy.distutils.system_info import get_info as _get_info
+import os as _os
+import sys as _sys
+from ctypes import cdll as _cdll
+
+try:
+    from . import rmat_f
+except:
+
+    _shared_libraries = []
+
+    for path in _get_info('lapack')['library_dirs']:
+        for lib in _os.listdir(path):
+            if lib.startswith('lib'):
+                _slib = _cdll.LoadLibrary("{}/{}".format(path, lib))
+                _shared_libraries.append( _slib )
+
 
 __version__ = '0.2.0-dev'
