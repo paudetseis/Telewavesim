@@ -10,7 +10,7 @@ env:
 jobs:
   include:
     - env: PYTHON_VERSION=3.7 DOCS=1
-    - env: PYTHON_VERSION=3.7 NPY_PIN_VERSION=">=1.17" SYSTEMGFORTRAN=1
+    - env: PYTHON_VERSION=3.7 SYSTEMGFORTRAN=1
       sudo: required
 before_install:
   - export NPY_DISTUTILS_APPEND_FLAGS=1
