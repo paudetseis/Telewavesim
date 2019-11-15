@@ -172,20 +172,20 @@ Setting up new models
 From the model file
 ~~~~~~~~~~~~~~~~~~~
 
-In the Jupiter notebooks you will find a folder named ``models`` where a 
-few examples are provided. The header of the file ``model_Audet2016.txt`` 
+In the Jupiter notebooks you will find a folder named ``models`` where a
+few examples are provided. The header of the file ``model_Audet2016.txt``
 looks like:
 
 .. sourcecode:: bash
 
    ################################################
-   # 
-   #   Model file to use with `telewavesim` for 
-   #   modeling teleseismic body wave propagation 
+   #
+   #   Model file to use with `telewavesim` for
+   #   modeling teleseismic body wave propagation
    #   through stratified media.
    #
-   #   Lines starting with '#' are ignored. Each 
-   #   line corresponds to a unique layer. The 
+   #   Lines starting with '#' are ignored. Each
+   #   line corresponds to a unique layer. The
    #   bottom layer is assumed to be a half-space
    #   (Thickness is irrelevant).
    #
@@ -195,7 +195,7 @@ looks like:
    #          1    Density (kg/m^3)
    #          2    Layer P-wave velocity (km/s)
    #          3    Layer S-wave velocity (km/s)
-   #          4    Layer flag 
+   #          4    Layer flag
    #                   iso: isotropic
    #                   tri: transverse isotropy
    #                   [other]: other minerals or rocks
@@ -208,9 +208,9 @@ looks like:
    #
    ################################################
 
-The header is not required and can be deleted when you become familiar 
-with the various definitions. Note that the code requires 8 entries per 
-layer, regardless of whether or not the variable is required (it will 
+The header is not required and can be deleted when you become familiar
+with the various definitions. Note that the code requires 8 entries per
+layer, regardless of whether or not the variable is required (it will
 simply be ignored if it's not).
 
 Let us break down each line, depending on how you set ``Layer flag``:
@@ -227,15 +227,15 @@ This flag represents a case where the layer is isotropic.
 Layer flag set to ``tri``
 *************************
 
-This flag represents a transversely isotropic layer. We adhere with 
-the definition in 
-`Porter et al. (2011) <https://doi.org/10.1130/L126.1>`_, 
-whereby the parameter ``eta``, which describes the curvature of the 
-velocity “ellipsoid” between the Vp-fast and Vp-slow axes, varies 
-with anisotropy for a 2-psi model and is not fixed. 
+This flag represents a transversely isotropic layer. We adhere with
+the definition in
+`Porter et al. (2011) <https://doi.org/10.1130/L126.1>`_,
+whereby the parameter ``eta``, which describes the curvature of the
+velocity “ellipsoid” between the Vp-fast and Vp-slow axes, varies
+with anisotropy for a 2-psi model and is not fixed.
 
 The column 5 in this case sets the percent anisotropy for both
-Vp and Vs (equal anisotropy for both Vp and Vs) and is the only 
+Vp and Vs (equal anisotropy for both Vp and Vs) and is the only
 instance where this column is required.
 
 - Set all columns to the required numerical value (and column 4 to ``tri``)
@@ -243,8 +243,8 @@ instance where this column is required.
 Layer flag set to another type of material
 ******************************************
 
-This flag should be set to the specific single-crystal or rock 
-abbreviation, for which the elastic properties have been determined 
+This flag should be set to the specific single-crystal or rock
+abbreviation, for which the elastic properties have been determined
 in the lab. Currently available options are:
 
 .. sourcecode:: python
@@ -254,28 +254,28 @@ in the lab. Currently available options are:
 
    rocks = ['BS_f', 'BS_m', 'EC_f', 'EC_m', 'HB', 'LHZ', 'SP_37', 'SP_80']
 
-The module :mod:`~telewavesim.elast` contains the definition of the 
-stiffness matrices for these minerals and rocks. Check out the module or 
+The module :mod:`~telewavesim.elast` contains the definition of the
+stiffness matrices for these minerals and rocks. Check out the module or
 the documentation for more details.
 
 - Set entries in column 0 (``Thickness``), column 4 (an abbreviation among the above options), and optionally columns 6 and 7 if you wish to rotate the corresponding tensor about two axes (trend and plunge of the equivalent of the symmetry axis in transverse isotropy). Columns 1 to 3 can be set to any numerical value and will be ignored by the software.
 
-.. note:: 
+.. note::
 
-   The code can handle general anisotropy (with 21 independent components in 
-   the elastic tensor) for any type of material. Currently, however, 
+   The code can handle general anisotropy (with 21 independent components in
+   the elastic tensor) for any type of material. Currently, however,
    the code contains a limited number of elastic tensors (see
-   :mod:`~telewavesim.elast`) but we encourage users to suggest their own 
-   tensors determined from the lab. This can be done by raising an issue 
-   on the GitHub page or making a pull request with the suggested addition 
+   :mod:`~telewavesim.elast`) but we encourage users to suggest their own
+   tensors determined from the lab. This can be done by raising an issue
+   on the GitHub page or making a pull request with the suggested addition
    to the :mod:`~telewavesim.elast` module.
 
 From the Model class
 ~~~~~~~~~~~~~~~~~~~~
 
 Models can also be defined on the fly in Python using lists that contain
-the relevant information as input into an instance of the 
-:class:`~telewavesim.utils.Model` class. 
+the relevant information as input into an instance of the
+:class:`~telewavesim.utils.Model` class.
 
 Examples
 ********
@@ -292,7 +292,7 @@ Examples
    >>> rho = [2800., 3300.]   # Second rho value is irrelevant as we use a pre-defined elastic tensor
    >>> vp = [4.6, 6.]         # Likewise for vp
    >>> vs = [2.6, 3.6]        # Likewise for vs
-   >>> flag = ['iso', 'iso']  # Both layers are isotropic 
+   >>> flag = ['iso', 'iso']  # Both layers are isotropic
    >>> model = Model(thick, rho, vp, vs, flag)
 
 - Define a two-layer model with foliated eclogitic crust over isotropic half-space
@@ -305,8 +305,8 @@ Examples
 .. note::
 
    In this example we did not specify the last 3 entries (% aniso, trend, plunge), such
-   that the tensor is aligned with a horizontal axis (plunge of 0) of symmetry pointing 
-   North (trend of 0). 
+   that the tensor is aligned with a horizontal axis (plunge of 0) of symmetry pointing
+   North (trend of 0).
 
 - Define a two-layer model with transversely isotropic crust over isotropic half-space
 
@@ -317,8 +317,8 @@ Examples
 
 .. note::
 
-   In this example all entries for the first layer are required. Here the anisotropy is 
-   set to 5% (i.e., fast axis of symmetry; for slow axis the user should input ``-5.``) 
+   In this example all entries for the first layer are required. Here the anisotropy is
+   set to 5% (i.e., fast axis of symmetry; for slow axis the user should input ``-5.``)
    and the axis of symmetry has a trend of 30 degrees and a plunge of 10 degrees.
 
 - Define a three-layer model with isotropic crust and antigorite upper mantle layer over isotropic half-space
@@ -329,7 +329,7 @@ Examples
    >>> rho = [2800., None, 3300.]   # Second rho value is irrelevant as we use a pre-defined elastic tensor
    >>> vp = [4.6, 0., 6.]           # Likewise for vp
    >>> vs = [2.6, 0., 3.6]          # Likewise for vs
-   >>> flag = ['iso', 'atg', 'iso'] # Specifies the second layer as 'antigorite' 
+   >>> flag = ['iso', 'atg', 'iso'] # Specifies the second layer as 'antigorite'
    >>> pct_aniso = [None, None, None]     # Percent anisotropy - irrelevant as we use a pre-defined elastic tensor
    >>> trend = [0., 45., 0.]        # Trend of 45 degrees for the antigorite layer
    >>> plunge = [0., 20., 0.]       # Plunge of 20 degrees for the antigorite layer
@@ -406,7 +406,6 @@ Single event for OBS station
 """
 from numpy.distutils.system_info import get_info as _get_info
 import os as _os
-import sys as _sys
 from ctypes import cdll as _cdll
 
 try:
