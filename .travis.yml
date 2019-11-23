@@ -1,33 +1,34 @@
 language: c
-sudo: false
-matrix:
+os:
+  - linux
+  - osx
+env:
+  - PYTHON_VERSION=3.5 NPY_PIN_VERSION="=1.15"
+  - PYTHON_VERSION=3.5
+  - PYTHON_VERSION=3.6
+  - PYTHON_VERSION=3.7
+jobs:
   include:
-    - os: linux
-      env: PYTHON_VERSION=3.5
-    - os: linux
-      env: PYTHON_VERSION=3.6
-    - os: linux
-      env: PYTHON_VERSION=3.7
-    - os: linux
-      env: PYTHON_VERSION=3.7 DOCS=1
-    - os: osx
-      env: PYTHON_VERSION=3.5
-    - os: osx
-      env: PYTHON_VERSION=3.6
-    - os: osx
-      env: PYTHON_VERSION=3.7
-
+    - env: PYTHON_VERSION=3.7 DOCS=1
+    - env: PYTHON_VERSION=3.7 SYSTEMGFORTRAN=1
+      sudo: required
 before_install:
   - export NPY_DISTUTILS_APPEND_FLAGS=1
   - wget https://raw.githubusercontent.com/trichter/conda4travis/latest/conda4travis.sh -O conda4travis.sh
   - source conda4travis.sh
   - conda config --add channels conda-forge
-  - if [[ $DOCS == 1 ]]; then
+  - if [[ $DOCS != 1 ]]; then
+      DEP="pytest-cov";
+    else
       DEP="sphinx sphinx_rtd_theme";
     fi
+  - if [[ $SYSTEMGFORTRAN != 1 ]]; then
+      GFORTRAN="gfortran_${TRAVIS_OS_NAME}-64";
+    else
+      sudo apt-get install gfortran;
+    fi
   - conda create -q -n testenv
-      python=$PYTHON_VERSION obspy "gfortran_${TRAVIS_OS_NAME}-64" "numpy>=1.15"
-      pytest-cov $DEP
+      python=$PYTHON_VERSION obspy $GFORTRAN "numpy$NPY_PIN_VERSION" $DEP
   - conda activate testenv
   - conda list
 install:
@@ -36,7 +37,7 @@ script:
   - if [[ $DOCS != 1 ]]; then
       mkdir empty; cd empty; pytest -v --cov=telewavesim --pyargs telewavesim;
     else
-      cd docs; make html; cd ..;
+      cd docs; make html; touch _build/html/.nojekyll; cd ..;
     fi
 after_success:
   - if [[ $DOCS != 1 ]]; then

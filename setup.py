@@ -1,7 +1,7 @@
 import os.path
 import re
 from numpy.distutils.core import setup, Extension
-
+from numpy.distutils.system_info import get_info
 
 def find_version(*paths):
     fname = os.path.join(os.path.dirname(__file__), *paths)
@@ -15,7 +15,8 @@ def find_version(*paths):
 
 ext = [Extension(name='telewavesim.rmat_f',
                  sources=['src/rmat.f90', 'src/rmat_sub.f90'],
-                 libraries=['lapack'])]
+                 libraries=['lapack'],
+                 library_dirs=get_info('lapack').get('library_dirs'))]
 
 setup(
     name='telewavesim',
