@@ -22,7 +22,7 @@ affiliations:
     index: 1
   - name: Sherlock Seismic Solutions, Cambridge, U.K.
     index: 2
-  - name: Formerly Queen's University, Canada, and Schlumberger Cambridge Research, U.K.
+  - name: Formerly Schlumberger Cambridge Research, U.K.
     index: 3
   - name: Department of Earth, Ocean and Atmospheric Sciences, The University of British Columbia, Canada
     index: 4
@@ -30,7 +30,7 @@ affiliations:
     index: 5
 
 
-date: 2 October 2019
+date: 22 November 2019
 bibliography: paper.bib
 ---
 
