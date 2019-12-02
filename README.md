@@ -32,6 +32,15 @@ workflows are covered in the Jupyter notebooks bundled with this package.
 
 Installation, Usage, API documentation and Jupyter Notebooks are described at https://paudetseis.github.io/Telewavesim/
 
+#### Citing
+
+If you use `Telewavesim` in your work, please cite the Zenodo DOI (https://zenodo.org/badge/latestdoi/204565459)
+and the following paper:
+
+- Audet, P., Thomson, C.J., Bostock, M.G., and Eulenfeld, T. (2019). Telewavesim: 
+Python software for teleseismic body wave modeling. Journal of Open Source Software, 
+4(44), 1818, https://doi.org/10.21105/joss.01818
+
 #### Contributing
 
 All constructive contributions are welcome, e.g. bug reports, discussions or suggestions for new features. You can either [open an issue on GitHub](https://github.com/paudetseis/Telewavesim/issues) or make a pull request with your proposed changes. Before making a pull request, check if there is a corresponding issue opened and reference it in the pull request. If there isn't one, it is recommended to open one with your rationale for the change. New functionality or significant changes to the code that alter its behavior should come with corresponding tests and documentation. If you are new to contributing, you can open a work-in-progress pull request and have it iteratively reviewed.
