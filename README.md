@@ -24,6 +24,7 @@ for stochastic inverse methods (e.g., Monte Carlo sampling). The main part of th
 code is written in `fortran` with `python` wrappers. Common computational
 workflows are covered in the Jupyter notebooks bundled with this package.
 
+[![JOSS paper](https://joss.theoj.org/papers/10.21105/joss.01818/status.svg)](https://doi.org/10.21105/joss.01818)
 [![DOI](https://zenodo.org/badge/204565459.svg)](https://zenodo.org/badge/latestdoi/204565459)
 [![PyPI version](https://badge.fury.io/py/telewavesim.svg)](https://badge.fury.io/py/telewavesim)
 [![build status](https://travis-ci.org/paudetseis/telewavesim.svg?branch=master)](https://travis-ci.org/paudetseis/telewavesim)
