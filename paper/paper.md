@@ -58,11 +58,11 @@ the resulting seismograms. The software contains a wide range of elastic stiffne
 definitions extracted from the literature [@Brownlee:2017] to accurately represent 
 seismic anisotropy due to various mineralogies and rock types. The software also 
 accurately models acoustic reverberations from an overlying column of water, 
-effectively simulating ocean-bottom seismograph (OBS) station recordings. 
+effectively simulating ocean-bottom seismograph station recordings. 
 
 The software will be useful in a variety of teleseismic receiver-based studies, 
-such as P or S receiver functions, shear-wave splitting from 
-core-refracted teleseismic shear waves (i.e., SKS, SKKS), etc. It may also be the 
+such as P or S receiver functions and shear-wave splitting from 
+core-refracted teleseismic shear waves (i.e., SKS, SKKS). It may also be the 
 starting point for stochastic inverse methods (e.g., Monte Carlo sampling) and more
 general (i.e., point) sources through slowness integration [@Frazer:1984]. Common 
 computational workflows that reproduce published examples [@Audet:2016; @Porter:2011] 
