@@ -2,8 +2,8 @@
 .. figure:: ../telewavesim/examples/picture/tws_logo.png
    :align: center
 
-Telewavesim documentation
-=========================
+Documentation
+=============
 
 The structure of the Earth's crust and upper mantle gives useful information on the internal composition and dynamics of our planet. Some of the most widely used techniques to infer these properties are based on examining the effect of teleseismic body wave (i.e., P and S waves that originate from distant earthquakes and arrive as plane waves) propagation (e.g., transmission and scattering) through stratified media. Modeling the
 seismic response from stacks of subsurface layers is therefore an essential tool in characterizing their effect on observed seismograms.
@@ -14,7 +14,7 @@ This package contains ``python`` and ``fortran`` modules to synthesize teleseism
    :maxdepth: 1
    :caption: Quick Links
 
-   Git repository <https://github.com/paudetseis/Telewavesim>
+   links
 
 .. toctree::
    :maxdepth: 1

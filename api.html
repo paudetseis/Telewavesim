@@ -25,6 +25,7 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -36,7 +37,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Module elast" href="elast.html" />
-    <link rel="prev" title="Telewavesim documentation" href="index.html" /> 
+    <link rel="prev" title="GitHub Repository" href="links.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -85,7 +86,8 @@
             
               <p class="caption"><span class="caption-text">Quick Links</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/paudetseis/Telewavesim">Git repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="links.html">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="links.html#references">References</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
@@ -371,11 +373,11 @@ simply be ignored if it’s not).</p>
 <p>This flag represents a transversely isotropic layer. We adhere with
 the definition in
 <a class="reference external" href="https://doi.org/10.1130/L126.1">Porter et al. (2011)</a>,
-whereby the parameter <code class="docutils literal notranslate"><span class="pre">eta</span></code>, which describes the curvature of the
-velocity “ellipsoid” between the Vp-fast and Vp-slow axes, varies
-with anisotropy for a 2-psi model and is not fixed.</p>
+whereby the parameter <span class="math notranslate nohighlight">\(\eta\)</span>, which describes the curvature of the
+velocity “ellipsoid” between the <span class="math notranslate nohighlight">\(V_P\)</span>-fast and <span class="math notranslate nohighlight">\(V_P\)</span>-slow axes, varies
+with anisotropy for a 2-<span class="math notranslate nohighlight">\(\psi\)</span> model and is not fixed.</p>
 <p>The column 5 in this case sets the percent anisotropy for both
-Vp and Vs (equal anisotropy for both Vp and Vs) and is the only
+<span class="math notranslate nohighlight">\(V_P\)</span> and <span class="math notranslate nohighlight">\(V_S\)</span> (equal anisotropy for both <span class="math notranslate nohighlight">\(V_P\)</span> and <span class="math notranslate nohighlight">\(V_S\)</span>) and is the only
 instance where this column is required.</p>
 <ul class="simple">
 <li><p>Set all columns to the required numerical value (and column 4 to <code class="docutils literal notranslate"><span class="pre">tri</span></code>)</p></li>
@@ -386,7 +388,7 @@ instance where this column is required.</p>
 <p>This flag should be set to the specific single-crystal or rock
 abbreviation, for which the elastic properties have been determined
 in the lab. Currently available options are:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mins</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;atg&#39;</span><span class="p">,</span> <span class="s1">&#39;bt&#39;</span><span class="p">,</span> <span class="s1">&#39;cpx&#39;</span><span class="p">,</span> <span class="s1">&#39;dol&#39;</span><span class="p">,</span> <span class="s1">&#39;ep&#39;</span><span class="p">,</span> <span class="s1">&#39;grt&#39;</span><span class="p">,</span> <span class="s1">&#39;gln&#39;</span><span class="p">,</span> <span class="s1">&#39;hbl&#39;</span><span class="p">,</span> <span class="s1">&#39;jade&#39;</span><span class="p">,</span>            <span class="s1">&#39;lws&#39;</span><span class="p">,</span> <span class="s1">&#39;lz&#39;</span><span class="p">,</span> <span class="s1">&#39;ms&#39;</span><span class="p">,</span> <span class="s1">&#39;ol&#39;</span><span class="p">,</span> <span class="s1">&#39;opx&#39;</span><span class="p">,</span> <span class="s1">&#39;plag&#39;</span><span class="p">,</span> <span class="s1">&#39;qtz&#39;</span><span class="p">,</span> <span class="s1">&#39;zo&#39;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mins</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;atg&#39;</span><span class="p">,</span> <span class="s1">&#39;bt&#39;</span><span class="p">,</span> <span class="s1">&#39;cpx&#39;</span><span class="p">,</span> <span class="s1">&#39;dol&#39;</span><span class="p">,</span> <span class="s1">&#39;ep&#39;</span><span class="p">,</span> <span class="s1">&#39;grt&#39;</span><span class="p">,</span> <span class="s1">&#39;gln&#39;</span><span class="p">,</span> <span class="s1">&#39;hbl&#39;</span><span class="p">,</span> <span class="s1">&#39;jade&#39;</span><span class="p">,</span> <span class="s1">&#39;lws&#39;</span><span class="p">,</span> <span class="s1">&#39;lz&#39;</span><span class="p">,</span> <span class="s1">&#39;ms&#39;</span><span class="p">,</span> <span class="s1">&#39;ol&#39;</span><span class="p">,</span> <span class="s1">&#39;opx&#39;</span><span class="p">,</span> <span class="s1">&#39;plag&#39;</span><span class="p">,</span> <span class="s1">&#39;qtz&#39;</span><span class="p">,</span> <span class="s1">&#39;zo&#39;</span><span class="p">]</span>
 
 <span class="n">rocks</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;BS_f&#39;</span><span class="p">,</span> <span class="s1">&#39;BS_m&#39;</span><span class="p">,</span> <span class="s1">&#39;EC_f&#39;</span><span class="p">,</span> <span class="s1">&#39;EC_m&#39;</span><span class="p">,</span> <span class="s1">&#39;HB&#39;</span><span class="p">,</span> <span class="s1">&#39;LHZ&#39;</span><span class="p">,</span> <span class="s1">&#39;SP_37&#39;</span><span class="p">,</span> <span class="s1">&#39;SP_80&#39;</span><span class="p">]</span>
 </pre></div>
@@ -545,7 +547,7 @@ Wave modes cannot be mixed.</p>
         <a href="elast.html" class="btn btn-neutral float-right" title="Module elast" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="Telewavesim documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="links.html" class="btn btn-neutral float-left" title="GitHub Repository" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
