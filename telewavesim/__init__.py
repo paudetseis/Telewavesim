@@ -230,12 +230,12 @@ Layer flag set to ``tri``
 This flag represents a transversely isotropic layer. We adhere with
 the definition in
 `Porter et al. (2011) <https://doi.org/10.1130/L126.1>`_,
-whereby the parameter ``eta``, which describes the curvature of the
-velocity “ellipsoid” between the Vp-fast and Vp-slow axes, varies
-with anisotropy for a 2-psi model and is not fixed.
+whereby the parameter :math:`\eta`, which describes the curvature of the
+velocity “ellipsoid” between the :math:`V_P`-fast and :math:`V_P`-slow axes, varies
+with anisotropy for a 2-:math:`\psi` model and is not fixed.
 
 The column 5 in this case sets the percent anisotropy for both
-Vp and Vs (equal anisotropy for both Vp and Vs) and is the only
+:math:`V_P` and :math:`V_S` (equal anisotropy for both :math:`V_P` and :math:`V_S`) and is the only
 instance where this column is required.
 
 - Set all columns to the required numerical value (and column 4 to ``tri``)
@@ -249,8 +249,7 @@ in the lab. Currently available options are:
 
 .. sourcecode:: python
 
-   mins = ['atg', 'bt', 'cpx', 'dol', 'ep', 'grt', 'gln', 'hbl', 'jade', \
-           'lws', 'lz', 'ms', 'ol', 'opx', 'plag', 'qtz', 'zo']
+   mins = ['atg', 'bt', 'cpx', 'dol', 'ep', 'grt', 'gln', 'hbl', 'jade', 'lws', 'lz', 'ms', 'ol', 'opx', 'plag', 'qtz', 'zo']
 
    rocks = ['BS_f', 'BS_m', 'EC_f', 'EC_m', 'HB', 'LHZ', 'SP_37', 'SP_80']
 
@@ -418,7 +417,7 @@ except:
         for lib in _os.listdir(path):
             if lib.startswith('lib'):
                 _slib = _cdll.LoadLibrary("{}/{}".format(path, lib))
-                _shared_libraries.append( _slib )
+                _shared_libraries.append(_slib)
 
 
 __version__ = '0.2.0'
