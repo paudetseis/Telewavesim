@@ -1,6 +1,6 @@
-# Telewavesim: Software for teleseismic body wave modeling
-
 ![](./telewavesim/examples/picture/tws_logo.png)
+
+## Software for teleseismic body wave modeling through stacks of anisotropic layers
 
 The structure of the Earth's crust and upper mantle gives useful information on the
 internal composition and dynamics of our planet. Some of the most widely used techniques
