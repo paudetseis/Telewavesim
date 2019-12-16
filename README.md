@@ -34,7 +34,7 @@ Installation, Usage, API documentation and Jupyter Notebooks are described at ht
 
 #### Citing
 
-If you use `Telewavesim` in your work, please cite the Zenodo DOI (https://zenodo.org/badge/latestdoi/204565459)
+If you use `Telewavesim` in your work, please cite the [Zenodo DOI](https://zenodo.org/badge/latestdoi/204565459)
 and the following paper:
 
 - Audet, P., Thomson, C.J., Bostock, M.G., and Eulenfeld, T. (2019). Telewavesim: 
