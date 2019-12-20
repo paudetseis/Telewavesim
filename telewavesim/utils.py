@@ -917,6 +917,7 @@ def tf_from_xyz(trxyz, pvh=False, vp=None, vs=None):
     etr = trxyz[1]
     ztr = trxyz[2]
     baz = ntr.stats.baz
+    slow = ntr.stats.slow
     wvtype = ntr.stats.wvtype
 
     # Copy to radial and transverse
@@ -927,9 +928,9 @@ def tf_from_xyz(trxyz, pvh=False, vp=None, vs=None):
     rtr.data, ttr.data = rotate_ne_rt(ntr.data, etr.data, baz)
 
     if pvh:
-        # vp = np.sqrt(cf.a[2,2,2,2,0])/1.e3
-        # vs = np.sqrt(cf.a[1,2,1,2,0])/1.e3
-        trP, trV, trH = rotate_zrt_pvh(ztr, rtr, ttr, vp=vp, vs=vs)
+        vp = np.sqrt(cf.a[2,2,2,2,0])/1.e3
+        vs = np.sqrt(cf.a[1,2,1,2,0])/1.e3
+        trP, trV, trH = rotate_zrt_pvh(ztr, rtr, ttr, slow, vp=vp, vs=vs)
 
         tfr = trV.copy()
         tfr.data = np.zeros(len(tfr.data))
