@@ -435,7 +435,7 @@ def rot_tensor(a, alpha, beta, gam):
     return aa
 
 
-def rotate_zrt_pvh(trZ, trR, trT, slow, vp=6., vs=3.5):
+def rotate_zrt_pvh(trZ, trR, trT, slow, vp=None, vs=None):
     """
     Rotates traces from `Z-R-T` orientation to `P-SV-SH` wave mode.
 
@@ -455,6 +455,10 @@ def rotate_zrt_pvh(trZ, trR, trT, slow, vp=6., vs=3.5):
             * trH (obspy.trace): Horizontally polarized shear (SH) wave mode
 
     """
+    if vp is None:
+        vp = 6.0
+    if vs is None:
+        vs = 3.5
     # Copy traces
     trP = trZ.copy()
     trV = trR.copy()
@@ -928,8 +932,6 @@ def tf_from_xyz(trxyz, pvh=False, vp=None, vs=None):
     rtr.data, ttr.data = rotate_ne_rt(ntr.data, etr.data, baz)
 
     if pvh:
-        vp = np.sqrt(cf.a[2,2,2,2,0])/1.e3
-        vs = np.sqrt(cf.a[1,2,1,2,0])/1.e3
         trP, trV, trH = rotate_zrt_pvh(ztr, rtr, ttr, slow, vp=vp, vs=vs)
 
         tfr = trV.copy()
