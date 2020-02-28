@@ -2,6 +2,7 @@ language: c
 os:
   - linux
   - osx
+  - windows
 env:
   - PYTHON_VERSION=3.5 NPY_PIN_VERSION="=1.15"
   - PYTHON_VERSION=3.5
