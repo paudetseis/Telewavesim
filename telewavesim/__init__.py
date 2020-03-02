@@ -110,7 +110,7 @@ Possible installation pitfalls with conda
 +++++++++++++++++++++++++++++++++++++++++
 
 Using ``conda`` it might be necessary to use the fortran compiler provided with
-conda-forge. Add ``gfortran_osx-64`` or ``gfortran_linux-64`` package to the
+conda-forge. Add ``fortran-compiler`` package to the
 above ``conda`` environment calls.
 On Linux it might further be necessary to install the ``lapack`` conda package.
 
