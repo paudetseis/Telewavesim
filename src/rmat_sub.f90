@@ -181,8 +181,8 @@
         !   pp=1.d-20
         ! END IF
 
-        p1 = REALPART(p11)
-        p2 = REALPART(p22)
+        p1 = REAL(p11)
+        p2 = REAL(p22)
         mu = dens*vs*vs
         pp = p1*p1 + p2*p2
         qdp = SQRT(1./(vp*vp) - pp)
@@ -241,8 +241,8 @@
         eye = RESHAPE( (/1.d0, 0.d0, 0.d0, &
                          0.d0, 1.d0, 0.d0, &
                          0.d0, 0.d0, 1.d0 /), (/3,3/))
-        p1 = REALPART(p11)
-        p2 = REALPART(p22)
+        p1 = REAL(p11)
+        p2 = REAL(p22)
 !
 ! Get Woodhouse matrices
 !        
@@ -459,10 +459,10 @@
 !
 ! Separate into realN and imaginary
 !
-          evalr = REALPART(q)
-          evali = IMAGPART(q)
-          evecr = REALPART(evec)
-          eveci = IMAGPART(evec)
+          evalr = REAL(q)
+          evali = AIMAG(q)
+          evecr = REAL(evec)
+          eveci = AIMAG(evec)
 !
 ! Divide eigenvalues up into real positive, real negative, 
 ! complex positive, complex negative
