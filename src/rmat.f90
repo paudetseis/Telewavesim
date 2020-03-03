@@ -307,7 +307,7 @@
 ! Rmatrix on conventions of signs etc.)
 !
         CALL isotroc(a0, b0, rhos, p1, p2, q, N)
-        Fs = TRANSPOSE(REALPART(RESHAPE((/N(1,1), N(1,2), N(1,4), N(1,5), &
+        Fs = TRANSPOSE(REAL(RESHAPE((/N(1,1), N(1,2), N(1,4), N(1,5), &
                       N(3,1), N(3,2), N(3,4), N(3,5), &
                       N(4,1), N(4,2), N(4,4), N(4,5), &
                       N(6,1), N(6,2), N(6,4), N(6,5)/), (/4,4/))))
