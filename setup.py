@@ -16,7 +16,7 @@ def find_version(*paths):
 ext = [Extension(name='telewavesim.rmat_f',
                  sources=['src/rmat.f90', 'src/rmat_sub.f90'],
                  libraries=['lapack'],
-                 library_dirs=get_info('lapack').get('library_dirs'))]
+                 library_dirs=get_info('lapack_opt', 1).get('library_dirs'))]
 
 setup(
     name='telewavesim',
