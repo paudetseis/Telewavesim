@@ -32,7 +32,7 @@ import numpy as np
 
 def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30,
                    scale=None, save=False, ftitle='Figure_rf_wiggle_baz',
-                   wvtype='P'):
+                   wvtype='P', fmt='png'):
     """
     Plots receiver function seismograms sorted by back-azimuth or slowness.
 
@@ -57,6 +57,9 @@ def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30,
 
     if not (btyp == 'baz' or btyp == 'slow' or btyp == 'dist'):
         raise ValueError('type has to be "baz" or "slow" or "dist"')
+
+    if not fmt in ['png', 'PNG', 'jpg', 'JPG', 'eps', 'EPS', 'pdf', 'PDF']:
+        raise ValueError("'fmt' has to be one of 'png', 'jpg', 'eps', 'pdf'")
 
     print()
     print('Plotting Wiggles by '+btyp)
@@ -209,7 +212,7 @@ def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30,
     ax4.grid(ls=':')
 
     if save:
-        plt.savefig(ftitle+'.eps', dpi=300, bbox_inches='tight', format='eps')
+        plt.savefig(ftitle+'.'+fmt, dpi=300, bbox_inches='tight', format=fmt)
     else:
         plt.show()
 
@@ -218,7 +221,7 @@ def rf_wiggles_baz(str1, str2, tr1, tr2, sta, btyp='baz', tmin=-10., tmax=30,
 
 def pw_wiggles_baz(str1, str2, sta, btyp='baz', t1=None, tmin=0., tmax=30,
                    scale=None, save=False, ftitle='Figure_pw_wiggles_baz',
-                   wvtype='P'):
+                   wvtype='P', fmt='png'):
     """
     Plots plane wave seismograms sorted by back-azimuth or slowness.
 
@@ -383,15 +386,16 @@ def pw_wiggles_baz(str1, str2, sta, btyp='baz', t1=None, tmin=0., tmax=30,
     ax2.grid(ls=':')
 
     if save:
-        plt.savefig(ftitle+'.eps', dpi=300, bbox_inches='tight', format='eps')
+        plt.savefig(ftitle+'.'+fmt, dpi=300, bbox_inches='tight', format=fmt)
     else:
         plt.show()
 
     return
 
 
-def pw_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7,
-                         save=False, ftitle='Figure_pw_wiggles_Audet2016'):
+def pw_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0,
+                         scale=1.e-7, save=False,
+                         ftitle='Figure_pw_wiggles_Audet2016', fmt='png'):
     """
     Plots plane wave and receiver function seismograms as in Audet (GJI, 2016).
 
@@ -460,7 +464,7 @@ def pw_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7,
     plt.tight_layout()
 
     if save:
-        plt.savefig(ftitle+'.eps', dpi=300, bbox_inches='tight', format='eps')
+        plt.savefig(ftitle+'.'+fmt, dpi=300, bbox_inches='tight', format=fmt)
     else:
         plt.show()
 
@@ -468,7 +472,7 @@ def pw_wiggles_Audet2016(strf, t1=0., tmax=20., f1=0.1, f2=1.0, scale=1.e-7,
 
 
 def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False,
-                  ftitle='Figure_pw_wiggles_3c'):
+                  ftitle='Figure_pw_wiggles_3c', fmt='png'):
     """
     Plots 3-component wiggles.
 
@@ -531,7 +535,7 @@ def gf_wiggles_3c(stream, t1=0., tmax=20., f1=0.1, f2=1.0, save=False,
     plt.tight_layout()
 
     if save:
-        plt.savefig(ftitle+'.eps', dpi=300, bbox_inches='tight', format='eps')
+        plt.savefig(ftitle+'.'+fmt, dpi=300, bbox_inches='tight', format=fmt)
     else:
         plt.show()
 
