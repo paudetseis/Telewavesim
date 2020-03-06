@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -177,7 +177,7 @@
 <p>Functions to plot single station plane wave or receiver function seismograms.</p>
 <dl class="function">
 <dt id="telewavesim.wiggle.rf_wiggles_baz">
-<code class="sig-prename descclassname">telewavesim.wiggle.</code><code class="sig-name descname">rf_wiggles_baz</code><span class="sig-paren">(</span><em class="sig-param">str1</em>, <em class="sig-param">str2</em>, <em class="sig-param">tr1</em>, <em class="sig-param">tr2</em>, <em class="sig-param">sta</em>, <em class="sig-param">btyp='baz'</em>, <em class="sig-param">tmin=-10.0</em>, <em class="sig-param">tmax=30</em>, <em class="sig-param">scale=None</em>, <em class="sig-param">save=False</em>, <em class="sig-param">ftitle='Figure_rf_wiggle_baz'</em>, <em class="sig-param">wvtype='P'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.wiggle.rf_wiggles_baz" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.wiggle.</code><code class="sig-name descname">rf_wiggles_baz</code><span class="sig-paren">(</span><em class="sig-param">str1</em>, <em class="sig-param">str2</em>, <em class="sig-param">tr1</em>, <em class="sig-param">tr2</em>, <em class="sig-param">sta</em>, <em class="sig-param">btyp='baz'</em>, <em class="sig-param">tmin=-10.0</em>, <em class="sig-param">tmax=30</em>, <em class="sig-param">scale=None</em>, <em class="sig-param">save=False</em>, <em class="sig-param">ftitle='Figure_rf_wiggle_baz'</em>, <em class="sig-param">wvtype='P'</em>, <em class="sig-param">fmt='png'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.wiggle.rf_wiggles_baz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots receiver function seismograms sorted by back-azimuth or slowness.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -204,7 +204,7 @@
 
 <dl class="function">
 <dt id="telewavesim.wiggle.pw_wiggles_baz">
-<code class="sig-prename descclassname">telewavesim.wiggle.</code><code class="sig-name descname">pw_wiggles_baz</code><span class="sig-paren">(</span><em class="sig-param">str1</em>, <em class="sig-param">str2</em>, <em class="sig-param">sta</em>, <em class="sig-param">btyp='baz'</em>, <em class="sig-param">t1=None</em>, <em class="sig-param">tmin=0.0</em>, <em class="sig-param">tmax=30</em>, <em class="sig-param">scale=None</em>, <em class="sig-param">save=False</em>, <em class="sig-param">ftitle='Figure_pw_wiggles_baz'</em>, <em class="sig-param">wvtype='P'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.wiggle.pw_wiggles_baz" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.wiggle.</code><code class="sig-name descname">pw_wiggles_baz</code><span class="sig-paren">(</span><em class="sig-param">str1</em>, <em class="sig-param">str2</em>, <em class="sig-param">sta</em>, <em class="sig-param">btyp='baz'</em>, <em class="sig-param">t1=None</em>, <em class="sig-param">tmin=0.0</em>, <em class="sig-param">tmax=30</em>, <em class="sig-param">scale=None</em>, <em class="sig-param">save=False</em>, <em class="sig-param">ftitle='Figure_pw_wiggles_baz'</em>, <em class="sig-param">wvtype='P'</em>, <em class="sig-param">fmt='png'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.wiggle.pw_wiggles_baz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots plane wave seismograms sorted by back-azimuth or slowness.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -230,7 +230,7 @@
 
 <dl class="function">
 <dt id="telewavesim.wiggle.pw_wiggles_Audet2016">
-<code class="sig-prename descclassname">telewavesim.wiggle.</code><code class="sig-name descname">pw_wiggles_Audet2016</code><span class="sig-paren">(</span><em class="sig-param">strf</em>, <em class="sig-param">t1=0.0</em>, <em class="sig-param">tmax=20.0</em>, <em class="sig-param">f1=0.1</em>, <em class="sig-param">f2=1.0</em>, <em class="sig-param">scale=1e-07</em>, <em class="sig-param">save=False</em>, <em class="sig-param">ftitle='Figure_pw_wiggles_Audet2016'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.wiggle.pw_wiggles_Audet2016" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.wiggle.</code><code class="sig-name descname">pw_wiggles_Audet2016</code><span class="sig-paren">(</span><em class="sig-param">strf</em>, <em class="sig-param">t1=0.0</em>, <em class="sig-param">tmax=20.0</em>, <em class="sig-param">f1=0.1</em>, <em class="sig-param">f2=1.0</em>, <em class="sig-param">scale=1e-07</em>, <em class="sig-param">save=False</em>, <em class="sig-param">ftitle='Figure_pw_wiggles_Audet2016'</em>, <em class="sig-param">fmt='png'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.wiggle.pw_wiggles_Audet2016" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots plane wave and receiver function seismograms as in Audet (GJI, 2016).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -254,7 +254,7 @@
 
 <dl class="function">
 <dt id="telewavesim.wiggle.gf_wiggles_3c">
-<code class="sig-prename descclassname">telewavesim.wiggle.</code><code class="sig-name descname">gf_wiggles_3c</code><span class="sig-paren">(</span><em class="sig-param">stream</em>, <em class="sig-param">t1=0.0</em>, <em class="sig-param">tmax=20.0</em>, <em class="sig-param">f1=0.1</em>, <em class="sig-param">f2=1.0</em>, <em class="sig-param">save=False</em>, <em class="sig-param">ftitle='Figure_pw_wiggles_3c'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.wiggle.gf_wiggles_3c" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.wiggle.</code><code class="sig-name descname">gf_wiggles_3c</code><span class="sig-paren">(</span><em class="sig-param">stream</em>, <em class="sig-param">t1=0.0</em>, <em class="sig-param">tmax=20.0</em>, <em class="sig-param">f1=0.1</em>, <em class="sig-param">f2=1.0</em>, <em class="sig-param">save=False</em>, <em class="sig-param">ftitle='Figure_pw_wiggles_3c'</em>, <em class="sig-param">fmt='png'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.wiggle.gf_wiggles_3c" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots 3-component wiggles.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
