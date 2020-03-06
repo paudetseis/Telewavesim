@@ -2,7 +2,6 @@ language: c
 os:
   - linux
   - osx
-  - windows
 env:
   - PYTHON_VERSION=3.5 NPY_PIN_VERSION="=1.15"
   - PYTHON_VERSION=3.5
@@ -28,11 +27,8 @@ before_install:
     else
       sudo apt-get install gfortran;
     fi
-  - if [[ $TRAVIS_OS_NAME == "windows" ]]; then
-      LAPACK="liblapack";
-    fi
   - conda create -q -n testenv
-      python=$PYTHON_VERSION obspy $GFORTRAN "numpy$NPY_PIN_VERSION" $DEP $LAPACK
+      python=$PYTHON_VERSION obspy $GFORTRAN "numpy$NPY_PIN_VERSION" $DEP
   - conda activate testenv
   - conda list
 install:
