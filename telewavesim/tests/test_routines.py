@@ -25,7 +25,6 @@ def test_plane_obs():
     ux = np.real(fft(yx))
     uy = np.real(fft(yy))
     uz = np.real(fft(yz))
-
     # seismogram should be maximized on vertical component
     assert np.max(np.abs(uz)) > np.max(np.abs(ux)) > np.max(np.abs(uy)), \
         'Failed! Energy is not maximized on vertical component'

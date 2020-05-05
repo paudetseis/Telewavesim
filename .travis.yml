@@ -7,6 +7,7 @@ env:
   - PYTHON_VERSION=3.5
   - PYTHON_VERSION=3.6
   - PYTHON_VERSION=3.7
+  - PYTHON_VERSION=3.8
 jobs:
   include:
     - env: PYTHON_VERSION=3.7 DOCS=1
@@ -23,7 +24,7 @@ before_install:
       DEP="sphinx sphinx_rtd_theme";
     fi
   - if [[ $SYSTEMGFORTRAN != 1 ]]; then
-      GFORTRAN="gfortran_${TRAVIS_OS_NAME}-64";
+      GFORTRAN="fortran-compiler";
     else
       sudo apt-get install gfortran;
     fi
