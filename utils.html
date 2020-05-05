@@ -176,9 +176,9 @@
 <div class="section" id="module-telewavesim.utils">
 <span id="module-utils"></span><h1>Module utils<a class="headerlink" href="#module-telewavesim.utils" title="Permalink to this headline">¶</a></h1>
 <p>Utility functions to interact with <code class="docutils literal notranslate"><span class="pre">telewavesim</span></code> modules.</p>
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.set_iso_tensor">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">set_iso_tensor</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.set_iso_tensor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">set_iso_tensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.set_iso_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to generate tensor for isotropic material.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -196,9 +196,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.set_tri_tensor">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">set_tri_tensor</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">b</em>, <em class="sig-param">tr</em>, <em class="sig-param">pl</em>, <em class="sig-param">ani</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.set_tri_tensor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">set_tri_tensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">tr</span></em>, <em class="sig-param"><span class="n">pl</span></em>, <em class="sig-param"><span class="n">ani</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.set_tri_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to generate tensor for transverse isotropy. The
 tensor is rotated using the trend and plunge of the symmetry
 axis.</p>
@@ -221,9 +221,9 @@ axis.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.set_aniso_tensor">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">set_aniso_tensor</code><span class="sig-paren">(</span><em class="sig-param">tr</em>, <em class="sig-param">pl</em>, <em class="sig-param">typ='atg'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.set_aniso_tensor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">set_aniso_tensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tr</span></em>, <em class="sig-param"><span class="n">pl</span></em>, <em class="sig-param"><span class="n">typ</span><span class="o">=</span><span class="default_value">'atg'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.set_aniso_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to generate tensor for anisotropic minerals. The     tensor is rotated using the trend and plunge of the symmetry     axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -249,15 +249,15 @@ axis.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.full_3x3_to_Voigt_6_index">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">full_3x3_to_Voigt_6_index</code><span class="sig-paren">(</span><em class="sig-param">i</em>, <em class="sig-param">j</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.full_3x3_to_Voigt_6_index" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">full_3x3_to_Voigt_6_index</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">j</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.full_3x3_to_Voigt_6_index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Conversion of tensor to Voigt notation for indices</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.voigt2cc">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">voigt2cc</code><span class="sig-paren">(</span><em class="sig-param">C</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.voigt2cc" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">voigt2cc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">C</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.voigt2cc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert the Voigt representation of the stiffness matrix to the full
 3x3x3x3 tensor representation.</p>
 <dl class="field-list simple">
@@ -273,9 +273,9 @@ axis.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.cc2voigt">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">cc2voigt</code><span class="sig-paren">(</span><em class="sig-param">cc</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.cc2voigt" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">cc2voigt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cc</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.cc2voigt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert from the full 3x3x3x3 tensor representation
 to the Voigt notation of the stiffness matrix.</p>
 <dl class="field-list simple">
@@ -291,9 +291,9 @@ to the Voigt notation of the stiffness matrix.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.VRH_average">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">VRH_average</code><span class="sig-paren">(</span><em class="sig-param">C</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.VRH_average" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">VRH_average</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">C</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.VRH_average" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs a Voigt-Reuss-Hill average of the anisotropic
 stifness matrix to the bulk modulus K and the shear modulus
 G.</p>
@@ -330,9 +330,9 @@ G.</p>
 </div>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.mod2vel">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">mod2vel</code><span class="sig-paren">(</span><em class="sig-param">K</em>, <em class="sig-param">G</em>, <em class="sig-param">rho</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.mod2vel" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">mod2vel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">K</span></em>, <em class="sig-param"><span class="n">G</span></em>, <em class="sig-param"><span class="n">rho</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.mod2vel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the isotropic P and S wave velocities from given
 bulk (K) and shear (G) moduli and density (rho) in kg/m^3</p>
 <dl class="field-list simple">
@@ -368,9 +368,9 @@ bulk (K) and shear (G) moduli and density (rho) in kg/m^3</p>
 </div>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.rot_tensor">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">rot_tensor</code><span class="sig-paren">(</span><em class="sig-param">a</em>, <em class="sig-param">alpha</em>, <em class="sig-param">beta</em>, <em class="sig-param">gam</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.rot_tensor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">rot_tensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">alpha</span></em>, <em class="sig-param"><span class="n">beta</span></em>, <em class="sig-param"><span class="n">gam</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.rot_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs a rotation of the tensor cc (c_ijkl) about three angles (alpha,
 beta, gamma)</p>
 <dl class="field-list simple">
@@ -403,9 +403,9 @@ x_3 second and x_1 third.</p>
 </div>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.rotate_zrt_pvh">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">rotate_zrt_pvh</code><span class="sig-paren">(</span><em class="sig-param">trZ</em>, <em class="sig-param">trR</em>, <em class="sig-param">trT</em>, <em class="sig-param">slow</em>, <em class="sig-param">vp=6.0</em>, <em class="sig-param">vs=3.5</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.rotate_zrt_pvh" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">rotate_zrt_pvh</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trZ</span></em>, <em class="sig-param"><span class="n">trR</span></em>, <em class="sig-param"><span class="n">trT</span></em>, <em class="sig-param"><span class="n">slow</span></em>, <em class="sig-param"><span class="n">vp</span><span class="o">=</span><span class="default_value">6.0</span></em>, <em class="sig-param"><span class="n">vs</span><span class="o">=</span><span class="default_value">3.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.rotate_zrt_pvh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rotates traces from <cite>Z-R-T</cite> orientation to <cite>P-SV-SH</cite> wave mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -435,9 +435,9 @@ x_3 second and x_1 third.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.stack_all">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">stack_all</code><span class="sig-paren">(</span><em class="sig-param">st1</em>, <em class="sig-param">st2</em>, <em class="sig-param">pws=False</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.stack_all" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">stack_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">st1</span></em>, <em class="sig-param"><span class="n">st2</span></em>, <em class="sig-param"><span class="n">pws</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.stack_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stacks all traces in two <code class="docutils literal notranslate"><span class="pre">Stream</span></code> objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -463,9 +463,9 @@ x_3 second and x_1 third.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.calc_ttime">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">calc_ttime</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">slow</em>, <em class="sig-param">wvtype='P'</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.calc_ttime" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">calc_ttime</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">slow</span></em>, <em class="sig-param"><span class="n">wvtype</span><span class="o">=</span><span class="default_value">'P'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.calc_ttime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates total propagation time through model given the corresponding
 <code class="docutils literal notranslate"><span class="pre">'P'</span></code> or <code class="docutils literal notranslate"><span class="pre">'S'</span></code> wave type. The bottom layer is irrelevant in this
 calculation. All <code class="docutils literal notranslate"><span class="pre">'S'</span></code> wave types will return the same predicted time.
@@ -500,9 +500,9 @@ total propagation time through the model.</p>
 </div>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="telewavesim.utils.Model">
-<em class="property">class </em><code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">Model</code><span class="sig-paren">(</span><em class="sig-param">thickn</em>, <em class="sig-param">rho</em>, <em class="sig-param">vp</em>, <em class="sig-param">vs</em>, <em class="sig-param">isoflg='iso'</em>, <em class="sig-param">ani=None</em>, <em class="sig-param">tr=None</em>, <em class="sig-param">pl=None</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.Model" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">Model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">thickn</span></em>, <em class="sig-param"><span class="n">rho</span></em>, <em class="sig-param"><span class="n">vp</span></em>, <em class="sig-param"><span class="n">vs</span></em>, <em class="sig-param"><span class="n">isoflg</span><span class="o">=</span><span class="default_value">'iso'</span></em>, <em class="sig-param"><span class="n">ani</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pl</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.Model" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">model</span> <span class="pre">parameters</span></code>:</dt><dd><ul class="simple">
 <li><p>thickn (np.ndarray): Thickness of layers (km) (shape <code class="docutils literal notranslate"><span class="pre">(nlay)</span></code>)</p></li>
@@ -530,7 +530,7 @@ total propagation time through the model.</p>
 </ul>
 </dd>
 </dl>
-<dl class="method">
+<dl class="py method">
 <dt id="telewavesim.utils.Model.update_tensor">
 <code class="sig-name descname">update_tensor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.Model.update_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the elastic thickness tensor <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
@@ -539,9 +539,9 @@ total propagation time through the model.</p>
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.read_model">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">read_model</code><span class="sig-paren">(</span><em class="sig-param">modfile</em>, <em class="sig-param">encoding=None</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.read_model" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">read_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">modfile</span></em>, <em class="sig-param"><span class="n">encoding</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.read_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads model parameters from file and returns a Model object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -550,9 +550,9 @@ total propagation time through the model.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.model2for">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">model2for</code><span class="sig-paren">(</span><em class="sig-param">model</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.model2for" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">model2for</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.model2for" title="Permalink to this definition">¶</a></dt>
 <dd><p>Passes global model variables to Fortran <code class="docutils literal notranslate"><span class="pre">conf</span></code> module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -562,9 +562,9 @@ total propagation time through the model.</p>
 <p>Variables to pass are <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">rho</span></code>, <code class="docutils literal notranslate"><span class="pre">thickn</span></code>, <code class="docutils literal notranslate"><span class="pre">isoflg</span></code></p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.wave2for">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">wave2for</code><span class="sig-paren">(</span><em class="sig-param">dt</em>, <em class="sig-param">slow</em>, <em class="sig-param">baz</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.wave2for" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">wave2for</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dt</span></em>, <em class="sig-param"><span class="n">slow</span></em>, <em class="sig-param"><span class="n">baz</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.wave2for" title="Permalink to this definition">¶</a></dt>
 <dd><p>Passes global wavefield variables to Fortran <code class="docutils literal notranslate"><span class="pre">conf</span></code> module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -574,9 +574,9 @@ total propagation time through the model.</p>
 <p>Variables to pass are <code class="docutils literal notranslate"><span class="pre">dt</span></code>, <code class="docutils literal notranslate"><span class="pre">slow</span></code>, <code class="docutils literal notranslate"><span class="pre">baz</span></code></p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.obs2for">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">obs2for</code><span class="sig-paren">(</span><em class="sig-param">dp</em>, <em class="sig-param">c</em>, <em class="sig-param">rhof</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.obs2for" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">obs2for</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dp</span></em>, <em class="sig-param"><span class="n">c</span></em>, <em class="sig-param"><span class="n">rhof</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.obs2for" title="Permalink to this definition">¶</a></dt>
 <dd><p>Passes global OBS-related variables to Fortran <code class="docutils literal notranslate"><span class="pre">conf</span></code> module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -586,9 +586,9 @@ total propagation time through the model.</p>
 <p>Variables to pass are <code class="docutils literal notranslate"><span class="pre">dp</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code>, <code class="docutils literal notranslate"><span class="pre">rhof</span></code></p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.run_plane">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">run_plane</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">slow</em>, <em class="sig-param">npts</em>, <em class="sig-param">dt</em>, <em class="sig-param">baz=0</em>, <em class="sig-param">wvtype='P'</em>, <em class="sig-param">obs=False</em>, <em class="sig-param">dp=100.0</em>, <em class="sig-param">c=1.5</em>, <em class="sig-param">rhof=1027</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.run_plane" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">run_plane</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">slow</span></em>, <em class="sig-param"><span class="n">npts</span></em>, <em class="sig-param"><span class="n">dt</span></em>, <em class="sig-param"><span class="n">baz</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">wvtype</span><span class="o">=</span><span class="default_value">'P'</span></em>, <em class="sig-param"><span class="n">obs</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">dp</span><span class="o">=</span><span class="default_value">100.0</span></em>, <em class="sig-param"><span class="n">c</span><span class="o">=</span><span class="default_value">1.5</span></em>, <em class="sig-param"><span class="n">rhof</span><span class="o">=</span><span class="default_value">1027</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.run_plane" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to run the <code class="docutils literal notranslate"><span class="pre">plane</span></code> module and return 3-component seismograms as
 an <code class="docutils literal notranslate"><span class="pre">obspy.Stream</span></code> object. This function builds the seismic response
 spectrum by frequency using the matrix propagation approach.
@@ -678,9 +678,9 @@ Incident wavetype (<code class="docutils literal notranslate"><span class="pre">
 </div>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.get_trxyz">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">get_trxyz</code><span class="sig-paren">(</span><em class="sig-param">yx</em>, <em class="sig-param">yy</em>, <em class="sig-param">yz</em>, <em class="sig-param">npts</em>, <em class="sig-param">dt</em>, <em class="sig-param">slow</em>, <em class="sig-param">baz</em>, <em class="sig-param">wvtype</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.get_trxyz" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">get_trxyz</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">yx</span></em>, <em class="sig-param"><span class="n">yy</span></em>, <em class="sig-param"><span class="n">yz</span></em>, <em class="sig-param"><span class="n">npts</span></em>, <em class="sig-param"><span class="n">dt</span></em>, <em class="sig-param"><span class="n">slow</span></em>, <em class="sig-param"><span class="n">baz</span></em>, <em class="sig-param"><span class="n">wvtype</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.get_trxyz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to store displacement seismograms into <code class="docutils literal notranslate"><span class="pre">obspy.Trace</span></code> objects
 and then an <code class="docutils literal notranslate"><span class="pre">obspy</span></code> <code class="docutils literal notranslate"><span class="pre">Stream</span></code> object.</p>
 <dl class="field-list simple">
@@ -704,9 +704,9 @@ and then an <code class="docutils literal notranslate"><span class="pre">obspy</
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.tf_from_xyz">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">tf_from_xyz</code><span class="sig-paren">(</span><em class="sig-param">trxyz</em>, <em class="sig-param">pvh=False</em>, <em class="sig-param">vp=None</em>, <em class="sig-param">vs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.tf_from_xyz" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">tf_from_xyz</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trxyz</span></em>, <em class="sig-param"><span class="n">pvh</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">vp</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.tf_from_xyz" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to generate transfer functions from displacement traces.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -726,9 +726,9 @@ and then an <code class="docutils literal notranslate"><span class="pre">obspy</
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="telewavesim.utils.update_stats">
-<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">update_stats</code><span class="sig-paren">(</span><em class="sig-param">tr</em>, <em class="sig-param">dt</em>, <em class="sig-param">slow</em>, <em class="sig-param">baz</em>, <em class="sig-param">wvtype</em>, <em class="sig-param">cha</em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.update_stats" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">telewavesim.utils.</code><code class="sig-name descname">update_stats</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tr</span></em>, <em class="sig-param"><span class="n">dt</span></em>, <em class="sig-param"><span class="n">slow</span></em>, <em class="sig-param"><span class="n">baz</span></em>, <em class="sig-param"><span class="n">wvtype</span></em>, <em class="sig-param"><span class="n">cha</span></em><span class="sig-paren">)</span><a class="headerlink" href="#telewavesim.utils.update_stats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the <code class="docutils literal notranslate"><span class="pre">stats</span></code> doctionary from an obspy <code class="docutils literal notranslate"><span class="pre">Trace</span></code> object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
