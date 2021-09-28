@@ -15,8 +15,6 @@ jobs:
         include:
           - os: macos-latest
             python: 3.8
-          - os: windows-latest
-            python: 3.8
     runs-on: ${{ matrix.os }}
     defaults:
       run:
