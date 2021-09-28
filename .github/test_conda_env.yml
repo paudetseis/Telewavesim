@@ -1,0 +1,8 @@
+name: test
+channels:
+  - conda-forge
+dependencies:
+  - obspy
+  - pytest-cov
+  - fortran-compiler
+
