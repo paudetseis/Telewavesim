@@ -27,7 +27,7 @@ workflows are covered in the Jupyter notebooks bundled with this package.
 [![JOSS paper](https://joss.theoj.org/papers/10.21105/joss.01818/status.svg)](https://doi.org/10.21105/joss.01818)
 [![DOI](https://zenodo.org/badge/204565459.svg)](https://zenodo.org/badge/latestdoi/204565459)
 [![PyPI version](https://badge.fury.io/py/telewavesim.svg)](https://badge.fury.io/py/telewavesim)
-[![build status](https://travis-ci.org/paudetseis/telewavesim.svg?branch=master)](https://travis-ci.org/paudetseis/telewavesim)
+[![tests](https://github.com/paudetseis/Telewavesim/actions/workflows/tests.yml/badge.svg)](https://github.com/paudetseis/Telewavesim/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/gh/paudetseis/telewavesim/branch/master/graph/badge.svg)](https://codecov.io/gh/paudetseis/telewavesim)
 
 Installation, Usage, API documentation and Jupyter Notebooks are described at https://paudetseis.github.io/Telewavesim/
@@ -37,8 +37,8 @@ Installation, Usage, API documentation and Jupyter Notebooks are described at ht
 If you use `Telewavesim` in your work, please cite the [Zenodo DOI](https://zenodo.org/badge/latestdoi/204565459)
 and the following paper:
 
-- Audet, P., Thomson, C.J., Bostock, M.G., and Eulenfeld, T. (2019). Telewavesim: 
-Python software for teleseismic body wave modeling. Journal of Open Source Software, 
+- Audet, P., Thomson, C.J., Bostock, M.G., and Eulenfeld, T. (2019). Telewavesim:
+Python software for teleseismic body wave modeling. Journal of Open Source Software,
 4(44), 1818, https://doi.org/10.21105/joss.01818
 
 #### Contributing
