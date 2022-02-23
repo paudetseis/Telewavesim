@@ -23,7 +23,7 @@ setup(
     name='telewavesim',
     version=find_version('telewavesim', '__init__.py'),
     description='Python package for teleseismic body-wave modeling',
-    author='Pascal Audet, Colin J. Thomson, Michael G. Bostock',
+    author='Pascal Audet, Colin J. Thomson, Michael G. Bostock, Tom Eulenfeld',
     maintainer='Pascal Audet',
     author_email='pascal.audet@uottawa.ca',
     url='https://github.com/paudetseis/Telewavesim',
