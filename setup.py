@@ -36,6 +36,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         ],
     install_requires=['numpy>=1.15', 'obspy>=1.0.0', 'matplotlib'],
     python_requires='>=3.5',
