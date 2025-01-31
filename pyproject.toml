@@ -1,0 +1,34 @@
+[build-system]
+requires = ["scikit-build-core", "numpy"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "telewavesim"
+version = "0.3.0"
+description = "Teleseismic body wave modeling through stacks of (submarine/anisotropic) layers"
+authors = [
+    { name = "Pascal Audet", email = "pascal.audet@uottawa.ca" },
+    { name = "Tom Eulenfeld", email = "tom.eulenfeld@uni-jena.de" },
+]
+maintainers = [
+    { name = "Pascal Audet", email = "pascal.audet@uottawa.ca" },
+    { name = "Tom Eulenfeld", email = "tom.eulenfeld@uni-jena.de" },
+]
+readme = "README.md"
+dependencies = ["numpy", "matplotlib", "obspy"]
+classifiers = [
+    'Development Status :: 3 - Alpha',
+    'License :: OSI Approved :: MIT License',
+    'Programming Language :: Fortran',
+    'Programming Language :: Python :: 3 :: Only',
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
+[project.urls]
+Homepage = "https://github.com/paudetseis/Telewavesim"
+
+[tool.scikit-build]
+ninja.version = ">=1.10"
+cmake.version = ">=3.17.2"
