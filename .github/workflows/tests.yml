@@ -1,28 +1,33 @@
 name: tests
+
+# Controls when the action will run. 
 on:
   push:
+    branches: [ master ]
   pull_request:
-    branches:
-      # only branches from forks which have the form 'user:branch-name'
-      - '**:**'
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
 jobs:
   run_tests:
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python: ['3.7', '3.8', '3.9', '3.10']
-        include:
-          - os: macos-latest
-            python: '3.10'
+        python: ['3.10']
+        # include:
+        #   - os: macos-latest
+        #     python: '3.10'
     runs-on: ${{ matrix.os }}
     defaults:
       run:
         shell: bash -l {0}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup conda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
           python-version: ${{ matrix.python }}
           environment-file: .github/test_conda_env.yml
@@ -32,6 +37,7 @@ jobs:
           conda list
       - name: install package
         run: |
+          conda install libstdcxx-ng
           pip install -v --no-deps .
       - name: run test suite
         run: |
@@ -40,3 +46,21 @@ jobs:
           coverage xml -o ../coverage.xml
       - name: upload coverage
         uses: codecov/codecov-action@v1
+      - name: Make docs
+        if: matrix.python == '3.10' 
+        shell: bash -l {0}
+        run: |
+          cd docs
+          pip install sphinx
+          pip install sphinx_rtd_theme
+          make html
+          touch _build/html/.nojekyll
+          cd ..
+      - name: Deploy 🚀
+        if: matrix.python == '3.10' 
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: docs/_build/html # The folder the action should deploy.
+          CLEAN: true # Automatically remove deleted files from the deploy branch

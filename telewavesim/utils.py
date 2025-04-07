@@ -534,13 +534,13 @@ def stack_all(st1, st2, pws=False):
         weight2 += np.exp(1j*phase2)
 
     # Normalize
-    tmp1 = tmp1/np.float(len(st1))
-    tmp2 = tmp2/np.float(len(st2))
+    tmp1 = tmp1/float(len(st1))
+    tmp2 = tmp2/float(len(st2))
 
     # Phase-weighting
     if pws:
-        weight1 = weight1/np.float(len(st1))
-        weight2 = weight2/np.float(len(st2))
+        weight1 = weight1/float(len(st1))
+        weight2 = weight2/float(len(st2))
         weight1 = np.real(abs(weight1))
         weight2 = np.real(abs(weight2))
     else:
