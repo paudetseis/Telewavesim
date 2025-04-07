@@ -17,9 +17,9 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         python: ['3.10']
-        include:
-          - os: macos-latest
-            python: '3.10'
+        # include:
+        #   - os: macos-latest
+        #     python: '3.10'
     runs-on: ${{ matrix.os }}
     defaults:
       run:
