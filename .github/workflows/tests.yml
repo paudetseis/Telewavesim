@@ -37,6 +37,7 @@ jobs:
           conda list
       - name: install package
         run: |
+          conda install libstdcxx-ng
           pip install -v --no-deps .
       - name: run test suite
         run: |
