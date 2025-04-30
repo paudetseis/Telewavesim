@@ -34,7 +34,7 @@
       IMPLICIT NONE
 
       DOUBLE PRECISION, PARAMETER :: pi = 3.141592653589793d0
-      INTEGER, PARAMETER :: nlaymx = 30
+      INTEGER, PARAMETER :: nlaymx = 100
 !
 ! Model parameters
 !
