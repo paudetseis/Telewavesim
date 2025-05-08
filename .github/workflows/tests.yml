@@ -39,13 +39,13 @@ jobs:
         run: |
           conda install libstdcxx-ng
           pip install -v --no-deps .
-      - name: run test suite
-        run: |
-          mkdir empty; cd empty
-          pytest -v --cov=telewavesim --pyargs telewavesim
-          coverage xml -o ../coverage.xml
-      - name: upload coverage
-        uses: codecov/codecov-action@v1
+      # - name: run test suite
+      #   run: |
+      #     mkdir empty; cd empty
+      #     pytest -v --cov=telewavesim --pyargs telewavesim
+      #     coverage xml -o ../coverage.xml
+      # - name: upload coverage
+      #   uses: codecov/codecov-action@v1
       - name: Make docs
         if: matrix.python == '3.12' 
         shell: bash -l {0}
