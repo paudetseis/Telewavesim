@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python: ['3.10']
+        python: ['3.12']
         # include:
         #   - os: macos-latest
         #     python: '3.10'
@@ -47,7 +47,7 @@ jobs:
       - name: upload coverage
         uses: codecov/codecov-action@v1
       - name: Make docs
-        if: matrix.python == '3.10' 
+        if: matrix.python == '3.12' 
         shell: bash -l {0}
         run: |
           cd docs
@@ -57,7 +57,7 @@ jobs:
           touch _build/html/.nojekyll
           cd ..
       - name: Deploy 🚀
-        if: matrix.python == '3.10' 
+        if: matrix.python == '3.12' 
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
