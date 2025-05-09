@@ -66,8 +66,13 @@ py.install_sources(
   'telewavesim/wiggle.py',
   'telewavesim/doc.py',
   'telewavesim/__init__.py',
+  'telewavesim/tests/test_0_imports.py',
+  'telewavesim/tests/test_notebooks.py',
+  'telewavesim/tests/test_routines.py',
+  'telewavesim/tests/test_utils.py',
+  'telewavesim/tests/__init__.py',
   pure: false,
-  subdir: 'telewavesim'
+  preserve_path: true
   )
 
 install_data(
