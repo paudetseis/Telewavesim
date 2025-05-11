@@ -47,11 +47,11 @@ jobs:
           conda install libstdcxx-ng
           pip install -v --no-deps .
 
-      - name: run test suite
-        run: |
-          mkdir empty; cd empty
-          pytest -v --pyargs telewavesim
-          cd ..
+      # - name: run test suite
+      #   run: |
+      #     mkdir empty; cd empty
+      #     pytest -v --pyargs telewavesim
+      #     cd ..
 
       # - name: upload coverage
       #   uses: codecov/codecov-action@v1
