@@ -1,0 +1,30 @@
+[build-system]
+build-backend = "mesonpy"
+requires = ["meson-python>0.15.0", "numpy >= 1.25.0"]
+
+
+[project]
+name = "telewavesim"
+version = "0.3.0"
+description = "Teleseismic body wave modeling through stacks of (submarine/anisotropic) layers"
+authors = [
+    { name = "Pascal Audet", email = "pascal.audet@uottawa.ca" }
+]
+maintainers = [
+    { name = "Pascal Audet", email = "pascal.audet@uottawa.ca" }
+]
+requires-python = ">=3.9"
+readme = "README.md"
+dependencies = ["numpy>=1.25", "pymc", "seaborn", "scikit-image"]
+classifiers = [
+    "Development Status :: 5 - Stable",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
+[project.urls]
+Homepage = "https://github.com/paudetseis/Telewavesim"
+Documentation = "https://paudetseis.github.io/Telewavesim"
+"Bug Tracker" = "https://github.com/paudetseis/Telewavesim/issues"

@@ -27,8 +27,9 @@ workflows are covered in the Jupyter notebooks bundled with this package.
 [![JOSS paper](https://joss.theoj.org/papers/10.21105/joss.01818/status.svg)](https://doi.org/10.21105/joss.01818)
 [![DOI](https://zenodo.org/badge/204565459.svg)](https://zenodo.org/badge/latestdoi/204565459)
 [![PyPI version](https://badge.fury.io/py/telewavesim.svg)](https://badge.fury.io/py/telewavesim)
-[![tests](https://github.com/paudetseis/Telewavesim/actions/workflows/tests.yml/badge.svg)](https://github.com/paudetseis/Telewavesim/actions/workflows/tests.yml)
+<!-- [![tests](https://github.com/paudetseis/Telewavesim/actions/workflows/tests.yml/badge.svg)](https://github.com/paudetseis/Telewavesim/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/gh/paudetseis/telewavesim/branch/master/graph/badge.svg)](https://codecov.io/gh/paudetseis/telewavesim)
+ -->
 
 Installation, Usage, API documentation and Jupyter Notebooks are described at https://paudetseis.github.io/Telewavesim/
 

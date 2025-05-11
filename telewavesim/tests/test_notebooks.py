@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from pkg_resources import resource_filename
+import importlib.resources as resources
 import tempfile
 from os.path import join
 
@@ -33,14 +33,14 @@ def test_Porter2011():
     from telewavesim import utils as ut
     from telewavesim import wiggle as wg
 
-    modfile = resource_filename('telewavesim',
-                                'examples/models/model_Porter2011.txt')
+    with resources.path('telewavesim.examples.models', 'model_Porter2011.txt') as modfile:
+        model = ut.read_model(modfile)
+
     wvtype = 'P'
     npts = 3000  # Number of samples
     dt = 0.01  # Sample distance in seconds
     slow = 0.06  # Horizontal slowness (or ray parameter) in s/km
     baz = np.arange(0., 360., 10.)
-    model = ut.read_model(modfile)
     trR = Stream()
     trT = Stream()
     # Loop over range of data
@@ -76,8 +76,10 @@ def test_Audet2016():
     from obspy.signal.rotate import rotate_ne_rt
     from telewavesim import utils as ut
     from telewavesim import wiggle as wg
-    modfile = resource_filename('telewavesim',
-                                'examples/models/model_Audet2016.txt')
+
+    with resources.path('telewavesim.examples.models', 'model_Audet2016.txt') as modfile:
+        model = ut.read_model(modfile)
+
     wvtype = 'P'
     npts = 3000  # Number of samples
     dt = 0.01  # Sample distance in seconds
@@ -88,7 +90,6 @@ def test_Audet2016():
     # Back-azimuth direction in degrees
     # (has no influence if model is isotropic)
     baz = 0.
-    model = ut.read_model(modfile)
     assert list(model.rho) == [2800.0, 2800.0, 3200.0]
     t1 = ut.calc_ttime(model, slow, wvtype=wvtype)
     assert round(t1, 1) == 1.1
@@ -121,14 +122,14 @@ def test_SKS():
     from telewavesim import utils as ut
     from telewavesim import wiggle as wg
 
-    modfile = resource_filename('telewavesim',
-                                'examples/models/model_SKS.txt')
+    with resources.path('telewavesim.examples.models', 'model_SKS.txt') as modfile:
+        model = ut.read_model(modfile)
+
     wvtype = 'SV'
     npts = 3000  # Number of samples
     dt = 0.05  # Sample distance in seconds
     slow = 0.04  # Horizontal slowness (or ray parameter) in s/km
     baz = np.arange(0., 360., 10.)
-    model = ut.read_model(modfile)
     t1 = ut.calc_ttime(model, slow, wvtype=wvtype)
     assert round(t1, 1) == 21.6
     trR = Stream()

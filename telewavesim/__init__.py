@@ -61,7 +61,7 @@ where ``telewavesim`` can be installed along with its dependencies:
 
 .. sourcecode:: bash
 
-   conda create -n tws -c conda-forge "python=3.10" "numpy<1.22" "setuptools=60" obspy fortran-compiler
+   conda create -n tws -c conda-forge python=3.12 fortran-compiler obspy
 
 Activate the newly created environment:
 
@@ -384,4 +384,4 @@ Single event for OBS station
 #                 _shared_libraries.append(_slib)
 
 
-__version__ = '0.2.2'
+__version__ = '0.3.0'
