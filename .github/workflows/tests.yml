@@ -51,8 +51,6 @@ jobs:
         run: |
           mkdir empty; cd empty
           pytest -v --pyargs telewavesim
-      #    pytest -v --cov=telewavesim --pyargs telewavesim
-      #    coverage xml -o ../coverage.xml
           cd ..
 
       # - name: upload coverage
