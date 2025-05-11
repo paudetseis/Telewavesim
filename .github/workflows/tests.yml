@@ -49,14 +49,14 @@ jobs:
 
       - name: run test suite
         run: |
-          conda install pytest
           mkdir empty; cd empty
-          pytest -v --cov=telewavesim --pyargs telewavesim
-          coverage xml -o ../coverage.xml
+          pytest -v --pyargs telewavesim
+      #    pytest -v --cov=telewavesim --pyargs telewavesim
+      #    coverage xml -o ../coverage.xml
           cd ..
 
-      - name: upload coverage
-        uses: codecov/codecov-action@v1
+      # - name: upload coverage
+      #   uses: codecov/codecov-action@v1
 
       - name: Make docs
         if: matrix.python == '3.12' 
