@@ -53,8 +53,8 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Licence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#installation">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#conda-environment">Conda environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installing-development-branch-from-github">Installing development branch from GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#telewavesim-v0-2-2">Telewavesim v0.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#telewavesim-v0-3-0">Telewavesim v0.3.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
 </ul>
 </li>
@@ -142,32 +142,37 @@ SOFTWARE.</p>
 </section>
 <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
-<section id="conda-environment">
-<h2>Conda environment<a class="headerlink" href="#conda-environment" title="Link to this heading"></a></h2>
-<p>We recommend creating a custom
-<a class="reference external" href="https://conda.io/docs/user-guide/tasks/manage-environments.html">conda environment</a>
-where <code class="docutils literal notranslate"><span class="pre">telewavesim</span></code> can be installed along with its dependencies:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>tws<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12<span class="w"> </span>fortran-compiler<span class="w"> </span>obspy
-</pre></div>
-</div>
-<p>Activate the newly created environment:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>tws
+<p>Telewavesim is available in two stable versions. In the earlier version
+(0.2.3), the code requires specific <cite>NumPy</cite> and <cite>Setuptools</cite> versions for
+the installation. The latest version (0.3.0) has moved on to meson building
+instead of setuptools, but testing for this version is limited and linking
+with LAPACK may fail for some systems. If this is the case, please submit
+an issue on the GitHub page.</p>
+<p>To facilitate the installation and avoid version conflicts, we recommend
+creating a custom <a class="reference external" href="https://conda.io/docs/user-guide/tasks/manage-environments.html">conda environment</a>
+where <code class="docutils literal notranslate"><span class="pre">telewavesim</span></code> can be installed along with its dependencies.</p>
+<section id="telewavesim-v0-2-2">
+<h2>Telewavesim v0.2.2<a class="headerlink" href="#telewavesim-v0-2-2" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>tws<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w"> </span><span class="s2">&quot;numpy&lt;1.22&quot;</span><span class="w"> </span><span class="nv">setuptools</span><span class="o">=</span><span class="m">60</span><span class="w"> </span>fortran-compiler<span class="w"> </span>obspy
+conda<span class="w"> </span>activate<span class="w"> </span>tws
+pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/paudetseis/telewavesim@v022
 </pre></div>
 </div>
 </section>
-<section id="installing-development-branch-from-github">
-<h2>Installing development branch from GitHub<a class="headerlink" href="#installing-development-branch-from-github" title="Link to this heading"></a></h2>
-<p>Install the latest version from the GitHub repository with the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>telewavesim@git+https://github.com/paudetseis/telewavesim
+<section id="telewavesim-v0-3-0">
+<h2>Telewavesim v0.3.0<a class="headerlink" href="#telewavesim-v0-3-0" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>tws<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12<span class="w"> </span>fortran-compiler<span class="w"> </span>obspy
+conda<span class="w"> </span>activate<span class="w"> </span>tws
+pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/paudetseis/telewavesim
 </pre></div>
 </div>
 </section>
 <section id="testing">
 <h2>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h2>
 <p>A series of tests are located in the <code class="docutils literal notranslate"><span class="pre">tests</span></code> subdirectory.
-In order to perform these tests, run <code class="docutils literal notranslate"><span class="pre">pytest</span></code>
-(<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">pytest</span></code> if needed):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>-v<span class="w"> </span>--pyargs<span class="w"> </span>telewavesim
+In order to perform these tests, run <code class="docutils literal notranslate"><span class="pre">pytest</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>pytest
+pytest<span class="w"> </span>-v<span class="w"> </span>--pyargs<span class="w"> </span>telewavesim
 </pre></div>
 </div>
 </section>
