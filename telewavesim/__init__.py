@@ -52,41 +52,45 @@ SOFTWARE.
 Installation
 ------------
 
-Conda environment
-+++++++++++++++++
+Telewavesim is available in two stable versions. In the earlier version
+(0.2.3), the code requires specific `NumPy` and `Setuptools` versions for
+the installation. The latest version (0.3.0) has moved on to meson building
+instead of setuptools, but testing for this version is limited and linking
+with LAPACK may fail for some systems. If this is the case, please submit
+an issue on the GitHub page.
 
-We recommend creating a custom
-`conda environment <https://conda.io/docs/user-guide/tasks/manage-environments.html>`_
-where ``telewavesim`` can be installed along with its dependencies:
+To facilitate the installation and avoid version conflicts, we recommend
+creating a custom `conda environment
+<https://conda.io/docs/user-guide/tasks/manage-environments.html>`_
+where ``telewavesim`` can be installed along with its dependencies.
+
+Telewavesim v0.2.2
+++++++++++++++++++
+
+.. sourcecode:: bash
+
+   conda create -n tws -c conda-forge python=3.10 "numpy<1.22" setuptools=60 fortran-compiler obspy
+   conda activate tws
+   pip install git+https://github.com/paudetseis/telewavesim@v022
+
+Telewavesim v0.3.0
+++++++++++++++++++
 
 .. sourcecode:: bash
 
    conda create -n tws -c conda-forge python=3.12 fortran-compiler obspy
-
-Activate the newly created environment:
-
-.. sourcecode:: bash
-
    conda activate tws
-
-Installing development branch from GitHub
-+++++++++++++++++++++++++++++++++++++++++
-
-Install the latest version from the GitHub repository with the following command:
-
-.. sourcecode:: bash
-
-    pip install telewavesim@git+https://github.com/paudetseis/telewavesim
+   pip install git+https://github.com/paudetseis/telewavesim
 
 Testing
 +++++++
 
 A series of tests are located in the ``tests`` subdirectory.
-In order to perform these tests, run ``pytest``
-(``conda install pytest`` if needed):
+In order to perform these tests, run ``pytest``:
 
 .. sourcecode:: bash
 
+   conda install pytest
    pytest -v --pyargs telewavesim
 
 
@@ -367,21 +371,5 @@ Single event for OBS station
 
 
 """
-
-# try:
-#     from . import rmat_f
-# except:
-#     from numpy.distutils.system_info import get_info as _get_info
-#     import os as _os
-#     from ctypes import cdll as _cdll
-
-#     _shared_libraries = []
-
-#     for path in _get_info('lapack')['library_dirs']:
-#         for lib in _os.listdir(path):
-#             if lib.startswith('lib'):
-#                 _slib = _cdll.LoadLibrary("{}/{}".format(path, lib))
-#                 _shared_libraries.append(_slib)
-
 
 __version__ = '0.3.0'
