@@ -32,6 +32,7 @@ workflows are covered in the Jupyter notebooks bundled with this package.
  -->
 
 Installation, Usage, API documentation and Jupyter Notebooks are described at https://paudetseis.github.io/Telewavesim/
+Building from source requires a LAPACK provider available to Meson (LAPACK, OpenBLAS, or BLAS).
 
 #### Citing
 

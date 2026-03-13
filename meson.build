@@ -15,7 +15,17 @@ py_mod = import('python')
 py = py_mod.find_installation()
 py_dep = py.dependency()
 
+# Prefer a LAPACK provider, but fail configuration if none are available.
 lapack_dep = dependency('lapack', required: false)
+if not lapack_dep.found()
+  lapack_dep = dependency('openblas', required: false)
+endif
+if not lapack_dep.found()
+  lapack_dep = dependency('blas', required: false)
+endif
+if not lapack_dep.found()
+  error('No LAPACK provider found. Install LAPACK, OpenBLAS, or BLAS before building telewavesim.')
+endif
 
 incdir_numpy = run_command(py,
   ['-c', 'import os; os.chdir(".."); import numpy; print(numpy.get_include())'],
